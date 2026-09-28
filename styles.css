@@ -1,0 +1,896 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --snow:     #eef4fb;
+  --ice:      #e2ebf5;
+  --frost:    #9fd8ff;
+  --midnight: #0d1b2a;
+  --alpine:   #1a3a5c;
+  --kitz-gold:#d4a017;
+  --blue:     #2980b9;
+  --red:      #e74c3c;
+  --black:    #1a1a1a;
+  --skiroute: #d4a017;
+  --green:    #27ae60;
+  --purple:   #8e44ad;
+  --shadow:   0 6px 28px rgba(30, 75, 122, 0.12);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(180deg, var(--snow) 0, var(--snow) 320px, #f7fafd 900px) var(--snow);
+  color: var(--midnight);
+  min-height: 100vh;
+}
+
+/* ── Header: night sky over snowy peaks ───────────────────── */
+
+header {
+  /* The sky stops 24px above the bottom: the snow ridge covers that strip, and at
+     fractional screen scaling a sky edge there would leak through as a thin line. */
+  background: linear-gradient(180deg, #081629 0%, #13335a 55%, #3a6f9f 100%) top / 100% calc(100% - 24px) no-repeat;
+  padding: 18px 20px 104px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Far range: pale peaks with snow caps */
+header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  height: 76px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 90' preserveAspectRatio='none'%3E%3Cpath d='M0 90 V58 L90 30 L160 50 L250 12 L330 46 L420 22 L520 54 L610 8 L700 44 L790 26 L880 52 L980 14 L1070 46 L1140 30 L1200 40 V90 Z' fill='rgba(214,230,246,0.30)'/%3E%3Cpath d='M250 12 L231 21 L242 24 L250 19 L259 25 L270 21 Z M610 8 L590 18 L602 21 L610 15 L619 22 L631 18 Z M980 14 L961 23 L972 26 L980 21 L989 27 L1000 23 Z M420 22 L406 29 L415 31 L421 27 L428 31 L436 29 Z' fill='rgba(255,255,255,0.85)'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Near ridge: fresh snow that runs into the page. It extends 12px past the
+   header edge (clipped), so the graphic's anti-aliased bottom edge never shows. */
+header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 68px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 68' preserveAspectRatio='none'%3E%3Cpath d='M0 68 V30 L120 10 L200 24 L320 2 L430 26 L560 8 L680 28 L800 6 L920 24 L1040 10 L1130 22 L1200 14 V68 Z' fill='rgb(238,244,251)'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Gentle snowfall; off for people who prefer reduced motion */
+.snowfall {
+  position: absolute;
+  inset: 0 0 40px 0; /* stops at the snow line, so its edge never shows below the ridge */
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1.2px, transparent 1.6px),
+    radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(255,255,255,0.45) 1.6px, transparent 2px);
+  background-size: 90px 90px, 140px 140px, 210px 210px;
+  background-position: 0 0, 40px 60px, 110px 30px;
+  animation: snow 14s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes snow {
+  from { background-position: 0 0, 40px 60px, 110px 30px; }
+  to   { background-position: 30px 90px, 20px 200px, 150px 240px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snowfall { animation: none; }
+}
+
+.header-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgba(150, 205, 255, 0.35);
+}
+
+.logo span {
+  color: var(--frost);
+}
+
+.tagline {
+  font-size: 0.75rem;
+  color: rgba(225, 238, 252, 0.75);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.stat {
+  color: rgba(225, 238, 252, 0.75);
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.stat strong {
+  display: block;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Change ski area: top right, next to the logo */
+.area-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border: 1px solid rgba(190, 225, 255, 0.45);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.area-switch:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(220, 240, 255, 0.8);
+}
+
+/* ── Main layout ──────────────────────────────────────────── */
+
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 16px 80px;
+}
+
+/* ── Cards ────────────────────────────────────────────────── */
+
+.card {
+  background: #fff;
+  border: 1px solid #dde8f4;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--alpine);
+  margin-bottom: 14px;
+}
+
+/* ── Area picker ──────────────────────────────────────────── */
+
+.area-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.area-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.2s, background 0.15s;
+}
+
+.area-btn:hover {
+  border-color: var(--alpine);
+  background: #f0f4fa;
+}
+
+.area-btn-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: var(--midnight);
+}
+
+.area-btn-sub {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+.area-loading,
+.area-error {
+  padding: 16px 4px;
+  color: #888;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.area-error {
+  color: #c0392b;
+}
+
+/* ── Station selector ─────────────────────────────────────── */
+
+.sel-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.sel-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.15s;
+}
+
+.sel-box:hover {
+  border-color: var(--alpine);
+  background: #f0f4fa;
+}
+
+.sel-box-text {
+  flex: 1;
+  font-size: 0.92rem;
+  color: #aaa;
+}
+
+.sel-box-text.selected {
+  color: var(--midnight);
+  font-weight: 500;
+}
+
+.sel-box-arrow {
+  color: #bbb;
+  font-size: 0.7rem;
+}
+
+/* ── Chosen station display ───────────────────────────────── */
+
+.chosen {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--alpine);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.chosen:hover {
+  background: #234a72;
+}
+
+.chosen-nr {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.75);
+  flex-shrink: 0;
+  min-width: 34px;
+}
+
+.chosen-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.chosen-side {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.chosen-reset {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.chosen-reset:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Swap button ──────────────────────────────────────────── */
+
+.swap-btn {
+  align-self: center;
+  background: var(--ice);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.swap-btn:hover {
+  background: var(--alpine);
+  color: #fff;
+  transform: rotate(180deg);
+}
+
+.route-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Bottom sheet overlay ─────────────────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 100;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 82vh;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+  animation: slide-up 0.25s ease;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 12px;
+  border-bottom: 1px solid var(--ice);
+  flex-shrink: 0;
+}
+
+.sheet-title {
+  font-family: 'Bebas Neue';
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+  color: var(--midnight);
+}
+
+.sheet-close {
+  background: var(--ice);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.sheet-search {
+  margin: 12px 16px 8px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.sheet-search:focus {
+  border-color: var(--alpine);
+}
+
+.sheet-list {
+  overflow-y: auto;
+  padding: 4px 8px 24px;
+  flex: 1;
+}
+
+.group-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #aaa;
+  padding: 10px 10px 4px;
+}
+
+.station-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.station-item:hover {
+  background: var(--ice);
+}
+
+/* Lift-type pictogram in the picker list and the chosen start/destination */
+.lift-ico {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.lift-ico svg {
+  width: 22px;
+  height: 22px;
+}
+
+.chosen-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.station-item-nr {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  color: var(--alpine);
+  flex-shrink: 0;
+  min-width: 34px;
+}
+
+.station-item-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.station-item-side {
+  font-size: 0.78rem;
+  color: #666;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.station-item-alt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--alpine);
+  background: var(--ice);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+
+/* ── Difficulty filter ────────────────────────────────────── */
+
+.diff-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.diff-btn {
+  flex: 1 1 calc(33% - 6px);
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.2s;
+  opacity: 0.4;
+}
+
+.diff-btn.on {
+  opacity: 1;
+}
+
+.diff-btn.all      { background: #f0f0f8; color: var(--alpine);   border-color: var(--alpine);   }
+.diff-btn.blue     { background: #dbeeff; color: var(--blue);     border-color: var(--blue);     }
+.diff-btn.red      { background: #ffe0de; color: var(--red);      border-color: var(--red);      }
+.diff-btn.black    { background: #e5e5e5; color: var(--black);    border-color: #555;            }
+.diff-btn.skiroute { background: #fff3d5; color: var(--skiroute); border-color: var(--skiroute); }
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ── Plan button ──────────────────────────────────────────── */
+
+.plan-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--alpine), #2c5f8a);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(26, 58, 92, 0.3);
+}
+
+.plan-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Error message ────────────────────────────────────────── */
+
+.error-msg {
+  background: #ffe0de;
+  color: #c0392b;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: none;
+  margin-top: 10px;
+}
+
+.error-msg.visible {
+  display: block;
+}
+
+/* ── Result card ──────────────────────────────────────────── */
+
+.result {
+  display: none;
+}
+
+.result.visible {
+  display: block;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: var(--ice);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--alpine);
+}
+
+/* ── Route steps ──────────────────────────────────────────── */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ice);
+  animation: fade-in 0.3s ease both;
+}
+
+.step:last-child {
+  border-bottom: none;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.step-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ico-gondola        { background: #d5f0e0; }
+.ico-mixed_lift     { background: #d5f0e0; }
+.ico-chair_lift     { color: #6a3d8f; }
+.ico-draglift       { background: #ede0f5; color: #6a3d8f; }
+.ico-cable_car      { background: #d5f0e0; }
+.ico-funicular      { background: #d5f0e0; }
+.ico-chair_lift     { background: #ede0f5; }
+.ico-oefenlift      { background: #ede0f5; }
+.ico-piste-blauw    { background: #dbeeff; }
+.ico-piste-rood     { background: #ffe0de; }
+.ico-piste-zwart    { background: #e5e5e5; }
+.ico-piste-skiroute { background: #fff3d5; }
+.ico-waypoint       { background: #f0f4fa; }
+
+.step-number {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ccc;
+  min-width: 20px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.step-info {
+  flex: 1;
+}
+
+.step-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.step-meta {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tag-gondel        { background: #d5f0e0; color: #1a7a3c; }
+.tag-stoeltjeslift { background: #ede0f5; color: #6d2a99; }
+.tag-blauw         { background: #dbeeff; color: var(--blue);     }
+.tag-rood          { background: #ffe0de; color: var(--red);      }
+.tag-zwart         { background: #e5e5e5; color: #222;            }
+.tag-skiroute      { background: #fff3d5; color: var(--skiroute); }
+.tag-neutral       { background: #f0f0f0; color: #666;        }
+
+.badge {
+  display: inline-block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.badge-lift  { background: var(--alpine); color: #fff; }
+.badge-piste { background: var(--midnight); color: #fff; }
+
+.step-sub {
+  font-size: 0.76rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Lift vs piste: a lift is a tinted block you ride, a piste is an open row
+   you ski, led by a piste sign with the number in the difficulty colour. */
+
+.step-lift,
+.step-piste {
+  align-items: center;
+  padding: 12px 10px;
+}
+
+.step-lift {
+  background: #f1f3f9;
+  border: 1px solid #e3e8f2;
+  border-radius: 12px;
+  margin: 6px 0;
+}
+
+.step-lift + .step,
+.step-lift,
+.step:has(+ .step-lift) {
+  border-bottom-color: transparent;
+}
+
+.step-lift .step-number,
+.step-piste .step-number {
+  padding-top: 0;
+}
+
+.step-lift .step-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+}
+
+.step-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lift-code {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: 1px;
+  background: var(--alpine);
+  color: #fff;
+  padding: 4px 9px 2px;
+  border-radius: 7px;
+}
+
+.step-kind {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 2px;
+}
+
+.kind-lift     { color: #6d2a99; }
+.kind-blauw    { color: var(--blue); }
+.kind-rood     { color: var(--red); }
+.kind-zwart    { color: #222; }
+.kind-skiroute { color: #b07f00; }
+
+.piste-sign {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85), 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.piste-sign span { padding-top: 3px; }
+
+.sign-blauw    { background: var(--blue); }
+.sign-rood     { background: var(--red); }
+.sign-zwart    { background: var(--black); }
+.sign-noname   { font-size: 1.3rem; }
+
+/* Ski route: a diamond, like the orange/yellow markers on the mountain. */
+.sign-skiroute {
+  background: var(--skiroute);
+  border-radius: 6px;
+  transform: rotate(45deg) scale(0.82);
+}
+.sign-skiroute span { transform: rotate(-45deg); }
+
+.step-piste .step-name {
+  font-size: 0.95rem;
+}
+
+/* ── Tip box ──────────────────────────────────────────────── */
+
+.tip {
+  background: linear-gradient(135deg, #fff8e6, #fff3d5);
+  border-left: 3px solid var(--kitz-gold);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  color: #7a5800;
+  margin-top: 10px;
+}
+
+/* ── Admin link ───────────────────────────────────────────── */
+
+.admin-link {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  color: #aaa;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.admin-link[hidden] {
+  display: none;
+}
+
+.admin-link:hover {
+  color: var(--alpine);
+  text-decoration: underline;
+}
+

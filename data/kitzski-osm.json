@@ -1,0 +1,6547 @@
+{
+  "id": "kitzski-osm",
+  "name": "KitzSki",
+  "subtitle": "Kitzbühel · Kirchberg · Jochberg · Pass Thurn · Mittersill",
+  "stats": {
+    "liften": 41,
+    "pistesKm": 208,
+    "hoogte": "760–1990 m"
+  },
+  "bron": "OpenStreetMap relatie 10938000, opgehaald 2026-09-28",
+  "liften": [
+    {
+      "liftNr": "A1",
+      "naam": "Hahnenkammbahn",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 9,
+      "vertrektBij": "Kitzbühel – Hahnenkammbahn",
+      "komtAanBij": "Top station Hahnenkammbahn",
+      "aansluitendeLiften": [
+        "A6"
+      ]
+    },
+    {
+      "liftNr": "A2",
+      "naam": "Mocking",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 6,
+      "vertrektBij": "Kitzbühel – Rasmusleiten",
+      "komtAanBij": "Top station Mocking"
+    },
+    {
+      "liftNr": "A3",
+      "naam": "Rasmusleiten",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Kitzbühel – Rasmusleiten",
+      "komtAanBij": "Top station Rasmusleiten"
+    },
+    {
+      "liftNr": "A4",
+      "naam": "Mini Streif",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Kitzbühel – Ganslern",
+      "komtAanBij": "Top station Mini Streif"
+    },
+    {
+      "liftNr": "A5",
+      "naam": "Ganslern",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Kitzbühel – Ganslern",
+      "komtAanBij": "Top station Ganslern"
+    },
+    {
+      "liftNr": "A6",
+      "naam": "Starthaus",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Top station Hahnenkammbahn",
+      "komtAanBij": "Top station Hahnenkammbahn"
+    },
+    {
+      "liftNr": "A7",
+      "naam": "Märchenwald",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Märchenwald",
+      "komtAanBij": "Top station Hahnenkammbahn",
+      "aansluitendeLiften": [
+        "A6"
+      ]
+    },
+    {
+      "liftNr": "A8",
+      "naam": "Walde",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 3,
+      "vertrektBij": "Bottom station Walde",
+      "komtAanBij": "Hahnenkamm"
+    },
+    {
+      "liftNr": "B1",
+      "naam": "Fleckalmbahn",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 15,
+      "vertrektBij": "Bottom station Fleckalmbahn",
+      "komtAanBij": "Ehrenbachhöhe"
+    },
+    {
+      "liftNr": "B2",
+      "naam": "Maierlbahn",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 10,
+      "vertrektBij": "Kirchberg in Tirol – Maierlbahn",
+      "komtAanBij": "Top station Maierlbahn"
+    },
+    {
+      "liftNr": "B3",
+      "naam": "Ochsalm",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Ochsalm",
+      "komtAanBij": "Ehrenbachhöhe"
+    },
+    {
+      "liftNr": "B4",
+      "naam": "Sonnenrast",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Sonnenrast",
+      "komtAanBij": "Ehrenbachhöhe"
+    },
+    {
+      "liftNr": "B5",
+      "naam": "Ehrenbachhöhe",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Steinbergkogel",
+      "komtAanBij": "Ehrenbachhöhe"
+    },
+    {
+      "liftNr": "B6",
+      "naam": "B6 Förderband / magic carpet (summer / winter)",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Sonnenrast",
+      "komtAanBij": "Top station B6 Förderband / magic carpet (summer / winter)"
+    },
+    {
+      "liftNr": "C1",
+      "naam": "Steinbergkogel",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Bottom station Steinbergkogel",
+      "komtAanBij": "Steinbergkogel"
+    },
+    {
+      "liftNr": "C2",
+      "naam": "Jufen",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Sonnenrast",
+      "komtAanBij": "Steinbergkogel"
+    },
+    {
+      "liftNr": "D1",
+      "naam": "Pengelstein I",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 11,
+      "vertrektBij": "Bottom station Pengelstein I",
+      "komtAanBij": "Top station Pengelstein I"
+    },
+    {
+      "liftNr": "D2",
+      "naam": "Pengelstein II",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Bottom station Pengelstein II",
+      "komtAanBij": "Pengelstein (D2)"
+    },
+    {
+      "liftNr": "D3",
+      "naam": "Brunn",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Bottom station Brunn",
+      "komtAanBij": "Jufenkamm (D3)"
+    },
+    {
+      "liftNr": "D4",
+      "naam": "Silberstube",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Kasereck",
+      "komtAanBij": "Jufenkamm (D4)"
+    },
+    {
+      "liftNr": "D5",
+      "naam": "Kasereck",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Kasereck",
+      "komtAanBij": "Pengelstein (D2)"
+    },
+    {
+      "liftNr": "D6",
+      "naam": "Hieslegg",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Bottom station Hieslegg",
+      "komtAanBij": "Top station Hieslegg"
+    },
+    {
+      "liftNr": "D7",
+      "naam": "Usterkar",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Bottom station Usterkar",
+      "komtAanBij": "Pengelstein (D7)",
+      "aansluitendeLiften": [
+        "D9"
+      ]
+    },
+    {
+      "liftNr": "D8",
+      "naam": "Hochsaukaser",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Hochsaukaser",
+      "komtAanBij": "Top station Hieslegg"
+    },
+    {
+      "liftNr": "D9",
+      "naam": "3S Bahn",
+      "type": "cable_car",
+      "echteLift": true,
+      "tijd": 15,
+      "vertrektBij": "Pengelstein (D7)",
+      "komtAanBij": "Top station 3S Bahn"
+    },
+    {
+      "liftNr": "D9r",
+      "naam": "3S Bahn",
+      "type": "cable_car",
+      "echteLift": true,
+      "tijd": 15,
+      "vertrektBij": "Top station 3S Bahn",
+      "komtAanBij": "Pengelstein (D7)"
+    },
+    {
+      "liftNr": "D10",
+      "naam": "Übungslift Aschau",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Top station Sun Kid Aschau",
+      "komtAanBij": "Top station Übungslift Aschau"
+    },
+    {
+      "liftNr": "D11",
+      "naam": "Sun Kid Aschau",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Top station Sun Kid Aschau",
+      "komtAanBij": "Top station Sun Kid Aschau",
+      "aansluitendeLiften": [
+        "D10"
+      ]
+    },
+    {
+      "liftNr": "E1",
+      "naam": "Gaisberg",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Kirchberg in Tirol – Gaisberg",
+      "komtAanBij": "Top station Gaisberg"
+    },
+    {
+      "liftNr": "E2",
+      "naam": "Schatzerlift",
+      "type": "platter",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Kirchberg in Tirol – Schatzerlift",
+      "komtAanBij": "Top station Schatzerlift"
+    },
+    {
+      "liftNr": "E3",
+      "naam": "Übungslift Reith",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 5,
+      "vertrektBij": "Top station Sun Cord Reith",
+      "komtAanBij": "Top station Übungslift Reith"
+    },
+    {
+      "liftNr": "E4",
+      "naam": "Sun Cord Reith",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 5,
+      "vertrektBij": "Reith bei Kitzbühel – Sun Cord Reith",
+      "komtAanBij": "Top station Sun Cord Reith",
+      "aansluitendeLiften": [
+        "E3"
+      ]
+    },
+    {
+      "liftNr": "F1a",
+      "naam": "Wagstättbahn",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Jochberg – Wagstättbahn",
+      "komtAanBij": "Top station Wagstättbahn",
+      "aansluitendeLiften": [
+        "F1b"
+      ]
+    },
+    {
+      "liftNr": "F1b",
+      "naam": "Wagstättbahn",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Top station Wagstättbahn",
+      "komtAanBij": "Wurzhöhe",
+      "aansluitendeLiften": [
+        "D9r"
+      ]
+    },
+    {
+      "liftNr": "F2",
+      "naam": "Hausleiten",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Jochberg – Hausleiten",
+      "komtAanBij": "Top station Hausleiten"
+    },
+    {
+      "liftNr": "F3",
+      "naam": "Talsen",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Bottom station Talsen",
+      "komtAanBij": "Top station Talsen"
+    },
+    {
+      "liftNr": "F4",
+      "naam": "Bärenbadkogel I",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Talsen",
+      "komtAanBij": "Top station Bärenbadkogel I"
+    },
+    {
+      "liftNr": "F5",
+      "naam": "Bärenbadkogel II",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Bärenbadkogel II",
+      "komtAanBij": "Bärenbadkogel (F5)"
+    },
+    {
+      "liftNr": "F6",
+      "naam": "Gauxjoch",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Gauxjoch",
+      "komtAanBij": "Bärenbadkogel (F6)"
+    },
+    {
+      "liftNr": "F7",
+      "naam": "Trattenbach",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 3,
+      "vertrektBij": "Bottom station Zweitausender",
+      "komtAanBij": "Top station Trattenbach"
+    },
+    {
+      "liftNr": "G1",
+      "naam": "Resterhöhe",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Pass Thurn",
+      "komtAanBij": "Top station Resterhöhe"
+    },
+    {
+      "liftNr": "G2",
+      "naam": "Pass Thurn",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Bottom station Pass Thurn",
+      "komtAanBij": "Top station Pass Thurn"
+    },
+    {
+      "liftNr": "G3",
+      "naam": "Sun Kid",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Sun Kid",
+      "komtAanBij": "Resterhöhe"
+    },
+    {
+      "liftNr": "G4",
+      "naam": "Resterkogel",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Resterkogel",
+      "komtAanBij": "Resterhöhe"
+    },
+    {
+      "liftNr": "G5",
+      "naam": "Hanglalm",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Hanglalm",
+      "komtAanBij": "Hanglhöhe"
+    },
+    {
+      "liftNr": "G6",
+      "naam": "Hartkaser",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Hartkaser",
+      "komtAanBij": "Top station Hartkaser"
+    },
+    {
+      "liftNr": "G7",
+      "naam": "Zweitausender",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Bottom station Zweitausender",
+      "komtAanBij": "Zweitausender"
+    },
+    {
+      "liftNr": "G8",
+      "naam": "Panoramabahn Kitzbüheler Alpen I",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Hollersbach im Pinzgau – Panoramabahn Kitzbüheler Alpen I",
+      "komtAanBij": "Top station Panoramabahn Kitzbüheler Alpen I",
+      "aansluitendeLiften": [
+        "G9"
+      ]
+    },
+    {
+      "liftNr": "G9",
+      "naam": "Panoramabahn Kitzbüheler Alpen II",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 8,
+      "vertrektBij": "Top station Panoramabahn Kitzbüheler Alpen I",
+      "komtAanBij": "Resterhöhe"
+    },
+    {
+      "liftNr": "H1",
+      "naam": "Hornbahn I",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 7,
+      "vertrektBij": "Kitzbühel – Hornbahn I",
+      "komtAanBij": "Top station Hornbahn I",
+      "aansluitendeLiften": [
+        "H2",
+        "H3"
+      ]
+    },
+    {
+      "liftNr": "H2",
+      "naam": "Hornbahn II",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Top station Hornbahn I",
+      "komtAanBij": "Hornköpfl (H6)"
+    },
+    {
+      "liftNr": "H3",
+      "naam": "Horngipfelbahn",
+      "type": "cable_car",
+      "echteLift": true,
+      "tijd": 5,
+      "vertrektBij": "Top station Hornbahn I",
+      "komtAanBij": "Kitzbüheler Horn"
+    },
+    {
+      "liftNr": "H4",
+      "naam": "Raintal",
+      "type": "gondola",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Raintal",
+      "komtAanBij": "Kitzbüheler Horn"
+    },
+    {
+      "liftNr": "H5",
+      "naam": "Brunelle",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 6,
+      "vertrektBij": "Bottom station Brunelle",
+      "komtAanBij": "Kitzbüheler Horn"
+    },
+    {
+      "liftNr": "H6",
+      "naam": "Alpenhaus",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Hornköpfl",
+      "komtAanBij": "Hornköpfl (H6)"
+    },
+    {
+      "liftNr": "H7",
+      "naam": "Hornköpfl",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Hornköpfl",
+      "komtAanBij": "Hornköpfl (H7)"
+    },
+    {
+      "liftNr": "H8",
+      "naam": "Eggl",
+      "type": "t-bar",
+      "echteLift": false,
+      "tijd": 5,
+      "vertrektBij": "Bottom station Hornköpfl",
+      "komtAanBij": "Top station Eggl"
+    },
+    {
+      "liftNr": "H9",
+      "naam": "Sun Kid Horn",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 2,
+      "vertrektBij": "Bottom station Hornköpfl",
+      "komtAanBij": "Bottom station Hornköpfl",
+      "aansluitendeLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H10"
+      ]
+    },
+    {
+      "liftNr": "H10",
+      "naam": "Trattalmulde",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Bottom station Hornköpfl",
+      "komtAanBij": "Top station Trattalmulde"
+    },
+    {
+      "liftNr": "H11",
+      "naam": "Bichlalmlift",
+      "type": "chair_lift",
+      "echteLift": true,
+      "tijd": 10,
+      "vertrektBij": "Rehbühel – Bichlalmlift",
+      "komtAanBij": "Hochetzkogel"
+    },
+    {
+      "liftNr": "OEF-1",
+      "naam": "",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 4,
+      "vertrektBij": "Kitzbühel – OEF-1",
+      "komtAanBij": "Top station OEF-1"
+    },
+    {
+      "liftNr": "OEF-2",
+      "naam": "",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 2,
+      "vertrektBij": "Jochberg – Hausleiten",
+      "komtAanBij": "Top station OEF-2"
+    },
+    {
+      "liftNr": "OEF-3",
+      "naam": "",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 3,
+      "vertrektBij": "Pass Thurn",
+      "komtAanBij": "Pass Thurn",
+      "aansluitendeLiften": [
+        "G1",
+        "OEF-4"
+      ]
+    },
+    {
+      "liftNr": "OEF-4",
+      "naam": "",
+      "type": "magic_carpet",
+      "echteLift": false,
+      "tijd": 2,
+      "vertrektBij": "Pass Thurn",
+      "komtAanBij": "Pass Thurn",
+      "aansluitendeLiften": [
+        "G1",
+        "OEF-3"
+      ]
+    }
+  ],
+  "pistes": [
+    {
+      "pisteNr": "1",
+      "naam": "Brunellenfeld",
+      "kleur": "rood",
+      "lengteM": 1130,
+      "tijd": 4,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Bottom station Brunelle"
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H9"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Bottom station Hornköpfl",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H10"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Top station Trattalmulde",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2",
+      "naam": "Larchenhang",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H8"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [
+        "2a"
+      ],
+      "beginPlaats": "Top station Eggl",
+      "eindPlaats": "Top station Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "2",
+          "naam": "Larchenhang",
+          "kleur": "zwart",
+          "lengteM": 950,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "2a",
+          "naam": "Pletzerwald",
+          "kleur": "blauw",
+          "lengteM": 200,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H9"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bottom station Hornköpfl",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H10"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattalmulde",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "2a",
+      "naam": "Pletzerwald",
+      "kleur": "blauw",
+      "lengteM": 930,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H8"
+      ],
+      "bereikbareLiften": [
+        "H2",
+        "H3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Eggl",
+      "eindPlaats": "Top station Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H10"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattalmulde",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H8"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Eggl",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H9"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bottom station Hornköpfl",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H10"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattalmulde",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "3",
+      "naam": "Hagstein",
+      "kleur": "blauw",
+      "lengteM": 5630,
+      "tijd": 17,
+      "beginBovenBij": [
+        "H8"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Eggl",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "4",
+      "naam": "Raintal",
+      "kleur": "rood",
+      "lengteM": 1560,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Bottom station Raintal"
+    },
+    {
+      "pisteNr": "4a",
+      "naam": "Raintal",
+      "kleur": "zwart",
+      "lengteM": 1120,
+      "tijd": 4,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H4"
+      ],
+      "gaatOverIn": [
+        "4"
+      ],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Raintal",
+      "trajecten": [
+        {
+          "pisteNr": "4a",
+          "naam": "Raintal",
+          "kleur": "zwart",
+          "lengteM": 1070,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "4",
+          "naam": "Raintal",
+          "kleur": "rood",
+          "lengteM": 50,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "4a",
+      "naam": "Raintal",
+      "kleur": "zwart",
+      "lengteM": 1410,
+      "tijd": 6,
+      "beginBovenBij": [
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "bereikbareLiften": [
+        "H4"
+      ],
+      "gaatOverIn": [
+        "4"
+      ],
+      "beginPlaats": "Kitzbüheler Horn",
+      "eindPlaats": "Bottom station Raintal",
+      "trajecten": [
+        {
+          "pisteNr": "4a",
+          "naam": "Raintal",
+          "kleur": "zwart",
+          "lengteM": 1360,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "4",
+          "naam": "Raintal",
+          "kleur": "rood",
+          "lengteM": 50,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "5",
+      "naam": "Unterberg",
+      "kleur": "rood",
+      "lengteM": 3350,
+      "tijd": 11,
+      "beginBovenBij": [
+        "H1"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [
+        "6"
+      ],
+      "beginPlaats": "Top station Hornbahn I",
+      "eindPlaats": "Kitzbühel – Hornbahn I",
+      "trajecten": [
+        {
+          "pisteNr": "5",
+          "naam": "Unterberg",
+          "kleur": "rood",
+          "lengteM": 2680,
+          "tijd": 9
+        },
+        {
+          "pisteNr": "6",
+          "naam": "Horn-Standard",
+          "kleur": "zwart",
+          "lengteM": 670,
+          "tijd": 3
+        }
+      ]
+    },
+    {
+      "pisteNr": "6",
+      "naam": "Horn-Standard",
+      "kleur": "zwart",
+      "lengteM": 2260,
+      "tijd": 9,
+      "beginBovenBij": [
+        "H1"
+      ],
+      "bereikbareLiften": [
+        "H1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hornbahn I",
+      "eindPlaats": "Kitzbühel – Hornbahn I"
+    },
+    {
+      "pisteNr": "11",
+      "naam": "Hornköpfl direkt",
+      "kleur": "zwart",
+      "lengteM": 600,
+      "tijd": 2,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [
+        "Alpenhaus"
+      ],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl",
+      "trajecten": [
+        {
+          "pisteNr": "11",
+          "naam": "Hornköpfl direkt",
+          "kleur": "zwart",
+          "lengteM": 490,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "Alpenhaus",
+          "naam": "Alpenhaus",
+          "kleur": "blauw",
+          "lengteM": 120,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "11a",
+      "naam": "Hornköpfl direkt",
+      "kleur": "zwart",
+      "lengteM": 640,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "12",
+      "naam": "Rote Teufel Trainingsstrecke",
+      "kleur": "rood",
+      "lengteM": 680,
+      "tijd": 2,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "13",
+      "naam": "Hornköpfl-Süd",
+      "kleur": "rood",
+      "lengteM": 1400,
+      "tijd": 5,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [
+        "15"
+      ],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl",
+      "trajecten": [
+        {
+          "pisteNr": "13",
+          "naam": "Hornköpfl-Süd",
+          "kleur": "rood",
+          "lengteM": 1130,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "15",
+          "naam": "Eggl",
+          "kleur": "blauw",
+          "lengteM": 270,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "14",
+      "naam": "Hornköpfl",
+      "kleur": "rood",
+      "lengteM": 600,
+      "tijd": 2,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [
+        "Alpenhaus"
+      ],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Bottom station Hornköpfl",
+      "trajecten": [
+        {
+          "pisteNr": "14",
+          "naam": "Hornköpfl",
+          "kleur": "rood",
+          "lengteM": 0,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "Alpenhaus",
+          "naam": "Alpenhaus",
+          "kleur": "blauw",
+          "lengteM": 600,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "14",
+      "naam": "Hornköpfl",
+      "kleur": "rood",
+      "lengteM": 970,
+      "tijd": 3,
+      "beginBovenBij": [
+        "H7"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [
+        "Alpenhaus"
+      ],
+      "beginPlaats": "Hornköpfl (H7)",
+      "eindPlaats": "Bottom station Hornköpfl",
+      "trajecten": [
+        {
+          "pisteNr": "14",
+          "naam": "Hornköpfl",
+          "kleur": "rood",
+          "lengteM": 380,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "Alpenhaus",
+          "naam": "Alpenhaus",
+          "kleur": "blauw",
+          "lengteM": 600,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "15",
+      "naam": "Eggl",
+      "kleur": "blauw",
+      "lengteM": 760,
+      "tijd": 2,
+      "beginBovenBij": [
+        "H8"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Eggl",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 90,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 1470,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 1610,
+      "tijd": 5,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 1730,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "26"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1200,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 1800,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "26"
+      ],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1270,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 3300,
+      "tijd": 10,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "26"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 2770,
+          "tijd": 8
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 3430,
+      "tijd": 10,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "26"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 2910,
+          "tijd": 9
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16a",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 1700,
+      "tijd": 5,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [
+        "16b",
+        "16"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Sonnenrast",
+      "trajecten": [
+        {
+          "pisteNr": "16a",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 770,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 460,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "16a",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 2740,
+      "tijd": 8,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "16b",
+        "24",
+        "38"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "16a",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 770,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "16a",
+      "naam": "Streiteck",
+      "kleur": "blauw",
+      "lengteM": 3530,
+      "tijd": 11,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "16b",
+        "16",
+        "26"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16a",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 770,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1760,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 930,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [
+        "16"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Sonnenrast",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 460,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 930,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [
+        "16"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Sonnenrast",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 460,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 930,
+      "tijd": 4,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [
+        "16"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Sonnenrast",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 460,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 1970,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "24",
+        "38"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 1970,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "24",
+        "38"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 1970,
+      "tijd": 8,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "24",
+        "38"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 2750,
+      "tijd": 11,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "16",
+        "26"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1760,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 2750,
+      "tijd": 11,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "16",
+        "26"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1760,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "16b",
+      "naam": "Jufen-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 2750,
+      "tijd": 11,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [
+        "16",
+        "26"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Ochsalm",
+      "trajecten": [
+        {
+          "pisteNr": "16b",
+          "naam": "Jufen-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 470,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "16",
+          "naam": "Streiteck",
+          "kleur": "blauw",
+          "lengteM": 1760,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "17",
+      "naam": "Powder Heaven",
+      "kleur": "zwart",
+      "lengteM": 1100,
+      "tijd": 4,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "37"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "17",
+          "naam": "Powder Heaven",
+          "kleur": "zwart",
+          "lengteM": 1090,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "37",
+          "naam": "Melkalm",
+          "kleur": "blauw",
+          "lengteM": 10,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "18",
+      "naam": "Sonnenrast",
+      "kleur": "blauw",
+      "lengteM": 1210,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "18",
+      "naam": "Sonnenrast",
+      "kleur": "blauw",
+      "lengteM": 1220,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [
+        "36"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Märchenwald",
+      "trajecten": [
+        {
+          "pisteNr": "18",
+          "naam": "Sonnenrast",
+          "kleur": "blauw",
+          "lengteM": 30,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "36",
+          "naam": "Hahnenkamm",
+          "kleur": "blauw",
+          "lengteM": 1190,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "19",
+      "naam": "Kapellenabfahrt",
+      "kleur": "rood",
+      "lengteM": 1360,
+      "tijd": 5,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "37"
+      ],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "19",
+          "naam": "Kapellenabfahrt",
+          "kleur": "rood",
+          "lengteM": 1080,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "37",
+          "naam": "Melkalm",
+          "kleur": "blauw",
+          "lengteM": 280,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "19",
+      "naam": "Kapellenabfahrt",
+      "kleur": "rood",
+      "lengteM": 1380,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "37"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "19",
+          "naam": "Kapellenabfahrt",
+          "kleur": "rood",
+          "lengteM": 1100,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "37",
+          "naam": "Melkalm",
+          "kleur": "blauw",
+          "lengteM": 280,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 4300,
+      "tijd": 13,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "OEF-1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – OEF-1"
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 4300,
+      "tijd": 13,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "OEF-1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – OEF-1"
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 4940,
+      "tijd": 15,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Hahnenkammbahn"
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 4940,
+      "tijd": 15,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Hahnenkammbahn"
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 5270,
+      "tijd": 16,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "20",
+      "naam": "Asten",
+      "kleur": "blauw",
+      "lengteM": 5270,
+      "tijd": 16,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "21",
+      "naam": "Streif Familienabfahrt",
+      "kleur": "rood",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "21",
+      "naam": "Streif Familienabfahrt",
+      "kleur": "rood",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "21",
+      "naam": "Streif Familienabfahrt",
+      "kleur": "rood",
+      "lengteM": 70,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A4"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Mini Streif",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "21",
+      "naam": "Streif Familienabfahrt",
+      "kleur": "rood",
+      "lengteM": 540,
+      "tijd": 2,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A8"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Walde"
+    },
+    {
+      "pisteNr": "21",
+      "naam": "Streif Familienabfahrt",
+      "kleur": "rood",
+      "lengteM": 3240,
+      "tijd": 11,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "21a",
+      "naam": "Waldehang",
+      "kleur": "zwart",
+      "lengteM": 330,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A8"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Bottom station Walde",
+      "trajecten": [
+        {
+          "pisteNr": "21a",
+          "naam": "Waldehang",
+          "kleur": "zwart",
+          "lengteM": 320,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 10,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "21a",
+      "naam": "Waldehang",
+      "kleur": "zwart",
+      "lengteM": 330,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A8"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Walde",
+      "trajecten": [
+        {
+          "pisteNr": "21a",
+          "naam": "Waldehang",
+          "kleur": "zwart",
+          "lengteM": 320,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 10,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "21a",
+      "naam": "Waldehang",
+      "kleur": "zwart",
+      "lengteM": 3450,
+      "tijd": 14,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "22"
+      ],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "21a",
+          "naam": "Waldehang",
+          "kleur": "zwart",
+          "lengteM": 210,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "22",
+          "naam": "Kampen",
+          "kleur": "rood",
+          "lengteM": 3240,
+          "tijd": 11
+        }
+      ]
+    },
+    {
+      "pisteNr": "21a",
+      "naam": "Waldehang",
+      "kleur": "zwart",
+      "lengteM": 3450,
+      "tijd": 14,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "22"
+      ],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "21a",
+          "naam": "Waldehang",
+          "kleur": "zwart",
+          "lengteM": 210,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "22",
+          "naam": "Kampen",
+          "kleur": "rood",
+          "lengteM": 3240,
+          "tijd": 11
+        }
+      ]
+    },
+    {
+      "pisteNr": "21b",
+      "naam": "Seidlalmhang",
+      "kleur": "zwart",
+      "lengteM": 1730,
+      "tijd": 7,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "21b",
+          "naam": "Seidlalmhang",
+          "kleur": "zwart",
+          "lengteM": 290,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 1440,
+          "tijd": 5
+        }
+      ]
+    },
+    {
+      "pisteNr": "21b",
+      "naam": "Seidlalmhang",
+      "kleur": "zwart",
+      "lengteM": 1730,
+      "tijd": 7,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "21b",
+          "naam": "Seidlalmhang",
+          "kleur": "zwart",
+          "lengteM": 290,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 1440,
+          "tijd": 5
+        }
+      ]
+    },
+    {
+      "pisteNr": "22",
+      "naam": "Kampen",
+      "kleur": "rood",
+      "lengteM": 3510,
+      "tijd": 12,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "22",
+      "naam": "Kampen",
+      "kleur": "rood",
+      "lengteM": 3510,
+      "tijd": 12,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "23",
+      "naam": "Griesalm",
+      "kleur": "zwart",
+      "lengteM": 2120,
+      "tijd": 8,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 460,
+      "tijd": 2,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 460,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 460,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 1500,
+      "tijd": 5,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "38"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 1500,
+      "tijd": 5,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "38"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "24",
+      "naam": "Jufen",
+      "kleur": "rood",
+      "lengteM": 1500,
+      "tijd": 5,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "38"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "24",
+          "naam": "Jufen",
+          "kleur": "rood",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "38",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 980,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "25",
+      "naam": "Fleck",
+      "kleur": "blauw",
+      "lengteM": 5940,
+      "tijd": 18,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B1"
+      ],
+      "gaatOverIn": [
+        "25b"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Fleckalmbahn",
+      "trajecten": [
+        {
+          "pisteNr": "25",
+          "naam": "Fleck",
+          "kleur": "blauw",
+          "lengteM": 5550,
+          "tijd": 17
+        },
+        {
+          "pisteNr": "25b",
+          "naam": "Kaser-Fleck",
+          "kleur": "blauw",
+          "lengteM": 400,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "25a",
+      "naam": "Fleck",
+      "kleur": "rood",
+      "lengteM": 3530,
+      "tijd": 12,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B1"
+      ],
+      "gaatOverIn": [
+        "25",
+        "25b"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Fleckalmbahn",
+      "trajecten": [
+        {
+          "pisteNr": "25a",
+          "naam": "Fleck",
+          "kleur": "rood",
+          "lengteM": 1050,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "25",
+          "naam": "Fleck",
+          "kleur": "blauw",
+          "lengteM": 2080,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "25b",
+          "naam": "Kaser-Fleck",
+          "kleur": "blauw",
+          "lengteM": 400,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "25b",
+      "naam": "Kaser-Fleck",
+      "kleur": "blauw",
+      "lengteM": 1620,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Bottom station Fleckalmbahn"
+    },
+    {
+      "pisteNr": "25b",
+      "naam": "Kaser-Fleck",
+      "kleur": "blauw",
+      "lengteM": 1620,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Fleckalmbahn"
+    },
+    {
+      "pisteNr": "25b",
+      "naam": "Kaser-Fleck",
+      "kleur": "blauw",
+      "lengteM": 1620,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Fleckalmbahn"
+    },
+    {
+      "pisteNr": "26",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 620,
+      "tijd": 2,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Bottom station Ochsalm"
+    },
+    {
+      "pisteNr": "26",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 1330,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Ochsalm"
+    },
+    {
+      "pisteNr": "26",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 3150,
+      "tijd": 10,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "40",
+        "26a"
+      ],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "26",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 40,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "40",
+          "naam": "Kaser-Nord",
+          "kleur": "rood",
+          "lengteM": 980,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 2130,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Ochsalm"
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Bottom station Ochsalm"
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Ochsalm"
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 2870,
+      "tijd": 9,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn"
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 2870,
+      "tijd": 9,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn"
+    },
+    {
+      "pisteNr": "26a",
+      "naam": "Kaser",
+      "kleur": "blauw",
+      "lengteM": 2870,
+      "tijd": 9,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn"
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2500,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [
+        "31"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Pengelstein I",
+      "trajecten": [
+        {
+          "pisteNr": "27",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1980,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "31",
+          "naam": "Schroll-Skirast",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2500,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [
+        "31"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Pengelstein I",
+      "trajecten": [
+        {
+          "pisteNr": "27",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1980,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "31",
+          "naam": "Schroll-Skirast",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2500,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [
+        "31"
+      ],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Pengelstein I",
+      "trajecten": [
+        {
+          "pisteNr": "27",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1980,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "31",
+          "naam": "Schroll-Skirast",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "27",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2500,
+      "tijd": 8,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [
+        "31"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Pengelstein I",
+      "trajecten": [
+        {
+          "pisteNr": "27",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1980,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "31",
+          "naam": "Schroll-Skirast",
+          "kleur": "blauw",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "27a",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2100,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27a",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2100,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27a",
+      "naam": "Brunn",
+      "kleur": "blauw",
+      "lengteM": 2100,
+      "tijd": 6,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27b",
+      "naam": "Brunn-Kälberwald",
+      "kleur": "rood",
+      "lengteM": 1890,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Brunn"
+    },
+    {
+      "pisteNr": "27b",
+      "naam": "Brunn-Kälberwald",
+      "kleur": "rood",
+      "lengteM": 2330,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D2"
+      ],
+      "gaatOverIn": [
+        "30"
+      ],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Pengelstein II",
+      "trajecten": [
+        {
+          "pisteNr": "27b",
+          "naam": "Brunn-Kälberwald",
+          "kleur": "rood",
+          "lengteM": 830,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "30",
+          "naam": "Pengelstein II",
+          "kleur": "blauw",
+          "lengteM": 1500,
+          "tijd": 5
+        }
+      ]
+    },
+    {
+      "pisteNr": "27c",
+      "naam": "Brunn-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 1710,
+      "tijd": 7,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [
+        "27a"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Brunn",
+      "trajecten": [
+        {
+          "pisteNr": "27c",
+          "naam": "Brunn-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "27a",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1210,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "27c",
+      "naam": "Brunn-Steilhang",
+      "kleur": "zwart",
+      "lengteM": 1710,
+      "tijd": 7,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "D3"
+      ],
+      "gaatOverIn": [
+        "27a"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Brunn",
+      "trajecten": [
+        {
+          "pisteNr": "27c",
+          "naam": "Brunn-Steilhang",
+          "kleur": "zwart",
+          "lengteM": 510,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "27a",
+          "naam": "Brunn",
+          "kleur": "blauw",
+          "lengteM": 1210,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "28",
+      "naam": "Silberstube",
+      "kleur": "blauw",
+      "lengteM": 760,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "D4",
+        "D5"
+      ],
+      "gaatOverIn": [
+        "28a",
+        "29"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Kasereck",
+      "trajecten": [
+        {
+          "pisteNr": "28",
+          "naam": "Silberstube",
+          "kleur": "blauw",
+          "lengteM": 140,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "28a",
+          "naam": "Silberstube",
+          "kleur": "blauw",
+          "lengteM": 330,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "29",
+          "naam": "Kasereck",
+          "kleur": "blauw",
+          "lengteM": 290,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "28",
+      "naam": "Silberstube",
+      "kleur": "blauw",
+      "lengteM": 880,
+      "tijd": 3,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "D4",
+        "D5"
+      ],
+      "gaatOverIn": [
+        "28a",
+        "29"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Kasereck",
+      "trajecten": [
+        {
+          "pisteNr": "28",
+          "naam": "Silberstube",
+          "kleur": "blauw",
+          "lengteM": 270,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "28a",
+          "naam": "Silberstube",
+          "kleur": "blauw",
+          "lengteM": 330,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "29",
+          "naam": "Kasereck",
+          "kleur": "blauw",
+          "lengteM": 290,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "28a",
+      "naam": "Silberstube",
+      "kleur": "blauw",
+      "lengteM": 1800,
+      "tijd": 5,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "D4",
+        "D5"
+      ],
+      "gaatOverIn": [
+        "29"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Kasereck",
+      "trajecten": [
+        {
+          "pisteNr": "28a",
+          "naam": "Silberstube",
+          "kleur": "blauw",
+          "lengteM": 1510,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "29",
+          "naam": "Kasereck",
+          "kleur": "blauw",
+          "lengteM": 290,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "29",
+      "naam": "Kasereck",
+      "kleur": "blauw",
+      "lengteM": 80,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D9"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Pengelstein (D7)"
+    },
+    {
+      "pisteNr": "29",
+      "naam": "Kasereck",
+      "kleur": "blauw",
+      "lengteM": 1120,
+      "tijd": 3,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D4",
+        "D5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Kasereck"
+    },
+    {
+      "pisteNr": "29a",
+      "naam": "Kasereck",
+      "kleur": "blauw",
+      "lengteM": 940,
+      "tijd": 3,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D4",
+        "D5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Kasereck"
+    },
+    {
+      "pisteNr": "30",
+      "naam": "Pengelstein II",
+      "kleur": "blauw",
+      "lengteM": 160,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D9"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Pengelstein (D7)"
+    },
+    {
+      "pisteNr": "30",
+      "naam": "Pengelstein II",
+      "kleur": "blauw",
+      "lengteM": 870,
+      "tijd": 3,
+      "beginBovenBij": [
+        "D1"
+      ],
+      "bereikbareLiften": [
+        "D2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Pengelstein I",
+      "eindPlaats": "Bottom station Pengelstein II"
+    },
+    {
+      "pisteNr": "30",
+      "naam": "Pengelstein II",
+      "kleur": "blauw",
+      "lengteM": 2320,
+      "tijd": 7,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Pengelstein II"
+    },
+    {
+      "pisteNr": "31",
+      "naam": "Schroll-Skirast",
+      "kleur": "blauw",
+      "lengteM": 2590,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D1"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Pengelstein I",
+      "eindPlaats": "Bottom station Pengelstein I"
+    },
+    {
+      "pisteNr": "31",
+      "naam": "Schroll-Skirast",
+      "kleur": "blauw",
+      "lengteM": 2590,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D7",
+        "D9r"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D7)",
+      "eindPlaats": "Bottom station Pengelstein I"
+    },
+    {
+      "pisteNr": "31",
+      "naam": "Schroll-Skirast",
+      "kleur": "blauw",
+      "lengteM": 2590,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Pengelstein I"
+    },
+    {
+      "pisteNr": "31",
+      "naam": "Schroll-Skirast",
+      "kleur": "blauw",
+      "lengteM": 2590,
+      "tijd": 8,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Pengelstein I"
+    },
+    {
+      "pisteNr": "32",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 350,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D1"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Pengelstein I",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 450,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 450,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D7",
+        "D9r"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D7)",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 450,
+      "tijd": 2,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 2660,
+      "tijd": 9,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D2"
+      ],
+      "gaatOverIn": [
+        "30"
+      ],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Pengelstein II",
+      "trajecten": [
+        {
+          "pisteNr": "32",
+          "naam": "Hieslegg",
+          "kleur": "rood",
+          "lengteM": 760,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "30",
+          "naam": "Pengelstein II",
+          "kleur": "blauw",
+          "lengteM": 1900,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "32a",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 1720,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D7",
+        "D9r"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D7)",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32a",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 1720,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D2",
+        "D5"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Pengelstein (D2)",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "32a",
+      "naam": "Hieslegg",
+      "kleur": "rood",
+      "lengteM": 1720,
+      "tijd": 6,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Hieslegg"
+    },
+    {
+      "pisteNr": "35",
+      "naam": "Kaser",
+      "kleur": "rood",
+      "lengteM": 1530,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "26a"
+      ],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "35",
+          "naam": "Kaser",
+          "kleur": "rood",
+          "lengteM": 360,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 1160,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "35",
+      "naam": "Kaser",
+      "kleur": "rood",
+      "lengteM": 1530,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "26a"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "35",
+          "naam": "Kaser",
+          "kleur": "rood",
+          "lengteM": 360,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 1160,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "35",
+      "naam": "Kaser",
+      "kleur": "rood",
+      "lengteM": 1530,
+      "tijd": 5,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "26a"
+      ],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "35",
+          "naam": "Kaser",
+          "kleur": "rood",
+          "lengteM": 360,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 1160,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "36",
+      "naam": "Hahnenkamm",
+      "kleur": "blauw",
+      "lengteM": 330,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "36",
+      "naam": "Hahnenkamm",
+      "kleur": "blauw",
+      "lengteM": 1190,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "37",
+      "naam": "Melkalm",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "37",
+      "naam": "Melkalm",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 30,
+      "tijd": 1,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 30,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 30,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 30,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 30,
+      "tijd": 1,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B4",
+        "B6",
+        "C2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Sonnenrast"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 890,
+      "tijd": 4,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 890,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 890,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 980,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B6"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "38",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 980,
+      "tijd": 4,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "38a",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 1050,
+      "tijd": 4,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "23"
+      ],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "38a",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 670,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "23",
+          "naam": "Griesalm",
+          "kleur": "zwart",
+          "lengteM": 380,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "38a",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 1050,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D3"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "23"
+      ],
+      "beginPlaats": "Jufenkamm (D3)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "38a",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 670,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "23",
+          "naam": "Griesalm",
+          "kleur": "zwart",
+          "lengteM": 380,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "38a",
+      "naam": "Direttissima",
+      "kleur": "zwart",
+      "lengteM": 1050,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D4"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [
+        "23"
+      ],
+      "beginPlaats": "Jufenkamm (D4)",
+      "eindPlaats": "Bottom station Steinbergkogel",
+      "trajecten": [
+        {
+          "pisteNr": "38a",
+          "naam": "Direttissima",
+          "kleur": "zwart",
+          "lengteM": 670,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "23",
+          "naam": "Griesalm",
+          "kleur": "zwart",
+          "lengteM": 380,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "40",
+      "naam": "Kaser-Nord",
+      "kleur": "rood",
+      "lengteM": 3920,
+      "tijd": 13,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "26a"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "40",
+          "naam": "Kaser-Nord",
+          "kleur": "rood",
+          "lengteM": 1790,
+          "tijd": 6
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 2130,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "43",
+      "naam": "Ochsalm",
+      "kleur": "zwart",
+      "lengteM": 4070,
+      "tijd": 16,
+      "beginBovenBij": [
+        "B1",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "26a"
+      ],
+      "beginPlaats": "Ehrenbachhöhe",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "43",
+          "naam": "Ochsalm",
+          "kleur": "zwart",
+          "lengteM": 2670,
+          "tijd": 11
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 1410,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "50",
+      "naam": "Bichlalm-Standard",
+      "kleur": "blauw",
+      "lengteM": 3140,
+      "tijd": 10,
+      "beginBovenBij": [
+        "H11"
+      ],
+      "bereikbareLiften": [
+        "H11"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hochetzkogel",
+      "eindPlaats": "Rehbühel – Bichlalmlift"
+    },
+    {
+      "pisteNr": "52",
+      "naam": "Stuckkogel",
+      "kleur": "zwart",
+      "lengteM": 3200,
+      "tijd": 13,
+      "beginBovenBij": [
+        "H11"
+      ],
+      "bereikbareLiften": [
+        "H11"
+      ],
+      "gaatOverIn": [
+        "50"
+      ],
+      "beginPlaats": "Hochetzkogel",
+      "eindPlaats": "Rehbühel – Bichlalmlift",
+      "trajecten": [
+        {
+          "pisteNr": "52",
+          "naam": "Stuckkogel",
+          "kleur": "zwart",
+          "lengteM": 0,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "50",
+          "naam": "Bichlalm-Standard",
+          "kleur": "blauw",
+          "lengteM": 3200,
+          "tijd": 10
+        }
+      ]
+    },
+    {
+      "pisteNr": "55",
+      "naam": "Hochsaukaser",
+      "kleur": "zwart",
+      "lengteM": 1040,
+      "tijd": 4,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D8"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Hochsaukaser"
+    },
+    {
+      "pisteNr": "55",
+      "naam": "Hochsaukaser",
+      "kleur": "zwart",
+      "lengteM": 2630,
+      "tijd": 11,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D2"
+      ],
+      "gaatOverIn": [
+        "32",
+        "30"
+      ],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Pengelstein II",
+      "trajecten": [
+        {
+          "pisteNr": "55",
+          "naam": "Hochsaukaser",
+          "kleur": "zwart",
+          "lengteM": 0,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "32",
+          "naam": "Hieslegg",
+          "kleur": "rood",
+          "lengteM": 810,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "30",
+          "naam": "Pengelstein II",
+          "kleur": "blauw",
+          "lengteM": 1810,
+          "tijd": 5
+        }
+      ]
+    },
+    {
+      "pisteNr": "56",
+      "naam": "Skiroute 56 Schwarzkogel",
+      "kleur": "zwart",
+      "lengteM": 3520,
+      "tijd": 14,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D10",
+        "D11"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Top station Sun Kid Aschau"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 460,
+      "tijd": 2,
+      "beginBovenBij": [
+        "F2"
+      ],
+      "bereikbareLiften": [
+        "F1a"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hausleiten",
+      "eindPlaats": "Jochberg – Wagstättbahn"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 530,
+      "tijd": 2,
+      "beginBovenBij": [
+        "F2"
+      ],
+      "bereikbareLiften": [
+        "F2",
+        "OEF-2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hausleiten",
+      "eindPlaats": "Jochberg – Hausleiten"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 1180,
+      "tijd": 4,
+      "beginBovenBij": [
+        "F1a"
+      ],
+      "bereikbareLiften": [
+        "F1a"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Wagstättbahn",
+      "eindPlaats": "Jochberg – Wagstättbahn"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 1650,
+      "tijd": 6,
+      "beginBovenBij": [
+        "F1a"
+      ],
+      "bereikbareLiften": [
+        "F2",
+        "OEF-2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Wagstättbahn",
+      "eindPlaats": "Jochberg – Hausleiten"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 2500,
+      "tijd": 8,
+      "beginBovenBij": [
+        "F1b"
+      ],
+      "bereikbareLiften": [
+        "F1a"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Wurzhöhe",
+      "eindPlaats": "Jochberg – Wagstättbahn"
+    },
+    {
+      "pisteNr": "60",
+      "naam": "Wagstätt/Wurzhöhe",
+      "kleur": "rood",
+      "lengteM": 2970,
+      "tijd": 10,
+      "beginBovenBij": [
+        "F1b"
+      ],
+      "bereikbareLiften": [
+        "F2",
+        "OEF-2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Wurzhöhe",
+      "eindPlaats": "Jochberg – Hausleiten"
+    },
+    {
+      "pisteNr": "61",
+      "naam": "Talsen",
+      "kleur": "rood",
+      "lengteM": 1580,
+      "tijd": 5,
+      "beginBovenBij": [
+        "D9"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [
+        "67"
+      ],
+      "beginPlaats": "Top station 3S Bahn",
+      "eindPlaats": "Bottom station Talsen",
+      "trajecten": [
+        {
+          "pisteNr": "61",
+          "naam": "Talsen",
+          "kleur": "rood",
+          "lengteM": 1570,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "67",
+          "naam": "Wurzhöhe Süd",
+          "kleur": "blauw",
+          "lengteM": 10,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "62",
+      "naam": "Bärenbadkogel I",
+      "kleur": "rood",
+      "lengteM": 1210,
+      "tijd": 4,
+      "beginBovenBij": [
+        "F4"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Bärenbadkogel I",
+      "eindPlaats": "Bottom station Talsen"
+    },
+    {
+      "pisteNr": "62a",
+      "naam": "Alte Wacht",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "F4"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Bärenbadkogel I",
+      "eindPlaats": "Bottom station Talsen"
+    },
+    {
+      "pisteNr": "62a",
+      "naam": "Alte Wacht",
+      "kleur": "blauw",
+      "lengteM": 0,
+      "tijd": 1,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Talsen"
+    },
+    {
+      "pisteNr": "63",
+      "naam": "Bärenbadkogel II",
+      "kleur": "zwart",
+      "lengteM": 1200,
+      "tijd": 5,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F5"
+      ],
+      "gaatOverIn": [
+        "64"
+      ],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Bärenbadkogel II",
+      "trajecten": [
+        {
+          "pisteNr": "63",
+          "naam": "Bärenbadkogel II",
+          "kleur": "zwart",
+          "lengteM": 1120,
+          "tijd": 4
+        },
+        {
+          "pisteNr": "64",
+          "naam": "Bärenbadkogel II",
+          "kleur": "blauw",
+          "lengteM": 80,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "64",
+      "naam": "Bärenbadkogel II",
+      "kleur": "blauw",
+      "lengteM": 710,
+      "tijd": 2,
+      "beginBovenBij": [
+        "F4"
+      ],
+      "bereikbareLiften": [
+        "F5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Bärenbadkogel I",
+      "eindPlaats": "Bottom station Bärenbadkogel II"
+    },
+    {
+      "pisteNr": "64",
+      "naam": "Bärenbadkogel II",
+      "kleur": "blauw",
+      "lengteM": 1780,
+      "tijd": 5,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Bärenbadkogel II"
+    },
+    {
+      "pisteNr": "64",
+      "naam": "Bärenbadkogel II",
+      "kleur": "blauw",
+      "lengteM": 1870,
+      "tijd": 6,
+      "beginBovenBij": [
+        "F6"
+      ],
+      "bereikbareLiften": [
+        "F5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F6)",
+      "eindPlaats": "Bottom station Bärenbadkogel II"
+    },
+    {
+      "pisteNr": "65",
+      "naam": "Bärenbadkogel Nord",
+      "kleur": "rood",
+      "lengteM": 2850,
+      "tijd": 10,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Talsen"
+    },
+    {
+      "pisteNr": "66",
+      "naam": "Jägerwurz",
+      "kleur": "blauw",
+      "lengteM": 2180,
+      "tijd": 7,
+      "beginBovenBij": [
+        "D9"
+      ],
+      "bereikbareLiften": [
+        "F1b"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station 3S Bahn",
+      "eindPlaats": "Top station Wagstättbahn"
+    },
+    {
+      "pisteNr": "66",
+      "naam": "Jägerwurz",
+      "kleur": "blauw",
+      "lengteM": 2280,
+      "tijd": 7,
+      "beginBovenBij": [
+        "F3"
+      ],
+      "bereikbareLiften": [
+        "F1b"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Talsen",
+      "eindPlaats": "Top station Wagstättbahn"
+    },
+    {
+      "pisteNr": "67",
+      "naam": "Wurzhöhe Süd",
+      "kleur": "blauw",
+      "lengteM": 2180,
+      "tijd": 7,
+      "beginBovenBij": [
+        "D9"
+      ],
+      "bereikbareLiften": [
+        "F1b"
+      ],
+      "gaatOverIn": [
+        "66"
+      ],
+      "beginPlaats": "Top station 3S Bahn",
+      "eindPlaats": "Top station Wagstättbahn",
+      "trajecten": [
+        {
+          "pisteNr": "67",
+          "naam": "Wurzhöhe Süd",
+          "kleur": "blauw",
+          "lengteM": 180,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "66",
+          "naam": "Jägerwurz",
+          "kleur": "blauw",
+          "lengteM": 2000,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "67",
+      "naam": "Wurzhöhe Süd",
+      "kleur": "blauw",
+      "lengteM": 2310,
+      "tijd": 7,
+      "beginBovenBij": [
+        "F1b"
+      ],
+      "bereikbareLiften": [
+        "F3",
+        "F4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Wurzhöhe",
+      "eindPlaats": "Bottom station Talsen"
+    },
+    {
+      "pisteNr": "68",
+      "naam": "Trattenbach",
+      "kleur": "rood",
+      "lengteM": 1310,
+      "tijd": 4,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Gauxjoch"
+    },
+    {
+      "pisteNr": "68",
+      "naam": "Trattenbach",
+      "kleur": "rood",
+      "lengteM": 2300,
+      "tijd": 8,
+      "beginBovenBij": [
+        "F5"
+      ],
+      "bereikbareLiften": [
+        "F7",
+        "G7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Bärenbadkogel (F5)",
+      "eindPlaats": "Bottom station Zweitausender"
+    },
+    {
+      "pisteNr": "68a",
+      "naam": "Verbindung - Trattenbach",
+      "kleur": "rood",
+      "lengteM": 550,
+      "tijd": 2,
+      "beginBovenBij": [
+        "F7"
+      ],
+      "bereikbareLiften": [
+        "F6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattenbach",
+      "eindPlaats": "Bottom station Gauxjoch"
+    },
+    {
+      "pisteNr": "69",
+      "naam": "Rettenstein",
+      "kleur": "zwart",
+      "lengteM": 770,
+      "tijd": 3,
+      "beginBovenBij": [
+        "F7"
+      ],
+      "bereikbareLiften": [
+        "F7",
+        "G7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattenbach",
+      "eindPlaats": "Bottom station Zweitausender"
+    },
+    {
+      "pisteNr": "70",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 1740,
+      "tijd": 6,
+      "beginBovenBij": [
+        "G1"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Resterhöhe",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 90,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Sun Kid"
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 280,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G2"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [
+        "70"
+      ],
+      "beginPlaats": "Top station Pass Thurn",
+      "eindPlaats": "Pass Thurn",
+      "trajecten": [
+        {
+          "pisteNr": "70a",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 220,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "70",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 60,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 340,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G1"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [
+        "70b"
+      ],
+      "beginPlaats": "Top station Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel",
+      "trajecten": [
+        {
+          "pisteNr": "70a",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 0,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "70b",
+          "naam": "Resterkogel",
+          "kleur": "blauw",
+          "lengteM": 340,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 1000,
+      "tijd": 3,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [
+        "70b"
+      ],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel",
+      "trajecten": [
+        {
+          "pisteNr": "70a",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 660,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "70b",
+          "naam": "Resterkogel",
+          "kleur": "blauw",
+          "lengteM": 340,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 1770,
+      "tijd": 6,
+      "beginBovenBij": [
+        "G1"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [
+        "70"
+      ],
+      "beginPlaats": "Top station Resterhöhe",
+      "eindPlaats": "Pass Thurn",
+      "trajecten": [
+        {
+          "pisteNr": "70a",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 0,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "70",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 1770,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "70a",
+      "naam": "Resterhöhe",
+      "kleur": "rood",
+      "lengteM": 2430,
+      "tijd": 8,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [
+        "70"
+      ],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Pass Thurn",
+      "trajecten": [
+        {
+          "pisteNr": "70a",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 660,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "70",
+          "naam": "Resterhöhe",
+          "kleur": "rood",
+          "lengteM": 1770,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "70b",
+      "naam": "Resterkogel",
+      "kleur": "blauw",
+      "lengteM": 340,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G1"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel"
+    },
+    {
+      "pisteNr": "70b",
+      "naam": "Resterkogel",
+      "kleur": "blauw",
+      "lengteM": 1170,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel"
+    },
+    {
+      "pisteNr": "70c",
+      "naam": "Resterkogel",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "70c",
+      "naam": "Resterkogel",
+      "kleur": "zwart",
+      "lengteM": 1150,
+      "tijd": 5,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "71",
+      "naam": "Resterkogel",
+      "kleur": "rood",
+      "lengteM": 600,
+      "tijd": 2,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel"
+    },
+    {
+      "pisteNr": "71a",
+      "naam": "Resterkogel",
+      "kleur": "rood",
+      "lengteM": 840,
+      "tijd": 3,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Resterkogel"
+    },
+    {
+      "pisteNr": "71b",
+      "naam": "Resterkogel-Hanglalm",
+      "kleur": "blauw",
+      "lengteM": 2000,
+      "tijd": 6,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [
+        "72"
+      ],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Hanglalm",
+      "trajecten": [
+        {
+          "pisteNr": "71b",
+          "naam": "Resterkogel-Hanglalm",
+          "kleur": "blauw",
+          "lengteM": 1690,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "72",
+          "naam": "Hanglalm",
+          "kleur": "blauw",
+          "lengteM": 310,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "72",
+      "naam": "Hanglalm",
+      "kleur": "blauw",
+      "lengteM": 1360,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "72a",
+      "naam": "Hanglalm",
+      "kleur": "rood",
+      "lengteM": 1200,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [
+        "72"
+      ],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Hanglalm",
+      "trajecten": [
+        {
+          "pisteNr": "72a",
+          "naam": "Hanglalm",
+          "kleur": "rood",
+          "lengteM": 450,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "72",
+          "naam": "Hanglalm",
+          "kleur": "blauw",
+          "lengteM": 750,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "72b",
+      "naam": "Hanglalm - Resterkogel",
+      "kleur": "blauw",
+      "lengteM": 1220,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Resterkogel"
+    },
+    {
+      "pisteNr": "72c",
+      "naam": "Hartkaser",
+      "kleur": "blauw",
+      "lengteM": 1410,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G6"
+      ],
+      "gaatOverIn": [
+        "73"
+      ],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Hartkaser",
+      "trajecten": [
+        {
+          "pisteNr": "72c",
+          "naam": "Hartkaser",
+          "kleur": "blauw",
+          "lengteM": 1030,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "73",
+          "naam": "Hartkaser",
+          "kleur": "blauw",
+          "lengteM": 380,
+          "tijd": 1
+        }
+      ]
+    },
+    {
+      "pisteNr": "73",
+      "naam": "Hartkaser",
+      "kleur": "blauw",
+      "lengteM": 1120,
+      "tijd": 3,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "G6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Bottom station Hartkaser"
+    },
+    {
+      "pisteNr": "73a",
+      "naam": "Hanglalm",
+      "kleur": "blauw",
+      "lengteM": 1830,
+      "tijd": 6,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [
+        "72"
+      ],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Bottom station Hanglalm",
+      "trajecten": [
+        {
+          "pisteNr": "73a",
+          "naam": "Hanglalm",
+          "kleur": "blauw",
+          "lengteM": 730,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "72",
+          "naam": "Hanglalm",
+          "kleur": "blauw",
+          "lengteM": 1100,
+          "tijd": 3
+        }
+      ]
+    },
+    {
+      "pisteNr": "74",
+      "naam": "Hartkaser mittel",
+      "kleur": "rood",
+      "lengteM": 1090,
+      "tijd": 4,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "G6"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Bottom station Hartkaser"
+    },
+    {
+      "pisteNr": "74a",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 1840,
+      "tijd": 6,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "F7",
+        "G7"
+      ],
+      "gaatOverIn": [
+        "75"
+      ],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Bottom station Zweitausender",
+      "trajecten": [
+        {
+          "pisteNr": "74a",
+          "naam": "Pass Thurn Direktabfahrt",
+          "kleur": "blauw",
+          "lengteM": 650,
+          "tijd": 2
+        },
+        {
+          "pisteNr": "75",
+          "naam": "Zweitausender",
+          "kleur": "rood",
+          "lengteM": 1190,
+          "tijd": 4
+        }
+      ]
+    },
+    {
+      "pisteNr": "75",
+      "naam": "Zweitausender",
+      "kleur": "rood",
+      "lengteM": 1640,
+      "tijd": 5,
+      "beginBovenBij": [
+        "G7"
+      ],
+      "bereikbareLiften": [
+        "F7",
+        "G7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Zweitausender",
+      "eindPlaats": "Bottom station Zweitausender"
+    },
+    {
+      "pisteNr": "75a",
+      "naam": "Zweitausender",
+      "kleur": "zwart",
+      "lengteM": 1900,
+      "tijd": 8,
+      "beginBovenBij": [
+        "G7"
+      ],
+      "bereikbareLiften": [
+        "F7",
+        "G7"
+      ],
+      "gaatOverIn": [
+        "75"
+      ],
+      "beginPlaats": "Zweitausender",
+      "eindPlaats": "Bottom station Zweitausender",
+      "trajecten": [
+        {
+          "pisteNr": "75a",
+          "naam": "Zweitausender",
+          "kleur": "zwart",
+          "lengteM": 1210,
+          "tijd": 5
+        },
+        {
+          "pisteNr": "75",
+          "naam": "Zweitausender",
+          "kleur": "rood",
+          "lengteM": 690,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 80,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 80,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 80,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 2880,
+      "tijd": 9,
+      "beginBovenBij": [
+        "G7"
+      ],
+      "bereikbareLiften": [
+        "G5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Zweitausender",
+      "eindPlaats": "Bottom station Hanglalm"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 3700,
+      "tijd": 11,
+      "beginBovenBij": [
+        "G5"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hanglhöhe",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 3700,
+      "tijd": 11,
+      "beginBovenBij": [
+        "G6"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hartkaser",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 3700,
+      "tijd": 11,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 5190,
+      "tijd": 16,
+      "beginBovenBij": [
+        "G1"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Resterhöhe",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "76",
+      "naam": "Pass Thurn Direktabfahrt",
+      "kleur": "blauw",
+      "lengteM": 6500,
+      "tijd": 20,
+      "beginBovenBij": [
+        "G7"
+      ],
+      "bereikbareLiften": [
+        "G1",
+        "OEF-3",
+        "OEF-4"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Zweitausender",
+      "eindPlaats": "Pass Thurn"
+    },
+    {
+      "pisteNr": "77",
+      "naam": "Breitmoos",
+      "kleur": "rood",
+      "lengteM": 2770,
+      "tijd": 9,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G9"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Top station Panoramabahn Kitzbüheler Alpen I"
+    },
+    {
+      "pisteNr": "90",
+      "naam": "Selboden",
+      "kleur": "zwart",
+      "lengteM": 1080,
+      "tijd": 4,
+      "beginBovenBij": [
+        "C1",
+        "C2"
+      ],
+      "bereikbareLiften": [
+        "B5",
+        "C1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Steinbergkogel",
+      "eindPlaats": "Bottom station Steinbergkogel"
+    },
+    {
+      "pisteNr": "Alpenhaus",
+      "naam": "Alpenhaus",
+      "kleur": "blauw",
+      "lengteM": 550,
+      "tijd": 2,
+      "beginBovenBij": [
+        "H2",
+        "H6"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hornköpfl (H6)",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "Gaisberg",
+      "naam": "Gaisberg",
+      "kleur": "rood",
+      "lengteM": 1510,
+      "tijd": 5,
+      "beginBovenBij": [
+        "E1"
+      ],
+      "bereikbareLiften": [
+        "E1"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Gaisberg",
+      "eindPlaats": "Kirchberg in Tirol – Gaisberg"
+    },
+    {
+      "pisteNr": "Ganslernhang",
+      "naam": "Ganslernhang",
+      "kleur": "rood",
+      "lengteM": 770,
+      "tijd": 3,
+      "beginBovenBij": [
+        "A5"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Ganslern",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "Ganslernhang",
+          "naam": "Ganslernhang",
+          "kleur": "rood",
+          "lengteM": 170,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 600,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "Hahnenkamm",
+      "naam": "Hahnenkamm",
+      "kleur": "blauw",
+      "lengteM": 110,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "Hieslegg",
+      "naam": "Hieslegg",
+      "kleur": "blauw",
+      "lengteM": 290,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D6",
+        "D8"
+      ],
+      "bereikbareLiften": [
+        "D7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hieslegg",
+      "eindPlaats": "Bottom station Usterkar"
+    },
+    {
+      "pisteNr": "Kaser-Nord",
+      "naam": "Kaser-Nord",
+      "kleur": "rood",
+      "lengteM": 3110,
+      "tijd": 10,
+      "beginBovenBij": [
+        "B2"
+      ],
+      "bereikbareLiften": [
+        "B2"
+      ],
+      "gaatOverIn": [
+        "40",
+        "26a"
+      ],
+      "beginPlaats": "Top station Maierlbahn",
+      "eindPlaats": "Kirchberg in Tirol – Maierlbahn",
+      "trajecten": [
+        {
+          "pisteNr": "Kaser-Nord",
+          "naam": "Kaser-Nord",
+          "kleur": "rood",
+          "lengteM": 30,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "40",
+          "naam": "Kaser-Nord",
+          "kleur": "rood",
+          "lengteM": 950,
+          "tijd": 3
+        },
+        {
+          "pisteNr": "26a",
+          "naam": "Kaser",
+          "kleur": "blauw",
+          "lengteM": 2130,
+          "tijd": 6
+        }
+      ]
+    },
+    {
+      "pisteNr": "Marchenwald",
+      "naam": "Marchenwald",
+      "kleur": "blauw",
+      "lengteM": 60,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A7"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Bottom station Märchenwald"
+    },
+    {
+      "pisteNr": "Mini Streif",
+      "naam": "Mini Streif",
+      "kleur": "blauw",
+      "lengteM": 50,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A4"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Mini Streif",
+      "eindPlaats": "Kitzbühel – Ganslern"
+    },
+    {
+      "pisteNr": "Pass Thurn",
+      "naam": "Pass Thurn",
+      "kleur": "blauw",
+      "lengteM": 250,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G2"
+      ],
+      "bereikbareLiften": [
+        "G2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Pass Thurn",
+      "eindPlaats": "Bottom station Pass Thurn"
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 330,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A3"
+      ],
+      "bereikbareLiften": [
+        "A2",
+        "A3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Rasmusleiten",
+      "eindPlaats": "Kitzbühel – Rasmusleiten"
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 460,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A5"
+      ],
+      "bereikbareLiften": [
+        "A2",
+        "A3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Ganslern",
+      "eindPlaats": "Kitzbühel – Rasmusleiten"
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 460,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A2",
+        "A3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Rasmusleiten"
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 460,
+      "tijd": 1,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A2",
+        "A3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Rasmusleiten"
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 670,
+      "tijd": 2,
+      "beginBovenBij": [
+        "A3"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Rasmusleiten",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "Rasmusleiten",
+          "naam": "Rasmusleiten",
+          "kleur": "blauw",
+          "lengteM": 150,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 790,
+      "tijd": 2,
+      "beginBovenBij": [
+        "A5"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Ganslern",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "Rasmusleiten",
+          "naam": "Rasmusleiten",
+          "kleur": "blauw",
+          "lengteM": 280,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 790,
+      "tijd": 2,
+      "beginBovenBij": [
+        "A1",
+        "A6",
+        "A7"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Top station Hahnenkammbahn",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "Rasmusleiten",
+          "naam": "Rasmusleiten",
+          "kleur": "blauw",
+          "lengteM": 280,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "Rasmusleiten",
+      "naam": "Rasmusleiten",
+      "kleur": "blauw",
+      "lengteM": 790,
+      "tijd": 2,
+      "beginBovenBij": [
+        "A8"
+      ],
+      "bereikbareLiften": [
+        "A4",
+        "A5"
+      ],
+      "gaatOverIn": [
+        "21"
+      ],
+      "beginPlaats": "Hahnenkamm",
+      "eindPlaats": "Kitzbühel – Ganslern",
+      "trajecten": [
+        {
+          "pisteNr": "Rasmusleiten",
+          "naam": "Rasmusleiten",
+          "kleur": "blauw",
+          "lengteM": 280,
+          "tijd": 1
+        },
+        {
+          "pisteNr": "21",
+          "naam": "Streif Familienabfahrt",
+          "kleur": "rood",
+          "lengteM": 520,
+          "tijd": 2
+        }
+      ]
+    },
+    {
+      "pisteNr": "Schatzer",
+      "naam": "Schatzer",
+      "kleur": "blauw",
+      "lengteM": 300,
+      "tijd": 1,
+      "beginBovenBij": [
+        "E2"
+      ],
+      "bereikbareLiften": [
+        "E2"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Schatzerlift",
+      "eindPlaats": "Kirchberg in Tirol – Schatzerlift"
+    },
+    {
+      "pisteNr": "Sun Kid Aschau",
+      "naam": "Sun Kid Aschau",
+      "kleur": "blauw",
+      "lengteM": 170,
+      "tijd": 1,
+      "beginBovenBij": [
+        "D10"
+      ],
+      "bereikbareLiften": [
+        "D10",
+        "D11"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Übungslift Aschau",
+      "eindPlaats": "Top station Sun Kid Aschau"
+    },
+    {
+      "pisteNr": "Sun Kid Resterhöhe",
+      "naam": "Sun Kid Resterhöhe",
+      "kleur": "blauw",
+      "lengteM": 50,
+      "tijd": 1,
+      "beginBovenBij": [
+        "G3",
+        "G4",
+        "G9"
+      ],
+      "bereikbareLiften": [
+        "G3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Resterhöhe",
+      "eindPlaats": "Bottom station Sun Kid"
+    },
+    {
+      "pisteNr": "Trattalm",
+      "naam": "Trattalm",
+      "kleur": "blauw",
+      "lengteM": 60,
+      "tijd": 1,
+      "beginBovenBij": [
+        "H10"
+      ],
+      "bereikbareLiften": [
+        "H6",
+        "H7",
+        "H8",
+        "H9",
+        "H10"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Trattalmulde",
+      "eindPlaats": "Bottom station Hornköpfl"
+    },
+    {
+      "pisteNr": "Übungswiese",
+      "naam": "Übungswiese",
+      "kleur": "blauw",
+      "lengteM": 520,
+      "tijd": 2,
+      "beginBovenBij": [
+        "E3"
+      ],
+      "bereikbareLiften": [
+        "E3"
+      ],
+      "gaatOverIn": [],
+      "beginPlaats": "Top station Übungslift Reith",
+      "eindPlaats": "Top station Sun Cord Reith"
+    }
+  ]
+}

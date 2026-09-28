@@ -1,0 +1,160 @@
+/* ── Admin page ───────────────────────────────────────────── */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--alpine);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+#status-card {
+  border-left: 4px solid var(--alpine);
+}
+
+#status-card.error {
+  border-left-color: var(--red);
+}
+
+#status-card.success {
+  border-left-color: var(--green);
+}
+
+#status-message {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+#status-message ul {
+  margin: 6px 0 0 18px;
+}
+
+.area-manage-item {
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.area-manage-item:last-child {
+  margin-bottom: 0;
+}
+
+.area-manage-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--midnight);
+}
+
+.area-manage-sub {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 1px;
+  margin-bottom: 10px;
+}
+
+.area-manage-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.area-manage-actions input[type="file"] {
+  font-size: 0.78rem;
+  max-width: 200px;
+}
+
+.btn-small {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--alpine);
+  background: #fff;
+  color: var(--alpine);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-small:hover {
+  background: var(--alpine);
+  color: #fff;
+}
+
+.btn-small.danger {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.btn-small.danger:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+.btn-small:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Form fields ──────────────────────────────────────────── */
+
+.field-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  margin: 14px 0 6px;
+}
+
+.field-label:first-child {
+  margin-top: 0;
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--ice);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  background: var(--snow);
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: var(--alpine);
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+}
+
+.field-row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.field-hint {
+  font-size: 0.72rem;
+  color: #999;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.field-hint code {
+  background: var(--ice);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.7rem;
+}

@@ -1,0 +1,4 @@
+node_modules/
+.env
+# Local Claude Code settings (contain machine-specific paths)
+.claude/

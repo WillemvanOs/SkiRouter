@@ -1,0 +1,43 @@
+# Publishes the route planner to GitHub Pages on every push to main.
+# Only the static planner is published (no server.js, admin page or node_modules):
+# the planner fetches data/areas.json and plans routes entirely in the browser.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect the static site
+        run: |
+          mkdir _site
+          cp index.html app.js styles.css sw.js manifest.webmanifest _site/
+          cp -r icons data _site/
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ski Route Planner</title>
+  <meta name="description" content="Plan your route between lifts and pistes — works offline on the mountain.">
+  <meta name="theme-color" content="#081629">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <!-- iPhone/iPad: "Add to Home Screen" opens full screen with this icon -->
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SkiRouter">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="snowfall" aria-hidden="true"></div>
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo">Ski<span>Route</span>r</div>
+      <button class="area-switch" id="area-switch-btn" onclick="showAreaPicker()" style="display:none">🏔 Change ski area</button>
+    </div>
+    <div class="tagline" id="header-tagline">Choose a ski area to get started</div>
+    <div class="stats" id="header-stats" style="display:none">
+      <div class="stat"><strong id="stat-km">—</strong> Pistes</div>
+      <div class="stat"><strong id="stat-liften">—</strong> Lifts</div>
+      <div class="stat"><strong id="stat-hoogte">—</strong> Altitude</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Area picker: shown first, hidden once a gebied is chosen -->
+  <div class="card" id="area-picker">
+    <div class="card-title">🏔 Choose a ski area</div>
+    <div class="area-list" id="area-list">
+      <div class="area-loading">Loading areas…</div>
+    </div>
+  </div>
+
+  <!-- Planner: hidden until an area is chosen -->
+  <div id="planner-cards" style="display:none">
+
+  <!-- Route planner card -->
+  <div class="card">
+    <div class="card-title">🗺 Plan your route</div>
+
+    <div class="route-inputs">
+
+      <!-- Starting point -->
+      <div>
+        <label class="sel-label">Starting point – lift station</label>
+        <div class="sel-box" id="from-box" onclick="openSheet('from')">
+          <span class="sel-box-text" id="from-text">Choose a lift station…</span>
+          <span class="sel-box-arrow">▾</span>
+        </div>
+        <div class="chosen" id="from-chosen" style="display:none" onclick="openSheet('from')">
+          <span class="chosen-icon" id="from-icon"></span>
+          <span class="chosen-nr" id="from-nr">—</span>
+          <span class="chosen-name" id="from-liftname">—</span>
+          <span class="chosen-side" id="from-side">—</span>
+          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('from')">✕</button>
+        </div>
+      </div>
+
+      <button class="swap-btn" onclick="swapSides()">⇅</button>
+
+      <!-- Destination -->
+      <div>
+        <label class="sel-label">Destination – lift station</label>
+        <div class="sel-box" id="to-box" onclick="openSheet('to')">
+          <span class="sel-box-text" id="to-text">Choose a lift station…</span>
+          <span class="sel-box-arrow">▾</span>
+        </div>
+        <div class="chosen" id="to-chosen" style="display:none" onclick="openSheet('to')">
+          <span class="chosen-icon" id="to-icon"></span>
+          <span class="chosen-nr" id="to-nr">—</span>
+          <span class="chosen-name" id="to-liftname">—</span>
+          <span class="chosen-side" id="to-side">—</span>
+          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('to')">✕</button>
+        </div>
+      </div>
+
+    </div><!-- /route-inputs -->
+
+    <!-- Station picker overlay + sheet -->
+    <div class="overlay" id="overlay" onclick="closeSheet()" style="display:none"></div>
+    <div class="sheet" id="sheet" style="display:none">
+      <div class="sheet-header">
+        <span class="sheet-title" id="sheet-title">Choose lift station</span>
+        <button class="sheet-close" onclick="closeSheet()">✕</button>
+      </div>
+      <input
+        class="sheet-search"
+        id="sheet-search"
+        type="text"
+        placeholder="Search lift or station…"
+        oninput="renderSheet()"
+        autocomplete="off"
+      >
+      <div class="sheet-list" id="sheet-list"></div>
+    </div>
+
+    <!-- Difficulty -->
+    <div class="card-title" style="margin-top:18px;">⛷ Difficulty</div>
+    <div class="diff-row">
+      <button class="diff-btn all on" id="d-all"   onclick="setDiff('all')">All</button>
+      <button class="diff-btn blue on" id="d-blauw" onclick="setDiff('blauw')">
+        <span class="dot" style="background:var(--blue)"></span>Blue
+      </button>
+      <button class="diff-btn red on"  id="d-rood"  onclick="setDiff('rood')">
+        <span class="dot" style="background:var(--red)"></span>Red
+      </button>
+      <button class="diff-btn black on" id="d-zwart" onclick="setDiff('zwart')">
+        <span class="dot" style="background:#333"></span>Black
+      </button>
+      <button class="diff-btn skiroute on" id="d-skiroute" onclick="setDiff('skiroute')">
+        <span class="dot" style="background:var(--skiroute)"></span>Ski route
+      </button>
+    </div>
+
+    <button class="plan-btn" onclick="planRoute()">CALCULATE ROUTE</button>
+    <div class="error-msg" id="err"></div>
+  </div><!-- /card -->
+
+  <!-- Route result card -->
+  <div class="card result" id="result">
+    <div class="result-header">
+      <div class="card-title" style="margin-bottom:0">📍 Your Route</div>
+      <div class="pills">
+        <span class="pill" id="p-steps">—</span>
+        <span class="pill" id="p-km">—</span>
+        <span class="pill" id="p-time">—</span>
+      </div>
+    </div>
+
+    <div class="steps" id="steps"></div>
+
+    <div class="tip" id="tip"></div>
+  </div>
+
+  </div><!-- /planner-cards -->
+
+  <!-- Only useful where server.js runs (locally); hidden on the published site -->
+  <a class="admin-link" id="admin-link" href="admin.html" hidden>⚙ Manage ski areas</a>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
