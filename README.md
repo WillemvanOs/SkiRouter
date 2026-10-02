@@ -35,6 +35,9 @@ Open it once with a connection; after that the planner and all ski areas work wi
 
 Ask Claude in a cloud session (for example "add Saalbach"). It generates the dataset
 from OpenStreetMap as `data/<id>.json` and registers it in `data/areas.json`.
+You can also upload a photo of the piste map: Claude converts it with the `skimap-reader`
+skill, which produces the same `data/<id>.json` format. The skill is also used for
+updates to a single zone.
 To remove an area, delete its file and its entry in `data/areas.json`.
 
 Each entry in `data/areas.json` points to its data file via `file`; the service worker
