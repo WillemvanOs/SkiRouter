@@ -232,6 +232,7 @@ function resetPlanner() {
   allowedDiff = new Set(DIFF_LEVELS);
   DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.add('on'));
   document.getElementById('d-all').classList.add('on');
+  resetDayPlan();
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
@@ -247,7 +248,7 @@ let allowedDiff = new Set(DIFF_LEVELS);
 function openSheet(side) {
   activeSide = side;
   document.getElementById('sheet-title').textContent =
-    side === 'from' ? 'Choose starting point' : 'Choose destination';
+    side === 'from' || side === 'dstart' ? 'Choose starting point' : 'Choose destination';
   document.getElementById('sheet-search').value = '';
   renderSheet();
   document.getElementById('overlay').style.display = 'block';
@@ -566,43 +567,11 @@ function renderRoute(result) {
   addWaypoint(stepsEl, selected.from.name, selected.from.alt, '📍', 'Start', 0);
 
   visibleSteps.forEach((edge, index) => {
-    const div  = document.createElement('div');
+    const div = stepElement(edge, index);
     div.style.animationDelay = `${(index + 1) * 50}ms`;
-
-    const toStation   = STATIONS[edge.to];
-    const facts = [edge.km ? `${edge.km} km` : '', edge.tijd ? `~${edge.tijd} min` : ''].filter(Boolean).join(' · ');
-
-    if (edge.type === 'piste') {
-      // Piste: the number sits inside a sign in the difficulty colour, like on the mountain.
-      const diff = edge.diff || 'rood';
-      const nr = String(edge.pisteNr || '');
-      const short = nr.length <= 4; // unnumbered runs use their name as pisteNr
-      div.className = `step step-piste piste-${diff}`;
-      div.innerHTML = `
-        <span class="step-number">${index + 1}</span>
-        <div class="piste-sign sign-${diff}${short ? '' : ' sign-noname'}" aria-label="Piste ${nr}"><span>${short ? nr : '⛷'}</span></div>
-        <div class="step-info">
-          <div class="step-kind kind-${diff}">${PISTE_KIND[diff] || 'Piste'}</div>
-          <div class="step-name">${edge.name}</div>
-          ${facts ? `<div class="step-sub">${facts}</div>` : ''}
-        </div>
-      `;
-    } else {
-      // Lift: its own tinted block, with the lift code large next to the pictogram.
-      const cls  = stepClass(edge);
-      const icon = STEP_ICONS[cls] || '🚡';
-      div.className = 'step step-lift';
-      div.innerHTML = `
-        <span class="step-number">${index + 1}</span>
-        <div class="step-icon ico-${cls}">${icon}</div>
-        <div class="step-info">
-          <div class="step-kind kind-lift">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
-          <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
-        </div>
-      `;
-    }
     stepsEl.appendChild(div);
 
+    const toStation = STATIONS[edge.to];
     const isLast = index === visibleSteps.length - 1;
     if (isLast && toStation) {
       addWaypoint(stepsEl, toStation.name, toStation.alt, '🏁', 'Destination reached!', (index + 1.5) * 50);
@@ -610,6 +579,46 @@ function renderRoute(result) {
   });
 
   document.getElementById('tip').innerHTML = getTip();
+}
+
+// One route step (a lift or a piste) as a DOM element. `clock` is an optional
+// "09:12"-style time shown in front of the step (used by the day planner).
+function stepElement(edge, index, clock) {
+  const div   = document.createElement('div');
+  const facts = [edge.km ? `${edge.km} km` : '', edge.tijd ? `~${edge.tijd} min` : ''].filter(Boolean).join(' · ');
+  const clockHtml = clock ? `<span class="step-clock">${clock}</span>` : '';
+
+  if (edge.type === 'piste') {
+    // Piste: the number sits inside a sign in the difficulty colour, like on the mountain.
+    const diff = edge.diff || 'rood';
+    const nr = String(edge.pisteNr || '');
+    const short = nr.length <= 4; // unnumbered runs use their name as pisteNr
+    div.className = `step step-piste piste-${diff}`;
+    div.innerHTML = `
+      <span class="step-number">${index + 1}</span>
+      <div class="piste-sign sign-${diff}${short ? '' : ' sign-noname'}" aria-label="Piste ${nr}"><span>${short ? nr : '⛷'}</span></div>
+      <div class="step-info">
+        <div class="step-kind kind-${diff}">${PISTE_KIND[diff] || 'Piste'}</div>
+        <div class="step-name">${edge.name}</div>
+        ${facts ? `<div class="step-sub">${facts}</div>` : ''}
+      </div>
+    `;
+  } else {
+    // Lift: its own tinted block, with the lift code large next to the pictogram.
+    const cls  = stepClass(edge);
+    const icon = STEP_ICONS[cls] || '🚡';
+    div.className = 'step step-lift';
+    div.innerHTML = `
+      <span class="step-number">${index + 1}</span>
+      <div class="step-icon ico-${cls}">${icon}</div>
+      <div class="step-info">
+        <div class="step-kind kind-lift">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
+        <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
+      </div>
+    `;
+  }
+  if (clockHtml) div.querySelector('.step-info').insertAdjacentHTML('afterbegin', clockHtml);
+  return div;
 }
 
 function addWaypoint(parent, name, alt, icon, subtitle, delay) {

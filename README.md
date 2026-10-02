@@ -19,7 +19,7 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 
 ## Published site (GitHub Pages)
 
-Only the planner files go online: `index.html`, `app.js`, `styles.css`, `sw.js`,
+Only the planner files go online: `index.html`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
 `manifest.webmanifest`, `icons/` and `data/`.
 
 Pages must be set to **Settings → Pages → Build and deployment → Source: GitHub Actions**.
@@ -45,6 +45,24 @@ pre-caches every file listed there. Phones pick up new data the next time they o
 the app with a connection.
 
 If you change the list of app files the planner needs offline, bump `CACHE_VERSION` in `sw.js`.
+
+## Day planner
+
+The **Day plan** tab plans a whole day: a start station and time, roughly how many
+kilometres, and when (and where) to be back. It tries many routes through the lift and
+piste network, prefers pistes not skied yet that day, and offers up to three options
+with a time for every step. Lifts with a gondola or cable car may also be ridden down to
+get home. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
+and piste times stretched for short stops. The code is in `dayplan.js`.
+
+## OpenStreetMap enrichment
+
+`tools/osm-enrich.mjs` adds restaurants and huts (linked to the nearest lift station or
+piste) and lift opening hours, where mapped, to every dataset in `data/areas.json`.
+It runs in GitHub Actions (`.github/workflows/osm-enrich.yml`) because cloud sessions
+cannot reach OpenStreetMap: start it from **Actions → Enrich ski areas from OSM → Run
+workflow**, or push a change to the script on a branch. The workflow commits the
+updated data back to that branch.
 
 ## Previewing a change
 

@@ -6543,5 +6543,1226 @@
       "beginPlaats": "Top station Übungslift Reith",
       "eindPlaats": "Top station Sun Cord Reith"
     }
+  ],
+  "restaurants": [
+    {
+      "id": "node/3452608574",
+      "naam": "'s Gasthäusl",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 227,
+      "lat": 47.44501,
+      "lon": 12.31439,
+      "website": "https://gasthaeusl.at/",
+      "telefoon": "+43 66 42 84 16 30"
+    },
+    {
+      "id": "node/662483755",
+      "naam": "Adlerhütte",
+      "soort": "hut",
+      "station": "H1-boven",
+      "afstandM": 170,
+      "lat": 47.46212,
+      "lon": 12.40839,
+      "hoogte": 1260
+    },
+    {
+      "id": "way/284391316",
+      "naam": "Alm Stüberl",
+      "soort": "hut",
+      "station": "G2-onder",
+      "afstandM": 111,
+      "lat": 47.30885,
+      "lon": 12.40786
+    },
+    {
+      "id": "node/5222987263",
+      "naam": "Almrauschbar",
+      "soort": "bar",
+      "piste": "26a",
+      "afstandM": 56,
+      "lat": 47.43892,
+      "lon": 12.31973,
+      "openingstijden": "Mo-Su 16:00-24:00",
+      "website": "https://www.almrauschbar.com/",
+      "telefoon": "+43535728420"
+    },
+    {
+      "id": "node/2528383339",
+      "naam": "Alpengasthaus Stanglalm",
+      "soort": "hut",
+      "piste": "6",
+      "afstandM": 46,
+      "lat": 47.48695,
+      "lon": 12.42105,
+      "website": "http://www.kitzalps.cc/de/info/stanglalm.html",
+      "telefoon": "+43 5352 64725"
+    },
+    {
+      "id": "way/228968955",
+      "naam": "Alpengasthof Melkalm",
+      "soort": "hut",
+      "piste": "19",
+      "afstandM": 41,
+      "lat": 47.41766,
+      "lon": 12.36735,
+      "openingstijden": "Fr-We 09:00-16:30",
+      "website": "http://www.gasthof-melkalm.at",
+      "telefoon": "+43 5356 62119"
+    },
+    {
+      "id": "way/142678288",
+      "naam": "Alpenhaus",
+      "soort": "restaurant",
+      "station": "H6-boven",
+      "afstandM": 43,
+      "lat": 47.46707,
+      "lon": 12.4291,
+      "website": "https://www.alpenhaus.at/"
+    },
+    {
+      "id": "way/225178708",
+      "naam": "Alpenland",
+      "soort": "restaurant",
+      "station": "F1a-onder",
+      "afstandM": 303,
+      "lat": 47.37505,
+      "lon": 12.41959,
+      "telefoon": "+43 5355 5166"
+    },
+    {
+      "id": "node/8780321354",
+      "naam": "Aurora",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 308,
+      "lat": 47.44712,
+      "lon": 12.31433,
+      "openingstijden": "Mo-Su,PH 12:00-14:00,17:30-22:00",
+      "website": "https://www.chinarestaurant-kirchberg.at/",
+      "telefoon": "+43 5357 35005"
+    },
+    {
+      "id": "node/6323731059",
+      "naam": "Bar Dreieck",
+      "soort": "bar",
+      "station": "E2-onder",
+      "afstandM": 219,
+      "lat": 47.4464,
+      "lon": 12.31369,
+      "openingstijden": "Mo-Su 13:00-21:00"
+    },
+    {
+      "id": "node/4716145835",
+      "naam": "Bärenbadalm",
+      "soort": "hut",
+      "station": "F5-boven",
+      "afstandM": 64,
+      "lat": 47.34025,
+      "lon": 12.38034,
+      "website": "https://www.baerenbadalm.at/category/news/"
+    },
+    {
+      "id": "way/122553500",
+      "naam": "Bechlwirt",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 319,
+      "lat": 47.44735,
+      "lon": 12.31419,
+      "openingstijden": "Mo-Su,PH 10:00-22:00",
+      "website": "https://www.hotel-bechlwirt.at/"
+    },
+    {
+      "id": "way/238039300",
+      "naam": "Berg-Gasthof Hagstein",
+      "soort": "restaurant",
+      "piste": "3",
+      "afstandM": 95,
+      "lat": 47.44941,
+      "lon": 12.41804
+    },
+    {
+      "id": "way/201339250",
+      "naam": "Berggasthaus Resterhöhe",
+      "soort": "hut",
+      "station": "G1-boven",
+      "afstandM": 260,
+      "lat": 47.31147,
+      "lon": 12.38878,
+      "website": "https://www.resterhoehe.at/",
+      "telefoon": "+4367761447766",
+      "hoogte": 1740
+    },
+    {
+      "id": "node/3921589433",
+      "naam": "Berggasthof Harschbichl",
+      "soort": "restaurant",
+      "station": "H2-boven",
+      "afstandM": 60,
+      "lat": 47.48414,
+      "lon": 12.4278,
+      "website": "https://www.harschbichlalm.at/"
+    },
+    {
+      "id": "way/228966866",
+      "naam": "Berghaus Tyrol",
+      "soort": "restaurant",
+      "station": "A8-boven",
+      "afstandM": 252,
+      "lat": 47.42249,
+      "lon": 12.36302
+    },
+    {
+      "id": "node/914328467",
+      "naam": "Berghotel Breitmoos",
+      "soort": "restaurant",
+      "station": "G8-boven",
+      "afstandM": 177,
+      "lat": 47.30101,
+      "lon": 12.40945,
+      "website": "https://www.breitmoos.at/",
+      "telefoon": "+43 6562 8378"
+    },
+    {
+      "id": "way/142766426",
+      "naam": "BichlAlm",
+      "soort": "hut",
+      "station": "H11-boven",
+      "afstandM": 47,
+      "lat": 47.44055,
+      "lon": 12.45128,
+      "website": "https://www.bichlalm.at/",
+      "telefoon": "+436645656 222"
+    },
+    {
+      "id": "way/154482880",
+      "naam": "Bruggeralm",
+      "soort": "hut",
+      "station": "F4-onder",
+      "afstandM": 257,
+      "lat": 47.35854,
+      "lon": 12.38989
+    },
+    {
+      "id": "node/2451423985",
+      "naam": "Cafe Lorenzoni",
+      "soort": "cafe",
+      "station": "E2-onder",
+      "afstandM": 349,
+      "lat": 47.44798,
+      "lon": 12.31356
+    },
+    {
+      "id": "node/9199270778",
+      "naam": "Cafe Phoenix am Hornplatzl",
+      "soort": "cafe",
+      "station": "H1-onder",
+      "afstandM": 18,
+      "lat": 47.45003,
+      "lon": 12.39477
+    },
+    {
+      "id": "way/228968733",
+      "naam": "Ehrenbachgraben",
+      "soort": "restaurant",
+      "station": "C1-onder",
+      "afstandM": 49,
+      "lat": 47.41348,
+      "lon": 12.36688
+    },
+    {
+      "id": "node/1080698829",
+      "naam": "Ehrenbachhöhe",
+      "soort": "restaurant",
+      "station": "B5-boven",
+      "afstandM": 95,
+      "lat": 47.41842,
+      "lon": 12.36054,
+      "website": "https://www.ehrenbachhoehe.at/",
+      "telefoon": "+43 5356 62151"
+    },
+    {
+      "id": "node/8855792839",
+      "naam": "Evi Cafe und Feines",
+      "soort": "cafe",
+      "station": "H1-onder",
+      "afstandM": 270,
+      "lat": 47.44899,
+      "lon": 12.39172
+    },
+    {
+      "id": "way/338114104",
+      "naam": "Fleckalm Schirmbar",
+      "soort": "hut",
+      "piste": "25",
+      "afstandM": 27,
+      "lat": 47.4329,
+      "lon": 12.34757
+    },
+    {
+      "id": "node/8853104124",
+      "naam": "Fünferl",
+      "soort": "pub",
+      "station": "A1-onder",
+      "afstandM": 316,
+      "lat": 47.44604,
+      "lon": 12.38999
+    },
+    {
+      "id": "node/3370870411",
+      "naam": "Gaisbergalm / Gaisbergstüberl",
+      "soort": "hut",
+      "station": "E1-boven",
+      "afstandM": 77,
+      "lat": 47.43438,
+      "lon": 12.30009,
+      "openingstijden": "Mo-Su,PH 09:00-17:00",
+      "website": "https://gaisbergalm.info/",
+      "telefoon": "+43 5357 35555"
+    },
+    {
+      "id": "way/228972276",
+      "naam": "Ganslernalm",
+      "soort": "hut",
+      "station": "A3-boven",
+      "afstandM": 228,
+      "lat": 47.44216,
+      "lon": 12.38042
+    },
+    {
+      "id": "node/4719354872",
+      "naam": "Gasthaus z'Röhrmoos",
+      "soort": "restaurant",
+      "station": "B2-onder",
+      "afstandM": 56,
+      "lat": 47.43866,
+      "lon": 12.32462,
+      "telefoon": "+43 5357 35743"
+    },
+    {
+      "id": "node/13709722974",
+      "naam": "Gasthof Fleckalm",
+      "soort": "hut",
+      "piste": "25a",
+      "afstandM": 18,
+      "lat": 47.43215,
+      "lon": 12.34844,
+      "openingstijden": "Mo-Su 10:00-22:00",
+      "website": "https://www.fleckalm.com/",
+      "telefoon": "+4353572078"
+    },
+    {
+      "id": "node/4820182781",
+      "naam": "Gasthof Skirast",
+      "soort": "restaurant",
+      "station": "D1-onder",
+      "afstandM": 240,
+      "lat": 47.41689,
+      "lon": 12.31221
+    },
+    {
+      "id": "way/108331476",
+      "naam": "Gauxerstadl",
+      "soort": "restaurant",
+      "piste": "31",
+      "afstandM": 52,
+      "lat": 47.40499,
+      "lon": 12.31768,
+      "website": "https://gauxerstadl.at/",
+      "telefoon": "+43 664 5225824"
+    },
+    {
+      "id": "way/478380477",
+      "naam": "Gauxjochhütte",
+      "soort": "restaurant",
+      "station": "F6-onder",
+      "afstandM": 39,
+      "lat": 47.33724,
+      "lon": 12.36276,
+      "openingstijden": "Winter: Mo-So 10:00-16:00",
+      "website": "http://www.gauxjochhuette.at/",
+      "telefoon": "+43 664 5257398"
+    },
+    {
+      "id": "node/8853104119",
+      "naam": "Glockenspiel",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 349,
+      "lat": 47.44623,
+      "lon": 12.39072
+    },
+    {
+      "id": "node/8678810527",
+      "naam": "Gredwirt",
+      "soort": "restaurant",
+      "station": "D10-onder",
+      "afstandM": 167,
+      "lat": 47.38242,
+      "lon": 12.31019,
+      "telefoon": "+43 5357 8193"
+    },
+    {
+      "id": "node/4305620197",
+      "naam": "Gschwantler Winebar",
+      "soort": "cafe",
+      "station": "E2-onder",
+      "afstandM": 264,
+      "lat": 47.44687,
+      "lon": 12.31387,
+      "openingstijden": "Mo-Sa 09:30-18:00"
+    },
+    {
+      "id": "node/8852133053",
+      "naam": "Hahnenkamm Pavillon",
+      "soort": "bar",
+      "station": "A1-onder",
+      "afstandM": 54,
+      "lat": 47.44357,
+      "lon": 12.38886
+    },
+    {
+      "id": "way/228966862",
+      "naam": "Hahnenkamm Stüberl",
+      "soort": "restaurant",
+      "station": "A8-boven",
+      "afstandM": 44,
+      "lat": 47.42357,
+      "lon": 12.3653
+    },
+    {
+      "id": "way/121762256",
+      "naam": "Hanglalm",
+      "soort": "hut",
+      "station": "G5-onder",
+      "afstandM": 281,
+      "lat": 47.32086,
+      "lon": 12.37577
+    },
+    {
+      "id": "node/11899140948",
+      "naam": "Hausleiten Stub'n",
+      "soort": "restaurant",
+      "station": "F2-onder",
+      "afstandM": 160,
+      "lat": 47.38207,
+      "lon": 12.41834
+    },
+    {
+      "id": "node/4305619894",
+      "naam": "Heidi & Peter",
+      "soort": "bar",
+      "station": "E2-onder",
+      "afstandM": 101,
+      "lat": 47.44585,
+      "lon": 12.31231
+    },
+    {
+      "id": "way/205502780",
+      "naam": "Hochbrunn",
+      "soort": "restaurant",
+      "station": "B6-boven",
+      "afstandM": 273,
+      "lat": 47.40557,
+      "lon": 12.358
+    },
+    {
+      "id": "way/228963415",
+      "naam": "Hocheckhütte",
+      "soort": "hut",
+      "station": "A1-boven",
+      "afstandM": 81,
+      "lat": 47.42754,
+      "lon": 12.37245,
+      "hoogte": 1640
+    },
+    {
+      "id": "node/967973340",
+      "naam": "Hochkitzbühel bei Tomschy",
+      "soort": "restaurant",
+      "station": "A1-boven",
+      "afstandM": 24,
+      "lat": 47.42662,
+      "lon": 12.37236
+    },
+    {
+      "id": "node/6283090874",
+      "naam": "Hochland Café Restaurant",
+      "soort": "restaurant",
+      "station": "D10-onder",
+      "afstandM": 255,
+      "lat": 47.38232,
+      "lon": 12.30719,
+      "website": "https://www.hochland.net",
+      "telefoon": "+43 5357 8183"
+    },
+    {
+      "id": "way/224870527",
+      "naam": "Hofstadl",
+      "soort": "bar",
+      "station": "F1a-onder",
+      "afstandM": 65,
+      "lat": 47.37816,
+      "lon": 12.41791
+    },
+    {
+      "id": "way/207157148",
+      "naam": "Hornköpflhütte",
+      "soort": "restaurant",
+      "station": "H7-boven",
+      "afstandM": 84,
+      "lat": 47.46689,
+      "lon": 12.434
+    },
+    {
+      "id": "node/4664842914",
+      "naam": "Hotel Kirchenwirt",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 336,
+      "lat": 47.44601,
+      "lon": 12.31569,
+      "openingstijden": "PH,Mo-Su 11:30-13:30,17:00-21:00",
+      "website": "https://www.kirchenwirt.co.at/"
+    },
+    {
+      "id": "way/305429693",
+      "naam": "Jägerwurzhütte",
+      "soort": "restaurant",
+      "piste": "66",
+      "afstandM": 21,
+      "lat": 47.36748,
+      "lon": 12.39241
+    },
+    {
+      "id": "node/276647635",
+      "naam": "Jimmy's",
+      "soort": "bar",
+      "station": "A1-onder",
+      "afstandM": 329,
+      "lat": 47.44609,
+      "lon": 12.39051,
+      "openingstijden": "Mo-Su 10:00-03:00",
+      "website": "https://jimmyskitz.at/",
+      "telefoon": "+43 664 1302528"
+    },
+    {
+      "id": "node/11634195734",
+      "naam": "KC750 - Kultur Cafe Kitzbühel",
+      "soort": "cafe",
+      "station": "A1-onder",
+      "afstandM": 290,
+      "lat": 47.44553,
+      "lon": 12.39117,
+      "website": "http://www.kc750.kitzbuehel.at"
+    },
+    {
+      "id": "way/306102306",
+      "naam": "Kitz Ski Bar & Lounge",
+      "soort": "bar",
+      "station": "D9-onder",
+      "afstandM": 74,
+      "lat": 47.38974,
+      "lon": 12.34761,
+      "openingstijden": "Mo-Su 09:00-16:00"
+    },
+    {
+      "id": "way/205594429",
+      "naam": "Kitzalm",
+      "soort": "hut",
+      "station": "D1-onder",
+      "afstandM": 100,
+      "lat": 47.41637,
+      "lon": 12.3162,
+      "openingstijden": "\"Kitzalm , im Sommer und Winter unterschiedlich.\""
+    },
+    {
+      "id": "way/118900241",
+      "naam": "Kitzbüheler Horn Gipfelhaus",
+      "soort": "restaurant",
+      "station": "H4-boven",
+      "afstandM": 36,
+      "lat": 47.47552,
+      "lon": 12.43015,
+      "openingstijden": "Mo-Su 08:30-17:00",
+      "website": "https://gipfelhaus.tirol/",
+      "telefoon": "+43535664773"
+    },
+    {
+      "id": "node/1937923864",
+      "naam": "Klausenfalle",
+      "soort": "bar",
+      "station": "B1-onder",
+      "afstandM": 232,
+      "lat": 47.45121,
+      "lon": 12.33791
+    },
+    {
+      "id": "node/9672654885",
+      "naam": "Kleiner Moment",
+      "soort": "cafe",
+      "station": "E2-onder",
+      "afstandM": 293,
+      "lat": 47.4473,
+      "lon": 12.31374
+    },
+    {
+      "id": "node/2175894214",
+      "naam": "Kortschak",
+      "soort": "cafe",
+      "station": "A1-onder",
+      "afstandM": 309,
+      "lat": 47.44581,
+      "lon": 12.39088,
+      "openingstijden": "Mo-Sa 09:00-18:00; Su 10:00-18:00"
+    },
+    {
+      "id": "node/8856125678",
+      "naam": "Krimbacher",
+      "soort": "restaurant",
+      "station": "F2-onder",
+      "afstandM": 272,
+      "lat": 47.38124,
+      "lon": 12.41918
+    },
+    {
+      "id": "node/8853084515",
+      "naam": "La Gondola",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 323,
+      "lat": 47.44585,
+      "lon": 12.3912
+    },
+    {
+      "id": "node/11518743793",
+      "naam": "LaMonte Bistro & Restaurant",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 54,
+      "lat": 47.44298,
+      "lon": 12.38875,
+      "website": "https://www.lamonte.at/de/bistro-kitzbuehel",
+      "telefoon": "+43 5356 20910"
+    },
+    {
+      "id": "node/8855792840",
+      "naam": "Lanna Thai Imbiss",
+      "soort": "restaurant",
+      "station": "H1-onder",
+      "afstandM": 241,
+      "lat": 47.44901,
+      "lon": 12.39215,
+      "openingstijden": "Mo-Fr 10:00-20:30; Su 16:00-20:30",
+      "website": "https://www.lanna.at",
+      "telefoon": "+436801205878"
+    },
+    {
+      "id": "node/13485446050",
+      "naam": "Legenden Cafe",
+      "soort": "cafe",
+      "station": "A1-onder",
+      "afstandM": 8,
+      "lat": 47.4433,
+      "lon": 12.38942
+    },
+    {
+      "id": "node/13361628489",
+      "naam": "LÖW's Deli",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 324,
+      "lat": 47.44592,
+      "lon": 12.39102,
+      "openingstijden": "Tu-Sa 09:00-00:00; Su-Mo 09:00-17:00",
+      "website": "https://löws-deli.at"
+    },
+    {
+      "id": "node/6940167825",
+      "naam": "Maierl",
+      "soort": "restaurant",
+      "piste": "35",
+      "afstandM": 44,
+      "lat": 47.42966,
+      "lon": 12.33284
+    },
+    {
+      "id": "node/1049053874",
+      "naam": "McDonald's",
+      "soort": "fast_food",
+      "station": "A1-onder",
+      "afstandM": 295,
+      "lat": 47.44588,
+      "lon": 12.3896,
+      "telefoon": "+43 5356 71430"
+    },
+    {
+      "id": "node/8852133055",
+      "naam": "Mocking",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 118,
+      "lat": 47.44282,
+      "lon": 12.38791,
+      "openingstijden": "Tu-Th 17:30-24:00, Fr,Sa,PH 12:00-24:00; Su,Mo off"
+    },
+    {
+      "id": "way/236657691",
+      "naam": "Mooralm",
+      "soort": "hut",
+      "station": "G8-boven",
+      "afstandM": 49,
+      "lat": 47.30007,
+      "lon": 12.40845,
+      "website": "https://www.mooralm.info/",
+      "telefoon": "+43 6562 20648"
+    },
+    {
+      "id": "way/207462228",
+      "naam": "Moseralm",
+      "soort": "hut",
+      "station": "G1-boven",
+      "afstandM": 151,
+      "lat": 47.31349,
+      "lon": 12.38802
+    },
+    {
+      "id": "way/142757417",
+      "naam": "Oberaigen",
+      "soort": "restaurant",
+      "piste": "50",
+      "afstandM": 68,
+      "lat": 47.43517,
+      "lon": 12.43695
+    },
+    {
+      "id": "node/1080698365",
+      "naam": "Obere Reintalalm",
+      "soort": "hut",
+      "piste": "4",
+      "afstandM": 68,
+      "lat": 47.47075,
+      "lon": 12.43903
+    },
+    {
+      "id": "way/255524510",
+      "naam": "Oberkaser Alm",
+      "soort": "hut",
+      "piste": "26a",
+      "afstandM": 15,
+      "lat": 47.42712,
+      "lon": 12.33591
+    },
+    {
+      "id": "way/100452081",
+      "naam": "Oberlandhütte",
+      "soort": "hut",
+      "station": "D10-onder",
+      "afstandM": 224,
+      "lat": 47.37962,
+      "lon": 12.30762,
+      "website": "https://www.davplus.de/oberlandhuette",
+      "telefoon": "+4353578113",
+      "hoogte": 1014
+    },
+    {
+      "id": "way/244712153",
+      "naam": "Ochsalm",
+      "soort": "hut",
+      "station": "B3-onder",
+      "afstandM": 55,
+      "lat": 47.41918,
+      "lon": 12.34259,
+      "website": "https://www.ochsalm.at/",
+      "telefoon": "+43 5357 2986"
+    },
+    {
+      "id": "way/1071822716",
+      "naam": "P3 Lounge",
+      "soort": "bar",
+      "station": "D2-boven",
+      "afstandM": 38,
+      "lat": 47.39023,
+      "lon": 12.34819
+    },
+    {
+      "id": "node/4082462301",
+      "naam": "Panoramaalm",
+      "soort": "hut",
+      "station": "G6-boven",
+      "afstandM": 193,
+      "lat": 47.31841,
+      "lon": 12.35723,
+      "website": "https://www.panoramaalm.net/"
+    },
+    {
+      "id": "way/207469203",
+      "naam": "Pengelstein",
+      "soort": "restaurant",
+      "station": "D2-boven",
+      "afstandM": 64,
+      "lat": 47.39004,
+      "lon": 12.34766,
+      "website": "http://www.bergbahn-kitzbuehel.at/de/restaurant-pengelstein.html"
+    },
+    {
+      "id": "node/4305620198",
+      "naam": "Peter's treff",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 158,
+      "lat": 47.44615,
+      "lon": 12.31294,
+      "openingstijden": "Mo-Su 10:00-24:00",
+      "website": "https://peterstreff21.wixsite.com/website",
+      "telefoon": "+43 650 3105 795"
+    },
+    {
+      "id": "node/5522846006",
+      "naam": "Pfeffermühle",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 220,
+      "lat": 47.44664,
+      "lon": 12.3134,
+      "openingstijden": "Mo-Su,PH 11:00-23:00",
+      "website": "https://www.pfeffermuehle-kirchberg.at/",
+      "telefoon": "+43 5357 2222"
+    },
+    {
+      "id": "way/123841316",
+      "naam": "Pinzgablick",
+      "soort": "restaurant",
+      "station": "G4-boven",
+      "afstandM": 47,
+      "lat": 47.30707,
+      "lon": 12.38213,
+      "website": "https://www.pinzgablick.at/",
+      "telefoon": "+436642513101"
+    },
+    {
+      "id": "node/4723272566",
+      "naam": "Pisten-Bistro Rohrerstadl",
+      "soort": "bar",
+      "piste": "31",
+      "afstandM": 76,
+      "lat": 47.41342,
+      "lon": 12.31849,
+      "website": "http://www.rohrerstadl.at/"
+    },
+    {
+      "id": "node/3739744539",
+      "naam": "Pizzaria sul Monte",
+      "soort": "restaurant",
+      "piste": "26a",
+      "afstandM": 37,
+      "lat": 47.43871,
+      "lon": 12.3201,
+      "openingstijden": "PH,Mo-Su 17:00-21:00",
+      "website": "http://www.pizzeria-sulmonte.com/",
+      "telefoon": "+4353572421"
+    },
+    {
+      "id": "node/4305631591",
+      "naam": "Pub 20erl",
+      "soort": "pub",
+      "station": "E2-onder",
+      "afstandM": 317,
+      "lat": 47.44744,
+      "lon": 12.31399
+    },
+    {
+      "id": "node/8852133052",
+      "naam": "Red Bull",
+      "soort": "restaurant",
+      "station": "A4-boven",
+      "afstandM": 65,
+      "lat": 47.44386,
+      "lon": 12.38474
+    },
+    {
+      "id": "way/106366018",
+      "naam": "Reither Streif",
+      "soort": "restaurant",
+      "station": "E3-onder",
+      "afstandM": 18,
+      "lat": 47.47562,
+      "lon": 12.33908
+    },
+    {
+      "id": "node/3328669409",
+      "naam": "Reitherwirt",
+      "soort": "restaurant",
+      "station": "E3-onder",
+      "afstandM": 266,
+      "lat": 47.47627,
+      "lon": 12.34224,
+      "website": "https://www.reitherwirt.at/",
+      "telefoon": "+43 5356 65418"
+    },
+    {
+      "id": "relation/8610117",
+      "naam": "Restaurant Krimbacher",
+      "soort": "restaurant",
+      "station": "F2-onder",
+      "afstandM": 272,
+      "lat": 47.38125,
+      "lon": 12.41922
+    },
+    {
+      "id": "node/914338917",
+      "naam": "Restaurant Panoramabahn",
+      "soort": "restaurant",
+      "station": "G8-onder",
+      "afstandM": 34,
+      "lat": 47.28069,
+      "lon": 12.40519,
+      "openingstijden": "\"Nur im Winter\"",
+      "website": "https://www.panoramabahn.at/de/restaurant-panoramabahn.html",
+      "telefoon": "+43 6562 7010-14"
+    },
+    {
+      "id": "node/1735138416",
+      "naam": "Rigoletto",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 259,
+      "lat": 47.44594,
+      "lon": 12.31466,
+      "openingstijden": "Mo-Su,PH 11:30-21:30"
+    },
+    {
+      "id": "node/1080698437",
+      "naam": "Rosi´s Sonnbergstuben",
+      "soort": "restaurant",
+      "piste": "50",
+      "afstandM": 41,
+      "lat": 47.43588,
+      "lon": 12.4352,
+      "openingstijden": "We-Su 10:00-23:00; Mo-Tu off",
+      "website": "https://www.sonnbergstuben.at/"
+    },
+    {
+      "id": "node/13709801265",
+      "naam": "Rösslwirt",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 255,
+      "lat": 47.44699,
+      "lon": 12.31351,
+      "website": "https://www.roesslwirt-kirchberg.at/restaurant/",
+      "telefoon": "+43 5357 2262"
+    },
+    {
+      "id": "node/5864232285",
+      "naam": "s'Amtl",
+      "soort": "restaurant",
+      "station": "F1a-onder",
+      "afstandM": 324,
+      "lat": 47.38049,
+      "lon": 12.41886
+    },
+    {
+      "id": "node/1947673967",
+      "naam": "S'Kitz",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 325,
+      "lat": 47.44514,
+      "lon": 12.39263
+    },
+    {
+      "id": "node/5416366079",
+      "naam": "s'Ochsal",
+      "soort": "cafe",
+      "station": "B3-onder",
+      "afstandM": 43,
+      "lat": 47.41851,
+      "lon": 12.34342
+    },
+    {
+      "id": "node/8208458017",
+      "naam": "Schatzer Alm",
+      "soort": "hut",
+      "station": "E2-onder",
+      "afstandM": 94,
+      "lat": 47.44536,
+      "lon": 12.31261
+    },
+    {
+      "id": "node/4670131497",
+      "naam": "Schi-Alm",
+      "soort": "hut",
+      "piste": "26a",
+      "afstandM": 17,
+      "lat": 47.4356,
+      "lon": 12.33252,
+      "website": "http://www.schi-alm.at/"
+    },
+    {
+      "id": "way/224871948",
+      "naam": "Schwarzer Adler",
+      "soort": "restaurant",
+      "station": "F1a-onder",
+      "afstandM": 257,
+      "lat": 47.37966,
+      "lon": 12.41974
+    },
+    {
+      "id": "node/4305633592",
+      "naam": "Seefeldstube",
+      "soort": "restaurant",
+      "station": "E2-onder",
+      "afstandM": 348,
+      "lat": 47.44738,
+      "lon": 12.30806
+    },
+    {
+      "id": "node/8780321352",
+      "naam": "Seehof",
+      "soort": "restaurant",
+      "piste": "25b",
+      "afstandM": 80,
+      "lat": 47.44638,
+      "lon": 12.3227,
+      "openingstijden": "Mo-Su,PH 10:00-22:00",
+      "website": "https://www.seehof.co.at",
+      "telefoon": "+43 5357 2228"
+    },
+    {
+      "id": "way/228971075",
+      "naam": "Seidlalm",
+      "soort": "hut",
+      "piste": "21",
+      "afstandM": 49,
+      "lat": 47.43788,
+      "lon": 12.37226
+    },
+    {
+      "id": "node/6320816467",
+      "naam": "Skihitt'n Usterwies",
+      "soort": "restaurant",
+      "station": "D2-onder",
+      "afstandM": 289,
+      "lat": 47.39747,
+      "lon": 12.3242,
+      "hoogte": 1400
+    },
+    {
+      "id": "node/4305620199",
+      "naam": "Snack Dreieck",
+      "soort": "fast_food",
+      "station": "E2-onder",
+      "afstandM": 207,
+      "lat": 47.44632,
+      "lon": 12.31359,
+      "openingstijden": "Mo-Su,PH 13:00-22:00"
+    },
+    {
+      "id": "way/207462963",
+      "naam": "Sonnalm",
+      "soort": "hut",
+      "station": "G6-onder",
+      "afstandM": 143,
+      "lat": 47.32341,
+      "lon": 12.37027,
+      "website": "https://www.sonnalm.net/"
+    },
+    {
+      "id": "way/228966858",
+      "naam": "Sonnenbühel",
+      "soort": "restaurant",
+      "station": "A8-boven",
+      "afstandM": 263,
+      "lat": 47.42145,
+      "lon": 12.36614,
+      "website": "https://www.sonnbuehel.at/",
+      "telefoon": "+43 5356 62776"
+    },
+    {
+      "id": "way/228961293",
+      "naam": "Sonnenrast (Berggasthof)",
+      "soort": "restaurant",
+      "station": "B3-boven",
+      "afstandM": 122,
+      "lat": 47.41745,
+      "lon": 12.35946
+    },
+    {
+      "id": "node/9035789941",
+      "naam": "Sonnleitstadl",
+      "soort": "pub",
+      "piste": "26a",
+      "afstandM": 20,
+      "lat": 47.43701,
+      "lon": 12.33207
+    },
+    {
+      "id": "node/2175893911",
+      "naam": "Sporthotel Reisch",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 301,
+      "lat": 47.44592,
+      "lon": 12.38978
+    },
+    {
+      "id": "node/3385875948",
+      "naam": "Stamperl",
+      "soort": "bar",
+      "station": "A1-onder",
+      "afstandM": 272,
+      "lat": 47.44568,
+      "lon": 12.38936
+    },
+    {
+      "id": "node/1938478192",
+      "naam": "Staudachstub'n",
+      "soort": "restaurant",
+      "piste": "25",
+      "afstandM": 52,
+      "lat": 47.44305,
+      "lon": 12.33609
+    },
+    {
+      "id": "node/4082635848",
+      "naam": "Steinbergkogel",
+      "soort": "restaurant",
+      "station": "C2-boven",
+      "afstandM": 44,
+      "lat": 47.4019,
+      "lon": 12.36701,
+      "website": "http://steinbergkogl-kitzbuehel.at/"
+    },
+    {
+      "id": "node/3385875946",
+      "naam": "Streifalm",
+      "soort": "hut",
+      "station": "A2-onder",
+      "afstandM": 103,
+      "lat": 47.44294,
+      "lon": 12.38767
+    },
+    {
+      "id": "way/229587195",
+      "naam": "Sunnseit",
+      "soort": "restaurant",
+      "station": "G8-boven",
+      "afstandM": 83,
+      "lat": 47.29916,
+      "lon": 12.40736,
+      "website": "https://www.sunnseit.at/",
+      "telefoon": "+436767773997"
+    },
+    {
+      "id": "node/11423375667",
+      "naam": "Take Five",
+      "soort": "bar",
+      "station": "A1-onder",
+      "afstandM": 334,
+      "lat": 47.44617,
+      "lon": 12.39029
+    },
+    {
+      "id": "node/4777573622",
+      "naam": "The Londoner",
+      "soort": "bar",
+      "station": "A1-onder",
+      "afstandM": 312,
+      "lat": 47.44603,
+      "lon": 12.38919,
+      "website": "http://londoner.at"
+    },
+    {
+      "id": "way/158756834",
+      "naam": "Toni Alm",
+      "soort": "hut",
+      "piste": "77",
+      "afstandM": 35,
+      "lat": 47.30384,
+      "lon": 12.40073,
+      "website": "https://www.toni-alm.at/",
+      "telefoon": "+43 6644340959"
+    },
+    {
+      "id": "node/4716136584",
+      "naam": "Trattenbachalm",
+      "soort": "hut",
+      "station": "F7-onder",
+      "afstandM": 303,
+      "lat": 47.33348,
+      "lon": 12.36039,
+      "website": "https://www.trattenbachalm.at/",
+      "telefoon": "+43 5355 5089",
+      "hoogte": 1636
+    },
+    {
+      "id": "node/5569263610",
+      "naam": "Vierlauchenhuette",
+      "soort": "hut",
+      "piste": "15",
+      "afstandM": 44,
+      "lat": 47.27297,
+      "lon": 12.30416,
+      "website": "https://www.vierlauchen.at/",
+      "telefoon": "+43 664 38 83 849"
+    },
+    {
+      "id": "node/11932514470",
+      "naam": "Vis-a-Vis",
+      "soort": "bar",
+      "station": "E2-onder",
+      "afstandM": 235,
+      "lat": 47.4466,
+      "lon": 12.31373
+    },
+    {
+      "id": "way/320001445",
+      "naam": "Wagstätt-Alm",
+      "soort": "hut",
+      "station": "F1a-boven",
+      "afstandM": 45,
+      "lat": 47.37445,
+      "lon": 12.40378,
+      "website": "https://www.wagstaett-alm.at/"
+    },
+    {
+      "id": "way/291080808",
+      "naam": "Wildkogel Alm",
+      "soort": "hut",
+      "piste": "2",
+      "afstandM": 23,
+      "lat": 47.28269,
+      "lon": 12.29261
+    },
+    {
+      "id": "way/173696060",
+      "naam": "Wirtshaus zum Rehkitz",
+      "soort": "restaurant",
+      "station": "H11-onder",
+      "afstandM": 295,
+      "lat": 47.43308,
+      "lon": 12.42267
+    },
+    {
+      "id": "node/9199244899",
+      "naam": "Woodys Stadelbar",
+      "soort": "bar",
+      "station": "H1-onder",
+      "afstandM": 282,
+      "lat": 47.4488,
+      "lon": 12.3917,
+      "openingstijden": "We-Mo,PH 18:00-23:00; Tu off"
+    },
+    {
+      "id": "node/8853084494",
+      "naam": "Zinnkrug",
+      "soort": "restaurant",
+      "station": "A1-onder",
+      "afstandM": 326,
+      "lat": 47.4449,
+      "lon": 12.39293
+    }
   ]
 }

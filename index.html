@@ -48,6 +48,31 @@
   <!-- Planner: hidden until an area is chosen -->
   <div id="planner-cards" style="display:none">
 
+  <div class="tabs" role="tablist">
+    <button class="tab-btn on" id="tabbtn-quick" role="tab" onclick="showTab('quick')">🗺 Quick route</button>
+    <button class="tab-btn" id="tabbtn-day" role="tab" onclick="showTab('day')">📅 Day plan</button>
+  </div>
+
+  <!-- Station picker overlay + sheet -->
+  <div class="overlay" id="overlay" onclick="closeSheet()" style="display:none"></div>
+  <div class="sheet" id="sheet" style="display:none">
+    <div class="sheet-header">
+      <span class="sheet-title" id="sheet-title">Choose lift station</span>
+      <button class="sheet-close" onclick="closeSheet()">✕</button>
+    </div>
+    <input
+      class="sheet-search"
+      id="sheet-search"
+      type="text"
+      placeholder="Search lift or station…"
+      oninput="renderSheet()"
+      autocomplete="off"
+    >
+    <div class="sheet-list" id="sheet-list"></div>
+  </div>
+
+  <div id="tab-quick">
+
   <!-- Route planner card -->
   <div class="card">
     <div class="card-title">🗺 Plan your route</div>
@@ -90,24 +115,6 @@
 
     </div><!-- /route-inputs -->
 
-    <!-- Station picker overlay + sheet -->
-    <div class="overlay" id="overlay" onclick="closeSheet()" style="display:none"></div>
-    <div class="sheet" id="sheet" style="display:none">
-      <div class="sheet-header">
-        <span class="sheet-title" id="sheet-title">Choose lift station</span>
-        <button class="sheet-close" onclick="closeSheet()">✕</button>
-      </div>
-      <input
-        class="sheet-search"
-        id="sheet-search"
-        type="text"
-        placeholder="Search lift or station…"
-        oninput="renderSheet()"
-        autocomplete="off"
-      >
-      <div class="sheet-list" id="sheet-list"></div>
-    </div>
-
     <!-- Difficulty -->
     <div class="card-title" style="margin-top:18px;">⛷ Difficulty</div>
     <div class="diff-row">
@@ -146,10 +153,115 @@
     <div class="tip" id="tip"></div>
   </div>
 
+  </div><!-- /tab-quick -->
+
+  <div id="tab-day" style="display:none">
+
+  <!-- Day planner card -->
+  <div class="card">
+    <div class="card-title">📅 Plan your day</div>
+
+    <div class="route-inputs">
+      <div>
+        <label class="sel-label">Start – lift station</label>
+        <div class="sel-box" id="dstart-box" onclick="openSheet('dstart')">
+          <span class="sel-box-text">Choose a lift station…</span>
+          <span class="sel-box-arrow">▾</span>
+        </div>
+        <div class="chosen" id="dstart-chosen" style="display:none" onclick="openSheet('dstart')">
+          <span class="chosen-icon" id="dstart-icon"></span>
+          <span class="chosen-nr" id="dstart-nr">—</span>
+          <span class="chosen-name" id="dstart-liftname">—</span>
+          <span class="chosen-side" id="dstart-side">—</span>
+          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dstart')">✕</button>
+        </div>
+      </div>
+
+      <div>
+        <label class="sel-label">End of the day – lift station</label>
+        <div class="sel-box" id="dend-box" onclick="openSheet('dend')">
+          <span class="sel-box-text">Same as start</span>
+          <span class="sel-box-arrow">▾</span>
+        </div>
+        <div class="chosen" id="dend-chosen" style="display:none" onclick="openSheet('dend')">
+          <span class="chosen-icon" id="dend-icon"></span>
+          <span class="chosen-nr" id="dend-nr">—</span>
+          <span class="chosen-name" id="dend-liftname">—</span>
+          <span class="chosen-side" id="dend-side">—</span>
+          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dend')">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-grid">
+      <label class="day-field">
+        <span class="sel-label">Start</span>
+        <input class="day-input" type="time" id="day-t0" value="09:00">
+      </label>
+      <label class="day-field">
+        <span class="sel-label">Back by</span>
+        <input class="day-input" type="time" id="day-t1" value="16:00">
+      </label>
+      <label class="day-field">
+        <span class="sel-label">About (km)</span>
+        <input class="day-input" type="number" id="day-km" min="1" max="100" step="1" value="25" inputmode="numeric">
+      </label>
+    </div>
+
+    <div class="card-title" style="margin-top:18px;">🏂 Pace</div>
+    <div class="pace-row">
+      <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
+      <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
+      <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
+    </div>
+
+    <div class="card-title" style="margin-top:18px;">⛷ Difficulty</div>
+    <div class="diff-row">
+      <button class="diff-btn all on" id="dd-all" onclick="setDayDiff('all')">All</button>
+      <button class="diff-btn blue on" id="dd-blauw" onclick="setDayDiff('blauw')">
+        <span class="dot" style="background:var(--blue)"></span>Blue
+      </button>
+      <button class="diff-btn red on" id="dd-rood" onclick="setDayDiff('rood')">
+        <span class="dot" style="background:var(--red)"></span>Red
+      </button>
+      <button class="diff-btn black on" id="dd-zwart" onclick="setDayDiff('zwart')">
+        <span class="dot" style="background:#333"></span>Black
+      </button>
+      <button class="diff-btn skiroute on" id="dd-skiroute" onclick="setDayDiff('skiroute')">
+        <span class="dot" style="background:var(--skiroute)"></span>Ski route
+      </button>
+    </div>
+
+    <button class="plan-btn" onclick="planDay()">PLAN MY DAY</button>
+    <div class="error-msg" id="day-err"></div>
+  </div><!-- /card -->
+
+  <!-- Day plan result card -->
+  <div class="card result" id="day-result">
+    <div class="result-header">
+      <div class="card-title" style="margin-bottom:0">📅 Your Day</div>
+      <div class="pills">
+        <span class="pill" id="dp-km">—</span>
+        <span class="pill" id="dp-pistes">—</span>
+        <span class="pill" id="dp-lifts">—</span>
+        <span class="pill" id="dp-end">—</span>
+      </div>
+    </div>
+
+    <div class="day-options" id="day-options"></div>
+    <div class="day-notes" id="day-notes"></div>
+    <div class="steps" id="day-steps"></div>
+
+    <div class="tip" id="day-tip"></div>
+  </div>
+
+  </div><!-- /tab-day -->
+
   </div><!-- /planner-cards -->
 
 </main>
 
+<script src="dayplan.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
