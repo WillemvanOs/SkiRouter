@@ -55,6 +55,12 @@ with a time for every step. Lifts with a gondola or cable car may also be ridden
 get home. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
 and piste times stretched for short stops. The code is in `dayplan.js`.
 
+With **Lunch** switched on, the day becomes start → restaurant (around the chosen time) →
+end. The planner tries every restaurant on the mountain that fits, or only the one picked
+under *Where*, and says which one lies right on the route. It also lists other huts you pass
+around lunchtime. Restaurants come from the OpenStreetMap enrichment below; places in the
+villages are left out, as are places whose mapped opening hours do not cover your arrival.
+
 ## OpenStreetMap enrichment
 
 `tools/osm-enrich.mjs` adds restaurants and huts (linked to the nearest lift station or

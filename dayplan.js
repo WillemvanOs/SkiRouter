@@ -11,6 +11,10 @@
 // Once the distance target is (nearly) met, the walk takes the quickest way
 // back. The best few distinct walks are offered as options.
 //
+// With a lunch break the day is two such walks: start → restaurant, arriving
+// around lunchtime, then restaurant → end. Every restaurant on the mountain
+// that fits is tried (or only the one picked), and the best days win.
+//
 // Times are a guideline: lift ride + a pace-dependent wait, piste time scaled
 // by pace. Seeded randomness keeps the same inputs giving the same plan.
 
@@ -30,6 +34,11 @@ const DAY_PRACTICE_MIN  = 1;   // magic carpets: no queue to speak of
 const DAY_RUNS          = 400; // randomised walks per plan
 const DAY_LATE_SLACK    = 10;  // minutes past "back by" a walk may plan for
 const DAY_MAX_OPTIONS   = 3;
+const DAY_LUNCH_RUNS    = 30;  // morning walks per restaurant
+const DAY_LUNCH_PM_RUNS = 15;  // afternoon walks per kept morning
+const DAY_LUNCH_FIT_MIN = 15;  // arriving this close to lunchtime is "perfect"
+const DAY_ALONG_WINDOW  = 60;  // "also on your route" around lunchtime, ± minutes
+const DAY_MOUNTAIN_ELE  = 1100; // a restaurant this high is on the mountain
 const DAY_DIFF_LEVELS   = ['blauw', 'rood', 'zwart', 'skiroute'];
 
 let dayDiff    = new Set(DAY_DIFF_LEVELS);
@@ -68,6 +77,12 @@ function resetDayPlan() {
   restoreDayStation('dstart', saved.start);
   restoreDayStation('dend', saved.end);
 
+  document.getElementById('day-lunch').checked       = saved.lunch !== false;
+  document.getElementById('day-lunch-t').value       = saved.lunchT || '13:00';
+  document.getElementById('day-lunch-min').value     = saved.lunchMin || 60;
+  renderLunchChoices(saved.lunchAt);
+  toggleLunch();
+
   let tab = 'quick';
   try { tab = localStorage.getItem(DAY_TAB_KEY) || 'quick'; } catch {}
   showTab(tab === 'day' ? 'day' : 'quick');
@@ -81,6 +96,22 @@ function restoreDayStation(side, stationId) {
   activeSide = side;
   pickStation(stationId, lift, lift.dal === stationId ? 'dal' : 'berg');
   activeSide = previous;
+}
+
+function toggleLunch() {
+  document.getElementById('lunch-fields').style.display = document.getElementById('day-lunch').checked ? 'grid' : 'none';
+}
+
+function renderLunchChoices(selectedId) {
+  const select = document.getElementById('day-lunch-at');
+  select.innerHTML = '<option value="">Best fit on my route</option>';
+  mountainRestaurants().forEach(r => {
+    const option = document.createElement('option');
+    option.value = r.id;
+    option.textContent = `${r.naam} · ${restaurantWhere(r)}`;
+    select.appendChild(option);
+  });
+  select.value = mountainRestaurants().some(r => r.id === selectedId) ? selectedId : '';
 }
 
 function setDayPace(pace) {
@@ -126,13 +157,42 @@ function formatClock(minutes) {
   return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
 
-// A lift's daily operating window from an OSM opening_hours value, when it
-// has a plain "HH:MM-HH:MM" range (the last one wins). Null when unknown.
+// Every plain "HH:MM-HH:MM" range in an OSM opening_hours value, in minutes.
+// Days of the week and seasons are ignored: this is a guideline.
+function clockRanges(openingstijden) {
+  return [...(openingstijden || '').matchAll(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/g)]
+    .map(r => [+r[1] * 60 + +r[2], +r[3] * 60 + +r[4]]);
+}
+
+// A lift's daily operating window (the last range wins). Null when unknown.
 function liftWindow(openingstijden) {
-  const ranges = [...(openingstijden || '').matchAll(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/g)];
-  if (!ranges.length) return null;
-  const r = ranges[ranges.length - 1];
-  return [+r[1] * 60 + +r[2], +r[3] * 60 + +r[4]];
+  const ranges = clockRanges(openingstijden);
+  return ranges.length ? ranges[ranges.length - 1] : null;
+}
+
+// Open at minute `t`, or no usable hours mapped (then assume open).
+function openAt(openingstijden, t) {
+  const ranges = clockRanges(openingstijden);
+  return !ranges.length || ranges.some(([from, to]) => t >= from && t <= to);
+}
+
+// ── Restaurants ──────────────────────────────────────────────────────────────
+
+// Restaurants you can ski to: at a top station, on a piste, a hut, or high
+// enough up. Leaves out the cafés and bars down in the villages.
+function mountainRestaurants() {
+  return (currentArea?.restaurants || []).filter(r => {
+    if (r.station && !STATIONS[r.station]) return false;
+    if (r.piste) return true;
+    return r.station?.endsWith('-boven') || r.soort === 'hut' || (r.hoogte || 0) >= DAY_MOUNTAIN_ELE;
+  });
+}
+
+function restaurantWhere(r) {
+  if (r.piste) return `on piste ${r.piste}`;
+  const lift = LIFTS.find(l => l.dal === r.station || l.berg === r.station);
+  if (!lift) return STATIONS[r.station]?.name || '';
+  return `${lift.berg === r.station ? 'top' : 'bottom'} of ${lift.nr} ${lift.name}`;
 }
 
 // ── Cost model ───────────────────────────────────────────────────────────────
@@ -253,10 +313,12 @@ function liftOpenAt(edge, t, ctx) {
   return !hours || (t >= hours[0] && t <= hours[1]);
 }
 
-function dayWalk(ctx, random) {
+// One walk from ctx.startId to ctx.endId. `initialUsage` carries the pistes
+// already skied earlier that day (the morning, for an afternoon walk).
+function dayWalk(ctx, random, initialUsage) {
   const { startId, endId, t0, t1, targetKm, pace, home } = ctx;
   const steps = [];
-  const usage = new Map();
+  const usage = new Map(initialUsage || []);
   let node = startId, t = t0, km = 0, prevEdge = null;
 
   function take(edge) {
@@ -271,7 +333,10 @@ function dayWalk(ctx, random) {
   }
 
   for (let guard = 0; guard < 400; guard++) {
-    if (km + (home.homeKm[node] || 0) >= targetKm * 0.97) break;
+    // `fillUntil`: keep skiing past the distance target until about then
+    // (a morning that should reach the restaurant around lunchtime).
+    const kmDone = km + (home.homeKm[node] || 0) >= targetKm * 0.97;
+    if (kmDone && !(ctx.fillUntil && t + (home.dist[node] || 0) < ctx.fillUntil)) break;
 
     const candidates = [];
     (dayGraph[node] || []).forEach(edge => {
@@ -306,16 +371,18 @@ function dayWalk(ctx, random) {
   return { steps, km, end: t, usage };
 }
 
-function scoreDay(walk, ctx) {
-  const kmError = Math.abs(walk.km - ctx.targetKm) / ctx.targetKm;
+// The variety part of a day's score: unique pistes up, many repeats and
+// magic carpets down.
+function varietyScore(walk) {
   let repeats = 0;
   walk.usage.forEach(count => { repeats += Math.max(0, count - 2); });
-  const practiceLifts = walk.steps.filter(s => s.edge.echteLift === false && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
-  return -120 * kmError
-    - 4 * Math.max(0, walk.end - ctx.t1)
-    + 0.8 * walk.usage.size
-    - 3 * repeats
-    - 2 * practiceLifts;
+  const practiceLifts = walk.steps.filter(s => s.edge && s.edge.echteLift === false && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
+  return 0.8 * walk.usage.size - 3 * repeats - 2 * practiceLifts;
+}
+
+function scoreDay(walk, ctx) {
+  const kmError = Math.abs(walk.km - ctx.targetKm) / ctx.targetKm;
+  return -120 * kmError - 4 * Math.max(0, walk.end - ctx.t1) + varietyScore(walk);
 }
 
 function overlap(a, b) {
@@ -326,7 +393,132 @@ function overlap(a, b) {
   return shared / Math.max(1, Math.min(keysA.size, keysB.size));
 }
 
+// Top `count` walks that differ enough from each other.
+function distinctBest(walks, count, isDistinct) {
+  const sorted = [...walks].sort((a, b) => b.score - a.score);
+  const picked = [];
+  for (const walk of sorted) {
+    if (picked.every(p => isDistinct(p, walk))) picked.push(walk);
+    if (picked.length === count) break;
+  }
+  return picked;
+}
+
+// ── Lunch ────────────────────────────────────────────────────────────────────
+
+// Where a day can stop for lunch. Restaurants at the same station (or on
+// the same piste edge) share one stop, so their walks are computed once.
+// A station restaurant is a graph node; one on a piste is reached by skiing
+// that piste, so the stop sits halfway down one of its edges.
+function lunchStops(restaurants) {
+  const stops = new Map();
+  const add = (key, node, piste, r) => {
+    if (!stops.has(key)) stops.set(key, { key, node, piste, restaurants: [] });
+    stops.get(key).restaurants.push(r);
+  };
+  const pisteEdges = Object.values(dayGraph).flat().filter(e => e.type === 'piste' && dayAllowed(e));
+  restaurants.forEach(r => {
+    if (r.station) { add(r.station, r.station, null, r); return; }
+    const seen = new Set();
+    pisteEdges.forEach(edge => {
+      const nrs = edge.trajecten ? edge.trajecten.map(t => t.pisteNr) : [edge.pisteNr];
+      if (!nrs.includes(r.piste) || seen.has(edge.from)) return;
+      seen.add(edge.from);
+      add(`${edge.from}>${edge.to}|${r.piste}`, edge.from, edge, r);
+    });
+  });
+  return [...stops.values()];
+}
+
+// Best few full days (morning + lunch + afternoon) through one lunch stop,
+// one per restaurant there that is open when you arrive.
+function daysVia(stop, ctx, random) {
+  const { pace, lunchT, lunchMin, t0, t1 } = ctx;
+  const morningHome = costsToEnd(stop.node, pace);
+  if (morningHome.dist[ctx.startId] == null) return [];
+
+  const pisteMin = stop.piste ? dayCost(stop.piste, pace) : 0;
+  const afterStart = stop.piste ? stop.piste.to : stop.node;
+  if (ctx.home.dist[afterStart] == null) return [];
+
+  // Split the distance by skiing time before and after lunch.
+  const amMin = Math.max(0, lunchT - t0);
+  const pmMin = Math.max(0, t1 - lunchT - lunchMin);
+  const amKm  = ctx.targetKm * amMin / Math.max(1, amMin + pmMin);
+
+  const amEnd = lunchT - pisteMin / 2;
+  if (t0 + morningHome.dist[ctx.startId] > amEnd + 45) return [];
+  const amCtx     = { ...ctx, endId: stop.node, t1: amEnd, targetKm: Math.max(0.1, amKm), home: morningHome };
+  const amFillCtx = { ...amCtx, fillUntil: amEnd - DAY_LUNCH_FIT_MIN };
+  const lunchPenalty = arrive => 0.5 * Math.max(0, Math.abs(arrive - lunchT) - DAY_LUNCH_FIT_MIN);
+
+  // Half the mornings stop at their share of the distance, half keep skiing
+  // until lunchtime; the score decides which matters more for this day.
+  const mornings = [];
+  for (let i = 0; i < DAY_LUNCH_RUNS; i++) {
+    const walk = dayWalk(i % 2 ? amFillCtx : amCtx, random);
+    if (!walk) continue;
+    walk.fills = i % 2 === 1;
+    const arrive = walk.end + pisteMin / 2;
+    if (!stop.restaurants.some(r => openAt(r.openingstijden, arrive))) continue;
+    walk.score = scoreDay(walk, amCtx) - lunchPenalty(arrive);
+    mornings.push(walk);
+  }
+
+  const days = [];
+  // The best morning of each kind goes on to the afternoon.
+  [false, true].flatMap(fills => distinctBest(mornings.filter(m => m.fills === fills), 1, () => true)).forEach(morning => {
+    const arrive = morning.end + pisteMin / 2;
+    const leave  = arrive + lunchMin;
+    const usage  = new Map(morning.usage);
+    let km = morning.km;
+    const pisteStep = [];
+    if (stop.piste) {
+      pisteStep.push({ edge: stop.piste, t: morning.end });
+      usage.set(pisteKey(stop.piste), (usage.get(pisteKey(stop.piste)) || 0) + 1);
+      km += stop.piste.km || 0;
+    }
+
+    const pmCtx = { ...ctx, startId: afterStart, t0: leave + pisteMin / 2, targetKm: Math.max(0.1, ctx.targetKm - km) };
+    let best = null;
+    for (let i = 0; i < DAY_LUNCH_PM_RUNS; i++) {
+      const afternoon = dayWalk(pmCtx, random, usage);
+      if (!afternoon) continue;
+      const day = { steps: afternoon.steps, km: km + afternoon.km, end: afternoon.end, usage: afternoon.usage };
+      day.score = scoreDay({ ...day, steps: [...morning.steps, ...afternoon.steps] }, ctx) - lunchPenalty(arrive);
+      if (!best || day.score > best.score) best = day;
+    }
+    if (!best) return;
+
+    stop.restaurants.filter(r => openAt(r.openingstijden, arrive)).forEach(r => {
+      days.push({
+        steps: [...morning.steps, ...pisteStep, { lunch: r, t: arrive, until: leave, onPiste: !!stop.piste }, ...best.steps],
+        km: best.km,
+        end: best.end,
+        usage: best.usage,
+        lunch: { restaurant: r, arrive, leave, stop: stop.key },
+        score: best.score + (r.soort === 'hut' ? 1 : 0),
+      });
+    });
+  });
+  return days;
+}
+
 // ── Planning ─────────────────────────────────────────────────────────────────
+
+// The planning button shows it is working, then planning runs on the next
+// frame so that state is painted first (a lunch day can take a moment).
+function planDayClicked(button) {
+  button.disabled = true;
+  const label = button.textContent;
+  button.textContent = 'PLANNING…';
+  setTimeout(() => {
+    try { planDay(); } finally {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  }, 30);
+}
 
 function planDay() {
   const errorEl  = document.getElementById('day-err');
@@ -343,17 +535,25 @@ function planDay() {
   const t0 = parseClock(document.getElementById('day-t0').value);
   const t1 = parseClock(document.getElementById('day-t1').value);
   const targetKm = parseFloat(document.getElementById('day-km').value);
+  const withLunch = document.getElementById('day-lunch').checked;
+  const lunchT   = parseClock(document.getElementById('day-lunch-t').value);
+  const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
+  const lunchAt  = document.getElementById('day-lunch-at').value;
 
   if (!start)                       return fail('Choose where your day starts.');
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
   if (t1 - t0 < 30)                 return fail('"Back by" must be at least half an hour after the start.');
   if (!(targetKm > 0))              return fail('Enter how many kilometres you want to ski.');
   if (!dayDiff.size)                return fail('Select at least one piste difficulty.');
+  if (withLunch && (lunchT == null || lunchT <= t0 || lunchT + lunchMin >= t1)) {
+    return fail('Lunch has to fit between the start and the time to be back.');
+  }
 
   saveDayInputs({
     start: start.id, end: selected.dend?.id || null,
     t0: document.getElementById('day-t0').value, t1: document.getElementById('day-t1').value,
     km: targetKm, pace: dayPace, diff: [...dayDiff],
+    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt,
   });
 
   const pace = DAY_PACES[dayPace];
@@ -368,21 +568,38 @@ function planDay() {
     if (w) liftWindows[l.liftNr] = w;
   });
 
-  dayCtx = { startId: start.id, endId: end.id, t0, t1, targetKm, pace, home, liftWindows };
-  const random = seededRandom(hashString(JSON.stringify([start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort()])));
+  dayCtx = { startId: start.id, endId: end.id, t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
+  const random = seededRandom(hashString(JSON.stringify([
+    start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
+  ])));
 
-  const walks = [];
-  for (let i = 0; i < DAY_RUNS; i++) {
-    const walk = dayWalk(dayCtx, random);
-    if (walk) walks.push({ ...walk, score: scoreDay(walk, dayCtx) });
-  }
-  if (!walks.some(w => w.km > 0)) return fail('No day plan found. Try a longer time window, another end station or more difficulties.');
-
-  walks.sort((a, b) => b.score - a.score);
-  dayOptions = [];
-  for (const walk of walks) {
-    if (dayOptions.every(o => overlap(o, walk) < 0.6)) dayOptions.push(walk);
-    if (dayOptions.length === DAY_MAX_OPTIONS) break;
+  if (withLunch) {
+    const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
+    const stops = lunchStops(restaurants);
+    const days = stops.flatMap(stop => daysVia(stop, dayCtx, random));
+    if (!days.length) {
+      if (lunchAt && !stops.some(stop => costsToEnd(stop.node, pace).dist[start.id] != null && home.dist[stop.piste ? stop.piste.to : stop.node] != null)) {
+        return fail('That restaurant cannot be reached from your start (and back) with these difficulties. Pick another one or "Best fit".');
+      }
+      return fail(lunchAt
+        ? 'That restaurant does not fit in this day around that lunch time. Try another time, another restaurant or "Best fit".'
+        : 'No restaurant fits this day. Try a different lunch time or more difficulties.');
+    }
+    // Different lunch stops first, so the options are real alternatives.
+    dayOptions = distinctBest(days, DAY_MAX_OPTIONS, (a, b) => a.lunch.stop !== b.lunch.stop && a.lunch.restaurant.id !== b.lunch.restaurant.id);
+    if (dayOptions.length < DAY_MAX_OPTIONS) {
+      distinctBest(days, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < 0.6).forEach(d => {
+        if (dayOptions.length < DAY_MAX_OPTIONS && !dayOptions.includes(d) && dayOptions.every(o => overlap(o, d) < 0.6)) dayOptions.push(d);
+      });
+    }
+  } else {
+    const walks = [];
+    for (let i = 0; i < DAY_RUNS; i++) {
+      const walk = dayWalk(dayCtx, random);
+      if (walk) walks.push({ ...walk, score: scoreDay(walk, dayCtx) });
+    }
+    if (!walks.some(w => w.km > 0)) return fail('No day plan found. Try a longer time window, another end station or more difficulties.');
+    dayOptions = distinctBest(walks, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < 0.6);
   }
 
   renderDayOption(0);
@@ -392,24 +609,74 @@ function planDay() {
 
 // ── Rendering ────────────────────────────────────────────────────────────────
 
+// Mountain restaurants this day passes, with the time you are there.
+function restaurantsAlong(walk) {
+  const byStation = new Map();
+  const byPiste   = new Map();
+  mountainRestaurants().forEach(r => {
+    const map = r.station ? byStation : byPiste;
+    const key = r.station || r.piste;
+    (map.get(key) || map.set(key, []).get(key)).push(r);
+  });
+
+  const passed = new Map();
+  const note = (r, t) => { if (!passed.has(r.id)) passed.set(r.id, { restaurant: r, t }); };
+  walk.steps.forEach(step => {
+    if (!step.edge) return;
+    (byStation.get(step.edge.from) || []).forEach(r => note(r, step.t));
+    if (step.edge.type === 'piste') {
+      const nrs = step.edge.trajecten ? step.edge.trajecten.map(t => t.pisteNr) : [step.edge.pisteNr];
+      nrs.forEach(nr => (byPiste.get(nr) || []).forEach(r => note(r, step.t)));
+    }
+  });
+  return [...passed.values()];
+}
+
 function dayNotes(walk, ctx) {
   const notes = [];
   const kmShort = ctx.targetKm - walk.km;
   if (kmShort > ctx.targetKm * 0.1) {
     notes.push(`⏱ About ${walk.km.toFixed(0)} km fits between ${formatClock(ctx.t0)} and ${formatClock(ctx.t1)} at this pace — start earlier, stay later or pick a faster pace for more.`);
   }
+
+  if (walk.lunch) {
+    const { restaurant, arrive } = walk.lunch;
+    const off = Math.round(arrive - ctx.lunchT);
+    if (Math.abs(off) <= DAY_LUNCH_FIT_MIN) {
+      notes.push(`🍽 <strong>${restaurant.naam}</strong> is right on this route: you get there around ${formatClock(arrive)}.`);
+    } else if (off < 0 && walk.km >= ctx.targetKm * 0.97) {
+      notes.push(`🍽 Your ${ctx.targetKm} km fit easily: you reach <strong>${restaurant.naam}</strong> around ${formatClock(arrive)}. Take it easy, start later or ski a few more km.`);
+    } else {
+      notes.push(`🍽 Lunch at <strong>${restaurant.naam}</strong> around ${formatClock(arrive)}, ${Math.abs(off)} min ${off < 0 ? 'early' : 'late'} — the best fit with this route.`);
+    }
+    if (restaurant.openingstijden) notes.push(`🕐 ${restaurant.naam}: ${restaurant.openingstijden}`);
+  }
+
+  // Other places to eat or warm up along the way, around lunchtime.
+  if (ctx.lunchT != null) {
+    const others = restaurantsAlong(walk)
+      .filter(p => p.restaurant.id !== walk.lunch?.restaurant.id)
+      .filter(p => Math.abs(p.t - ctx.lunchT) <= DAY_ALONG_WINDOW && openAt(p.restaurant.openingstijden, p.t))
+      .sort((a, b) => Math.abs(a.t - ctx.lunchT) - Math.abs(b.t - ctx.lunchT))
+      .slice(0, 3);
+    if (others.length) {
+      const list = others.map(p => `${p.restaurant.naam} (${formatClock(p.t)})`).join(', ');
+      notes.push(walk.lunch ? `🏠 Also on your route around lunchtime: ${list}.` : `🍽 On your route around lunchtime: ${list}.`);
+    }
+  }
+
   if (walk.end > ctx.t1) {
     notes.push(`⚠ Back around ${formatClock(walk.end)}, a little after ${formatClock(ctx.t1)}.`);
   } else if (ctx.t1 - walk.end >= 45) {
     notes.push(`☕ Done around ${formatClock(walk.end)}: ${Math.round(ctx.t1 - walk.end)} min to spare for breaks or extra runs.`);
   }
-  const names = new Map(walk.steps.filter(s => s.edge.type === 'piste').map(s => [pisteKey(s.edge), s.edge]));
+  const names = new Map(walk.steps.filter(s => s.edge?.type === 'piste').map(s => [pisteKey(s.edge), s.edge]));
   walk.usage.forEach((count, key) => {
     const piste = names.get(key);
-    if (count >= 3) notes.push(`🔁 ${piste.name} (${piste.pisteNr}) is on the plan ${count}× — few alternatives with these difficulties.`);
+    if (piste && count >= 3) notes.push(`🔁 ${piste.name} (${piste.pisteNr}) is on the plan ${count}× — few alternatives with these difficulties.`);
   });
   walk.steps.forEach(({ edge, t }) => {
-    const w = edge.liftNr && edge.type !== 'piste' ? ctx.liftWindows[edge.liftNr] : null;
+    const w = edge?.liftNr && edge.type !== 'piste' ? ctx.liftWindows[edge.liftNr] : null;
     if (w && t > w[1]) notes.push(`⚠ ${edge.liftNr} ${edge.name} closes at ${formatClock(w[1])}; this plan reaches it at ${formatClock(t)}.`);
   });
   return notes;
@@ -426,14 +693,15 @@ function renderDayOption(index) {
     dayOptions.forEach((option, i) => {
       const btn = document.createElement('button');
       btn.className = 'day-opt' + (i === index ? ' on' : '');
-      btn.innerHTML = `<strong>Option ${i + 1}</strong><span>${option.km.toFixed(1)} km · back ${formatClock(option.end)}</span>`;
+      const lunch = option.lunch ? `<span class="day-opt-lunch">🍽 ${option.lunch.restaurant.naam}</span>` : '';
+      btn.innerHTML = `<strong>Option ${i + 1}</strong>${lunch}<span>${option.km.toFixed(1)} km · back ${formatClock(option.end)}</span>`;
       btn.addEventListener('click', () => renderDayOption(i));
       optionsEl.appendChild(btn);
     });
   }
 
-  const lifts = walk.steps.filter(s => s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
-  document.getElementById('dp-km').textContent    = `${walk.km.toFixed(1)} km`;
+  const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
+  document.getElementById('dp-km').textContent     = `${walk.km.toFixed(1)} km`;
   document.getElementById('dp-pistes').textContent = `${walk.usage.size} pistes`;
   document.getElementById('dp-lifts').textContent  = `${lifts} lifts`;
   document.getElementById('dp-end').textContent    = `back ${formatClock(walk.end)}`;
@@ -449,7 +717,16 @@ function renderDayOption(index) {
   addWaypoint(stepsEl, startStation.name, startStation.alt, '📍', `Start · ${formatClock(ctx.t0)}`, 0);
 
   let number = 0;
-  walk.steps.forEach(({ edge, t }) => {
+  walk.steps.forEach(step => {
+    if (step.lunch) {
+      const r = step.lunch;
+      const where = step.onPiste ? `halfway down piste ${r.piste}` : restaurantWhere(r);
+      addWaypoint(stepsEl, `Lunch · ${r.naam}`, null, '🍽',
+        `${formatClock(step.t)}–${formatClock(step.until)} · ${where}`, Math.min(number, 30) * 30);
+      stepsEl.lastElementChild.classList.add('step-lunch');
+      return;
+    }
+    const { edge, t } = step;
     if (edge.type === 'transfer') return;
     // A piste through several numbered parts: spread its time over the parts.
     const parts = splitTrajecten(edge);
@@ -469,5 +746,6 @@ function renderDayOption(index) {
 
   document.getElementById('day-tip').innerHTML =
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
-    `piste times ×${pace.piste}. Breaks are not included; check the last lift times locally.`;
+    `piste times ×${pace.piste}. Short breaks are not included; check the last lift times locally. ` +
+    `Restaurants come from OpenStreetMap and may be missing or closed.`;
 }
