@@ -322,6 +322,10 @@ main {
 
 .chosen-name {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -874,3 +878,169 @@ main {
   margin-top: 10px;
 }
 
+
+/* ── Tabs: quick route / day plan ─────────────────────────── */
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #dde8f4;
+  border-radius: 14px;
+  padding: 5px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #6a7d92;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab-btn.on {
+  background: var(--alpine);
+  color: #fff;
+}
+
+/* ── Day planner ──────────────────────────────────────────── */
+
+.day-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.7fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.day-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.day-input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 10px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.day-input:focus {
+  outline: none;
+  border-color: var(--alpine);
+}
+
+.pace-row {
+  display: flex;
+  gap: 8px;
+}
+
+.pace-btn {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 2px solid var(--ice);
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6a7d92;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pace-btn.on {
+  border-color: var(--alpine);
+  background: #f0f4fa;
+  color: var(--alpine);
+}
+
+#day-result .result-header {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-options {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.day-options:empty {
+  display: none;
+}
+
+.day-opt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 6px;
+  border: 2px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #6a7d92;
+  cursor: pointer;
+  text-align: center;
+}
+
+.day-opt strong {
+  font-size: 0.82rem;
+  color: var(--midnight);
+}
+
+.day-opt.on {
+  border-color: var(--alpine);
+  background: #f0f4fa;
+}
+
+.day-notes {
+  display: none;
+  margin-bottom: 8px;
+}
+
+.day-note {
+  background: var(--snow);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.8rem;
+  color: var(--alpine);
+  margin-bottom: 6px;
+}
+
+.step-clock {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--alpine);
+  background: var(--ice);
+  border-radius: 6px;
+  padding: 1px 6px;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .day-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .day-grid .day-field:last-child {
+    grid-column: span 2;
+  }
+}
