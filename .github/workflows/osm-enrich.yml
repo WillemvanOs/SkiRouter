@@ -1,0 +1,45 @@
+# Adds restaurants and lift opening hours from OpenStreetMap to the ski area
+# datasets (tools/osm-enrich.mjs) and commits the result to the same branch.
+# Runs by hand (Actions → "Enrich ski areas from OSM" → Run workflow), or on a
+# push to a branch other than main that changes the script or this workflow.
+name: Enrich ski areas from OSM
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - tools/osm-enrich.mjs
+      - .github/workflows/osm-enrich.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: osm-enrich-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch OSM data
+        run: node tools/osm-enrich.mjs
+
+      - name: Commit changed datasets
+        run: |
+          if git diff --quiet -- data; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "Enrich ski area data from OpenStreetMap"
+          git push
