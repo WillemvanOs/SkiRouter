@@ -644,13 +644,3 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(err => console.warn('Offline mode unavailable:', err));
   });
 }
-
-// The admin page needs server.js (only runs locally). Show its link only when
-// that API answers, so the published static site has no dead link. Only probe
-// on this machine or the local network, so the public site logs no 404.
-const LOCAL_HOST = /^(localhost|127\.|\[?::1\]?$|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname);
-if (LOCAL_HOST) {
-  fetch('api/areas', { cache: 'no-store' })
-    .then(res => { if (res.ok && (res.headers.get('content-type') || '').includes('json')) document.getElementById('admin-link').hidden = false; })
-    .catch(() => {});
-}

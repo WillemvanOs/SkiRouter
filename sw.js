@@ -54,7 +54,7 @@ self.addEventListener('fetch', event => {
 
   if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
     event.respondWith(cacheFirst(req));
-  } else if (url.origin === self.location.origin && !url.pathname.includes('/api/')) {
+  } else if (url.origin === self.location.origin) {
     event.respondWith(networkFirst(req));
   }
 });

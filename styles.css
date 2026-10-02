@@ -874,23 +874,3 @@ main {
   margin-top: 10px;
 }
 
-/* ── Admin link ───────────────────────────────────────────── */
-
-.admin-link {
-  display: block;
-  text-align: center;
-  margin-top: 8px;
-  color: #aaa;
-  font-size: 0.78rem;
-  text-decoration: none;
-}
-
-.admin-link[hidden] {
-  display: none;
-}
-
-.admin-link:hover {
-  color: var(--alpine);
-  text-decoration: underline;
-}
-
