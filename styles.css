@@ -1288,3 +1288,32 @@ select.day-input {
 .ico-gps {
   background: #fdecea;
 }
+
+/* ── Back to the planner ──────────────────────────────────── */
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  border: 1.5px solid var(--ice);
+  border-radius: 8px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--alpine);
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  border-color: var(--alpine);
+}
+
+.back-btn-bottom {
+  margin: 14px 0 0;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 12px;
+}

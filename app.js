@@ -628,6 +628,11 @@ function planRoute(options = {}) {
   if (!options.silent) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Back from a planned route to its planner, with every setting as it was.
+function backToPlanner(cardId) {
+  document.getElementById(cardId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // A piste edge with `trajecten` runs through several marked numbers (74a
 // that carries on as 75): every part's colour must pass the filter.
 function pisteKleuren(edge) {
