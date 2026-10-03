@@ -3,6 +3,13 @@
     "id": "kitzski-osm",
     "name": "KitzSki",
     "subtitle": "Kitzbühel · Kirchberg · Jochberg · Pass Thurn · Mittersill",
-    "file": "data/kitzski-osm.json"
+    "file": "data/kitzski-osm.json",
+    "liftstatus": {
+      "file": "data/kitzski-osm-liftstatus.json",
+      "bron": "micado-skigebietemanager",
+      "base": "https://www.kitzski.at",
+      "client": "https://sgm.kitzski.at",
+      "region": "kitzski"
+    }
   }
 ]

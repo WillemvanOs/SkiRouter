@@ -587,9 +587,11 @@ function planDay(options = {}) {
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
+  // Operating hours: today's from the lift status feed, else OSM's.
   const liftWindows = {};
   (currentArea.liften || []).forEach(l => {
-    const w = liftWindow(l.openingstijden);
+    const live = liftStatus(l.liftNr);
+    const w = liftWindow(live?.open && live.hours ? live.hours : l.openingstijden);
     if (w) liftWindows[l.liftNr] = w;
   });
 
@@ -660,6 +662,10 @@ function restaurantsAlong(walk) {
 
 function dayNotes(walk, ctx) {
   const notes = [];
+  const closed = closedLiftsOn(walk.steps.map(s => s.edge));
+  if (closed.length) {
+    notes.push(`⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')} (lift status ${liftStatusAge()}).`);
+  }
   const kmShort = ctx.targetKm - walk.km;
   if (kmShort > ctx.targetKm * 0.1) {
     notes.push(`⏱ About ${walk.km.toFixed(0)} km fits between ${formatClock(ctx.t0)} and ${formatClock(ctx.t1)} at this pace — start earlier, stay later or pick a faster pace for more.`);
@@ -787,7 +793,8 @@ function renderDayOption(index) {
   document.getElementById('day-tip').innerHTML =
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
     `piste times ×${pace.piste}. Short breaks are not included; check the last lift times locally. ` +
-    `Restaurants come from OpenStreetMap and may be missing or closed.`;
+    `Restaurants come from OpenStreetMap and may be missing or closed.` +
+    (LIFT_STATUS ? ` Lift hours from ${LIFT_STATUS.bron}, ${liftStatusAge()}.` : '');
 
   const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
   dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });

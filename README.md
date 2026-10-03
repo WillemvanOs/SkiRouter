@@ -75,6 +75,20 @@ Some lift stations are only linked through the valley, such as Hahnenkammbahn (A
 The OSM enrichment stores every station's coordinates (`coordOnder` / `coordBoven`) and the
 nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
 
+## Lift status and opening hours
+
+Every 30 minutes, `.github/workflows/lift-status.yml` runs `tools/lift-status.mjs`, which reads
+each area's own lift list and writes `data/<area>-liftstatus.json`: per lift whether it is open,
+today's operating hours, the operating period and weekdays. The file is only committed when
+something changed; the workflow then redeploys the site. For KitzSki the source is the API behind
+kitzski.at's lift status page (Micado SkigebieteManager). An area opts in with a `liftstatus`
+entry in `data/areas.json`.
+
+The app shows "open 08:30–17:00" or "closed" in the station picker and at every lift step, warns
+about closed lifts on a route or day plan, and the day planner uses today's hours as lift windows.
+GitHub runs scheduled workflows on a best-effort basis, so an update can now and then be a little
+later than 30 minutes.
+
 ## Where am I (GPS)
 
 In the station picker for a starting point, **Use my location** starts the route where you are:

@@ -1,0 +1,487 @@
+{
+  "bron": "www.kitzski.at",
+  "sourceUpdate": "2026-10-03T19:17:55",
+  "changed": "2026-10-03T17:53:59.828Z",
+  "lifts": {
+    "A1": {
+      "open": true,
+      "hours": "08:30-17:00",
+      "from": "2026-06-13",
+      "to": "2026-11-01",
+      "weekdays": 127,
+      "text": "Normalbetrieb Sommer 2."
+    },
+    "A2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A6": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A7": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "A8": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "B1": {
+      "open": true,
+      "hours": "08:30-17:00",
+      "from": "2026-06-04",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "Fleck Sommer 2"
+    },
+    "B2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "B3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "B4": {
+      "open": true,
+      "hours": "09:00-16:00",
+      "from": "2026-06-04",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "Sonnenrast Sommer"
+    },
+    "B5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "B6": {
+      "open": true,
+      "hours": "09:00-16:00",
+      "from": "2026-06-04",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "Sommerbetrieb Bike"
+    },
+    "C1": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "C2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D1": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D6": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D7": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D8": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D9": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D9r": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D10": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "D11": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "E1": {
+      "open": true,
+      "hours": "08:30-17:00",
+      "from": "2026-05-09",
+      "to": "2026-10-26",
+      "weekdays": 127,
+      "text": "Sommer WE 3"
+    },
+    "E2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "E3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "E4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F1a": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F1b": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F2": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F6": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "F7": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G1": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G2": {
+      "open": false,
+      "hours": "09:00-16:00",
+      "from": null,
+      "to": null,
+      "weekdays": 127,
+      "text": "Normalbetrieb"
+    },
+    "G3": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G6": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G7": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "G8": {
+      "open": true,
+      "hours": "08:45-16:15",
+      "from": "2026-06-20",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "19.06. - 12.10.2025"
+    },
+    "G9": {
+      "open": true,
+      "hours": "08:45-16:15",
+      "from": "2026-06-20",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "20.06. - 11.10.2026"
+    },
+    "H1": {
+      "open": true,
+      "hours": "08:30-17:00",
+      "from": "2026-05-23",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "23.05. - 11.10.2026"
+    },
+    "H2": {
+      "open": true,
+      "hours": "08:45-17:00",
+      "from": "2026-05-23",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "23.05. - 11.10.2026"
+    },
+    "H3": {
+      "open": true,
+      "hours": "08:45-17:00",
+      "from": "2026-05-23",
+      "to": "2026-10-11",
+      "weekdays": 127,
+      "text": "Sommer HGB"
+    },
+    "H4": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H5": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H6": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H7": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H8": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H9": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H10": {
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
+    },
+    "H11": {
+      "open": true,
+      "hours": "09:00-17:30",
+      "from": "2026-10-03",
+      "to": "2026-10-04",
+      "weekdays": 96,
+      "text": "Wochenendbetrieb Oktober"
+    }
+  }
+}
