@@ -1232,3 +1232,59 @@ select.day-input {
   color: var(--alpine);
   cursor: pointer;
 }
+
+/* ── Bus / walk between stations ──────────────────────────── */
+
+.step-connection {
+  align-items: center;
+  padding: 12px 10px;
+  margin: 4px 0;
+  border-radius: 10px;
+  background: #eef6ee;
+  border: 1px solid #d6e9d6;
+}
+
+.ico-bus,
+.ico-walk {
+  background: #d9eed9;
+}
+
+.kind-connection {
+  color: #2e7d32;
+}
+
+/* ── Where am I (GPS) ─────────────────────────────────────── */
+
+.gps-btn {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--alpine);
+  border-radius: 10px;
+  background: #f0f4fa;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--alpine);
+  cursor: pointer;
+  text-align: left;
+}
+
+.gps-status {
+  flex-basis: 100%;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #6a7d92;
+}
+
+.gps-status:empty {
+  display: none;
+}
+
+.ico-gps {
+  background: #fdecea;
+}

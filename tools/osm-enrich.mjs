@@ -3,6 +3,11 @@
 //   - restaurants: named restaurants, cafés, bars and huts near a lift
 //     station or a piste, linked to the graph node or piste they sit at.
 //   - liften[].openingstijden: the lift's opening_hours tag, when mapped.
+//   - liften[].coordOnder / coordBoven: [lat, lon] of the bottom/top station,
+//     used to work out walking/bus times for `verbindingen`.
+//   - liften[].bushalte: the nearest named bus stop to the bottom station.
+//   - pisteLijnen: { pisteNr: [[[lat, lon], …], …] } — each piste's course,
+//     thinned to a point every ~60 m, for "where am I" (GPS) in the app.
 //
 // Runs in GitHub Actions (.github/workflows/osm-enrich.yml), which has open
 // internet access. No dependencies: Node 20+ only.
@@ -28,6 +33,7 @@ async function overpass(query) {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)' },
           body: 'data=' + encodeURIComponent(query),
+          signal: AbortSignal.timeout(240000),
         });
         if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
         return await res.json();
@@ -85,10 +91,12 @@ async function enrichArea(meta) {
     way[aerialway]; out tags geom;
     way["piste:type"="downhill"]; out tags geom;
     nwr[amenity~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"][name]; out tags center;
-    nwr[tourism=alpine_hut][name]; out tags center;`);
+    nwr[tourism=alpine_hut][name]; out tags center;
+    node[highway=bus_stop][name]; out;`);
 
   const aerialways = data.elements.filter(e => e.type === 'way' && e.tags?.aerialway && e.geometry?.length >= 2);
   const pisteWays  = data.elements.filter(e => e.type === 'way' && e.tags?.['piste:type'] === 'downhill' && e.geometry?.length >= 2);
+  const busStops   = data.elements.filter(e => e.type === 'node' && e.tags?.highway === 'bus_stop');
   const foods      = data.elements.filter(e => e.tags?.name && (FOOD.test(e.tags.amenity || '') || e.tags.tourism === 'alpine_hut'));
   console.log(`  ${aerialways.length} aerialways, ${pisteWays.length} piste ways, ${foods.length} food places`);
 
@@ -103,6 +111,15 @@ async function enrichArea(meta) {
     const g = way.geometry;
     stations.push({ id: `${lift.liftNr}-onder`, pos: g[0] });
     stations.push({ id: `${lift.liftNr}-boven`, pos: g[g.length - 1] });
+    const round = p => [+p.lat.toFixed(5), +p.lon.toFixed(5)];
+    lift.coordOnder = round(g[0]);
+    lift.coordBoven = round(g[g.length - 1]);
+    let stop = null;
+    for (const b of busStops) {
+      const d = distM(g[0], b);
+      if (d <= 400 && (!stop || d < stop.afstandM)) stop = { naam: b.tags.name, afstandM: Math.round(d) };
+    }
+    if (stop) lift.bushalte = stop; else delete lift.bushalte;
     const oh = way.tags.opening_hours;
     if (oh) lift.openingstijden = oh; else delete lift.openingstijden;
   }
@@ -161,6 +178,22 @@ async function enrichArea(meta) {
   }
   restaurants.sort((a, b) => a.naam.localeCompare(b.naam, 'de'));
   area.restaurants = restaurants;
+
+  // Piste courses for locating a skier on a piste.
+  const lines = {};
+  for (const w of pisteWays) {
+    const nr = pisteNrOf(w);
+    if (!nr) continue;
+    const pts = [];
+    for (const p of w.geometry) {
+      if (!pts.length || distM(pts[pts.length - 1], p) >= 60) pts.push(p);
+    }
+    const last = w.geometry[w.geometry.length - 1];
+    if (distM(pts[pts.length - 1], last) > 5) pts.push(last);
+    (lines[nr] = lines[nr] || []).push(pts.map(p => [+p.lat.toFixed(5), +p.lon.toFixed(5)]));
+  }
+  area.pisteLijnen = lines;
+  console.log(`  piste courses for ${Object.keys(lines).length} piste numbers`);
   console.log(`  ${restaurants.length} restaurants linked (${restaurants.filter(r => r.station).length} at a station, ${restaurants.filter(r => r.piste).length} on a piste)`);
 
   await writeFile(path, JSON.stringify(area, null, 2) + '\n');

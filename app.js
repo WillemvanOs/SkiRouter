@@ -41,6 +41,8 @@ function formatAlt(alt) {
 
 // Lift types you may also ride down in.
 const RIDE_DOWN_TYPES = new Set(['gondola', 'mixed_lift', 'cable_car', 'funicular']);
+// Extra routing cost of a bus or walk, so skiing wins when it is about as quick.
+const CONNECTION_PENALTY = 10;
 // Extra routing cost of riding a lift down, so a route only does it when no
 // piste gets you there (the time shown stays the real ride time).
 const RIDE_DOWN_PENALTY = 60;
@@ -131,6 +133,22 @@ function buildFromSkimapData(area) {
         });
       });
     });
+  });
+
+  // verbindingen: a ski bus or a walk between two stations that no lift or
+  // piste links (e.g. Hahnenkammbahn ↔ Hornbahn through Kitzbühel).
+  (area.verbindingen || []).forEach(v => {
+    if (!stations[v.van] || !stations[v.naar]) return;
+    const edge = {
+      type: v.soort === 'lopen' ? 'walk' : 'bus',
+      name: v.naam || (v.soort === 'lopen' ? 'Walk' : 'Ski bus'),
+      info: v.info || '',
+      tijd: v.tijd || 0,
+    };
+    // The nearest bus stop of a bottom station, from the OSM enrichment.
+    const stopAt = id => id.endsWith('-onder') ? liftByNr.get(id.slice(0, -'-onder'.length))?.bushalte?.naam : undefined;
+    addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
+    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
   });
 
   // aansluitendeLiften: reachable from the top of this lift without a
@@ -324,6 +342,15 @@ function renderSheet() {
     ...Object.keys(sectors).filter(s => !SECTOR_ORDER.includes(s)),
   ];
 
+  if (!query && (activeSide === 'from' || activeSide === 'dstart')) {
+    const gps = document.createElement('button');
+    gps.className = 'gps-btn';
+    gps.id = 'gps-btn';
+    gps.innerHTML = '<span>📍</span><span>Use my location</span><span class="gps-status" id="gps-status"></span>';
+    gps.addEventListener('click', locateMe);
+    list.appendChild(gps);
+  }
+
   orderedSectors.forEach(sector => {
     const label = document.createElement('div');
     label.className = 'group-label';
@@ -385,6 +412,10 @@ function resetSide(side) {
 }
 
 function swapSides() {
+  if (selected.from?.gps) {
+    showError('err', 'Your location can only be a starting point.');
+    return;
+  }
   const tmp = selected.from;
   selected.from = selected.to;
   selected.to   = tmp;
@@ -394,7 +425,7 @@ function swapSides() {
     const s = selected[side];
     document.getElementById(`${side}-box`).style.display    = 'none';
     document.getElementById(`${side}-chosen`).style.display = 'flex';
-    document.getElementById(`${side}-icon`).innerHTML       = liftIcon(s.lift);
+    document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON : liftIcon(s.lift);
     document.getElementById(`${side}-nr`).textContent       = s.liftNr;
     document.getElementById(`${side}-liftname`).textContent = s.liftName;
     document.getElementById(`${side}-side`).textContent     = `${SIDE_ICONS[s.side]} ${s.side === 'dal' ? 'Bottom' : 'Top'}`;
@@ -441,7 +472,9 @@ function dijkstra(startId, endId) {
 
     (GRAPH[current] || []).forEach(edge => {
       if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
-      const newCost = dist[current] + (edge.tijd || 0) + (edge.descent ? RIDE_DOWN_PENALTY : 0);
+      const newCost = dist[current] + (edge.tijd || 0)
+        + (edge.descent ? RIDE_DOWN_PENALTY : 0)
+        + (isConnection(edge) ? CONNECTION_PENALTY : 0);
       if (newCost < dist[edge.to]) {
         dist[edge.to]     = newCost;
         prev[edge.to]     = current;
@@ -505,15 +538,23 @@ const STEP_ICONS = {
   'piste-zwart':    '⚫',
   'piste-skiroute': '🟡',
   transfer:         '🔄',
+  bus:              '🚌',
+  walk:             '🚶',
 };
 
 const LIFT_TYPE_LABEL = { gondola: 'Gondola', mixed_lift: 'Gondola', cable_car: 'Cable car', funicular: 'Funicular', chair_lift: 'Chairlift' };
 
 // Drag lifts (t-bar, platter, j-bar, rope tow) get the T-bar pictogram.
 // Any other non-`echteLift` (magic carpets) is a generic "oefenlift".
+// A ski bus or walk between stations (from the area's `verbindingen`).
+function isConnection(edge) {
+  return edge.type === 'bus' || edge.type === 'walk';
+}
+
 function stepClass(edge) {
   if (edge.type === 'piste')    return 'piste-' + (edge.diff || 'rood');
   if (edge.type === 'transfer') return 'transfer';
+  if (isConnection(edge))       return edge.type;
   if (DRAG_LIFT_LABEL[edge.type]) return 'draglift';
   return edge.echteLift === false ? 'oefenlift' : edge.type;
 }
@@ -527,10 +568,18 @@ function tagClass(edge) {
 }
 
 function tagLabel(edge) {
+  if (edge.type === 'bus')   return 'Ski bus';
+  if (edge.type === 'walk')  return 'Walk';
   if (edge.type === 'piste') return { blauw: 'Blue ●', rood: 'Red ●', zwart: 'Black ●', skiroute: 'Ski route ●' }[edge.diff] || 'Piste';
   if (DRAG_LIFT_LABEL[edge.type]) return DRAG_LIFT_LABEL[edge.type];
   if (edge.echteLift === false) return 'Practice lift';
   return LIFT_TYPE_LABEL[edge.type] || 'Lift';
+}
+
+function showError(id, message) {
+  const el = document.getElementById(id);
+  el.textContent = message;
+  el.classList.add('visible');
 }
 
 function planRoute(options = {}) {
@@ -594,7 +643,7 @@ function renderRoute(result) {
   const totalKm      = visibleSteps.reduce((sum, edge) => sum + (edge.km || 0), 0);
   const totalMin     = visibleSteps.reduce((sum, edge) => sum + (edge.tijd || 0), 0);
 
-  document.getElementById('p-steps').textContent = `${visibleSteps.length} steps`;
+  document.getElementById('p-steps').textContent = `${visibleSteps.length} step${visibleSteps.length === 1 ? '' : 's'}`;
   document.getElementById('p-km').textContent    = totalKm > 0 ? `approx. ${totalKm.toFixed(1)} km` : '—';
   document.getElementById('p-time').textContent  = `~${totalMin} min`;
 
@@ -656,6 +705,21 @@ function stepElement(edge, index, clock) {
         ${facts ? `<div class="step-sub">${facts}</div>` : ''}
       </div>
     `;
+  } else if (isConnection(edge)) {
+    // Bus or walk between two stations: from → to, with any practical info.
+    const from = STATIONS[edge.from]?.name || '';
+    const to   = STATIONS[edge.to]?.name || '';
+    div.className = 'step step-connection';
+    div.innerHTML = `
+      <span class="step-number">${index + 1}</span>
+      <div class="step-icon ico-${edge.type}">${STEP_ICONS[edge.type]}</div>
+      <div class="step-info">
+        <div class="step-kind kind-connection">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
+        <div class="step-name">${from} → ${to}</div>
+        ${edge.type === 'bus' && edge.stopFrom && edge.stopTo ? `<div class="step-sub">🚏 ${edge.stopFrom} → ${edge.stopTo}</div>` : ''}
+        ${edge.info ? `<div class="step-sub">${edge.info}</div>` : ''}
+      </div>
+    `;
   } else {
     // Lift: its own tinted block, with the lift code large next to the pictogram.
     const cls  = stepClass(edge);
@@ -694,6 +758,151 @@ function getTip() {
   // Tips used to be hardcoded per KitzSki piste/lift name. Now that the app
   // is dataset-agnostic, keep this generic until tips become area data.
   return '💡 <strong>Tip:</strong> Check the current opening times of your ski area before you set off.';
+}
+
+// ── Where am I (GPS) ─────────────────────────────────────────────────────────
+//
+// "Use my location" adds a temporary start node to the graph: a short walk
+// to every lift station close by, and — when you stand on a piste — the
+// rest of that run down to wherever it ends. Positions come from the OSM
+// enrichment (liften[].coordOnder/coordBoven, pisteLijnen).
+
+const GPS_NODE           = 'gps';
+const GPS_ICON           = '<span class="lift-ico ico-gps">📍</span>';
+const GPS_STATION_RADIUS = 300; // walk to a lift station this close (m)
+const GPS_PISTE_RADIUS   = 80;  // this close to a piste's course: you are on it (m)
+const GPS_WALK_M_PER_MIN = 60;  // walking in ski boots
+const GPS_POOR_ACCURACY  = 150; // warn above this (m)
+const GPS_MAX_DISTANCE   = 5000; // further than this: not in this ski area (m)
+
+function distanceM([lat1, lon1], [lat2, lon2]) {
+  const R = 6371000, rad = Math.PI / 180;
+  const dLat = (lat2 - lat1) * rad, dLon = (lon2 - lon1) * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// Distance from point p to segment a–b in metres (flat projection, fine at this scale).
+function distanceToSegmentM(p, a, b) {
+  const kx = 111320 * Math.cos(p[0] * Math.PI / 180), ky = 110540;
+  const ax = (a[1] - p[1]) * kx, ay = (a[0] - p[0]) * ky;
+  const bx = (b[1] - p[1]) * kx, by = (b[0] - p[0]) * ky;
+  const dx = bx - ax, dy = by - ay;
+  const len2 = dx * dx + dy * dy;
+  const t = len2 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / len2)) : 0;
+  return Math.hypot(ax + t * dx, ay + t * dy);
+}
+
+function stationPositions() {
+  const positions = {};
+  (currentArea?.liften || []).forEach(l => {
+    if (l.coordOnder && STATIONS[`${l.liftNr}-onder`]) positions[`${l.liftNr}-onder`] = l.coordOnder;
+    if (l.coordBoven && STATIONS[`${l.liftNr}-boven`]) positions[`${l.liftNr}-boven`] = l.coordBoven;
+  });
+  return positions;
+}
+
+function nearestPiste(here) {
+  let best = null;
+  Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
+    lines.forEach(line => {
+      for (let i = 1; i < line.length; i++) {
+        const d = distanceToSegmentM(here, line[i - 1], line[i]);
+        if (!best || d < best.d) best = { nr, d };
+      }
+    });
+  });
+  return best;
+}
+
+function setGpsStatus(text) {
+  const el = document.getElementById('gps-status');
+  if (el) el.textContent = text;
+}
+
+function locateMe() {
+  const side = activeSide;
+  if (!navigator.geolocation) { setGpsStatus('Location is not available on this device.'); return; }
+  setGpsStatus('Finding you…');
+  navigator.geolocation.getCurrentPosition(
+    pos => placeMe(side, [pos.coords.latitude, pos.coords.longitude], pos.coords.accuracy),
+    err => setGpsStatus(err.code === err.PERMISSION_DENIED
+      ? 'Location access is off — allow it for this site in your settings.'
+      : 'Could not find your location. Try again outside or pick a station.'),
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 },
+  );
+}
+
+function placeMe(side, here, accuracy) {
+  delete STATIONS[GPS_NODE];
+  delete GRAPH[GPS_NODE];
+
+  const positions = stationPositions();
+  const near = Object.entries(positions)
+    .map(([id, pos]) => ({ id, d: distanceM(here, pos) }))
+    .sort((a, b) => a.d - b.d);
+  if (!near.length) { setGpsStatus('This ski area has no station positions yet.'); return; }
+
+  const edges = near.filter(n => n.d <= GPS_STATION_RADIUS).map(n => ({
+    from: GPS_NODE, to: n.id, type: 'walk', name: 'Walk',
+    info: `About ${Math.round(n.d / 10) * 10} m from where you are.`,
+    tijd: Math.max(1, Math.round(n.d / GPS_WALK_M_PER_MIN)),
+  }));
+
+  // On a piste: carry on to wherever that run ends (about half of it left).
+  const piste = nearestPiste(here);
+  const onPiste = piste && piste.d <= GPS_PISTE_RADIUS ? piste.nr : null;
+  if (onPiste) {
+    Object.values(GRAPH).flat().forEach(edge => {
+      if (edge.type !== 'piste' || edge.from === GPS_NODE) return;
+      const part = edge.trajecten ? edge.trajecten.find(t => t.pisteNr === onPiste) : (edge.pisteNr === onPiste ? edge : null);
+      if (!part) return;
+      edges.push({
+        ...edge,
+        from: GPS_NODE,
+        trajecten: null,
+        pisteNr: onPiste,
+        diff: part.kleur || edge.diff,
+        name: `${part.naam || edge.name} (rest of the run)`,
+        tijd: Math.max(1, Math.ceil((edge.tijd || 0) / 2)),
+        km: edge.km != null ? Math.round(edge.km * 50) / 100 : undefined,
+      });
+    });
+  }
+
+  const accuracyNote = accuracy > GPS_POOR_ACCURACY ? ` · ⚠ ±${Math.round(accuracy)} m` : '';
+  // Nearest station of a real lift (not a magic carpet), for the fallback.
+  const nearest = near.find(n => LIFTS.find(l => l.dal === n.id || l.berg === n.id)?.echteLift);
+  if (!edges.length && (!nearest || nearest.d > GPS_MAX_DISTANCE)) {
+    const km = (near[0].d / 1000).toFixed(near[0].d > 20000 ? 0 : 1);
+    setGpsStatus(`You are about ${km} km from ${currentArea.name} — pick a station instead.`);
+    return;
+  }
+  closeSheet();
+
+  if (!edges.length) {
+    // Further away: start at the nearest lift station, and say how far it is.
+    const lift = LIFTS.find(l => l.dal === nearest.id || l.berg === nearest.id);
+    activeSide = side;
+    pickStation(nearest.id, lift, lift.dal === nearest.id ? 'dal' : 'berg');
+    const km = nearest.d >= 1000 ? `${(nearest.d / 1000).toFixed(1)} km` : `${Math.round(nearest.d)} m`;
+    document.getElementById(`${side}-side`).textContent = `📍 ${km} away${accuracyNote}`;
+    return;
+  }
+
+  const label = onPiste
+    ? `My location · on piste ${onPiste}`
+    : `My location · near ${STATIONS[near[0].id].name}`;
+  STATIONS[GPS_NODE] = { name: label, alt: null };
+  GRAPH[GPS_NODE] = edges;
+
+  selected[side] = { id: GPS_NODE, name: label, alt: null, gps: true, liftNr: 'GPS', liftName: label };
+  document.getElementById(`${side}-box`).style.display    = 'none';
+  document.getElementById(`${side}-chosen`).style.display = 'flex';
+  document.getElementById(`${side}-icon`).innerHTML       = GPS_ICON;
+  document.getElementById(`${side}-nr`).textContent       = 'GPS';
+  document.getElementById(`${side}-liftname`).textContent = onPiste ? `On piste ${onPiste}` : `Near ${STATIONS[near[0].id].name}`;
+  document.getElementById(`${side}-side`).textContent     = `±${Math.round(accuracy)} m${accuracyNote ? ' ⚠' : ''}`;
 }
 
 // ── Progress: ticking off steps ──────────────────────────────────────────────
