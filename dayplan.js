@@ -76,7 +76,9 @@ function resetDayPlan() {
   dayDiff = new Set(Array.isArray(saved.diff) ? saved.diff.filter(d => DAY_DIFF_LEVELS.includes(d)) : DAY_DIFF_LEVELS);
   renderDayDiff();
   restoreStation('dstart', saved.start);
-  restoreStation('dend', saved.end);
+  // The end field starts folded away ('Start & end'), unless a day that ends
+  // elsewhere is being followed right now: then its end station comes back.
+  if (dayInProgress()) restoreStation('dend', saved.end);
 
   document.getElementById('day-bus').checked         = saved.bus !== false;
   document.getElementById('day-lunch').checked       = saved.lunch !== false;
@@ -93,10 +95,15 @@ function resetDayPlan() {
 
 // Reopened during the day: plan the same day again (planning is seeded, so
 // it comes out identical) and show the option being followed, ticks and all.
+function dayInProgress() {
+  const saved = loadProgress('day');
+  return !!saved && saved.done > 0 && saved.done < saved.total;
+}
+
 function restoreDayProgress() {
   dayTracker = null;
   const saved = loadProgress('day');
-  if (!saved || !(saved.done > 0) || saved.done >= saved.total || !selected.dstart) return;
+  if (!dayInProgress() || !selected.dstart) return;
   planDay({ silent: true });
   if (dayOptions.length && saved.option > 0 && saved.option < dayOptions.length) renderDayOption(saved.option);
 }
