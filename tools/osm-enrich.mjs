@@ -89,7 +89,7 @@ async function enrichArea(meta) {
     way["piste:type"="downhill"]; out tags geom;
     nwr[amenity~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"][name]; out tags center;
     nwr[tourism=alpine_hut][name]; out tags center;
-    node[highway=bus_stop][name]; out tags;`);
+    node[highway=bus_stop][name]; out;`);
 
   const aerialways = data.elements.filter(e => e.type === 'way' && e.tags?.aerialway && e.geometry?.length >= 2);
   const pisteWays  = data.elements.filter(e => e.type === 'way' && e.tags?.['piste:type'] === 'downhill' && e.geometry?.length >= 2);
@@ -121,17 +121,6 @@ async function enrichArea(meta) {
     if (oh) lift.openingstijden = oh; else delete lift.openingstijden;
   }
   console.log(`  matched ${matched}/${(area.liften || []).length} lifts to OSM`);
-
-  // Valley stations close to each other: candidates for a bus/walk entry
-  // in `verbindingen` (printed only; those entries are curated by hand).
-  const valley = (area.liften || []).filter(l => l.coordOnder);
-  for (let i = 0; i < valley.length; i++) {
-    for (let j = i + 1; j < valley.length; j++) {
-      const a = valley[i], b = valley[j];
-      const d = distM({ lat: a.coordOnder[0], lon: a.coordOnder[1] }, { lat: b.coordOnder[0], lon: b.coordOnder[1] });
-      if (d > 150 && d < 3000) console.log(`  nearby valley stations: ${a.liftNr} ${a.naam} ↔ ${b.liftNr} ${b.naam}: ${Math.round(d)} m`);
-    }
-  }
 
   const pisteNrs = new Set((area.pistes || []).map(p => p.pisteNr));
   const pistesByName = new Map((area.pistes || []).map(p => [norm(p.naam), p.pisteNr]));
