@@ -8,7 +8,7 @@
 //
 // Bump CACHE_VERSION when the list of shell files changes.
 
-const CACHE_VERSION = 'skirouter-v14';
+const CACHE_VERSION = 'skirouter-v16';
 const SHELL = [
   './',
   'index.html',
