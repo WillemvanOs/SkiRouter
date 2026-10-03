@@ -852,7 +852,7 @@ function liftStatusAge() {
   const t = LIFT_STATUS?.sourceUpdate ? new Date(LIFT_STATUS.sourceUpdate) : null;
   if (!t || isNaN(t)) return 'recently updated';
   const sameDay = t.toDateString() === new Date().toDateString();
-  const time = t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const time = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`;
   return sameDay ? `updated ${time}` : `updated ${t.toLocaleDateString([], { day: 'numeric', month: 'short' })} ${time}`;
 }
 
