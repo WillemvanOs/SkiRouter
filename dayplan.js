@@ -410,7 +410,7 @@ function lunchStops(restaurants) {
     if (!stops.has(key)) stops.set(key, { key, node, piste, restaurants: [] });
     stops.get(key).restaurants.push(r);
   };
-  const pisteEdges = Object.values(dayGraph).flat().filter(e => e.type === 'piste' && dayAllowed(e));
+  const pisteEdges = Object.values(dayGraph).flat().filter(e => e.type === 'piste' && e.from !== GPS_NODE && dayAllowed(e));
   restaurants.forEach(r => {
     if (r.station) { add(r.station, r.station, null, r); return; }
     const seen = new Set();
