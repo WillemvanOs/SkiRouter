@@ -191,10 +191,15 @@
         </div>
       </div>
 
-      <div>
-        <label class="sel-label">End of the day – lift station</label>
+      <details class="setting end-setting" id="end-setting">
+        <summary class="setting-summary">
+          <span class="setting-name">🏁 End of the day</span>
+          <span class="setting-value" id="end-summary">Same as start</span>
+          <span class="setting-chev" aria-hidden="true">▾</span>
+        </summary>
+        <div class="end-picker">
         <div class="sel-box" id="dend-box" onclick="openSheet('dend')">
-          <span class="sel-box-text">Same as start</span>
+          <span class="sel-box-text">Choose a different station…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="dend-chosen" style="display:none" onclick="openSheet('dend')">
@@ -204,7 +209,8 @@
           <span class="chosen-side" id="dend-side">—</span>
           <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dend')">✕</button>
         </div>
-      </div>
+        </div>
+      </details>
     </div>
 
     <div class="day-grid">
