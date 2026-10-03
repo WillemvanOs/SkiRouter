@@ -6,6 +6,8 @@
 //   - liften[].coordOnder / coordBoven: [lat, lon] of the bottom/top station,
 //     used to work out walking/bus times for `verbindingen`.
 //   - liften[].bushalte: the nearest named bus stop to the bottom station.
+//   - pisteLijnen: { pisteNr: [[[lat, lon], …], …] } — each piste's course,
+//     thinned to a point every ~60 m, for "where am I" (GPS) in the app.
 //
 // Runs in GitHub Actions (.github/workflows/osm-enrich.yml), which has open
 // internet access. No dependencies: Node 20+ only.
@@ -176,6 +178,22 @@ async function enrichArea(meta) {
   }
   restaurants.sort((a, b) => a.naam.localeCompare(b.naam, 'de'));
   area.restaurants = restaurants;
+
+  // Piste courses for locating a skier on a piste.
+  const lines = {};
+  for (const w of pisteWays) {
+    const nr = pisteNrOf(w);
+    if (!nr) continue;
+    const pts = [];
+    for (const p of w.geometry) {
+      if (!pts.length || distM(pts[pts.length - 1], p) >= 60) pts.push(p);
+    }
+    const last = w.geometry[w.geometry.length - 1];
+    if (distM(pts[pts.length - 1], last) > 5) pts.push(last);
+    (lines[nr] = lines[nr] || []).push(pts.map(p => [+p.lat.toFixed(5), +p.lon.toFixed(5)]));
+  }
+  area.pisteLijnen = lines;
+  console.log(`  piste courses for ${Object.keys(lines).length} piste numbers`);
   console.log(`  ${restaurants.length} restaurants linked (${restaurants.filter(r => r.station).length} at a station, ${restaurants.filter(r => r.piste).length} on a piste)`);
 
   await writeFile(path, JSON.stringify(area, null, 2) + '\n');
