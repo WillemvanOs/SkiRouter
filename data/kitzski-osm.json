@@ -7120,34 +7120,14 @@
   ],
   "restaurants": [
     {
-      "id": "node/3452608574",
-      "naam": "'s Gasthäusl",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 227,
-      "lat": 47.44501,
-      "lon": 12.31439,
-      "website": "https://gasthaeusl.at/",
-      "telefoon": "+43 66 42 84 16 30"
-    },
-    {
       "id": "node/662483755",
       "naam": "Adlerhütte",
       "soort": "hut",
-      "station": "H1-boven",
-      "afstandM": 170,
+      "piste": "6",
+      "afstandM": 99,
       "lat": 47.46212,
       "lon": 12.40839,
       "hoogte": 1260
-    },
-    {
-      "id": "way/284391316",
-      "naam": "Alm Stüberl",
-      "soort": "hut",
-      "station": "G2-onder",
-      "afstandM": 111,
-      "lat": 47.30885,
-      "lon": 12.40786
     },
     {
       "id": "node/5222987263",
@@ -7179,10 +7159,7 @@
       "piste": "19",
       "afstandM": 41,
       "lat": 47.41766,
-      "lon": 12.36735,
-      "openingstijden": "Fr-We 09:00-16:30",
-      "website": "http://www.gasthof-melkalm.at",
-      "telefoon": "+43 5356 62119"
+      "lon": 12.36735
     },
     {
       "id": "way/142678288",
@@ -7195,38 +7172,6 @@
       "website": "https://www.alpenhaus.at/"
     },
     {
-      "id": "way/225178708",
-      "naam": "Alpenland",
-      "soort": "restaurant",
-      "station": "F1a-onder",
-      "afstandM": 303,
-      "lat": 47.37505,
-      "lon": 12.41959,
-      "telefoon": "+43 5355 5166"
-    },
-    {
-      "id": "node/8780321354",
-      "naam": "Aurora",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 308,
-      "lat": 47.44712,
-      "lon": 12.31433,
-      "openingstijden": "Mo-Su,PH 12:00-14:00,17:30-22:00",
-      "website": "https://www.chinarestaurant-kirchberg.at/",
-      "telefoon": "+43 5357 35005"
-    },
-    {
-      "id": "node/6323731059",
-      "naam": "Bar Dreieck",
-      "soort": "bar",
-      "station": "E2-onder",
-      "afstandM": 219,
-      "lat": 47.4464,
-      "lon": 12.31369,
-      "openingstijden": "Mo-Su 13:00-21:00"
-    },
-    {
       "id": "node/4716145835",
       "naam": "Bärenbadalm",
       "soort": "hut",
@@ -7237,41 +7182,18 @@
       "website": "https://www.baerenbadalm.at/category/news/"
     },
     {
-      "id": "way/122553500",
-      "naam": "Bechlwirt",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 319,
-      "lat": 47.44735,
-      "lon": 12.31419,
-      "openingstijden": "Mo-Su,PH 10:00-22:00",
-      "website": "https://www.hotel-bechlwirt.at/"
-    },
-    {
       "id": "way/238039300",
       "naam": "Berg-Gasthof Hagstein",
-      "soort": "restaurant",
+      "soort": "hut",
       "piste": "3",
       "afstandM": 95,
       "lat": 47.44941,
       "lon": 12.41804
     },
     {
-      "id": "way/201339250",
-      "naam": "Berggasthaus Resterhöhe",
-      "soort": "hut",
-      "station": "G1-boven",
-      "afstandM": 260,
-      "lat": 47.31147,
-      "lon": 12.38878,
-      "website": "https://www.resterhoehe.at/",
-      "telefoon": "+4367761447766",
-      "hoogte": 1740
-    },
-    {
       "id": "node/3921589433",
       "naam": "Berggasthof Harschbichl",
-      "soort": "restaurant",
+      "soort": "hut",
       "station": "H2-boven",
       "afstandM": 60,
       "lat": 47.48414,
@@ -7282,21 +7204,10 @@
       "id": "way/228966866",
       "naam": "Berghaus Tyrol",
       "soort": "restaurant",
-      "station": "A8-boven",
-      "afstandM": 252,
+      "piste": "36",
+      "afstandM": 36,
       "lat": 47.42249,
       "lon": 12.36302
-    },
-    {
-      "id": "node/914328467",
-      "naam": "Berghotel Breitmoos",
-      "soort": "restaurant",
-      "station": "G8-boven",
-      "afstandM": 177,
-      "lat": 47.30101,
-      "lon": 12.40945,
-      "website": "https://www.breitmoos.at/",
-      "telefoon": "+43 6562 8378"
     },
     {
       "id": "way/142766426",
@@ -7313,19 +7224,10 @@
       "id": "way/154482880",
       "naam": "Bruggeralm",
       "soort": "hut",
-      "station": "F4-onder",
-      "afstandM": 257,
+      "piste": "67",
+      "afstandM": 18,
       "lat": 47.35854,
       "lon": 12.38989
-    },
-    {
-      "id": "node/2451423985",
-      "naam": "Cafe Lorenzoni",
-      "soort": "cafe",
-      "station": "E2-onder",
-      "afstandM": 349,
-      "lat": 47.44798,
-      "lon": 12.31356
     },
     {
       "id": "node/9199270778",
@@ -7357,15 +7259,6 @@
       "telefoon": "+43 5356 62151"
     },
     {
-      "id": "node/8855792839",
-      "naam": "Evi Cafe und Feines",
-      "soort": "cafe",
-      "station": "H1-onder",
-      "afstandM": 270,
-      "lat": 47.44899,
-      "lon": 12.39172
-    },
-    {
       "id": "way/338114104",
       "naam": "Fleckalm Schirmbar",
       "soort": "hut",
@@ -7373,15 +7266,6 @@
       "afstandM": 27,
       "lat": 47.4329,
       "lon": 12.34757
-    },
-    {
-      "id": "node/8853104124",
-      "naam": "Fünferl",
-      "soort": "pub",
-      "station": "A1-onder",
-      "afstandM": 316,
-      "lat": 47.44604,
-      "lon": 12.38999
     },
     {
       "id": "node/3370870411",
@@ -7399,8 +7283,8 @@
       "id": "way/228972276",
       "naam": "Ganslernalm",
       "soort": "hut",
-      "station": "A3-boven",
-      "afstandM": 228,
+      "piste": "21",
+      "afstandM": 31,
       "lat": 47.44216,
       "lon": 12.38042
     },
@@ -7427,15 +7311,6 @@
       "telefoon": "+4353572078"
     },
     {
-      "id": "node/4820182781",
-      "naam": "Gasthof Skirast",
-      "soort": "restaurant",
-      "station": "D1-onder",
-      "afstandM": 240,
-      "lat": 47.41689,
-      "lon": 12.31221
-    },
-    {
       "id": "way/108331476",
       "naam": "Gauxerstadl",
       "soort": "restaurant",
@@ -7449,7 +7324,7 @@
     {
       "id": "way/478380477",
       "naam": "Gauxjochhütte",
-      "soort": "restaurant",
+      "soort": "hut",
       "station": "F6-onder",
       "afstandM": 39,
       "lat": 47.33724,
@@ -7457,35 +7332,6 @@
       "openingstijden": "Winter: Mo-So 10:00-16:00",
       "website": "http://www.gauxjochhuette.at/",
       "telefoon": "+43 664 5257398"
-    },
-    {
-      "id": "node/8853104119",
-      "naam": "Glockenspiel",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 349,
-      "lat": 47.44623,
-      "lon": 12.39072
-    },
-    {
-      "id": "node/8678810527",
-      "naam": "Gredwirt",
-      "soort": "restaurant",
-      "station": "D10-onder",
-      "afstandM": 167,
-      "lat": 47.38242,
-      "lon": 12.31019,
-      "telefoon": "+43 5357 8193"
-    },
-    {
-      "id": "node/4305620197",
-      "naam": "Gschwantler Winebar",
-      "soort": "cafe",
-      "station": "E2-onder",
-      "afstandM": 264,
-      "lat": 47.44687,
-      "lon": 12.31387,
-      "openingstijden": "Mo-Sa 09:30-18:00"
     },
     {
       "id": "node/8852133053",
@@ -7509,35 +7355,17 @@
       "id": "way/121762256",
       "naam": "Hanglalm",
       "soort": "hut",
-      "station": "G5-onder",
-      "afstandM": 281,
+      "piste": "73a",
+      "afstandM": 28,
       "lat": 47.32086,
       "lon": 12.37577
-    },
-    {
-      "id": "node/11899140948",
-      "naam": "Hausleiten Stub'n",
-      "soort": "restaurant",
-      "station": "F2-onder",
-      "afstandM": 160,
-      "lat": 47.38207,
-      "lon": 12.41834
-    },
-    {
-      "id": "node/4305619894",
-      "naam": "Heidi & Peter",
-      "soort": "bar",
-      "station": "E2-onder",
-      "afstandM": 101,
-      "lat": 47.44585,
-      "lon": 12.31231
     },
     {
       "id": "way/205502780",
       "naam": "Hochbrunn",
       "soort": "restaurant",
-      "station": "B6-boven",
-      "afstandM": 273,
+      "piste": "16",
+      "afstandM": 17,
       "lat": 47.40557,
       "lon": 12.358
     },
@@ -7561,17 +7389,6 @@
       "lon": 12.37236
     },
     {
-      "id": "node/6283090874",
-      "naam": "Hochland Café Restaurant",
-      "soort": "restaurant",
-      "station": "D10-onder",
-      "afstandM": 255,
-      "lat": 47.38232,
-      "lon": 12.30719,
-      "website": "https://www.hochland.net",
-      "telefoon": "+43 5357 8183"
-    },
-    {
       "id": "way/224870527",
       "naam": "Hofstadl",
       "soort": "bar",
@@ -7583,22 +7400,11 @@
     {
       "id": "way/207157148",
       "naam": "Hornköpflhütte",
-      "soort": "restaurant",
+      "soort": "hut",
       "station": "H7-boven",
       "afstandM": 84,
       "lat": 47.46689,
       "lon": 12.434
-    },
-    {
-      "id": "node/4664842914",
-      "naam": "Hotel Kirchenwirt",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 336,
-      "lat": 47.44601,
-      "lon": 12.31569,
-      "openingstijden": "PH,Mo-Su 11:30-13:30,17:00-21:00",
-      "website": "https://www.kirchenwirt.co.at/"
     },
     {
       "id": "way/305429693",
@@ -7608,28 +7414,6 @@
       "afstandM": 21,
       "lat": 47.36748,
       "lon": 12.39241
-    },
-    {
-      "id": "node/276647635",
-      "naam": "Jimmy's",
-      "soort": "bar",
-      "station": "A1-onder",
-      "afstandM": 329,
-      "lat": 47.44609,
-      "lon": 12.39051,
-      "openingstijden": "Mo-Su 10:00-03:00",
-      "website": "https://jimmyskitz.at/",
-      "telefoon": "+43 664 1302528"
-    },
-    {
-      "id": "node/11634195734",
-      "naam": "KC750 - Kultur Cafe Kitzbühel",
-      "soort": "cafe",
-      "station": "A1-onder",
-      "afstandM": 290,
-      "lat": 47.44553,
-      "lon": 12.39117,
-      "website": "http://www.kc750.kitzbuehel.at"
     },
     {
       "id": "way/306102306",
@@ -7659,55 +7443,8 @@
       "afstandM": 36,
       "lat": 47.47552,
       "lon": 12.43015,
-      "openingstijden": "Mo-Su 08:30-17:00",
       "website": "https://gipfelhaus.tirol/",
       "telefoon": "+43535664773"
-    },
-    {
-      "id": "node/1937923864",
-      "naam": "Klausenfalle",
-      "soort": "bar",
-      "station": "B1-onder",
-      "afstandM": 232,
-      "lat": 47.45121,
-      "lon": 12.33791
-    },
-    {
-      "id": "node/9672654885",
-      "naam": "Kleiner Moment",
-      "soort": "cafe",
-      "station": "E2-onder",
-      "afstandM": 293,
-      "lat": 47.4473,
-      "lon": 12.31374
-    },
-    {
-      "id": "node/2175894214",
-      "naam": "Kortschak",
-      "soort": "cafe",
-      "station": "A1-onder",
-      "afstandM": 309,
-      "lat": 47.44581,
-      "lon": 12.39088,
-      "openingstijden": "Mo-Sa 09:00-18:00; Su 10:00-18:00"
-    },
-    {
-      "id": "node/8856125678",
-      "naam": "Krimbacher",
-      "soort": "restaurant",
-      "station": "F2-onder",
-      "afstandM": 272,
-      "lat": 47.38124,
-      "lon": 12.41918
-    },
-    {
-      "id": "node/8853084515",
-      "naam": "La Gondola",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 323,
-      "lat": 47.44585,
-      "lon": 12.3912
     },
     {
       "id": "node/11518743793",
@@ -7721,18 +7458,6 @@
       "telefoon": "+43 5356 20910"
     },
     {
-      "id": "node/8855792840",
-      "naam": "Lanna Thai Imbiss",
-      "soort": "restaurant",
-      "station": "H1-onder",
-      "afstandM": 241,
-      "lat": 47.44901,
-      "lon": 12.39215,
-      "openingstijden": "Mo-Fr 10:00-20:30; Su 16:00-20:30",
-      "website": "https://www.lanna.at",
-      "telefoon": "+436801205878"
-    },
-    {
       "id": "node/13485446050",
       "naam": "Legenden Cafe",
       "soort": "cafe",
@@ -7742,17 +7467,6 @@
       "lon": 12.38942
     },
     {
-      "id": "node/13361628489",
-      "naam": "LÖW's Deli",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 324,
-      "lat": 47.44592,
-      "lon": 12.39102,
-      "openingstijden": "Tu-Sa 09:00-00:00; Su-Mo 09:00-17:00",
-      "website": "https://löws-deli.at"
-    },
-    {
       "id": "node/6940167825",
       "naam": "Maierl",
       "soort": "restaurant",
@@ -7760,16 +7474,6 @@
       "afstandM": 44,
       "lat": 47.42966,
       "lon": 12.33284
-    },
-    {
-      "id": "node/1049053874",
-      "naam": "McDonald's",
-      "soort": "fast_food",
-      "station": "A1-onder",
-      "afstandM": 295,
-      "lat": 47.44588,
-      "lon": 12.3896,
-      "telefoon": "+43 5356 71430"
     },
     {
       "id": "node/8852133055",
@@ -7796,8 +7500,8 @@
       "id": "way/207462228",
       "naam": "Moseralm",
       "soort": "hut",
-      "station": "G1-boven",
-      "afstandM": 151,
+      "piste": "76",
+      "afstandM": 29,
       "lat": 47.31349,
       "lon": 12.38802
     },
@@ -7829,18 +7533,6 @@
       "lon": 12.33591
     },
     {
-      "id": "way/100452081",
-      "naam": "Oberlandhütte",
-      "soort": "hut",
-      "station": "D10-onder",
-      "afstandM": 224,
-      "lat": 47.37962,
-      "lon": 12.30762,
-      "website": "https://www.davplus.de/oberlandhuette",
-      "telefoon": "+4353578113",
-      "hoogte": 1014
-    },
-    {
       "id": "way/244712153",
       "naam": "Ochsalm",
       "soort": "hut",
@@ -7864,8 +7556,8 @@
       "id": "node/4082462301",
       "naam": "Panoramaalm",
       "soort": "hut",
-      "station": "G6-boven",
-      "afstandM": 193,
+      "piste": "74a",
+      "afstandM": 43,
       "lat": 47.31841,
       "lon": 12.35723,
       "website": "https://www.panoramaalm.net/"
@@ -7879,30 +7571,6 @@
       "lat": 47.39004,
       "lon": 12.34766,
       "website": "http://www.bergbahn-kitzbuehel.at/de/restaurant-pengelstein.html"
-    },
-    {
-      "id": "node/4305620198",
-      "naam": "Peter's treff",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 158,
-      "lat": 47.44615,
-      "lon": 12.31294,
-      "openingstijden": "Mo-Su 10:00-24:00",
-      "website": "https://peterstreff21.wixsite.com/website",
-      "telefoon": "+43 650 3105 795"
-    },
-    {
-      "id": "node/5522846006",
-      "naam": "Pfeffermühle",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 220,
-      "lat": 47.44664,
-      "lon": 12.3134,
-      "openingstijden": "Mo-Su,PH 11:00-23:00",
-      "website": "https://www.pfeffermuehle-kirchberg.at/",
-      "telefoon": "+43 5357 2222"
     },
     {
       "id": "way/123841316",
@@ -7938,15 +7606,6 @@
       "telefoon": "+4353572421"
     },
     {
-      "id": "node/4305631591",
-      "naam": "Pub 20erl",
-      "soort": "pub",
-      "station": "E2-onder",
-      "afstandM": 317,
-      "lat": 47.44744,
-      "lon": 12.31399
-    },
-    {
       "id": "node/8852133052",
       "naam": "Red Bull",
       "soort": "restaurant",
@@ -7965,86 +7624,13 @@
       "lon": 12.33908
     },
     {
-      "id": "node/3328669409",
-      "naam": "Reitherwirt",
-      "soort": "restaurant",
-      "station": "E3-onder",
-      "afstandM": 266,
-      "lat": 47.47627,
-      "lon": 12.34224,
-      "website": "https://www.reitherwirt.at/",
-      "telefoon": "+43 5356 65418"
-    },
-    {
-      "id": "relation/8610117",
-      "naam": "Restaurant Krimbacher",
-      "soort": "restaurant",
-      "station": "F2-onder",
-      "afstandM": 272,
-      "lat": 47.38125,
-      "lon": 12.41922
-    },
-    {
-      "id": "node/914338917",
-      "naam": "Restaurant Panoramabahn",
-      "soort": "restaurant",
-      "station": "G8-onder",
-      "afstandM": 34,
-      "lat": 47.28069,
-      "lon": 12.40519,
-      "openingstijden": "\"Nur im Winter\"",
-      "website": "https://www.panoramabahn.at/de/restaurant-panoramabahn.html",
-      "telefoon": "+43 6562 7010-14"
-    },
-    {
-      "id": "node/1735138416",
-      "naam": "Rigoletto",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 259,
-      "lat": 47.44594,
-      "lon": 12.31466,
-      "openingstijden": "Mo-Su,PH 11:30-21:30"
-    },
-    {
       "id": "node/1080698437",
       "naam": "Rosi´s Sonnbergstuben",
       "soort": "restaurant",
       "piste": "50",
       "afstandM": 41,
       "lat": 47.43588,
-      "lon": 12.4352,
-      "openingstijden": "We-Su 10:00-23:00; Mo-Tu off",
-      "website": "https://www.sonnbergstuben.at/"
-    },
-    {
-      "id": "node/13709801265",
-      "naam": "Rösslwirt",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 255,
-      "lat": 47.44699,
-      "lon": 12.31351,
-      "website": "https://www.roesslwirt-kirchberg.at/restaurant/",
-      "telefoon": "+43 5357 2262"
-    },
-    {
-      "id": "node/5864232285",
-      "naam": "s'Amtl",
-      "soort": "restaurant",
-      "station": "F1a-onder",
-      "afstandM": 324,
-      "lat": 47.38049,
-      "lon": 12.41886
-    },
-    {
-      "id": "node/1947673967",
-      "naam": "S'Kitz",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 325,
-      "lat": 47.44514,
-      "lon": 12.39263
+      "lon": 12.4352
     },
     {
       "id": "node/5416366079",
@@ -8075,24 +7661,6 @@
       "website": "http://www.schi-alm.at/"
     },
     {
-      "id": "way/224871948",
-      "naam": "Schwarzer Adler",
-      "soort": "restaurant",
-      "station": "F1a-onder",
-      "afstandM": 257,
-      "lat": 47.37966,
-      "lon": 12.41974
-    },
-    {
-      "id": "node/4305633592",
-      "naam": "Seefeldstube",
-      "soort": "restaurant",
-      "station": "E2-onder",
-      "afstandM": 348,
-      "lat": 47.44738,
-      "lon": 12.30806
-    },
-    {
       "id": "node/8780321352",
       "naam": "Seehof",
       "soort": "restaurant",
@@ -8117,28 +7685,18 @@
       "id": "node/6320816467",
       "naam": "Skihitt'n Usterwies",
       "soort": "restaurant",
-      "station": "D2-onder",
-      "afstandM": 289,
+      "piste": "31",
+      "afstandM": 33,
       "lat": 47.39747,
       "lon": 12.3242,
       "hoogte": 1400
     },
     {
-      "id": "node/4305620199",
-      "naam": "Snack Dreieck",
-      "soort": "fast_food",
-      "station": "E2-onder",
-      "afstandM": 207,
-      "lat": 47.44632,
-      "lon": 12.31359,
-      "openingstijden": "Mo-Su,PH 13:00-22:00"
-    },
-    {
       "id": "way/207462963",
       "naam": "Sonnalm",
       "soort": "hut",
-      "station": "G6-onder",
-      "afstandM": 143,
+      "piste": "76",
+      "afstandM": 45,
       "lat": 47.32341,
       "lon": 12.37027,
       "website": "https://www.sonnalm.net/"
@@ -8147,8 +7705,8 @@
       "id": "way/228966858",
       "naam": "Sonnenbühel",
       "soort": "restaurant",
-      "station": "A8-boven",
-      "afstandM": 263,
+      "piste": "19",
+      "afstandM": 28,
       "lat": 47.42145,
       "lon": 12.36614,
       "website": "https://www.sonnbuehel.at/",
@@ -8157,7 +7715,7 @@
     {
       "id": "way/228961293",
       "naam": "Sonnenrast (Berggasthof)",
-      "soort": "restaurant",
+      "soort": "hut",
       "station": "B3-boven",
       "afstandM": 122,
       "lat": 47.41745,
@@ -8170,25 +7728,8 @@
       "piste": "26a",
       "afstandM": 20,
       "lat": 47.43701,
-      "lon": 12.33207
-    },
-    {
-      "id": "node/2175893911",
-      "naam": "Sporthotel Reisch",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 301,
-      "lat": 47.44592,
-      "lon": 12.38978
-    },
-    {
-      "id": "node/3385875948",
-      "naam": "Stamperl",
-      "soort": "bar",
-      "station": "A1-onder",
-      "afstandM": 272,
-      "lat": 47.44568,
-      "lon": 12.38936
+      "lon": 12.33207,
+      "openingstijden": "Nov-Apr Mo-Su FIXME"
     },
     {
       "id": "node/1938478192",
@@ -8230,25 +7771,6 @@
       "telefoon": "+436767773997"
     },
     {
-      "id": "node/11423375667",
-      "naam": "Take Five",
-      "soort": "bar",
-      "station": "A1-onder",
-      "afstandM": 334,
-      "lat": 47.44617,
-      "lon": 12.39029
-    },
-    {
-      "id": "node/4777573622",
-      "naam": "The Londoner",
-      "soort": "bar",
-      "station": "A1-onder",
-      "afstandM": 312,
-      "lat": 47.44603,
-      "lon": 12.38919,
-      "website": "http://londoner.at"
-    },
-    {
       "id": "way/158756834",
       "naam": "Toni Alm",
       "soort": "hut",
@@ -8263,33 +7785,13 @@
       "id": "node/4716136584",
       "naam": "Trattenbachalm",
       "soort": "hut",
-      "station": "F7-onder",
-      "afstandM": 303,
+      "piste": "68",
+      "afstandM": 58,
       "lat": 47.33348,
       "lon": 12.36039,
       "website": "https://www.trattenbachalm.at/",
       "telefoon": "+43 5355 5089",
       "hoogte": 1636
-    },
-    {
-      "id": "node/5569263610",
-      "naam": "Vierlauchenhuette",
-      "soort": "hut",
-      "piste": "15",
-      "afstandM": 44,
-      "lat": 47.27297,
-      "lon": 12.30416,
-      "website": "https://www.vierlauchen.at/",
-      "telefoon": "+43 664 38 83 849"
-    },
-    {
-      "id": "node/11932514470",
-      "naam": "Vis-a-Vis",
-      "soort": "bar",
-      "station": "E2-onder",
-      "afstandM": 235,
-      "lat": 47.4466,
-      "lon": 12.31373
     },
     {
       "id": "way/320001445",
@@ -8300,43 +7802,6 @@
       "lat": 47.37445,
       "lon": 12.40378,
       "website": "https://www.wagstaett-alm.at/"
-    },
-    {
-      "id": "way/291080808",
-      "naam": "Wildkogel Alm",
-      "soort": "hut",
-      "piste": "2",
-      "afstandM": 23,
-      "lat": 47.28269,
-      "lon": 12.29261
-    },
-    {
-      "id": "way/173696060",
-      "naam": "Wirtshaus zum Rehkitz",
-      "soort": "restaurant",
-      "station": "H11-onder",
-      "afstandM": 295,
-      "lat": 47.43308,
-      "lon": 12.42267
-    },
-    {
-      "id": "node/9199244899",
-      "naam": "Woodys Stadelbar",
-      "soort": "bar",
-      "station": "H1-onder",
-      "afstandM": 282,
-      "lat": 47.4488,
-      "lon": 12.3917,
-      "openingstijden": "We-Mo,PH 18:00-23:00; Tu off"
-    },
-    {
-      "id": "node/8853084494",
-      "naam": "Zinnkrug",
-      "soort": "restaurant",
-      "station": "A1-onder",
-      "afstandM": 326,
-      "lat": 47.4449,
-      "lon": 12.39293
     }
   ],
   "pisteLijnen": {
@@ -8455,36 +7920,6 @@
       ]
     ],
     "2": [
-      [
-        [
-          47.282,
-          12.28782
-        ],
-        [
-          47.28138,
-          12.28858
-        ],
-        [
-          47.28146,
-          12.28982
-        ],
-        [
-          47.28177,
-          12.29081
-        ],
-        [
-          47.28218,
-          12.29156
-        ],
-        [
-          47.2828,
-          12.29232
-        ],
-        [
-          47.28307,
-          12.29283
-        ]
-      ],
       [
         [
           47.46256,
@@ -10019,162 +9454,6 @@
       ],
       [
         [
-          47.27055,
-          12.2994
-        ],
-        [
-          47.26995,
-          12.3
-        ],
-        [
-          47.26975,
-          12.29918
-        ],
-        [
-          47.26925,
-          12.29948
-        ],
-        [
-          47.26876,
-          12.30001
-        ],
-        [
-          47.26851,
-          12.29927
-        ],
-        [
-          47.26844,
-          12.29847
-        ],
-        [
-          47.26806,
-          12.29929
-        ],
-        [
-          47.26776,
-          12.30004
-        ],
-        [
-          47.26751,
-          12.30079
-        ],
-        [
-          47.26743,
-          12.29987
-        ],
-        [
-          47.26709,
-          12.30048
-        ],
-        [
-          47.26697,
-          12.29963
-        ],
-        [
-          47.26645,
-          12.30045
-        ],
-        [
-          47.26622,
-          12.29965
-        ],
-        [
-          47.26591,
-          12.30053
-        ],
-        [
-          47.26556,
-          12.29972
-        ],
-        [
-          47.26561,
-          12.29858
-        ],
-        [
-          47.26491,
-          12.29881
-        ],
-        [
-          47.26452,
-          12.29947
-        ],
-        [
-          47.26426,
-          12.29859
-        ],
-        [
-          47.26375,
-          12.29942
-        ],
-        [
-          47.26356,
-          12.30022
-        ],
-        [
-          47.26303,
-          12.29923
-        ],
-        [
-          47.26303,
-          12.29816
-        ],
-        [
-          47.26255,
-          12.29861
-        ],
-        [
-          47.26241,
-          12.29976
-        ],
-        [
-          47.26236,
-          12.30083
-        ],
-        [
-          47.26206,
-          12.29979
-        ],
-        [
-          47.26193,
-          12.29985
-        ]
-      ],
-      [
-        [
-          47.27195,
-          12.30352
-        ],
-        [
-          47.27131,
-          12.30346
-        ],
-        [
-          47.2709,
-          12.30285
-        ],
-        [
-          47.27058,
-          12.3022
-        ],
-        [
-          47.27036,
-          12.30135
-        ],
-        [
-          47.27042,
-          12.30041
-        ],
-        [
-          47.27053,
-          12.29959
-        ],
-        [
-          47.27055,
-          12.2994
-        ]
-      ],
-      [
-        [
           47.45962,
           12.43225
         ],
@@ -10207,26 +9486,6 @@
         [
           47.45864,
           12.43387
-        ]
-      ],
-      [
-        [
-          47.27242,
-          12.30412
-        ],
-        [
-          47.27195,
-          12.30352
-        ]
-      ],
-      [
-        [
-          47.2726,
-          12.30394
-        ],
-        [
-          47.27242,
-          12.30412
         ]
       ]
     ],
@@ -10905,28 +10164,6 @@
         [
           47.41626,
           12.3686
-        ]
-      ],
-      [
-        [
-          47.29332,
-          12.29054
-        ],
-        [
-          47.2933,
-          12.28967
-        ],
-        [
-          47.29343,
-          12.28843
-        ],
-        [
-          47.29367,
-          12.28725
-        ],
-        [
-          47.29371,
-          12.28674
         ]
       ]
     ],
@@ -19417,8 +18654,20 @@
     "26a": [
       [
         [
-          47.43934,
-          12.32419
+          47.43869,
+          12.32683
+        ],
+        [
+          47.43902,
+          12.32588
+        ],
+        [
+          47.43926,
+          12.32497
+        ],
+        [
+          47.43954,
+          12.32383
         ],
         [
           47.43999,
@@ -19705,24 +18954,6 @@
         [
           47.43891,
           12.32048
-        ]
-      ],
-      [
-        [
-          47.43869,
-          12.32683
-        ],
-        [
-          47.43902,
-          12.32588
-        ],
-        [
-          47.43926,
-          12.32497
-        ],
-        [
-          47.43934,
-          12.32419
         ]
       ]
     ],
@@ -20601,8 +19832,28 @@
       ],
       [
         [
-          47.35711,
-          12.39763
+          47.35693,
+          12.39286
+        ],
+        [
+          47.35695,
+          12.39393
+        ],
+        [
+          47.35703,
+          12.39477
+        ],
+        [
+          47.35718,
+          12.39557
+        ],
+        [
+          47.35714,
+          12.39657
+        ],
+        [
+          47.35709,
+          12.39743
         ],
         [
           47.35735,
@@ -20639,36 +19890,6 @@
         [
           47.35946,
           12.40389
-        ]
-      ],
-      [
-        [
-          47.35693,
-          12.39286
-        ],
-        [
-          47.35695,
-          12.39393
-        ],
-        [
-          47.35703,
-          12.39477
-        ],
-        [
-          47.35718,
-          12.39557
-        ],
-        [
-          47.35714,
-          12.39657
-        ],
-        [
-          47.35709,
-          12.39743
-        ],
-        [
-          47.35711,
-          12.39763
         ]
       ]
     ],
@@ -20753,28 +19974,6 @@
       ],
       [
         [
-          47.44718,
-          12.32811
-        ],
-        [
-          47.44758,
-          12.32712
-        ],
-        [
-          47.44766,
-          12.32612
-        ],
-        [
-          47.44729,
-          12.32452
-        ],
-        [
-          47.44693,
-          12.3234
-        ]
-      ],
-      [
-        [
           47.44585,
           12.33212
         ],
@@ -20795,8 +19994,24 @@
           12.32855
         ],
         [
-          47.44718,
-          12.32811
+          47.44739,
+          12.32775
+        ],
+        [
+          47.44766,
+          12.32675
+        ],
+        [
+          47.44754,
+          12.32556
+        ],
+        [
+          47.44729,
+          12.32452
+        ],
+        [
+          47.44693,
+          12.3234
         ]
       ]
     ],
@@ -21067,16 +20282,6 @@
         [
           47.31776,
           12.38073
-        ],
-        [
-          47.31801,
-          12.38052
-        ]
-      ],
-      [
-        [
-          47.31801,
-          12.38052
         ],
         [
           47.31875,
