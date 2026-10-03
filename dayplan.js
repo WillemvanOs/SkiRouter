@@ -27,8 +27,6 @@ const DAY_PACES = {
   normal:  { label: 'Normal',  piste: 1.3, wait: 5 },
   sporty:  { label: 'Sporty',  piste: 1.0, wait: 3 },
 };
-// Lifts you can also ride down (to get home from a ridge or another valley).
-const DAY_DESCENT_TYPES = new Set(['gondola', 'mixed_lift', 'cable_car', 'funicular']);
 const DAY_TRANSFER_MIN  = 2;   // walking between two stations
 const DAY_PRACTICE_MIN  = 1;   // magic carpets: no queue to speak of
 const DAY_RUNS          = 400; // randomised walks per plan
@@ -45,7 +43,7 @@ let dayDiff    = new Set(DAY_DIFF_LEVELS);
 let dayPace    = 'normal';
 let dayOptions = [];
 let dayCtx     = null;
-let dayGraph   = {}; // GRAPH plus ride-down edges, built per plan
+let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
 let dayTracker = null; // ticking off the shown option's steps
 let dayShown   = 0;    // index of the option on screen
 
@@ -219,20 +217,6 @@ function novelty(timesSkied) {
   return [1, 0.35, 0.12][timesSkied] ?? 0.04;
 }
 
-// The routing graph plus a ride-down edge for every gondola/cable car, so a
-// day can end in a valley that has no piste down to it.
-function buildDayGraph() {
-  const graph = {};
-  Object.entries(GRAPH).forEach(([from, edges]) => { graph[from] = [...edges]; });
-  Object.values(GRAPH).flat().forEach(edge => {
-    if (!edge.liftNr || edge.descent || !DAY_DESCENT_TYPES.has(edge.type)) return;
-    (graph[edge.to] = graph[edge.to] || []).push({
-      ...edge, from: edge.to, to: edge.from, descent: true, name: `${edge.name} (ride down)`,
-    });
-  });
-  return graph;
-}
-
 // Quickest time (and the next edge to take) from every node to `endId`.
 function costsToEnd(endId, pace) {
   const reverse = {};
@@ -240,7 +224,9 @@ function costsToEnd(endId, pace) {
     if (dayAllowed(edge)) (reverse[edge.to] = reverse[edge.to] || []).push(edge);
   }));
 
-  const dist = { [endId]: 0 };
+  // Route on cost (riding a lift down only when nothing else gets you
+  // there), but report the real time of that way home in `dist`.
+  const cost = { [endId]: 0 };
   const next = {};
   const done = new Set();
   const queue = [{ id: endId, cost: 0 }];
@@ -250,25 +236,28 @@ function costsToEnd(endId, pace) {
     if (done.has(id)) continue;
     done.add(id);
     (reverse[id] || []).forEach(edge => {
-      const cost = dist[id] + dayCost(edge, pace);
-      if (cost < (dist[edge.from] ?? Infinity)) {
-        dist[edge.from] = cost;
+      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0);
+      if (c < (cost[edge.from] ?? Infinity)) {
+        cost[edge.from] = c;
         next[edge.from] = edge;
-        queue.push({ id: edge.from, cost });
+        queue.push({ id: edge.from, cost: c });
       }
     });
   }
 
-  // Piste km along the quickest way home, so a walk can stop in time.
+  // Real minutes and piste km along that way home, so a walk can stop in time.
+  const dist = {};
   const homeKm = {};
-  function kmHome(node) {
-    if (homeKm[node] != null) return homeKm[node];
-    homeKm[node] = 0; // guard against cycles while computing
+  function home(node) {
+    if (dist[node] != null) return;
+    dist[node] = 0; homeKm[node] = 0; // guard against cycles while computing
     const edge = next[node];
-    homeKm[node] = edge ? (edge.type === 'piste' ? edge.km || 0 : 0) + kmHome(edge.to) : 0;
-    return homeKm[node];
+    if (!edge) return;
+    home(edge.to);
+    dist[node]   = dayCost(edge, pace) + dist[edge.to];
+    homeKm[node] = (edge.type === 'piste' ? edge.km || 0 : 0) + homeKm[edge.to];
   }
-  Object.keys(dist).forEach(kmHome);
+  Object.keys(cost).forEach(home);
 
   return { dist, next, homeKm };
 }
@@ -560,7 +549,7 @@ function planDay(options = {}) {
   });
 
   const pace = DAY_PACES[dayPace];
-  dayGraph = buildDayGraph();
+  dayGraph = GRAPH;
   const home = costsToEnd(end.id, pace);
   if (home.dist[start.id] == null) return fail('The end station cannot be reached from the start with these difficulties. Try also selecting red or black.');
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
