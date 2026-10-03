@@ -32,7 +32,8 @@ self.addEventListener('install', event => {
     // Every area the registry lists, so any area can be opened offline.
     try {
       const areas = await (await fetch('data/areas.json', { cache: 'no-store' })).json();
-      await cache.addAll(areas.flatMap(a => [a.file, a.liftstatus?.file]).filter(Boolean));
+      // One by one: a missing file (e.g. no lift status yet) must not stop the rest.
+      await Promise.allSettled(areas.flatMap(a => [a.file, a.liftstatus?.file]).filter(Boolean).map(f => cache.add(f)));
     } catch (err) {
       console.warn('Could not pre-cache area data:', err);
     }

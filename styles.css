@@ -1469,3 +1469,38 @@ select.day-input {
   color: #fff;
   cursor: pointer;
 }
+
+/* ── Lift status ──────────────────────────────────────────── */
+
+.lift-status {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.lift-status.is-open   { color: var(--green); }
+.lift-status.is-closed { color: #c0392b; }
+
+.step-info .lift-status {
+  margin-top: 4px;
+}
+
+.station-item .lift-status {
+  flex-basis: 100%;
+  padding-left: 40px;
+}
+
+.closed-warning {
+  margin: -2px -4px 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #ffe0de;
+  color: #a12a1e;
+  font-weight: 600;
+}
+
+.station-item {
+  flex-wrap: wrap;
+  row-gap: 2px;
+}

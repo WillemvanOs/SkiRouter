@@ -231,6 +231,7 @@ async function selectArea(areaMeta) {
 
     buildFromSkimapData(area);
     currentArea = area;
+    await loadLiftStatus(areaMeta);
 
     localStorage.setItem(LAST_AREA_KEY, area.id);
     applyAreaToHeader(area);
@@ -383,6 +384,7 @@ function renderSheet() {
           <span class="station-item-nr">${lift.nr}</span>
           <span class="station-item-name">${lift.name}</span>
           <span class="station-item-side">${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}</span>
+          ${dalBerg === 'dal' ? liftStatusHtml(lift.nr) : ''}
           ${station.alt != null ? `<span class="station-item-alt">${formatAlt(station.alt)}</span>` : ''}
         `;
         btn.addEventListener('click', () => pickStation(stationId, lift, dalBerg));
@@ -708,7 +710,7 @@ function renderRoute(result) {
     }
   });
 
-  document.getElementById('tip').innerHTML = getTip();
+  document.getElementById('tip').innerHTML = getTip(visibleSteps);
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
@@ -772,6 +774,7 @@ function stepElement(edge, index, clock) {
       <div class="step-icon ico-${cls}">${icon}</div>
       <div class="step-info">
         <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
+        ${liftStatusHtml(edge.liftNr)}
         <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
       </div>
     `;
@@ -796,10 +799,69 @@ function addWaypoint(parent, name, alt, icon, subtitle, delay) {
   parent.appendChild(div);
 }
 
-function getTip() {
-  // Tips used to be hardcoded per KitzSki piste/lift name. Now that the app
-  // is dataset-agnostic, keep this generic until tips become area data.
-  return '💡 <strong>Tip:</strong> Check the current opening times of your ski area before you set off.';
+function getTip(steps = []) {
+  const closed = closedLiftsOn(steps);
+  const warning = closed.length
+    ? `<div class="closed-warning">⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}.</div>`
+    : '';
+  return warning + '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
+    ? `Lift status from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
+    : 'Check the current opening times of your ski area before you set off.');
+}
+
+// ── Lift status (open/closed, operating hours) ───────────────────────────────
+//
+// Fetched every 30 minutes from the ski area's website by
+// tools/lift-status.mjs into data/<area>-liftstatus.json (see areas.json).
+
+let LIFT_STATUS = null; // { bron, sourceUpdate, changed, lifts: { A1: { open, hours, from, to, … } } }
+
+async function loadLiftStatus(areaMeta) {
+  LIFT_STATUS = null;
+  const file = areaMeta.liftstatus?.file;
+  if (!file) return;
+  try {
+    const response = await fetch(file);
+    if (response.ok) LIFT_STATUS = await response.json();
+  } catch (err) {
+    console.warn('Lift status unavailable:', err);
+  }
+}
+
+function liftStatus(liftNr) {
+  return LIFT_STATUS?.lifts?.[liftNr] || null;
+}
+
+// "open 08:30–17:00", "closed" — or '' when the area has no status data.
+function liftStatusLabel(liftNr) {
+  const s = liftStatus(liftNr);
+  if (!s) return '';
+  if (!s.open) return 'closed';
+  return s.hours ? `open ${s.hours.replace('-', '–')}` : 'open';
+}
+
+function liftStatusHtml(liftNr) {
+  const label = liftStatusLabel(liftNr);
+  if (!label) return '';
+  const open = liftStatus(liftNr).open;
+  return `<span class="lift-status ${open ? 'is-open' : 'is-closed'}">${open ? '●' : '○'} ${label}</span>`;
+}
+
+// When the status was last checked against the source, in words.
+function liftStatusAge() {
+  const t = LIFT_STATUS?.sourceUpdate ? new Date(LIFT_STATUS.sourceUpdate) : null;
+  if (!t || isNaN(t)) return 'recently updated';
+  const sameDay = t.toDateString() === new Date().toDateString();
+  const time = t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  return sameDay ? `updated ${time}` : `updated ${t.toLocaleDateString([], { day: 'numeric', month: 'short' })} ${time}`;
+}
+
+// Real lifts (not ride-down, bus or piste) on a route that are closed now.
+function closedLiftsOn(steps) {
+  const seen = new Set();
+  return steps.filter(e => e && e.liftNr && e.type !== 'piste' && !e.descent && !isConnection(e))
+    .filter(e => { const s = liftStatus(e.liftNr); return s && !s.open; })
+    .filter(e => !seen.has(e.liftNr) && seen.add(e.liftNr));
 }
 
 // ── Where am I (GPS) ─────────────────────────────────────────────────────────
