@@ -1434,3 +1434,9 @@ select.day-input {
   padding: 0;
   font-size: 0.74rem;
 }
+
+/* A field whose default is a real value ("Same as start"), not a placeholder */
+.sel-box-default {
+  color: var(--midnight);
+  font-weight: 600;
+}
