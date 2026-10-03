@@ -144,9 +144,10 @@
 
   <!-- Route result card -->
   <div class="card result" id="result">
-    <button class="back-btn" type="button" onclick="backToPlanner('quick-card')">↑ Change settings</button>
-    <div class="result-header">
-      <div class="card-title" style="margin-bottom:0">📍 Your Route</div>
+    <div class="card-title result-title">📍 Your Route</div>
+    <!-- Stays at the top of the screen while scrolling through the route -->
+    <div class="result-sticky">
+      <button class="back-btn" type="button" onclick="backToPlanner('quick-card')">↑ Settings</button>
       <div class="pills">
         <span class="pill" id="p-steps">—</span>
         <span class="pill" id="p-km">—</span>
@@ -158,7 +159,6 @@
     <div class="steps" id="steps"></div>
 
     <div class="tip" id="tip"></div>
-    <button class="back-btn back-btn-bottom" type="button" onclick="backToPlanner('quick-card')">↑ Change settings</button>
   </div>
 
   </div><!-- /tab-quick -->
@@ -270,9 +270,10 @@
 
   <!-- Day plan result card -->
   <div class="card result" id="day-result">
-    <button class="back-btn" type="button" onclick="backToPlanner('day-card')">↑ Change settings</button>
-    <div class="result-header">
-      <div class="card-title" style="margin-bottom:0">📅 Your Day</div>
+    <div class="card-title result-title">📅 Your Day</div>
+    <!-- Stays at the top of the screen while scrolling through the day -->
+    <div class="result-sticky">
+      <button class="back-btn" type="button" onclick="backToPlanner('day-card')">↑ Settings</button>
       <div class="pills">
         <span class="pill" id="dp-km">—</span>
         <span class="pill" id="dp-pistes">—</span>
@@ -287,7 +288,6 @@
     <div class="steps" id="day-steps"></div>
 
     <div class="tip" id="day-tip"></div>
-    <button class="back-btn back-btn-bottom" type="button" onclick="backToPlanner('day-card')">↑ Change settings</button>
   </div>
 
   </div><!-- /tab-day -->

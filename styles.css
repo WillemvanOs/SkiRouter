@@ -969,11 +969,6 @@ main {
   color: var(--alpine);
 }
 
-#day-result .result-header {
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
 .day-options {
   display: flex;
   gap: 8px;
@@ -1291,11 +1286,37 @@ select.day-input {
 
 /* ── Back to the planner ──────────────────────────────────── */
 
+.result-title {
+  margin-bottom: 8px;
+}
+
+/* The route's key facts and the way back to the planner stay in view while
+   scrolling through a long route (within the result card only). */
+.result-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 -20px 12px;
+  padding: 10px 20px;
+  background: #fff;
+  border-bottom: 1px solid var(--ice);
+  box-shadow: 0 4px 10px -8px rgba(30, 75, 122, 0.35);
+}
+
+.result-sticky .pills {
+  flex: 1;
+  justify-content: flex-end;
+}
+
 .back-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-bottom: 12px;
+  flex-shrink: 0;
   padding: 7px 12px;
   border: 1.5px solid var(--ice);
   border-radius: 8px;
@@ -1311,9 +1332,7 @@ select.day-input {
   border-color: var(--alpine);
 }
 
-.back-btn-bottom {
-  margin: 14px 0 0;
-  width: 100%;
-  justify-content: center;
-  padding: 10px 12px;
+
+.result-sticky .back-btn {
+  margin: 0;
 }
