@@ -145,8 +145,10 @@ function buildFromSkimapData(area) {
       info: v.info || '',
       tijd: v.tijd || 0,
     };
-    addEdge({ ...edge, from: v.van, to: v.naar });
-    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van });
+    // The nearest bus stop of a bottom station, from the OSM enrichment.
+    const stopAt = id => id.endsWith('-onder') ? liftByNr.get(id.slice(0, -'-onder'.length))?.bushalte?.naam : undefined;
+    addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
+    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
   });
 
   // aansluitendeLiften: reachable from the top of this lift without a
@@ -622,7 +624,7 @@ function renderRoute(result) {
   const totalKm      = visibleSteps.reduce((sum, edge) => sum + (edge.km || 0), 0);
   const totalMin     = visibleSteps.reduce((sum, edge) => sum + (edge.tijd || 0), 0);
 
-  document.getElementById('p-steps').textContent = `${visibleSteps.length} steps`;
+  document.getElementById('p-steps').textContent = `${visibleSteps.length} step${visibleSteps.length === 1 ? '' : 's'}`;
   document.getElementById('p-km').textContent    = totalKm > 0 ? `approx. ${totalKm.toFixed(1)} km` : '—';
   document.getElementById('p-time').textContent  = `~${totalMin} min`;
 
@@ -695,6 +697,7 @@ function stepElement(edge, index, clock) {
       <div class="step-info">
         <div class="step-kind kind-connection">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
         <div class="step-name">${from} → ${to}</div>
+        ${edge.type === 'bus' && edge.stopFrom && edge.stopTo ? `<div class="step-sub">🚏 ${edge.stopFrom} → ${edge.stopTo}</div>` : ''}
         ${edge.info ? `<div class="step-sub">${edge.info}</div>` : ''}
       </div>
     `;
