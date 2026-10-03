@@ -20,8 +20,14 @@ const OVERPASS_URLS = [
   'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
 ];
-const STATION_RADIUS_M = 350;  // a hut this close to a lift station "is at" it
-const PISTE_RADIUS_M   = 120;  // otherwise: this close to a piste "is on" it
+// A place counts as "on the piste" when it is this close to a piste's course
+// (OSM maps a piste's centre line, so a wide piste reaches further than this):
+const PISTE_RADIUS_M     = 80;
+const HUT_PISTE_RADIUS_M = 100; // a mountain hut may sit a little further off
+const TOP_STATION_M      = 130; // …or at the top station of a lift
+const STATION_LINK_M     = 130; // this close to a station, lunch is "at" that station
+const NETWORK_RADIUS_M   = 1500; // piste ways further than this from every lift
+                                 // station belong to a neighbouring ski area
 const FOOD = /^(restaurant|cafe|fast_food|bar|pub|biergarten)$/;
 
 async function overpass(query) {
@@ -70,7 +76,7 @@ function norm(s) {
 }
 
 function foodKind(tags) {
-  if (tags.tourism === 'alpine_hut' || /hutte|huette|alm\b|alm$/i.test(tags.name || '')) return 'hut';
+  if (tags.tourism === 'alpine_hut' || /hütte|hutte|huette|alm\b|alm$|berg-?gasth/i.test(tags.name || '')) return 'hut';
   return tags.amenity;
 }
 
@@ -125,6 +131,15 @@ async function enrichArea(meta) {
   }
   console.log(`  matched ${matched}/${(area.liften || []).length} lifts to OSM`);
 
+  // Piste ways near this area's lifts (not a neighbouring area's run that
+  // happens to carry the same number).
+  const networkWays = pisteWays.filter(w => {
+    const g = w.geometry;
+    return [g[0], g[Math.floor(g.length / 2)], g[g.length - 1]]
+      .some(p => stations.some(s => distM(p, s.pos) <= NETWORK_RADIUS_M));
+  });
+  console.log(`  ${networkWays.length}/${pisteWays.length} piste ways near this area's lifts`);
+
   const pisteNrs = new Set((area.pistes || []).map(p => p.pisteNr));
   const pistesByName = new Map((area.pistes || []).map(p => [norm(p.naam), p.pisteNr]));
   function pisteNrOf(way) {
@@ -140,22 +155,30 @@ async function enrichArea(meta) {
     const pos = f.type === 'node' ? { lat: f.lat, lon: f.lon } : f.center;
     if (!pos) continue;
 
-    let best = null;
+    // Nearest lift station and nearest piste of this ski area.
+    let station = null;
     for (const s of stations) {
       const d = distM(pos, s.pos);
-      if (d <= STATION_RADIUS_M && (!best || d < best.d)) best = { d, station: s.id };
+      if (!station || d < station.d) station = { d, id: s.id };
     }
-    if (!best) {
-      for (const w of pisteWays) {
-        const nr = pisteNrOf(w);
-        if (!nr) continue;
-        for (let i = 1; i < w.geometry.length; i++) {
-          const d = distToSegM(pos, w.geometry[i - 1], w.geometry[i]);
-          if (d <= PISTE_RADIUS_M && (!best || d < best.d)) best = { d, piste: nr };
-        }
+    let piste = null;
+    for (const w of networkWays) {
+      const nr = pisteNrOf(w);
+      if (!nr) continue;
+      for (let i = 1; i < w.geometry.length; i++) {
+        const d = distToSegM(pos, w.geometry[i - 1], w.geometry[i]);
+        if (!piste || d < piste.d) piste = { d, nr };
       }
     }
-    if (!best) continue;
+    // Only places on or right next to a piste, or at a top station. Cafés in
+    // the villages and places merely near a valley station are left out.
+    const onPiste   = piste && piste.d <= PISTE_RADIUS_M;
+    const hutNear   = piste && foodKind(f.tags) === 'hut' && piste.d <= HUT_PISTE_RADIUS_M;
+    const atTop     = station && station.id.endsWith('-boven') && station.d <= TOP_STATION_M;
+    if (!onPiste && !hutNear && !atTop) continue;
+    const best = station && station.d <= STATION_LINK_M
+      ? { d: station.d, station: station.id }
+      : { d: piste.d, piste: piste.nr };
 
     const key = norm(f.tags.name) + '|' + (best.station || best.piste);
     if (seen.has(key)) continue;
@@ -181,7 +204,7 @@ async function enrichArea(meta) {
 
   // Piste courses for locating a skier on a piste.
   const lines = {};
-  for (const w of pisteWays) {
+  for (const w of networkWays) {
     const nr = pisteNrOf(w);
     if (!nr) continue;
     const pts = [];
