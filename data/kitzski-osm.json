@@ -27,7 +27,11 @@
       "coordBoven": [
         47.42681,
         12.37252
-      ]
+      ],
+      "bushalte": {
+        "naam": "Kitzbühel Hahnenkamm Bahnhof",
+        "afstandM": 74
+      }
     },
     {
       "liftNr": "A2",
@@ -44,7 +48,11 @@
       "coordBoven": [
         47.44214,
         12.3855
-      ]
+      ],
+      "bushalte": {
+        "naam": "Hahnenkamm Bahnhof",
+        "afstandM": 249
+      }
     },
     {
       "liftNr": "A3",
@@ -61,7 +69,11 @@
       "coordBoven": [
         47.44071,
         12.38258
-      ]
+      ],
+      "bushalte": {
+        "naam": "Hahnenkamm Bahnhof",
+        "afstandM": 286
+      }
     },
     {
       "liftNr": "A4",
@@ -78,7 +90,11 @@
       "coordBoven": [
         47.44439,
         12.38438
-      ]
+      ],
+      "bushalte": {
+        "naam": "Ganslernbahn",
+        "afstandM": 266
+      }
     },
     {
       "liftNr": "A5",
@@ -95,7 +111,11 @@
       "coordBoven": [
         47.44221,
         12.37601
-      ]
+      ],
+      "bushalte": {
+        "naam": "Ganslernbahn",
+        "afstandM": 278
+      }
     },
     {
       "liftNr": "A6",
@@ -166,7 +186,11 @@
       "coordBoven": [
         47.41793,
         12.35784
-      ]
+      ],
+      "bushalte": {
+        "naam": "Kirchberg i. T. Fleckalm Bundesstraße",
+        "afstandM": 262
+      }
     },
     {
       "liftNr": "B2",
@@ -183,7 +207,11 @@
       "coordBoven": [
         47.41975,
         12.3459
-      ]
+      ],
+      "bushalte": {
+        "naam": "Maierlbahn",
+        "afstandM": 48
+      }
     },
     {
       "liftNr": "B3",
@@ -302,7 +330,11 @@
       "coordBoven": [
         47.3951,
         12.33167
-      ]
+      ],
+      "bushalte": {
+        "naam": "Kirchberg in Tirol Pengelstein I Talstation",
+        "afstandM": 45
+      }
     },
     {
       "liftNr": "D2",
@@ -475,7 +507,11 @@
       "coordBoven": [
         47.38001,
         12.31257
-      ]
+      ],
+      "bushalte": {
+        "naam": "Aschau Dorf",
+        "afstandM": 135
+      }
     },
     {
       "liftNr": "D11",
@@ -495,7 +531,11 @@
       "coordBoven": [
         47.38049,
         12.31092
-      ]
+      ],
+      "bushalte": {
+        "naam": "Aschau Dorf",
+        "afstandM": 148
+      }
     },
     {
       "liftNr": "E1",
@@ -512,7 +552,11 @@
       "coordBoven": [
         47.43369,
         12.30017
-      ]
+      ],
+      "bushalte": {
+        "naam": "Kirchberg i. T. Gaisberg",
+        "afstandM": 125
+      }
     },
     {
       "liftNr": "E2",
@@ -529,7 +573,11 @@
       "coordBoven": [
         47.4428,
         12.31105
-      ]
+      ],
+      "bushalte": {
+        "naam": "Kirchberg i. T. Lend",
+        "afstandM": 139
+      }
     },
     {
       "liftNr": "E3",
@@ -586,7 +634,11 @@
       "coordBoven": [
         47.37484,
         12.40362
-      ]
+      ],
+      "bushalte": {
+        "naam": "Jochberg Wagstättlift",
+        "afstandM": 80
+      }
     },
     {
       "liftNr": "F1b",
@@ -606,7 +658,11 @@
       "coordBoven": [
         47.37484,
         12.40362
-      ]
+      ],
+      "bushalte": {
+        "naam": "Jochberg Wagstättlift",
+        "afstandM": 80
+      }
     },
     {
       "liftNr": "F2",
@@ -623,7 +679,11 @@
       "coordBoven": [
         47.37992,
         12.4126
-      ]
+      ],
+      "bushalte": {
+        "naam": "Jochberg Gemeindeamt",
+        "afstandM": 319
+      }
     },
     {
       "liftNr": "F3",
@@ -725,7 +785,11 @@
       "coordBoven": [
         47.31299,
         12.38616
-      ]
+      ],
+      "bushalte": {
+        "naam": "Pass Thurn Resterhöhe",
+        "afstandM": 158
+      }
     },
     {
       "liftNr": "G2",
@@ -742,7 +806,11 @@
       "coordBoven": [
         47.30913,
         12.40324
-      ]
+      ],
+      "bushalte": {
+        "naam": "Pass Thurn Passhöhe",
+        "afstandM": 178
+      }
     },
     {
       "liftNr": "G3",
@@ -847,7 +915,11 @@
       "coordBoven": [
         47.29973,
         12.40806
-      ]
+      ],
+      "bushalte": {
+        "naam": "Hollersbach i.P. Panoramabahn",
+        "afstandM": 85
+      }
     },
     {
       "liftNr": "G9",
@@ -864,7 +936,11 @@
       "coordBoven": [
         47.30692,
         12.38276
-      ]
+      ],
+      "bushalte": {
+        "naam": "Pass Thurn Panoramabahn Mittelstation",
+        "afstandM": 151
+      }
     },
     {
       "liftNr": "H1",
@@ -885,7 +961,11 @@
       "coordBoven": [
         47.4636,
         12.40776
-      ]
+      ],
+      "bushalte": {
+        "naam": "Gesundheitszentrum",
+        "afstandM": 49
+      }
     },
     {
       "liftNr": "H2",
@@ -1061,7 +1141,11 @@
       "coordBoven": [
         47.44084,
         12.45083
-      ]
+      ],
+      "bushalte": {
+        "naam": "Bichlalm",
+        "afstandM": 30
+      }
     },
     {
       "liftNr": "OEF-1",
