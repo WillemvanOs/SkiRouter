@@ -271,6 +271,8 @@ function resetPlanner() {
   allowedDiff = new Set(DIFF_LEVELS);
   DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.add('on'));
   document.getElementById('d-all').classList.add('on');
+  document.getElementById('q-bus').checked = true;
+  document.querySelectorAll('.bus-row').forEach(row => { row.style.display = areaHasBus() ? 'flex' : 'none'; });
   restoreQuickRoute();
   resetDayPlan();
 }
@@ -287,7 +289,19 @@ function restoreQuickRoute() {
     DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d)));
     document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
   }
+  document.getElementById('q-bus').checked = saved.bus !== false;
   planRoute({ silent: true });
+}
+
+// The area has a ski bus link (`verbindingen`): only then is there a switch.
+function areaHasBus() {
+  return (currentArea?.verbindingen || []).some(v => v.soort !== 'lopen');
+}
+
+// The ski bus switch of a planner; on when the area has no bus at all.
+function busAllowed(id) {
+  const box = document.getElementById(id);
+  return !box || box.checked;
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
@@ -472,6 +486,7 @@ function dijkstra(startId, endId) {
 
     (GRAPH[current] || []).forEach(edge => {
       if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
+      if (edge.type === 'bus' && !busAllowed('q-bus')) return;
       const newCost = dist[current] + (edge.tijd || 0)
         + (edge.descent ? RIDE_DOWN_PENALTY : 0)
         + (isConnection(edge) ? CONNECTION_PENALTY : 0);
@@ -600,7 +615,9 @@ function planRoute(options = {}) {
 
   const result = dijkstra(selected.from.id, selected.to.id);
   if (!result || !result.path.length) {
-    errorEl.textContent = 'No route found. Try also selecting red or black.';
+    errorEl.textContent = busAllowed('q-bus')
+      ? 'No route found. Try also selecting red or black.'
+      : 'No route without the ski bus. Switch the ski bus on, or also select red or black.';
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
     return;
@@ -609,6 +626,11 @@ function planRoute(options = {}) {
   renderRoute(result);
   resultEl.classList.add('visible');
   if (!options.silent) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Back from a planned route to its planner, with every setting as it was.
+function backToPlanner(cardId) {
+  document.getElementById(cardId).scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // A piste edge with `trajecten` runs through several marked numbers (74a
@@ -670,7 +692,7 @@ function renderRoute(result) {
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
-    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff],
+    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'),
   });
 }
 

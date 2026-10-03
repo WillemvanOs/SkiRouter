@@ -69,6 +69,8 @@ Some lift stations are only linked through the valley, such as Hahnenkammbahn (A
 - `soort`: `bus` or `lopen` (walk). `tijd`: minutes door to door. Both directions unless
   `"beideRichtingen": false`.
 - Both planners use them, with a 🚌 / 🚶 step; skiing wins when it is about as quick.
+- When an area has a ski bus link, both planners show a **🚌 Ski bus** switch; switched off,
+  routes and day plans use lifts and pistes only.
 
 The OSM enrichment stores every station's coordinates (`coordOnder` / `coordBoven`) and the
 nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
