@@ -3,6 +3,9 @@
 //   - restaurants: named restaurants, cafés, bars and huts near a lift
 //     station or a piste, linked to the graph node or piste they sit at.
 //   - liften[].openingstijden: the lift's opening_hours tag, when mapped.
+//   - liften[].coordOnder / coordBoven: [lat, lon] of the bottom/top station,
+//     used to work out walking/bus times for `verbindingen`.
+//   - liften[].bushalte: the nearest named bus stop to the bottom station.
 //
 // Runs in GitHub Actions (.github/workflows/osm-enrich.yml), which has open
 // internet access. No dependencies: Node 20+ only.
@@ -85,10 +88,12 @@ async function enrichArea(meta) {
     way[aerialway]; out tags geom;
     way["piste:type"="downhill"]; out tags geom;
     nwr[amenity~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"][name]; out tags center;
-    nwr[tourism=alpine_hut][name]; out tags center;`);
+    nwr[tourism=alpine_hut][name]; out tags center;
+    node[highway=bus_stop][name]; out tags;`);
 
   const aerialways = data.elements.filter(e => e.type === 'way' && e.tags?.aerialway && e.geometry?.length >= 2);
   const pisteWays  = data.elements.filter(e => e.type === 'way' && e.tags?.['piste:type'] === 'downhill' && e.geometry?.length >= 2);
+  const busStops   = data.elements.filter(e => e.type === 'node' && e.tags?.highway === 'bus_stop');
   const foods      = data.elements.filter(e => e.tags?.name && (FOOD.test(e.tags.amenity || '') || e.tags.tourism === 'alpine_hut'));
   console.log(`  ${aerialways.length} aerialways, ${pisteWays.length} piste ways, ${foods.length} food places`);
 
@@ -103,10 +108,30 @@ async function enrichArea(meta) {
     const g = way.geometry;
     stations.push({ id: `${lift.liftNr}-onder`, pos: g[0] });
     stations.push({ id: `${lift.liftNr}-boven`, pos: g[g.length - 1] });
+    const round = p => [+p.lat.toFixed(5), +p.lon.toFixed(5)];
+    lift.coordOnder = round(g[0]);
+    lift.coordBoven = round(g[g.length - 1]);
+    let stop = null;
+    for (const b of busStops) {
+      const d = distM(g[0], b);
+      if (d <= 400 && (!stop || d < stop.afstandM)) stop = { naam: b.tags.name, afstandM: Math.round(d) };
+    }
+    if (stop) lift.bushalte = stop; else delete lift.bushalte;
     const oh = way.tags.opening_hours;
     if (oh) lift.openingstijden = oh; else delete lift.openingstijden;
   }
   console.log(`  matched ${matched}/${(area.liften || []).length} lifts to OSM`);
+
+  // Valley stations close to each other: candidates for a bus/walk entry
+  // in `verbindingen` (printed only; those entries are curated by hand).
+  const valley = (area.liften || []).filter(l => l.coordOnder);
+  for (let i = 0; i < valley.length; i++) {
+    for (let j = i + 1; j < valley.length; j++) {
+      const a = valley[i], b = valley[j];
+      const d = distM({ lat: a.coordOnder[0], lon: a.coordOnder[1] }, { lat: b.coordOnder[0], lon: b.coordOnder[1] });
+      if (d > 150 && d < 3000) console.log(`  nearby valley stations: ${a.liftNr} ${a.naam} ↔ ${b.liftNr} ${b.naam}: ${Math.round(d)} m`);
+    }
+  }
 
   const pisteNrs = new Set((area.pistes || []).map(p => p.pisteNr));
   const pistesByName = new Map((area.pistes || []).map(p => [norm(p.naam), p.pisteNr]));
