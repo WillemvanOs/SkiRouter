@@ -144,6 +144,8 @@
       <label class="switch"><input type="checkbox" id="q-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
     </div>
 
+    <div class="avoid-row" id="q-avoid" style="display:none"></div>
+
     <button class="plan-btn" onclick="planRoute()">CALCULATE ROUTE</button>
     <div class="error-msg" id="err"></div>
   </div><!-- /card -->
@@ -287,6 +289,8 @@
       🚌 Ski bus
       <label class="switch"><input type="checkbox" id="day-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
     </div>
+
+    <div class="avoid-row" id="day-avoid" style="display:none"></div>
 
     <button class="plan-btn" onclick="planDayClicked(this)">PLAN MY DAY</button>
     <div class="error-msg" id="day-err"></div>

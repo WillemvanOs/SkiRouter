@@ -1504,3 +1504,78 @@ select.day-input {
   flex-wrap: wrap;
   row-gap: 2px;
 }
+
+/* ── Avoiding lifts ───────────────────────────────────────── */
+
+.step-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.step-actions .lift-status {
+  margin-top: 0;
+}
+
+.avoid-btn {
+  padding: 2px 8px;
+  border: 1px solid #d5dde8;
+  border-radius: 6px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6a7d92;
+  cursor: pointer;
+}
+
+.avoid-btn:hover {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.checkable.done .avoid-btn {
+  display: none;
+}
+
+.avoid-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.avoid-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--alpine);
+  margin-right: 2px;
+}
+
+.avoid-chip {
+  padding: 5px 10px;
+  border: 1.5px solid #f1b8b2;
+  border-radius: 16px;
+  background: #fff1ef;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #a12a1e;
+  cursor: pointer;
+}
+
+.avoid-closed-btn {
+  margin-left: 4px;
+  padding: 3px 9px;
+  border: 1.5px solid #c0392b;
+  border-radius: 6px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #c0392b;
+  cursor: pointer;
+}

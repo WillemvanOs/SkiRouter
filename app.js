@@ -273,6 +273,7 @@ function resetPlanner() {
   renderQuickDiff();
   document.getElementById('q-bus').checked = true;
   document.querySelectorAll('.bus-row').forEach(row => { row.style.display = areaHasBus() ? 'flex' : 'none'; });
+  loadAvoided();
   restoreQuickRoute();
   resetDayPlan();
 }
@@ -509,6 +510,7 @@ function dijkstra(startId, endId) {
     (GRAPH[current] || []).forEach(edge => {
       if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
       if (edge.type === 'bus' && !busAllowed('q-bus')) return;
+      if (isAvoided(edge)) return;
       const newCost = dist[current] + (edge.tijd || 0)
         + (edge.descent ? RIDE_DOWN_PENALTY : 0)
         + (isConnection(edge) ? CONNECTION_PENALTY : 0);
@@ -637,9 +639,11 @@ function planRoute(options = {}) {
 
   const result = dijkstra(selected.from.id, selected.to.id);
   if (!result || !result.path.length) {
-    errorEl.textContent = busAllowed('q-bus')
-      ? 'No route found. Try also selecting red or black.'
-      : 'No route without the ski bus. Switch the ski bus on, or also select red or black.';
+    errorEl.textContent = avoidedLifts.size
+      ? `No route without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list, or also select red or black.`
+      : busAllowed('q-bus')
+        ? 'No route found. Try also selecting red or black.'
+        : 'No route without the ski bus. Switch the ski bus on, or also select red or black.';
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
     return;
@@ -774,7 +778,7 @@ function stepElement(edge, index, clock) {
       <div class="step-icon ico-${cls}">${icon}</div>
       <div class="step-info">
         <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
-        ${liftStatusHtml(edge.liftNr)}
+        <div class="step-actions">${liftStatusHtml(edge.liftNr)}<button class="avoid-btn" type="button" data-avoid="${edge.liftNr}" aria-label="Avoid ${edge.liftNr}">⊘ Avoid</button></div>
         <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
       </div>
     `;
@@ -802,12 +806,93 @@ function addWaypoint(parent, name, alt, icon, subtitle, delay) {
 function getTip(steps = []) {
   const closed = closedLiftsOn(steps);
   const warning = closed.length
-    ? `<div class="closed-warning">⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}.</div>`
+    ? `<div class="closed-warning">⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</div>`
     : '';
   return warning + '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
     ? `Lift status from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
     : 'Check the current opening times of your ski area before you set off.');
 }
+
+// ── Avoiding lifts ───────────────────────────────────────────────────────────
+//
+// Any lift can be skipped by hand, open or closed: '⊘ Avoid' on a lift step
+// (or 'Avoid these' at the closed-lifts warning) adds it to a list per area,
+// both planners route around it, and the route is planned again. The list
+// shows as chips in the planner cards; ✕ takes a lift off it.
+
+const AVOID_KEY_PREFIX = 'skiplanner:avoid:';
+let avoidedLifts = new Set();
+
+function avoidKey() {
+  return AVOID_KEY_PREFIX + (currentArea?.id || '');
+}
+
+function loadAvoided() {
+  try { avoidedLifts = new Set(JSON.parse(localStorage.getItem(avoidKey())) || []); } catch { avoidedLifts = new Set(); }
+  renderAvoided();
+}
+
+function saveAvoided() {
+  try { localStorage.setItem(avoidKey(), JSON.stringify([...avoidedLifts])); } catch {}
+}
+
+// A lift ride (up, or down in a gondola) on the avoid list.
+function isAvoided(edge) {
+  return !!edge.liftNr && edge.type !== 'piste' && !isConnection(edge) && avoidedLifts.has(edge.liftNr);
+}
+
+function avoidClosedButton(closed) {
+  return `<button class="avoid-closed-btn" type="button" data-avoid="${closed.map(e => e.liftNr).join(',')}">⊘ Avoid ${closed.length > 1 ? 'these' : 'it'}</button>`;
+}
+
+function renderAvoided() {
+  const nrs = [...avoidedLifts].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  ['q-avoid', 'day-avoid'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = nrs.length ? 'flex' : 'none';
+    el.innerHTML = nrs.length
+      ? '<span class="avoid-label">🚫 Avoiding</span>' + nrs.map(nr => {
+          const lift = LIFTS.find(l => l.nr === nr);
+          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${nr}')" aria-label="Stop avoiding ${nr}">${nr}${lift ? ` ${lift.name}` : ''} ✕</button>`;
+        }).join('')
+      : '';
+  });
+}
+
+function unavoidLift(nr) {
+  avoidedLifts.delete(nr);
+  saveAvoided();
+  renderAvoided();
+}
+
+// Add lifts to the list and plan the route again without them. A day being
+// followed is replanned from the next step; otherwise the whole day.
+function avoidLifts(nrs, planner) {
+  nrs.filter(Boolean).forEach(nr => avoidedLifts.add(nr));
+  saveAvoided();
+  renderAvoided();
+  if (planner === 'day') {
+    if (dayTracker && dayTracker.done > 0 && dayTracker.done < dayTracker.items.length) replanFromHere();
+    else planDay();
+    if (document.getElementById('day-err').classList.contains('visible')) backToPlanner('day-card');
+  } else {
+    planRoute();
+    if (document.getElementById('err').classList.contains('visible')) backToPlanner('quick-card');
+  }
+}
+
+// One listener per result card, in the capture phase so the tap on 'Avoid'
+// does not also tick the step off.
+[['result', 'quick'], ['day-result', 'day']].forEach(([id, planner]) => {
+  document.getElementById(id).addEventListener('click', event => {
+    const btn = event.target.closest('[data-avoid]');
+    if (!btn) return;
+    event.stopPropagation();
+    event.preventDefault();
+    avoidLifts(btn.dataset.avoid.split(','), planner);
+  }, true);
+});
 
 // ── Lift status (open/closed, operating hours) ───────────────────────────────
 //

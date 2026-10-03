@@ -218,6 +218,7 @@ function dayCost(edge, pace) {
 
 function dayAllowed(edge) {
   if (edge.type === 'bus') return dayBus;
+  if (isAvoided(edge)) return false;
   return edge.type !== 'piste' || pisteKleuren(edge).every(k => dayDiff.has(k));
 }
 
@@ -582,7 +583,9 @@ function planDay(options = {}) {
   const home = costsToEnd(end.id, pace);
   if (home.dist[start.id] == null) {
     return fail(dayBus
-      ? 'The end station cannot be reached from the start with these difficulties. Try also selecting red or black.'
+      ? (avoidedLifts.size
+        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list, or also select red or black.`
+        : 'The end station cannot be reached from the start with these difficulties. Try also selecting red or black.')
       : 'The end station cannot be reached without the ski bus. Switch the ski bus on, or also select red or black.');
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
@@ -599,6 +602,7 @@ function planDay(options = {}) {
   const random = seededRandom(hashString(JSON.stringify([
     start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
     ...(dayBus ? [] : ['no-bus']),
+    ...[...avoidedLifts].sort(),
   ])));
 
   if (withLunch) {
@@ -664,7 +668,7 @@ function dayNotes(walk, ctx) {
   const notes = [];
   const closed = closedLiftsOn(walk.steps.map(s => s.edge));
   if (closed.length) {
-    notes.push(`⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')} (lift status ${liftStatusAge()}).`);
+    notes.push(`⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')} (lift status ${liftStatusAge()}). ${avoidClosedButton(closed)}`);
   }
   const kmShort = ctx.targetKm - walk.km;
   if (kmShort > ctx.targetKm * 0.1) {

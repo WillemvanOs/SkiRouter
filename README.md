@@ -89,6 +89,14 @@ about closed lifts on a route or day plan, and the day planner uses today's hour
 GitHub runs scheduled workflows on a best-effort basis, so an update can now and then be a little
 later than 30 minutes.
 
+## Avoiding lifts
+
+Any lift can be skipped by hand, open or closed: **⊘ Avoid** on a lift step adds it to a list
+(per ski area, kept on the phone) and plans the route again without it; a day being followed is
+replanned from the next step. The closed-lifts warning has **Avoid these** for all closed lifts on
+the route at once. Avoided lifts show as chips in both planners; ✕ takes one off the list. If no
+route is left, the message names the avoided lifts.
+
 ## Where am I (GPS)
 
 In the station picker for a starting point, **Use my location** starts the route where you are:
