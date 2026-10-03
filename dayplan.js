@@ -201,6 +201,7 @@ function restaurantWhere(r) {
 function dayCost(edge, pace) {
   if (edge.type === 'piste')    return Math.max(1, Math.round((edge.tijd || 0) * pace.piste));
   if (edge.type === 'transfer') return DAY_TRANSFER_MIN;
+  if (isConnection(edge))       return edge.tijd || 0;
   return (edge.tijd || 0) + (edge.echteLift === false ? DAY_PRACTICE_MIN : pace.wait);
 }
 
@@ -236,7 +237,7 @@ function costsToEnd(endId, pace) {
     if (done.has(id)) continue;
     done.add(id);
     (reverse[id] || []).forEach(edge => {
-      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0);
+      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0) + (isConnection(edge) ? CONNECTION_PENALTY : 0);
       if (c < (cost[edge.from] ?? Infinity)) {
         cost[edge.from] = c;
         next[edge.from] = edge;
@@ -342,6 +343,7 @@ function dayWalk(ctx, random, initialUsage) {
       let weight = (ahead.gain + 0.01) / ahead.cost;
       if (edge.echteLift === false) weight *= 0.2;
       if (edge.descent) weight *= 0.3;
+      if (isConnection(edge)) weight *= 0.3;
       candidates.push({ edge, weight: weight ** 3 });
     });
     if (!candidates.length) break;
@@ -693,7 +695,7 @@ function renderDayOption(index) {
     });
   }
 
-  const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
+  const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer' && !isConnection(s.edge)).length;
   document.getElementById('dp-km').textContent     = `${walk.km.toFixed(1)} km`;
   document.getElementById('dp-pistes').textContent = `${walk.usage.size} pistes`;
   document.getElementById('dp-lifts').textContent  = `${lifts} lifts`;

@@ -41,6 +41,8 @@ function formatAlt(alt) {
 
 // Lift types you may also ride down in.
 const RIDE_DOWN_TYPES = new Set(['gondola', 'mixed_lift', 'cable_car', 'funicular']);
+// Extra routing cost of a bus or walk, so skiing wins when it is about as quick.
+const CONNECTION_PENALTY = 10;
 // Extra routing cost of riding a lift down, so a route only does it when no
 // piste gets you there (the time shown stays the real ride time).
 const RIDE_DOWN_PENALTY = 60;
@@ -131,6 +133,20 @@ function buildFromSkimapData(area) {
         });
       });
     });
+  });
+
+  // verbindingen: a ski bus or a walk between two stations that no lift or
+  // piste links (e.g. Hahnenkammbahn ↔ Hornbahn through Kitzbühel).
+  (area.verbindingen || []).forEach(v => {
+    if (!stations[v.van] || !stations[v.naar]) return;
+    const edge = {
+      type: v.soort === 'lopen' ? 'walk' : 'bus',
+      name: v.naam || (v.soort === 'lopen' ? 'Walk' : 'Ski bus'),
+      info: v.info || '',
+      tijd: v.tijd || 0,
+    };
+    addEdge({ ...edge, from: v.van, to: v.naar });
+    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van });
   });
 
   // aansluitendeLiften: reachable from the top of this lift without a
@@ -441,7 +457,9 @@ function dijkstra(startId, endId) {
 
     (GRAPH[current] || []).forEach(edge => {
       if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
-      const newCost = dist[current] + (edge.tijd || 0) + (edge.descent ? RIDE_DOWN_PENALTY : 0);
+      const newCost = dist[current] + (edge.tijd || 0)
+        + (edge.descent ? RIDE_DOWN_PENALTY : 0)
+        + (isConnection(edge) ? CONNECTION_PENALTY : 0);
       if (newCost < dist[edge.to]) {
         dist[edge.to]     = newCost;
         prev[edge.to]     = current;
@@ -505,15 +523,23 @@ const STEP_ICONS = {
   'piste-zwart':    '⚫',
   'piste-skiroute': '🟡',
   transfer:         '🔄',
+  bus:              '🚌',
+  walk:             '🚶',
 };
 
 const LIFT_TYPE_LABEL = { gondola: 'Gondola', mixed_lift: 'Gondola', cable_car: 'Cable car', funicular: 'Funicular', chair_lift: 'Chairlift' };
 
 // Drag lifts (t-bar, platter, j-bar, rope tow) get the T-bar pictogram.
 // Any other non-`echteLift` (magic carpets) is a generic "oefenlift".
+// A ski bus or walk between stations (from the area's `verbindingen`).
+function isConnection(edge) {
+  return edge.type === 'bus' || edge.type === 'walk';
+}
+
 function stepClass(edge) {
   if (edge.type === 'piste')    return 'piste-' + (edge.diff || 'rood');
   if (edge.type === 'transfer') return 'transfer';
+  if (isConnection(edge))       return edge.type;
   if (DRAG_LIFT_LABEL[edge.type]) return 'draglift';
   return edge.echteLift === false ? 'oefenlift' : edge.type;
 }
@@ -527,6 +553,8 @@ function tagClass(edge) {
 }
 
 function tagLabel(edge) {
+  if (edge.type === 'bus')   return 'Ski bus';
+  if (edge.type === 'walk')  return 'Walk';
   if (edge.type === 'piste') return { blauw: 'Blue ●', rood: 'Red ●', zwart: 'Black ●', skiroute: 'Ski route ●' }[edge.diff] || 'Piste';
   if (DRAG_LIFT_LABEL[edge.type]) return DRAG_LIFT_LABEL[edge.type];
   if (edge.echteLift === false) return 'Practice lift';
@@ -654,6 +682,20 @@ function stepElement(edge, index, clock) {
         <div class="step-kind kind-${diff}">${PISTE_KIND[diff] || 'Piste'}</div>
         <div class="step-name">${edge.name}</div>
         ${facts ? `<div class="step-sub">${facts}</div>` : ''}
+      </div>
+    `;
+  } else if (isConnection(edge)) {
+    // Bus or walk between two stations: from → to, with any practical info.
+    const from = STATIONS[edge.from]?.name || '';
+    const to   = STATIONS[edge.to]?.name || '';
+    div.className = 'step step-connection';
+    div.innerHTML = `
+      <span class="step-number">${index + 1}</span>
+      <div class="step-icon ico-${edge.type}">${STEP_ICONS[edge.type]}</div>
+      <div class="step-info">
+        <div class="step-kind kind-connection">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
+        <div class="step-name">${from} → ${to}</div>
+        ${edge.info ? `<div class="step-sub">${edge.info}</div>` : ''}
       </div>
     `;
   } else {

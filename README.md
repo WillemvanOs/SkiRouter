@@ -53,6 +53,26 @@ planners then route you down by lift ("ride down ↓"). That only happens with g
 and funiculars, never with chairlifts, drag lifts or carpets, and only when no piste gets you
 there: the planners count riding down as an extra hour of cost, while showing the real ride time.
 
+## Bus and walking connections
+
+Some lift stations are only linked through the valley, such as Hahnenkammbahn (A1) and Hornbahn
+(H1) in Kitzbühel. These links go in the area file as `verbindingen`, curated by hand:
+
+```json
+"verbindingen": [
+  { "van": "A1-onder", "naar": "H1-onder", "soort": "bus", "tijd": 15,
+    "naam": "Ski bus Kitzbühel", "info": "Ski bus through town, or about 15 min on foot." }
+]
+```
+
+- `van` / `naar`: station ids (`<liftNr>-onder` for a bottom station, `-boven` for a top station).
+- `soort`: `bus` or `lopen` (walk). `tijd`: minutes door to door. Both directions unless
+  `"beideRichtingen": false`.
+- Both planners use them, with a 🚌 / 🚶 step; skiing wins when it is about as quick.
+
+The OSM enrichment stores every station's coordinates (`coordOnder` / `coordBoven`) and the
+nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
+
 ## Day planner
 
 The **Day plan** tab plans a whole day: a start station and time, roughly how many
