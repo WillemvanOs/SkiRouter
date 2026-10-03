@@ -31,6 +31,7 @@ async function overpass(query) {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)' },
           body: 'data=' + encodeURIComponent(query),
+          signal: AbortSignal.timeout(240000),
         });
         if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
         return await res.json();

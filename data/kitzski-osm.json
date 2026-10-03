@@ -7024,6 +7024,16 @@
       "eindPlaats": "Top station Sun Cord Reith"
     }
   ],
+  "verbindingen": [
+    {
+      "van": "A1-onder",
+      "naar": "H1-onder",
+      "soort": "bus",
+      "tijd": 15,
+      "naam": "Ski bus Kitzbühel",
+      "info": "Ski bus through Kitzbühel, or about 15 min on foot (approx. 1.2 km)."
+    }
+  ],
   "restaurants": [
     {
       "id": "node/3452608574",
