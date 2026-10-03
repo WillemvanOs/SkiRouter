@@ -985,6 +985,7 @@ main {
 }
 
 .day-opt {
+  min-width: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1043,4 +1044,94 @@ main {
   .day-grid .day-field:last-child {
     grid-column: span 2;
   }
+}
+
+/* ── Day planner: lunch ───────────────────────────────────── */
+
+.lunch-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lunch-grid {
+  margin-top: 0;
+}
+
+.day-field-wide {
+  grid-column: 1 / -1;
+}
+
+select.day-input {
+  font-size: 0.88rem;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #888 50%), linear-gradient(135deg, #888 50%, transparent 50%);
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 28px;
+  text-overflow: ellipsis;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  position: absolute;
+  inset: 0;
+  background: var(--ice);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.switch-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s;
+}
+
+.switch input:checked + .switch-track {
+  background: var(--alpine);
+}
+
+.switch input:checked + .switch-track::after {
+  transform: translateX(18px);
+}
+
+.switch input:focus-visible + .switch-track {
+  outline: 2px solid var(--frost);
+  outline-offset: 2px;
+}
+
+.step-lunch {
+  background: linear-gradient(135deg, #fff8e6, #fff3d5);
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.day-opt-lunch {
+  font-weight: 600;
+  color: #7a5800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
