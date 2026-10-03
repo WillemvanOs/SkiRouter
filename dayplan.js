@@ -407,7 +407,7 @@ function distinctBest(walks, count, isDistinct) {
 function lunchStops(restaurants) {
   const stops = new Map();
   const add = (key, node, piste, r) => {
-    if (!stops.has(key)) stops.set(key, { key, node, piste, restaurants: [] });
+    if (!stops.has(key)) stops.set(key, { key, node, piste, pisteNr: r.piste || null, restaurants: [] });
     stops.get(key).restaurants.push(r);
   };
   const pisteEdges = Object.values(dayGraph).flat().filter(e => e.type === 'piste' && e.from !== GPS_NODE && dayAllowed(e));
@@ -431,7 +431,17 @@ function daysVia(stop, ctx, random) {
   const morningHome = costsToEnd(stop.node, pace);
   if (morningHome.dist[ctx.startId] == null) return [];
 
-  const pisteMin = stop.piste ? dayCost(stop.piste, pace) : 0;
+  // A piste restaurant sits halfway down its own numbered part of the run.
+  // When the run is a chain (25 → 25b), the parts before and including it
+  // come before lunch and the rest after: `before` / `after` are the minutes
+  // of skiing on either side of the stop.
+  const parts = stop.piste ? splitTrajecten(stop.piste).map(p => ({ ...p, chainEnd: stop.piste.to })) : [];
+  let k = parts.findIndex(p => p.pisteNr === stop.pisteNr);
+  if (k < 0) k = parts.length - 1;
+  const partMin = parts.map(p => dayCost(p, pace));
+  const sum = list => list.reduce((a, b) => a + b, 0);
+  const before = parts.length ? sum(partMin.slice(0, k)) + partMin[k] / 2 : 0;
+  const after  = parts.length ? sum(partMin.slice(k + 1)) + partMin[k] / 2 : 0;
   const afterStart = stop.piste ? stop.piste.to : stop.node;
   if (ctx.home.dist[afterStart] == null) return [];
 
@@ -440,7 +450,7 @@ function daysVia(stop, ctx, random) {
   const pmMin = Math.max(0, t1 - lunchT - lunchMin);
   const amKm  = ctx.targetKm * amMin / Math.max(1, amMin + pmMin);
 
-  const amEnd = lunchT - pisteMin / 2;
+  const amEnd = lunchT - before;
   if (t0 + morningHome.dist[ctx.startId] > amEnd + 45) return [];
   const amCtx     = { ...ctx, endId: stop.node, t1: amEnd, targetKm: Math.max(0.1, amKm), home: morningHome };
   const amFillCtx = { ...amCtx, fillUntil: amEnd - DAY_LUNCH_FIT_MIN };
@@ -453,7 +463,7 @@ function daysVia(stop, ctx, random) {
     const walk = dayWalk(i % 2 ? amFillCtx : amCtx, random);
     if (!walk) continue;
     walk.fills = i % 2 === 1;
-    const arrive = walk.end + pisteMin / 2;
+    const arrive = walk.end + before;
     if (!stop.restaurants.some(r => openAt(r.openingstijden, arrive))) continue;
     walk.score = scoreDay(walk, amCtx) - lunchPenalty(arrive);
     mornings.push(walk);
@@ -462,18 +472,22 @@ function daysVia(stop, ctx, random) {
   const days = [];
   // The best morning of each kind goes on to the afternoon.
   [false, true].flatMap(fills => distinctBest(mornings.filter(m => m.fills === fills), 1, () => true)).forEach(morning => {
-    const arrive = morning.end + pisteMin / 2;
+    const arrive = morning.end + before;
     const leave  = arrive + lunchMin;
     const usage  = new Map(morning.usage);
     let km = morning.km;
-    const pisteStep = [];
-    if (stop.piste) {
-      pisteStep.push({ edge: stop.piste, t: morning.end });
-      usage.set(pisteKey(stop.piste), (usage.get(pisteKey(stop.piste)) || 0) + 1);
-      km += stop.piste.km || 0;
-    }
+    // The run with the restaurant, split around the lunch stop.
+    const beforeSteps = [], afterSteps = [];
+    let t = morning.end;
+    parts.forEach((part, i) => {
+      if (i === k + 1) t = leave + partMin[k] / 2;
+      (i <= k ? beforeSteps : afterSteps).push({ edge: part, t });
+      t += partMin[i];
+      usage.set(pisteKey(part), (usage.get(pisteKey(part)) || 0) + 1);
+      km += part.km || 0;
+    });
 
-    const pmCtx = { ...ctx, startId: afterStart, t0: leave + pisteMin / 2, targetKm: Math.max(0.1, ctx.targetKm - km) };
+    const pmCtx = { ...ctx, startId: afterStart, t0: leave + after, targetKm: Math.max(0.1, ctx.targetKm - km) };
     let best = null;
     for (let i = 0; i < DAY_LUNCH_PM_RUNS; i++) {
       const afternoon = dayWalk(pmCtx, random, usage);
@@ -486,7 +500,7 @@ function daysVia(stop, ctx, random) {
 
     stop.restaurants.filter(r => openAt(r.openingstijden, arrive)).forEach(r => {
       days.push({
-        steps: [...morning.steps, ...pisteStep, { lunch: r, t: arrive, until: leave, onPiste: !!stop.piste }, ...best.steps],
+        steps: [...morning.steps, ...beforeSteps, { lunch: r, t: arrive, until: leave, onPiste: !!stop.piste }, ...afterSteps, ...best.steps],
         km: best.km,
         end: best.end,
         usage: best.usage,
@@ -740,8 +754,9 @@ function renderDayOption(index) {
       div.dataset.t  = partT;
       div.dataset.km = part.type === 'piste' ? part.km || 0 : 0;
       // Halfway down a chain of pistes is not a station: replan from its end.
-      div.dataset.at = partIndex === 0 ? edge.from : edge.to;
+      div.dataset.at = STATIONS[part.from] ? part.from : (edge.chainEnd || edge.to);
       if (partIndex > 0) div.dataset.finish = dayCost(edge, pace) * parts.slice(partIndex).reduce((sum, p) => sum + (p.tijd || 0), 0) / partTotal;
+      else if (!STATIONS[part.from]) div.dataset.finish = dayCost(part, pace); // a chain part after lunch
       stepsEl.appendChild(div);
       number++;
       partT += dayCost(edge, pace) * (part.tijd || 0) / partTotal;
