@@ -1401,6 +1401,36 @@ select.day-input {
   margin-top: 14px;
 }
 
-.end-picker {
-  padding: 12px;
+/* ── Optional end station ─────────────────────────────────── */
+
+.link-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 2px;
+  border: none;
+  background: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--alpine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.sel-label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sel-label-row .sel-label {
+  margin-bottom: 6px;
+}
+
+.link-btn-inline {
+  padding: 0;
+  font-size: 0.74rem;
 }

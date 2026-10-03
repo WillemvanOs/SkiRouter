@@ -415,22 +415,23 @@ function pickStation(stationId, lift, dalBerg) {
   document.getElementById(`${routeSide}-nr`).textContent           = lift.nr;
   document.getElementById(`${routeSide}-liftname`).textContent     = lift.name;
   document.getElementById(`${routeSide}-side`).textContent         = `${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}`;
-  updateEndSummary(routeSide);
+  if (routeSide === 'dend') setEndField(true);
 }
 
 function resetSide(side) {
   selected[side] = null;
   document.getElementById(`${side}-box`).style.display    = 'flex';
   document.getElementById(`${side}-chosen`).style.display = 'none';
-  updateEndSummary(side);
+  if (side === 'dend') setEndField(false);
 }
 
-// The collapsed 'End of the day' row of the day plan: "Same as start" unless
-// another end station is chosen.
-function updateEndSummary(side) {
-  if (side !== 'dend') return;
-  const end = selected.dend;
-  document.getElementById('end-summary').textContent = end ? `${end.liftNr} ${end.liftName}${end.side === 'dal' ? '' : ' (top)'}` : 'Same as start';
+// The day plan starts and ends at the same station. 'End somewhere else'
+// adds an extra field for another end station; 'Same as start' (or clearing
+// it) takes the field away again.
+function setEndField(show) {
+  document.getElementById('end-field').style.display = show ? 'block' : 'none';
+  document.getElementById('end-add').style.display   = show ? 'none' : 'inline-flex';
+  document.getElementById('dstart-label').textContent = show ? 'Start – lift station' : 'Start & end – lift station';
 }
 
 function swapSides() {

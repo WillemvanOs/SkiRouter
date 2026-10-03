@@ -177,7 +177,7 @@
 
     <div class="route-inputs">
       <div>
-        <label class="sel-label">Start – lift station</label>
+        <label class="sel-label" id="dstart-label">Start &amp; end – lift station</label>
         <div class="sel-box" id="dstart-box" onclick="openSheet('dstart')">
           <span class="sel-box-text">Choose a lift station…</span>
           <span class="sel-box-arrow">▾</span>
@@ -191,15 +191,16 @@
         </div>
       </div>
 
-      <details class="setting end-setting" id="end-setting">
-        <summary class="setting-summary">
-          <span class="setting-name">🏁 End of the day</span>
-          <span class="setting-value" id="end-summary">Same as start</span>
-          <span class="setting-chev" aria-hidden="true">▾</span>
-        </summary>
-        <div class="end-picker">
+      <button class="link-btn" id="end-add" type="button" onclick="setEndField(true)">+ End somewhere else</button>
+
+      <!-- Only there when the day ends somewhere other than where it starts -->
+      <div id="end-field" style="display:none">
+        <div class="sel-label-row">
+          <label class="sel-label">End of the day – lift station</label>
+          <button class="link-btn link-btn-inline" type="button" onclick="resetSide('dend')">Same as start</button>
+        </div>
         <div class="sel-box" id="dend-box" onclick="openSheet('dend')">
-          <span class="sel-box-text">Choose a different station…</span>
+          <span class="sel-box-text">Choose a lift station…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="dend-chosen" style="display:none" onclick="openSheet('dend')">
@@ -209,8 +210,7 @@
           <span class="chosen-side" id="dend-side">—</span>
           <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dend')">✕</button>
         </div>
-        </div>
-      </details>
+      </div>
     </div>
 
     <div class="day-grid">
