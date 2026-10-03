@@ -116,22 +116,28 @@
     </div><!-- /route-inputs -->
 
     <!-- Difficulty -->
-    <div class="card-title" style="margin-top:18px;">⛷ Difficulty</div>
-    <div class="diff-row">
-      <button class="diff-btn all on" id="d-all"   onclick="setDiff('all')">All</button>
-      <button class="diff-btn blue on" id="d-blauw" onclick="setDiff('blauw')">
-        <span class="dot" style="background:var(--blue)"></span>Blue
-      </button>
-      <button class="diff-btn red on"  id="d-rood"  onclick="setDiff('rood')">
-        <span class="dot" style="background:var(--red)"></span>Red
-      </button>
-      <button class="diff-btn black on" id="d-zwart" onclick="setDiff('zwart')">
-        <span class="dot" style="background:#333"></span>Black
-      </button>
-      <button class="diff-btn skiroute on" id="d-skiroute" onclick="setDiff('skiroute')">
-        <span class="dot" style="background:var(--skiroute)"></span>Ski route
-      </button>
-    </div>
+    <details class="setting">
+      <summary class="setting-summary">
+        <span class="setting-name">⛷ Difficulty</span>
+        <span class="setting-value" id="d-summary">—</span>
+        <span class="setting-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="diff-row">
+        <button class="diff-btn all on" id="d-all"   onclick="setDiff('all')">All</button>
+        <button class="diff-btn blue on" id="d-blauw" onclick="setDiff('blauw')">
+          <span class="dot" style="background:var(--blue)"></span>Blue
+        </button>
+        <button class="diff-btn red on"  id="d-rood"  onclick="setDiff('rood')">
+          <span class="dot" style="background:var(--red)"></span>Red
+        </button>
+        <button class="diff-btn black on" id="d-zwart" onclick="setDiff('zwart')">
+          <span class="dot" style="background:#333"></span>Black
+        </button>
+        <button class="diff-btn skiroute on" id="d-skiroute" onclick="setDiff('skiroute')">
+          <span class="dot" style="background:var(--skiroute)"></span>Ski route
+        </button>
+      </div>
+    </details>
 
     <div class="card-title lunch-title bus-row" id="q-bus-row" style="margin-top:18px;display:none">
       🚌 Ski bus
@@ -235,29 +241,41 @@
       </label>
     </div>
 
-    <div class="card-title" style="margin-top:18px;">🏂 Pace</div>
-    <div class="pace-row">
-      <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
-      <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
-      <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
-    </div>
+    <details class="setting">
+      <summary class="setting-summary">
+        <span class="setting-name">🏂 Pace</span>
+        <span class="setting-value" id="pace-summary">—</span>
+        <span class="setting-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="pace-row">
+        <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
+        <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
+        <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
+      </div>
+    </details>
 
-    <div class="card-title" style="margin-top:18px;">⛷ Difficulty</div>
-    <div class="diff-row">
-      <button class="diff-btn all on" id="dd-all" onclick="setDayDiff('all')">All</button>
-      <button class="diff-btn blue on" id="dd-blauw" onclick="setDayDiff('blauw')">
-        <span class="dot" style="background:var(--blue)"></span>Blue
-      </button>
-      <button class="diff-btn red on" id="dd-rood" onclick="setDayDiff('rood')">
-        <span class="dot" style="background:var(--red)"></span>Red
-      </button>
-      <button class="diff-btn black on" id="dd-zwart" onclick="setDayDiff('zwart')">
-        <span class="dot" style="background:#333"></span>Black
-      </button>
-      <button class="diff-btn skiroute on" id="dd-skiroute" onclick="setDayDiff('skiroute')">
-        <span class="dot" style="background:var(--skiroute)"></span>Ski route
-      </button>
-    </div>
+    <details class="setting">
+      <summary class="setting-summary">
+        <span class="setting-name">⛷ Difficulty</span>
+        <span class="setting-value" id="dd-summary">—</span>
+        <span class="setting-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="diff-row">
+        <button class="diff-btn all on" id="dd-all" onclick="setDayDiff('all')">All</button>
+        <button class="diff-btn blue on" id="dd-blauw" onclick="setDayDiff('blauw')">
+          <span class="dot" style="background:var(--blue)"></span>Blue
+        </button>
+        <button class="diff-btn red on" id="dd-rood" onclick="setDayDiff('rood')">
+          <span class="dot" style="background:var(--red)"></span>Red
+        </button>
+        <button class="diff-btn black on" id="dd-zwart" onclick="setDayDiff('zwart')">
+          <span class="dot" style="background:#333"></span>Black
+        </button>
+        <button class="diff-btn skiroute on" id="dd-skiroute" onclick="setDayDiff('skiroute')">
+          <span class="dot" style="background:var(--skiroute)"></span>Ski route
+        </button>
+      </div>
+    </details>
 
     <div class="card-title lunch-title bus-row" id="day-bus-row" style="margin-top:18px;display:none">
       🚌 Ski bus

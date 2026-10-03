@@ -269,8 +269,7 @@ function resetPlanner() {
   document.getElementById('result').classList.remove('visible');
   document.getElementById('err').classList.remove('visible');
   allowedDiff = new Set(DIFF_LEVELS);
-  DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.add('on'));
-  document.getElementById('d-all').classList.add('on');
+  renderQuickDiff();
   document.getElementById('q-bus').checked = true;
   document.querySelectorAll('.bus-row').forEach(row => { row.style.display = areaHasBus() ? 'flex' : 'none'; });
   restoreQuickRoute();
@@ -286,8 +285,7 @@ function restoreQuickRoute() {
   restoreStation('to', saved.to);
   if (Array.isArray(saved.diff)) {
     allowedDiff = new Set(saved.diff.filter(d => DIFF_LEVELS.includes(d)));
-    DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d)));
-    document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
+    renderQuickDiff();
   }
   document.getElementById('q-bus').checked = saved.bus !== false;
   planRoute({ silent: true });
@@ -454,10 +452,21 @@ function setDiff(value) {
   } else {
     allowedDiff.has(value) ? allowedDiff.delete(value) : allowedDiff.add(value);
   }
-  DIFF_LEVELS.forEach(d => {
-    document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d));
-  });
+  renderQuickDiff();
+}
+
+function renderQuickDiff() {
+  DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d)));
   document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
+  document.getElementById('d-summary').textContent = diffSummary(allowedDiff);
+}
+
+// "All", "None" or e.g. "Blue · Red": the collapsed difficulty setting.
+const DIFF_NAMES = { blauw: 'Blue', rood: 'Red', zwart: 'Black', skiroute: 'Ski route' };
+function diffSummary(set) {
+  if (set.size === DIFF_LEVELS.length) return 'All';
+  if (!set.size) return 'None';
+  return DIFF_LEVELS.filter(d => set.has(d)).map(d => DIFF_NAMES[d]).join(' · ');
 }
 
 // ── Dijkstra routing ─────────────────────────────────────────────────────────

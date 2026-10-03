@@ -120,6 +120,7 @@ function renderLunchChoices(selectedId) {
 function setDayPace(pace) {
   dayPace = pace;
   Object.keys(DAY_PACES).forEach(p => document.getElementById('pace-' + p).classList.toggle('on', p === pace));
+  document.getElementById('pace-summary').textContent = DAY_PACES[pace].label;
 }
 
 function setDayDiff(value) {
@@ -134,6 +135,7 @@ function setDayDiff(value) {
 function renderDayDiff() {
   DAY_DIFF_LEVELS.forEach(d => document.getElementById('dd-' + d).classList.toggle('on', dayDiff.has(d)));
   document.getElementById('dd-all').classList.toggle('on', dayDiff.size === DAY_DIFF_LEVELS.length);
+  document.getElementById('dd-summary').textContent = diffSummary(dayDiff);
 }
 
 function dayStorageKey() {

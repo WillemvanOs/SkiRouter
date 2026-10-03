@@ -1336,3 +1336,67 @@ select.day-input {
 .result-sticky .back-btn {
   margin: 0;
 }
+
+/* ── Collapsible settings (difficulty, pace) ──────────────── */
+
+.setting {
+  margin-top: 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+}
+
+.setting-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.setting-summary::-webkit-details-marker {
+  display: none;
+}
+
+.setting-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  color: var(--alpine);
+}
+
+.setting-value {
+  flex: 1;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--midnight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.setting-chev {
+  color: #888;
+  transition: transform 0.2s;
+}
+
+.setting[open] .setting-chev {
+  transform: rotate(180deg);
+}
+
+.setting[open] .setting-summary {
+  border-bottom: 1px solid var(--ice);
+}
+
+.setting .diff-row,
+.setting .pace-row {
+  padding: 12px;
+}
+
+.setting + .bus-row,
+.setting + .plan-btn {
+  margin-top: 14px;
+}
