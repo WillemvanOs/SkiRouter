@@ -19,6 +19,14 @@
       "komtAanBij": "Top station Hahnenkammbahn",
       "aansluitendeLiften": [
         "A6"
+      ],
+      "coordOnder": [
+        47.44323,
+        12.38936
+      ],
+      "coordBoven": [
+        47.42681,
+        12.37252
       ]
     },
     {
@@ -28,7 +36,15 @@
       "echteLift": false,
       "tijd": 6,
       "vertrektBij": "Kitzbühel – Rasmusleiten",
-      "komtAanBij": "Top station Mocking"
+      "komtAanBij": "Top station Mocking",
+      "coordOnder": [
+        47.44352,
+        12.38659
+      ],
+      "coordBoven": [
+        47.44214,
+        12.3855
+      ]
     },
     {
       "liftNr": "A3",
@@ -37,7 +53,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Kitzbühel – Rasmusleiten",
-      "komtAanBij": "Top station Rasmusleiten"
+      "komtAanBij": "Top station Rasmusleiten",
+      "coordOnder": [
+        47.44339,
+        12.38612
+      ],
+      "coordBoven": [
+        47.44071,
+        12.38258
+      ]
     },
     {
       "liftNr": "A4",
@@ -46,7 +70,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Kitzbühel – Ganslern",
-      "komtAanBij": "Top station Mini Streif"
+      "komtAanBij": "Top station Mini Streif",
+      "coordOnder": [
+        47.44532,
+        12.38448
+      ],
+      "coordBoven": [
+        47.44439,
+        12.38438
+      ]
     },
     {
       "liftNr": "A5",
@@ -55,7 +87,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Kitzbühel – Ganslern",
-      "komtAanBij": "Top station Ganslern"
+      "komtAanBij": "Top station Ganslern",
+      "coordOnder": [
+        47.44566,
+        12.38406
+      ],
+      "coordBoven": [
+        47.44221,
+        12.37601
+      ]
     },
     {
       "liftNr": "A6",
@@ -64,7 +104,15 @@
       "echteLift": false,
       "tijd": 3,
       "vertrektBij": "Top station Hahnenkammbahn",
-      "komtAanBij": "Top station Hahnenkammbahn"
+      "komtAanBij": "Top station Hahnenkammbahn",
+      "coordOnder": [
+        47.42637,
+        12.37155
+      ],
+      "coordBoven": [
+        47.4259,
+        12.37092
+      ]
     },
     {
       "liftNr": "A7",
@@ -76,6 +124,14 @@
       "komtAanBij": "Top station Hahnenkammbahn",
       "aansluitendeLiften": [
         "A6"
+      ],
+      "coordOnder": [
+        47.42501,
+        12.36987
+      ],
+      "coordBoven": [
+        47.42599,
+        12.37084
       ]
     },
     {
@@ -85,7 +141,15 @@
       "echteLift": true,
       "tijd": 3,
       "vertrektBij": "Bottom station Walde",
-      "komtAanBij": "Hahnenkamm"
+      "komtAanBij": "Hahnenkamm",
+      "coordOnder": [
+        47.42784,
+        12.36541
+      ],
+      "coordBoven": [
+        47.4238,
+        12.36577
+      ]
     },
     {
       "liftNr": "B1",
@@ -94,7 +158,15 @@
       "echteLift": true,
       "tijd": 15,
       "vertrektBij": "Bottom station Fleckalmbahn",
-      "komtAanBij": "Ehrenbachhöhe"
+      "komtAanBij": "Ehrenbachhöhe",
+      "coordOnder": [
+        47.45038,
+        12.33508
+      ],
+      "coordBoven": [
+        47.41793,
+        12.35784
+      ]
     },
     {
       "liftNr": "B2",
@@ -103,7 +175,15 @@
       "echteLift": true,
       "tijd": 10,
       "vertrektBij": "Kirchberg in Tirol – Maierlbahn",
-      "komtAanBij": "Top station Maierlbahn"
+      "komtAanBij": "Top station Maierlbahn",
+      "coordOnder": [
+        47.43898,
+        12.32521
+      ],
+      "coordBoven": [
+        47.41975,
+        12.3459
+      ]
     },
     {
       "liftNr": "B3",
@@ -112,7 +192,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Ochsalm",
-      "komtAanBij": "Ehrenbachhöhe"
+      "komtAanBij": "Ehrenbachhöhe",
+      "coordOnder": [
+        47.41877,
+        12.343
+      ],
+      "coordBoven": [
+        47.41768,
+        12.35787
+      ]
     },
     {
       "liftNr": "B4",
@@ -121,7 +209,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Sonnenrast",
-      "komtAanBij": "Ehrenbachhöhe"
+      "komtAanBij": "Ehrenbachhöhe",
+      "coordOnder": [
+        47.40881,
+        12.36014
+      ],
+      "coordBoven": [
+        47.41846,
+        12.35881
+      ]
     },
     {
       "liftNr": "B5",
@@ -130,7 +226,15 @@
       "echteLift": true,
       "tijd": 5,
       "vertrektBij": "Bottom station Steinbergkogel",
-      "komtAanBij": "Ehrenbachhöhe"
+      "komtAanBij": "Ehrenbachhöhe",
+      "coordOnder": [
+        47.41397,
+        12.36845
+      ],
+      "coordBoven": [
+        47.41864,
+        12.35932
+      ]
     },
     {
       "liftNr": "B6",
@@ -139,7 +243,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Bottom station Sonnenrast",
-      "komtAanBij": "Top station B6 Förderband / magic carpet (summer / winter)"
+      "komtAanBij": "Top station B6 Förderband / magic carpet (summer / winter)",
+      "coordOnder": [
+        47.40839,
+        12.35959
+      ],
+      "coordBoven": [
+        47.40802,
+        12.35824
+      ]
     },
     {
       "liftNr": "C1",
@@ -148,7 +260,15 @@
       "echteLift": true,
       "tijd": 7,
       "vertrektBij": "Bottom station Steinbergkogel",
-      "komtAanBij": "Steinbergkogel"
+      "komtAanBij": "Steinbergkogel",
+      "coordOnder": [
+        47.41325,
+        12.36744
+      ],
+      "coordBoven": [
+        47.40226,
+        12.36743
+      ]
     },
     {
       "liftNr": "C2",
@@ -157,7 +277,15 @@
       "echteLift": true,
       "tijd": 5,
       "vertrektBij": "Bottom station Sonnenrast",
-      "komtAanBij": "Steinbergkogel"
+      "komtAanBij": "Steinbergkogel",
+      "coordOnder": [
+        47.40815,
+        12.36059
+      ],
+      "coordBoven": [
+        47.40164,
+        12.36656
+      ]
     },
     {
       "liftNr": "D1",
@@ -166,7 +294,15 @@
       "echteLift": true,
       "tijd": 11,
       "vertrektBij": "Bottom station Pengelstein I",
-      "komtAanBij": "Top station Pengelstein I"
+      "komtAanBij": "Top station Pengelstein I",
+      "coordOnder": [
+        47.41708,
+        12.31538
+      ],
+      "coordBoven": [
+        47.3951,
+        12.33167
+      ]
     },
     {
       "liftNr": "D2",
@@ -175,7 +311,15 @@
       "echteLift": true,
       "tijd": 8,
       "vertrektBij": "Bottom station Pengelstein II",
-      "komtAanBij": "Pengelstein (D2)"
+      "komtAanBij": "Pengelstein (D2)",
+      "coordOnder": [
+        47.40006,
+        12.32384
+      ],
+      "coordBoven": [
+        47.39056,
+        12.34803
+      ]
     },
     {
       "liftNr": "D3",
@@ -184,7 +328,15 @@
       "echteLift": true,
       "tijd": 7,
       "vertrektBij": "Bottom station Brunn",
-      "komtAanBij": "Jufenkamm (D3)"
+      "komtAanBij": "Jufenkamm (D3)",
+      "coordOnder": [
+        47.4021,
+        12.33612
+      ],
+      "coordBoven": [
+        47.39925,
+        12.35433
+      ]
     },
     {
       "liftNr": "D4",
@@ -193,7 +345,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Bottom station Kasereck",
-      "komtAanBij": "Jufenkamm (D4)"
+      "komtAanBij": "Jufenkamm (D4)",
+      "coordOnder": [
+        47.39446,
+        12.35692
+      ],
+      "coordBoven": [
+        47.39868,
+        12.35296
+      ]
     },
     {
       "liftNr": "D5",
@@ -202,7 +362,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Bottom station Kasereck",
-      "komtAanBij": "Pengelstein (D2)"
+      "komtAanBij": "Pengelstein (D2)",
+      "coordOnder": [
+        47.3939,
+        12.35692
+      ],
+      "coordBoven": [
+        47.39066,
+        12.34877
+      ]
     },
     {
       "liftNr": "D6",
@@ -211,7 +379,15 @@
       "echteLift": true,
       "tijd": 8,
       "vertrektBij": "Bottom station Hieslegg",
-      "komtAanBij": "Top station Hieslegg"
+      "komtAanBij": "Top station Hieslegg",
+      "coordOnder": [
+        47.39247,
+        12.32887
+      ],
+      "coordBoven": [
+        47.38425,
+        12.34568
+      ]
     },
     {
       "liftNr": "D7",
@@ -223,6 +399,14 @@
       "komtAanBij": "Pengelstein (D7)",
       "aansluitendeLiften": [
         "D9"
+      ],
+      "coordOnder": [
+        47.3866,
+        12.34347
+      ],
+      "coordBoven": [
+        47.38916,
+        12.34617
       ]
     },
     {
@@ -232,7 +416,15 @@
       "echteLift": true,
       "tijd": 5,
       "vertrektBij": "Bottom station Hochsaukaser",
-      "komtAanBij": "Top station Hieslegg"
+      "komtAanBij": "Top station Hieslegg",
+      "coordOnder": [
+        47.37914,
+        12.35395
+      ],
+      "coordBoven": [
+        47.38358,
+        12.34525
+      ]
     },
     {
       "liftNr": "D9",
@@ -241,7 +433,15 @@
       "echteLift": true,
       "tijd": 15,
       "vertrektBij": "Pengelstein (D7)",
-      "komtAanBij": "Top station 3S Bahn"
+      "komtAanBij": "Top station 3S Bahn",
+      "coordOnder": [
+        47.38924,
+        12.34695
+      ],
+      "coordBoven": [
+        47.3656,
+        12.38056
+      ]
     },
     {
       "liftNr": "D9r",
@@ -250,7 +450,15 @@
       "echteLift": true,
       "tijd": 15,
       "vertrektBij": "Top station 3S Bahn",
-      "komtAanBij": "Pengelstein (D7)"
+      "komtAanBij": "Pengelstein (D7)",
+      "coordOnder": [
+        47.38924,
+        12.34695
+      ],
+      "coordBoven": [
+        47.3656,
+        12.38056
+      ]
     },
     {
       "liftNr": "D10",
@@ -259,7 +467,15 @@
       "echteLift": false,
       "tijd": 3,
       "vertrektBij": "Top station Sun Kid Aschau",
-      "komtAanBij": "Top station Übungslift Aschau"
+      "komtAanBij": "Top station Übungslift Aschau",
+      "coordOnder": [
+        47.38093,
+        12.30987
+      ],
+      "coordBoven": [
+        47.38001,
+        12.31257
+      ]
     },
     {
       "liftNr": "D11",
@@ -271,6 +487,14 @@
       "komtAanBij": "Top station Sun Kid Aschau",
       "aansluitendeLiften": [
         "D10"
+      ],
+      "coordOnder": [
+        47.38075,
+        12.31022
+      ],
+      "coordBoven": [
+        47.38049,
+        12.31092
       ]
     },
     {
@@ -280,7 +504,15 @@
       "echteLift": true,
       "tijd": 8,
       "vertrektBij": "Kirchberg in Tirol – Gaisberg",
-      "komtAanBij": "Top station Gaisberg"
+      "komtAanBij": "Top station Gaisberg",
+      "coordOnder": [
+        47.44127,
+        12.31641
+      ],
+      "coordBoven": [
+        47.43369,
+        12.30017
+      ]
     },
     {
       "liftNr": "E2",
@@ -289,7 +521,15 @@
       "echteLift": false,
       "tijd": 3,
       "vertrektBij": "Kirchberg in Tirol – Schatzerlift",
-      "komtAanBij": "Top station Schatzerlift"
+      "komtAanBij": "Top station Schatzerlift",
+      "coordOnder": [
+        47.4452,
+        12.31138
+      ],
+      "coordBoven": [
+        47.4428,
+        12.31105
+      ]
     },
     {
       "liftNr": "E3",
@@ -298,7 +538,15 @@
       "echteLift": false,
       "tijd": 5,
       "vertrektBij": "Top station Sun Cord Reith",
-      "komtAanBij": "Top station Übungslift Reith"
+      "komtAanBij": "Top station Übungslift Reith",
+      "coordOnder": [
+        47.47557,
+        12.33885
+      ],
+      "coordBoven": [
+        47.47384,
+        12.3315
+      ]
     },
     {
       "liftNr": "E4",
@@ -310,6 +558,14 @@
       "komtAanBij": "Top station Sun Cord Reith",
       "aansluitendeLiften": [
         "E3"
+      ],
+      "coordOnder": [
+        47.47728,
+        12.33837
+      ],
+      "coordBoven": [
+        47.47601,
+        12.33765
       ]
     },
     {
@@ -322,6 +578,14 @@
       "komtAanBij": "Top station Wagstättbahn",
       "aansluitendeLiften": [
         "F1b"
+      ],
+      "coordOnder": [
+        47.37761,
+        12.41818
+      ],
+      "coordBoven": [
+        47.37484,
+        12.40362
       ]
     },
     {
@@ -334,6 +598,14 @@
       "komtAanBij": "Wurzhöhe",
       "aansluitendeLiften": [
         "D9r"
+      ],
+      "coordOnder": [
+        47.37761,
+        12.41818
+      ],
+      "coordBoven": [
+        47.37484,
+        12.40362
       ]
     },
     {
@@ -343,7 +615,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Jochberg – Hausleiten",
-      "komtAanBij": "Top station Hausleiten"
+      "komtAanBij": "Top station Hausleiten",
+      "coordOnder": [
+        47.38334,
+        12.41733
+      ],
+      "coordBoven": [
+        47.37992,
+        12.4126
+      ]
     },
     {
       "liftNr": "F3",
@@ -352,7 +632,15 @@
       "echteLift": true,
       "tijd": 7,
       "vertrektBij": "Bottom station Talsen",
-      "komtAanBij": "Top station Talsen"
+      "komtAanBij": "Top station Talsen",
+      "coordOnder": [
+        47.35735,
+        12.39347
+      ],
+      "coordBoven": [
+        47.36498,
+        12.37921
+      ]
     },
     {
       "liftNr": "F4",
@@ -361,7 +649,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Talsen",
-      "komtAanBij": "Top station Bärenbadkogel I"
+      "komtAanBij": "Top station Bärenbadkogel I",
+      "coordOnder": [
+        47.35714,
+        12.39259
+      ],
+      "coordBoven": [
+        47.34735,
+        12.39045
+      ]
     },
     {
       "liftNr": "F5",
@@ -370,7 +666,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Bärenbadkogel II",
-      "komtAanBij": "Bärenbadkogel (F5)"
+      "komtAanBij": "Bärenbadkogel (F5)",
+      "coordOnder": [
+        47.34147,
+        12.39505
+      ],
+      "coordBoven": [
+        47.33967,
+        12.38027
+      ]
     },
     {
       "liftNr": "F6",
@@ -379,7 +683,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Bottom station Gauxjoch",
-      "komtAanBij": "Bärenbadkogel (F6)"
+      "komtAanBij": "Bärenbadkogel (F6)",
+      "coordOnder": [
+        47.33755,
+        12.36302
+      ],
+      "coordBoven": [
+        47.34083,
+        12.38014
+      ]
     },
     {
       "liftNr": "F7",
@@ -388,7 +700,15 @@
       "echteLift": true,
       "tijd": 3,
       "vertrektBij": "Bottom station Zweitausender",
-      "komtAanBij": "Top station Trattenbach"
+      "komtAanBij": "Top station Trattenbach",
+      "coordOnder": [
+        47.33085,
+        12.35933
+      ],
+      "coordBoven": [
+        47.33719,
+        12.35502
+      ]
     },
     {
       "liftNr": "G1",
@@ -397,7 +717,15 @@
       "echteLift": true,
       "tijd": 8,
       "vertrektBij": "Pass Thurn",
-      "komtAanBij": "Top station Resterhöhe"
+      "komtAanBij": "Top station Resterhöhe",
+      "coordOnder": [
+        47.31095,
+        12.40514
+      ],
+      "coordBoven": [
+        47.31299,
+        12.38616
+      ]
     },
     {
       "liftNr": "G2",
@@ -406,7 +734,15 @@
       "echteLift": false,
       "tijd": 3,
       "vertrektBij": "Bottom station Pass Thurn",
-      "komtAanBij": "Top station Pass Thurn"
+      "komtAanBij": "Top station Pass Thurn",
+      "coordOnder": [
+        47.30961,
+        12.4069
+      ],
+      "coordBoven": [
+        47.30913,
+        12.40324
+      ]
     },
     {
       "liftNr": "G3",
@@ -415,7 +751,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Bottom station Sun Kid",
-      "komtAanBij": "Resterhöhe"
+      "komtAanBij": "Resterhöhe",
+      "coordOnder": [
+        47.30811,
+        12.38401
+      ],
+      "coordBoven": [
+        47.30729,
+        12.38342
+      ]
     },
     {
       "liftNr": "G4",
@@ -424,7 +768,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Bottom station Resterkogel",
-      "komtAanBij": "Resterhöhe"
+      "komtAanBij": "Resterhöhe",
+      "coordOnder": [
+        47.3131,
+        12.38249
+      ],
+      "coordBoven": [
+        47.30743,
+        12.38245
+      ]
     },
     {
       "liftNr": "G5",
@@ -433,7 +785,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Hanglalm",
-      "komtAanBij": "Hanglhöhe"
+      "komtAanBij": "Hanglhöhe",
+      "coordOnder": [
+        47.32205,
+        12.37905
+      ],
+      "coordBoven": [
+        47.31388,
+        12.36934
+      ]
     },
     {
       "liftNr": "G6",
@@ -442,7 +802,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Hartkaser",
-      "komtAanBij": "Top station Hartkaser"
+      "komtAanBij": "Top station Hartkaser",
+      "coordOnder": [
+        47.32452,
+        12.36934
+      ],
+      "coordBoven": [
+        47.31795,
+        12.3597
+      ]
     },
     {
       "liftNr": "G7",
@@ -451,7 +819,15 @@
       "echteLift": true,
       "tijd": 7,
       "vertrektBij": "Bottom station Zweitausender",
-      "komtAanBij": "Zweitausender"
+      "komtAanBij": "Zweitausender",
+      "coordOnder": [
+        47.33105,
+        12.35826
+      ],
+      "coordBoven": [
+        47.32086,
+        12.34849
+      ]
     },
     {
       "liftNr": "G8",
@@ -463,6 +839,14 @@
       "komtAanBij": "Top station Panoramabahn Kitzbüheler Alpen I",
       "aansluitendeLiften": [
         "G9"
+      ],
+      "coordOnder": [
+        47.28093,
+        12.40546
+      ],
+      "coordBoven": [
+        47.29973,
+        12.40806
       ]
     },
     {
@@ -472,7 +856,15 @@
       "echteLift": true,
       "tijd": 8,
       "vertrektBij": "Top station Panoramabahn Kitzbüheler Alpen I",
-      "komtAanBij": "Resterhöhe"
+      "komtAanBij": "Resterhöhe",
+      "coordOnder": [
+        47.29973,
+        12.40806
+      ],
+      "coordBoven": [
+        47.30692,
+        12.38276
+      ]
     },
     {
       "liftNr": "H1",
@@ -485,6 +877,14 @@
       "aansluitendeLiften": [
         "H2",
         "H3"
+      ],
+      "coordOnder": [
+        47.45018,
+        12.39485
+      ],
+      "coordBoven": [
+        47.4636,
+        12.40776
       ]
     },
     {
@@ -494,7 +894,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Top station Hornbahn I",
-      "komtAanBij": "Hornköpfl (H6)"
+      "komtAanBij": "Hornköpfl (H6)",
+      "coordOnder": [
+        47.49531,
+        12.42583
+      ],
+      "coordBoven": [
+        47.48467,
+        12.42794
+      ]
     },
     {
       "liftNr": "H3",
@@ -503,7 +911,15 @@
       "echteLift": true,
       "tijd": 5,
       "vertrektBij": "Top station Hornbahn I",
-      "komtAanBij": "Kitzbüheler Horn"
+      "komtAanBij": "Kitzbüheler Horn",
+      "coordOnder": [
+        47.4638,
+        12.40801
+      ],
+      "coordBoven": [
+        47.47515,
+        12.42925
+      ]
     },
     {
       "liftNr": "H4",
@@ -512,7 +928,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Raintal",
-      "komtAanBij": "Kitzbüheler Horn"
+      "komtAanBij": "Kitzbüheler Horn",
+      "coordOnder": [
+        47.47046,
+        12.44524
+      ],
+      "coordBoven": [
+        47.47537,
+        12.43057
+      ]
     },
     {
       "liftNr": "H5",
@@ -521,7 +945,15 @@
       "echteLift": true,
       "tijd": 6,
       "vertrektBij": "Bottom station Brunelle",
-      "komtAanBij": "Kitzbüheler Horn"
+      "komtAanBij": "Kitzbüheler Horn",
+      "coordOnder": [
+        47.46542,
+        12.42657
+      ],
+      "coordBoven": [
+        47.47535,
+        12.42966
+      ]
     },
     {
       "liftNr": "H6",
@@ -530,7 +962,15 @@
       "echteLift": true,
       "tijd": 4,
       "vertrektBij": "Bottom station Hornköpfl",
-      "komtAanBij": "Hornköpfl (H6)"
+      "komtAanBij": "Hornköpfl (H6)",
+      "coordOnder": [
+        47.46163,
+        12.42957
+      ],
+      "coordBoven": [
+        47.46688,
+        12.4296
+      ]
     },
     {
       "liftNr": "H7",
@@ -539,7 +979,15 @@
       "echteLift": true,
       "tijd": 5,
       "vertrektBij": "Bottom station Hornköpfl",
-      "komtAanBij": "Hornköpfl (H7)"
+      "komtAanBij": "Hornköpfl (H7)",
+      "coordOnder": [
+        47.4616,
+        12.42967
+      ],
+      "coordBoven": [
+        47.46694,
+        12.43289
+      ]
     },
     {
       "liftNr": "H8",
@@ -548,7 +996,15 @@
       "echteLift": false,
       "tijd": 5,
       "vertrektBij": "Bottom station Hornköpfl",
-      "komtAanBij": "Top station Eggl"
+      "komtAanBij": "Top station Eggl",
+      "coordOnder": [
+        47.46122,
+        12.42981
+      ],
+      "coordBoven": [
+        47.45696,
+        12.43536
+      ]
     },
     {
       "liftNr": "H9",
@@ -563,6 +1019,14 @@
         "H7",
         "H8",
         "H10"
+      ],
+      "coordOnder": [
+        47.46179,
+        12.42875
+      ],
+      "coordBoven": [
+        47.46207,
+        12.42844
       ]
     },
     {
@@ -572,7 +1036,15 @@
       "echteLift": false,
       "tijd": 4,
       "vertrektBij": "Bottom station Hornköpfl",
-      "komtAanBij": "Top station Trattalmulde"
+      "komtAanBij": "Top station Trattalmulde",
+      "coordOnder": [
+        47.46094,
+        12.42922
+      ],
+      "coordBoven": [
+        47.45998,
+        12.42884
+      ]
     },
     {
       "liftNr": "H11",
@@ -581,7 +1053,15 @@
       "echteLift": true,
       "tijd": 10,
       "vertrektBij": "Rehbühel – Bichlalmlift",
-      "komtAanBij": "Hochetzkogel"
+      "komtAanBij": "Hochetzkogel",
+      "coordOnder": [
+        47.43155,
+        12.42589
+      ],
+      "coordBoven": [
+        47.44084,
+        12.45083
+      ]
     },
     {
       "liftNr": "OEF-1",
