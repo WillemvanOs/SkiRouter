@@ -133,6 +133,11 @@
       </button>
     </div>
 
+    <div class="card-title lunch-title bus-row" id="q-bus-row" style="margin-top:18px;display:none">
+      🚌 Ski bus
+      <label class="switch"><input type="checkbox" id="q-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
+    </div>
+
     <button class="plan-btn" onclick="planRoute()">CALCULATE ROUTE</button>
     <div class="error-msg" id="err"></div>
   </div><!-- /card -->
@@ -250,6 +255,11 @@
       <button class="diff-btn skiroute on" id="dd-skiroute" onclick="setDayDiff('skiroute')">
         <span class="dot" style="background:var(--skiroute)"></span>Ski route
       </button>
+    </div>
+
+    <div class="card-title lunch-title bus-row" id="day-bus-row" style="margin-top:18px;display:none">
+      🚌 Ski bus
+      <label class="switch"><input type="checkbox" id="day-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
     </div>
 
     <button class="plan-btn" onclick="planDayClicked(this)">PLAN MY DAY</button>

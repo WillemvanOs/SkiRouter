@@ -41,6 +41,7 @@ const DAY_DIFF_LEVELS   = ['blauw', 'rood', 'zwart', 'skiroute'];
 
 let dayDiff    = new Set(DAY_DIFF_LEVELS);
 let dayPace    = 'normal';
+let dayBus     = true;   // may the plan use the ski bus
 let dayOptions = [];
 let dayCtx     = null;
 let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
@@ -77,6 +78,7 @@ function resetDayPlan() {
   restoreStation('dstart', saved.start);
   restoreStation('dend', saved.end);
 
+  document.getElementById('day-bus').checked         = saved.bus !== false;
   document.getElementById('day-lunch').checked       = saved.lunch !== false;
   document.getElementById('day-lunch-t').value       = saved.lunchT || '13:00';
   document.getElementById('day-lunch-min').value     = saved.lunchMin || 60;
@@ -206,6 +208,7 @@ function dayCost(edge, pace) {
 }
 
 function dayAllowed(edge) {
+  if (edge.type === 'bus') return dayBus;
   return edge.type !== 'piste' || pisteKleuren(edge).every(k => dayDiff.has(k));
 }
 
@@ -547,6 +550,7 @@ function planDay(options = {}) {
   const lunchT   = parseClock(document.getElementById('day-lunch-t').value);
   const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
   const lunchAt  = document.getElementById('day-lunch-at').value;
+  dayBus = busAllowed('day-bus');
 
   if (!start)                       return fail('Choose where your day starts.');
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
@@ -561,13 +565,17 @@ function planDay(options = {}) {
     start: start.id, end: selected.dend?.id || null,
     t0: document.getElementById('day-t0').value, t1: document.getElementById('day-t1').value,
     km: targetKm, pace: dayPace, diff: [...dayDiff],
-    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt,
+    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt, bus: dayBus,
   });
 
   const pace = DAY_PACES[dayPace];
   dayGraph = GRAPH;
   const home = costsToEnd(end.id, pace);
-  if (home.dist[start.id] == null) return fail('The end station cannot be reached from the start with these difficulties. Try also selecting red or black.');
+  if (home.dist[start.id] == null) {
+    return fail(dayBus
+      ? 'The end station cannot be reached from the start with these difficulties. Try also selecting red or black.'
+      : 'The end station cannot be reached without the ski bus. Switch the ski bus on, or also select red or black.');
+  }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
   const liftWindows = {};
@@ -579,6 +587,7 @@ function planDay(options = {}) {
   dayCtx = { startId: start.id, endId: end.id, t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
   const random = seededRandom(hashString(JSON.stringify([
     start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
+    ...(dayBus ? [] : ['no-bus']),
   ])));
 
   if (withLunch) {
