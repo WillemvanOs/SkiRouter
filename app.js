@@ -415,12 +415,22 @@ function pickStation(stationId, lift, dalBerg) {
   document.getElementById(`${routeSide}-nr`).textContent           = lift.nr;
   document.getElementById(`${routeSide}-liftname`).textContent     = lift.name;
   document.getElementById(`${routeSide}-side`).textContent         = `${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}`;
+  updateEndSummary(routeSide);
 }
 
 function resetSide(side) {
   selected[side] = null;
   document.getElementById(`${side}-box`).style.display    = 'flex';
   document.getElementById(`${side}-chosen`).style.display = 'none';
+  updateEndSummary(side);
+}
+
+// The collapsed 'End of the day' row of the day plan: "Same as start" unless
+// another end station is chosen.
+function updateEndSummary(side) {
+  if (side !== 'dend') return;
+  const end = selected.dend;
+  document.getElementById('end-summary').textContent = end ? `${end.liftNr} ${end.liftName}${end.side === 'dal' ? '' : ' (top)'}` : 'Same as start';
 }
 
 function swapSides() {

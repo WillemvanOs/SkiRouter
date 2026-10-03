@@ -1400,3 +1400,7 @@ select.day-input {
 .setting + .plan-btn {
   margin-top: 14px;
 }
+
+.end-picker {
+  padding: 12px;
+}
