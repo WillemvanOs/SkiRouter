@@ -108,8 +108,11 @@ reopened.
 
 ## OpenStreetMap enrichment
 
-`tools/osm-enrich.mjs` adds restaurants and huts (linked to the nearest lift station or
-piste) and lift opening hours, where mapped, to every dataset in `data/areas.json`.
+`tools/osm-enrich.mjs` adds restaurants and huts and lift opening hours, where mapped, to every
+dataset in `data/areas.json`. Only places on the piste are kept: within 80 m of a piste's course
+(huts 100 m) or 130 m of a top station. A place within 130 m of a lift station is linked to that
+station, otherwise to its piste. Piste ways more than 1.5 km from every lift belong to a
+neighbouring area and are ignored.
 It runs in GitHub Actions (`.github/workflows/osm-enrich.yml`) because cloud sessions
 cannot reach OpenStreetMap: start it from **Actions → Enrich ski areas from OSM → Run
 workflow**, or push a change to the script on a branch. The workflow commits the
