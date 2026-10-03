@@ -46,13 +46,19 @@ the app with a connection.
 
 If you change the list of app files the planner needs offline, bump `CACHE_VERSION` in `sw.js`.
 
+## Riding a lift down
+
+Some valley stations have no piste down to them, such as G8 Panoramabahn in Hollersbach. Both
+planners then route you down by lift ("ride down ↓"). That only happens with gondolas, cable cars
+and funiculars, never with chairlifts, drag lifts or carpets, and only when no piste gets you
+there: the planners count riding down as an extra hour of cost, while showing the real ride time.
+
 ## Day planner
 
 The **Day plan** tab plans a whole day: a start station and time, roughly how many
 kilometres, and when (and where) to be back. It tries many routes through the lift and
 piste network, prefers pistes not skied yet that day, and offers up to three options
-with a time for every step. Lifts with a gondola or cable car may also be ridden down to
-get home. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
+with a time for every step. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
 and piste times stretched for short stops. The code is in `dayplan.js`.
 
 With **Lunch** switched on, the day becomes start → restaurant (around the chosen time) →

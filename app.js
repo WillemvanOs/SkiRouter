@@ -39,6 +39,12 @@ function formatAlt(alt) {
 
 // ── Graph ────────────────────────────────────────────────────────────────────
 
+// Lift types you may also ride down in.
+const RIDE_DOWN_TYPES = new Set(['gondola', 'mixed_lift', 'cable_car', 'funicular']);
+// Extra routing cost of riding a lift down, so a route only does it when no
+// piste gets you there (the time shown stays the real ride time).
+const RIDE_DOWN_PENALTY = 60;
+
 function buildFromSkimapData(area) {
   const stations = {};
   const liften = area.liften || [];
@@ -70,6 +76,21 @@ function buildFromSkimapData(area) {
       name: lift.naam || lift.liftNr,
       tijd: lift.tijd || 0,
     });
+
+    // Gondolas and cable cars can also be ridden down: the only way back to a
+    // valley station that no piste reaches (e.g. G8 Panoramabahn). Never for
+    // chairlifts, drag lifts or carpets.
+    if (lift.echteLift !== false && RIDE_DOWN_TYPES.has(lift.type)) {
+      addEdge({
+        from: topId, to: bottomId,
+        type: lift.type,
+        echteLift: true,
+        descent: true,
+        liftNr: lift.liftNr,
+        name: lift.naam || lift.liftNr,
+        tijd: lift.tijd || 0,
+      });
+    }
 
     const sector = lift.komtAanBij || 'Other';
     if (!seenSectors.has(sector)) { seenSectors.add(sector); sectorOrder.push(sector); }
@@ -420,7 +441,7 @@ function dijkstra(startId, endId) {
 
     (GRAPH[current] || []).forEach(edge => {
       if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
-      const newCost = dist[current] + (edge.tijd || 0);
+      const newCost = dist[current] + (edge.tijd || 0) + (edge.descent ? RIDE_DOWN_PENALTY : 0);
       if (newCost < dist[edge.to]) {
         dist[edge.to]     = newCost;
         prev[edge.to]     = current;
@@ -644,7 +665,7 @@ function stepElement(edge, index, clock) {
       <span class="step-number">${index + 1}</span>
       <div class="step-icon ico-${cls}">${icon}</div>
       <div class="step-info">
-        <div class="step-kind kind-lift">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
+        <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
         <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
       </div>
     `;
