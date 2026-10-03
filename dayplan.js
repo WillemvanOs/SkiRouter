@@ -798,31 +798,58 @@ function renderDayOption(index) {
 const DAY_ON_TIME_MIN = 5;
 
 // Ahead or behind: the clock now against when the next step was planned.
+// Late warning: projected return later than "back by" by more than this.
+const DAY_LATE_WARN_MIN = 10;
+let dayLateBuzzed = null; // the plan we already vibrated for
+
+// Ahead or behind: the clock now against when the next step was planned.
+// When the delay carried to the end of the day means getting back clearly
+// after "back by", warn — in the progress area and in the sticky bar — and
+// offer to replan the rest of the day.
 function dayStatus(done, items) {
   const total = items.length;
+  const walk  = dayOptions[dayShown];
+  const now   = nowMinutes();
+  const inDay = now >= dayCtx.t0 - 60 && now <= dayCtx.t1 + 120;
+  const started = done > 0 || now >= dayCtx.t0;
+  const delta = done < total && inDay && started ? Math.round(now - +items[done].dataset.t) : null;
+  const backAt = delta != null ? walk.end + Math.max(0, delta) : null;
+  const late = backAt != null ? Math.round(backAt - dayCtx.t1) : 0;
+  const isLate = late > DAY_LATE_WARN_MIN;
+
   let text;
-  if (done === 0) {
-    text = 'Tap a step once you have done it to see if you are on time.';
-  } else if (done === total) {
+  if (done === total) {
     text = '🏁 All done — what a day!';
+  } else if (delta == null) {
+    text = done === 0 ? 'Tap a step once you have done it to see if you are on time.' : `${done} of ${total} done`;
   } else {
-    const planned = +items[done].dataset.t;
-    const now = nowMinutes();
-    const delta = Math.round(now - planned);
-    if (now < dayCtx.t0 - 60 || now > dayCtx.t1 + 120) {
-      text = `${done} of ${total} done`;
-    } else if (Math.abs(delta) <= DAY_ON_TIME_MIN) {
-      text = `${done} of ${total} done · ✅ on schedule`;
-    } else if (delta > 0) {
-      text = `${done} of ${total} done · ⏱ ${delta} min behind`;
-    } else {
-      text = `${done} of ${total} done · ⚡ ${-delta} min ahead`;
-    }
+    const prefix = done ? `${done} of ${total} done · ` : '';
+    if (Math.abs(delta) <= DAY_ON_TIME_MIN) text = `${prefix}✅ on schedule`;
+    else if (delta > 0)                     text = `${prefix}⏱ ${delta} min behind`;
+    else                                    text = `${prefix}⚡ ${-delta} min ahead`;
   }
-  const replan = done > 0 && done < total
+
+  const replan = !isLate && done > 0 && done < total
     ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
     : '';
   renderProgress('dp-progress', done, total, text, replan);
+
+  const lateBtn = document.getElementById('dp-late');
+  if (isLate) {
+    document.getElementById('dp-progress').insertAdjacentHTML('beforeend', `
+      <div class="late-warning">
+        <div>⚠ At this pace you'll be back around <strong>${formatClock(backAt)}</strong>, ${late} min after ${formatClock(dayCtx.t1)}.${done === 0 ? ' Already skiing? Tick the steps you have done.' : ''}</div>
+        <button class="replan-btn replan-urgent" type="button" onclick="replanFromHere()">↻ Replan from here</button>
+      </div>`);
+    lateBtn.textContent = `⚠ Back ${formatClock(backAt)} · Replan`;
+    lateBtn.style.display = 'inline-flex';
+    if (dayLateBuzzed !== walk) {
+      dayLateBuzzed = walk;
+      try { navigator.vibrate?.(200); } catch {}
+    }
+  } else {
+    lateBtn.style.display = 'none';
+  }
 }
 
 // Plan the rest of the day from where you are now: the next step's start,
@@ -854,6 +881,8 @@ function replanFromHere() {
   }
   toggleLunch();
   planDay();
+  // Not enough time left for a plan: show why, at the form.
+  if (document.getElementById('day-err').classList.contains('visible')) backToPlanner('day-card');
 }
 
 // Keep "ahead/behind" current while the plan is on screen.

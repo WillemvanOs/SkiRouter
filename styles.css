@@ -1434,3 +1434,38 @@ select.day-input {
   padding: 0;
   font-size: 0.74rem;
 }
+
+/* ── Late warning ─────────────────────────────────────────── */
+
+.late-warning {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #ffe0de;
+  color: #a12a1e;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.replan-urgent {
+  align-self: flex-start;
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.late-btn {
+  flex-basis: 100%;
+  justify-content: center;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background: #c0392b;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}

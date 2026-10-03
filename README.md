@@ -108,6 +108,11 @@ the rest of the day is planned again from the next step, from now, with the km s
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened.
 
+When the delay carried through to the end of the day means getting back more than 10 minutes
+after **Back by**, the day plan warns automatically (checked against the clock every minute, also
+without tapping): a red bar in the sticky header and a warning above the steps, both with
+**Replan from here**. The phone vibrates once when the warning first appears.
+
 ## OpenStreetMap enrichment
 
 `tools/osm-enrich.mjs` adds restaurants and huts and lift opening hours, where mapped, to every
