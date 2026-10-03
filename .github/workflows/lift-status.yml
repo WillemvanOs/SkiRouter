@@ -1,0 +1,65 @@
+# Every 30 minutes: fetch lift status and operating hours from each ski
+# area's website (tools/lift-status.mjs). When something changed, commit the
+# status file to main and redeploy the site, so the app shows current hours.
+# A commit made with GITHUB_TOKEN does not start other workflows, hence the
+# explicit deploy job.
+#
+# Also runs on a push to a branch other than main that changes the script or
+# this workflow (commits the result to that branch, no deploy), and by hand.
+name: Update lift status
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - tools/lift-status.mjs
+      - .github/workflows/lift-status.yml
+
+concurrency:
+  group: lift-status-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch lift status
+        run: node tools/lift-status.mjs
+
+      - name: Commit when changed
+        id: commit
+        run: |
+          if git diff --quiet -- data; then
+            echo "No changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "Update lift status"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
