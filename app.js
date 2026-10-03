@@ -232,7 +232,23 @@ function resetPlanner() {
   allowedDiff = new Set(DIFF_LEVELS);
   DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.add('on'));
   document.getElementById('d-all').classList.add('on');
+  restoreQuickRoute();
   resetDayPlan();
+}
+
+// Reopened halfway down the mountain: bring back the route being followed.
+function restoreQuickRoute() {
+  const saved = loadProgress('quick');
+  if (!saved || !(saved.done > 0) || saved.done >= saved.total) return;
+  if (!STATIONS[saved.from] || !STATIONS[saved.to]) return;
+  restoreStation('from', saved.from);
+  restoreStation('to', saved.to);
+  if (Array.isArray(saved.diff)) {
+    allowedDiff = new Set(saved.diff.filter(d => DIFF_LEVELS.includes(d)));
+    DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d)));
+    document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
+  }
+  planRoute({ silent: true });
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
@@ -496,7 +512,7 @@ function tagLabel(edge) {
   return LIFT_TYPE_LABEL[edge.type] || 'Lift';
 }
 
-function planRoute() {
+function planRoute(options = {}) {
   const errorEl  = document.getElementById('err');
   const resultEl = document.getElementById('result');
   errorEl.classList.remove('visible');
@@ -522,7 +538,7 @@ function planRoute() {
 
   renderRoute(result);
   resultEl.classList.add('visible');
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!options.silent) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // A piste edge with `trajecten` runs through several marked numbers (74a
@@ -569,6 +585,8 @@ function renderRoute(result) {
   visibleSteps.forEach((edge, index) => {
     const div = stepElement(edge, index);
     div.style.animationDelay = `${(index + 1) * 50}ms`;
+    div.classList.add('checkable');
+    div.dataset.min = edge.tijd || 0;
     stepsEl.appendChild(div);
 
     const toStation = STATIONS[edge.to];
@@ -579,6 +597,20 @@ function renderRoute(result) {
   });
 
   document.getElementById('tip').innerHTML = getTip();
+
+  const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
+  makeCheckable(stepsEl, 'quick', signature, quickStatus, {
+    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff],
+  });
+}
+
+function quickStatus(done, items) {
+  const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
+  let text;
+  if (done === 0)                 text = 'Tap a step once you have done it.';
+  else if (done === items.length) text = '🏁 Destination reached!';
+  else                            text = `${done} of ${items.length} steps done · ~${left} min to go`;
+  renderProgress('p-progress', done, items.length, text);
 }
 
 // One route step (a lift or a piste) as a DOM element. `clock` is an optional
@@ -641,6 +673,93 @@ function getTip() {
   // Tips used to be hardcoded per KitzSki piste/lift name. Now that the app
   // is dataset-agnostic, keep this generic until tips become area data.
   return '💡 <strong>Tip:</strong> Check the current opening times of your ski area before you set off.';
+}
+
+// ── Progress: ticking off steps ──────────────────────────────────────────────
+//
+// Both planners mark their steps "checkable". Tapping one marks it and every
+// step before it as done (handy when you forgot to tap on the way); tapping
+// a done step un-marks it and everything after it. Progress is kept per area
+// and planner, tied to the route's signature, so it survives the app being
+// closed on the mountain.
+
+const PROGRESS_KEY_PREFIX = 'skiplanner:progress:';
+
+function progressKey(kind) {
+  return `${PROGRESS_KEY_PREFIX}${currentArea?.id || ''}:${kind}`;
+}
+
+function loadProgress(kind) {
+  try { return JSON.parse(localStorage.getItem(progressKey(kind))) || null; } catch { return null; }
+}
+
+function saveProgress(kind, data) {
+  try { localStorage.setItem(progressKey(kind), JSON.stringify(data)); } catch {}
+}
+
+function nowMinutes() {
+  const d = new Date();
+  return d.getHours() * 60 + d.getMinutes();
+}
+
+// Put a station in a picker (from/to/dstart/dend) by station id.
+function restoreStation(side, stationId) {
+  if (!stationId || !STATIONS[stationId]) return;
+  const lift = LIFTS.find(l => l.dal === stationId || l.berg === stationId);
+  if (!lift) return;
+  const previous = activeSide;
+  activeSide = side;
+  pickStation(stationId, lift, lift.dal === stationId ? 'dal' : 'berg');
+  activeSide = previous;
+}
+
+// Make the .checkable steps in `container` tickable. `onChange(done, items)`
+// redraws the status line; `extra` is stored alongside the progress.
+function makeCheckable(container, kind, signature, onChange, extra = {}) {
+  const items = [...container.querySelectorAll('.checkable')];
+  const saved = loadProgress(kind);
+  let done = saved && saved.signature === signature ? Math.min(saved.done || 0, items.length) : 0;
+
+  function apply(store) {
+    items.forEach((item, i) => {
+      item.classList.toggle('done', i < done);
+      item.classList.toggle('next', i === done);
+      item.querySelector('.step-check').setAttribute('aria-pressed', String(i < done));
+    });
+    if (store) saveProgress(kind, { ...extra, signature, done, total: items.length });
+    onChange(done, items);
+  }
+
+  // After a tap, bring the next step into view: on a long day you would
+  // otherwise scroll past a column of finished steps.
+  function showNext() {
+    const next = items[done];
+    if (next) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  items.forEach((item, i) => {
+    const check = document.createElement('button');
+    check.type = 'button';
+    check.className = 'step-check';
+    check.setAttribute('aria-label', 'Done');
+    item.appendChild(check);
+    item.addEventListener('click', () => {
+      done = i < done ? i : i + 1;
+      apply(true);
+      showNext();
+    });
+  });
+
+  apply(false);
+  return { get done() { return done; }, items, refresh: () => apply(false) };
+}
+
+function renderProgress(id, done, total, text, extraHtml = '') {
+  const el = document.getElementById(id);
+  el.innerHTML = `
+    <div class="progress-bar"><span style="width:${total ? (100 * done / total) : 0}%"></span></div>
+    <div class="progress-row"><span class="progress-text">${text}</span>${extraHtml}</div>
+  `;
 }
 
 // ── Boot ─────────────────────────────────────────────────────────────────────

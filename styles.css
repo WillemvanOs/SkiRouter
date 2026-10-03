@@ -1135,3 +1135,100 @@ select.day-input {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* ── Ticking off steps ────────────────────────────────────── */
+
+.checkable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.step-check {
+  flex-shrink: 0;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  border-radius: 50%;
+  border: 2px solid #c3d3e6;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.checkable.done .step-check {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.checkable.done .step-check::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 4px;
+  width: 7px;
+  height: 13px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkable.done > :not(.step-check) {
+  opacity: 0.4;
+}
+
+.checkable.next {
+  box-shadow: inset 0 0 0 2px var(--kitz-gold);
+  border-radius: 10px;
+}
+
+.progress:empty {
+  display: none;
+}
+
+.progress {
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--ice);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+}
+
+.progress-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--alpine);
+}
+
+.replan-btn {
+  padding: 6px 12px;
+  border: 1.5px solid var(--alpine);
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--alpine);
+  cursor: pointer;
+}

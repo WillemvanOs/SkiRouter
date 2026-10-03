@@ -46,6 +46,8 @@ let dayPace    = 'normal';
 let dayOptions = [];
 let dayCtx     = null;
 let dayGraph   = {}; // GRAPH plus ride-down edges, built per plan
+let dayTracker = null; // ticking off the shown option's steps
+let dayShown   = 0;    // index of the option on screen
 
 // ── Tabs ─────────────────────────────────────────────────────────────────────
 
@@ -74,28 +76,29 @@ function resetDayPlan() {
   setDayPace(DAY_PACES[saved.pace] ? saved.pace : 'normal');
   dayDiff = new Set(Array.isArray(saved.diff) ? saved.diff.filter(d => DAY_DIFF_LEVELS.includes(d)) : DAY_DIFF_LEVELS);
   renderDayDiff();
-  restoreDayStation('dstart', saved.start);
-  restoreDayStation('dend', saved.end);
+  restoreStation('dstart', saved.start);
+  restoreStation('dend', saved.end);
 
   document.getElementById('day-lunch').checked       = saved.lunch !== false;
   document.getElementById('day-lunch-t').value       = saved.lunchT || '13:00';
   document.getElementById('day-lunch-min').value     = saved.lunchMin || 60;
   renderLunchChoices(saved.lunchAt);
   toggleLunch();
+  restoreDayProgress();
 
   let tab = 'quick';
   try { tab = localStorage.getItem(DAY_TAB_KEY) || 'quick'; } catch {}
   showTab(tab === 'day' ? 'day' : 'quick');
 }
 
-function restoreDayStation(side, stationId) {
-  if (!stationId || !STATIONS[stationId]) return;
-  const lift = LIFTS.find(l => l.dal === stationId || l.berg === stationId);
-  if (!lift) return;
-  const previous = activeSide;
-  activeSide = side;
-  pickStation(stationId, lift, lift.dal === stationId ? 'dal' : 'berg');
-  activeSide = previous;
+// Reopened during the day: plan the same day again (planning is seeded, so
+// it comes out identical) and show the option being followed, ticks and all.
+function restoreDayProgress() {
+  dayTracker = null;
+  const saved = loadProgress('day');
+  if (!saved || !(saved.done > 0) || saved.done >= saved.total || !selected.dstart) return;
+  planDay({ silent: true });
+  if (dayOptions.length && saved.option > 0 && saved.option < dayOptions.length) renderDayOption(saved.option);
 }
 
 function toggleLunch() {
@@ -520,7 +523,7 @@ function planDayClicked(button) {
   }, 30);
 }
 
-function planDay() {
+function planDay(options = {}) {
   const errorEl  = document.getElementById('day-err');
   const resultEl = document.getElementById('day-result');
   errorEl.classList.remove('visible');
@@ -604,7 +607,7 @@ function planDay() {
 
   renderDayOption(0);
   resultEl.classList.add('visible');
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!options.silent) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Rendering ────────────────────────────────────────────────────────────────
@@ -686,6 +689,7 @@ function renderDayOption(index) {
   const walk = dayOptions[index];
   const ctx  = dayCtx;
   const pace = ctx.pace;
+  dayShown = index;
 
   const optionsEl = document.getElementById('day-options');
   optionsEl.innerHTML = '';
@@ -716,14 +720,20 @@ function renderDayOption(index) {
   const startStation = STATIONS[ctx.startId];
   addWaypoint(stepsEl, startStation.name, startStation.alt, '📍', `Start · ${formatClock(ctx.t0)}`, 0);
 
+  // Each tickable step records when it is planned to start (data-t), where
+  // you stand when it is next (data-at, for "replan from here") and its km.
   let number = 0;
-  walk.steps.forEach(step => {
+  walk.steps.forEach((step, stepIndex) => {
     if (step.lunch) {
       const r = step.lunch;
       const where = step.onPiste ? `halfway down piste ${r.piste}` : restaurantWhere(r);
       addWaypoint(stepsEl, `Lunch · ${r.naam}`, null, '🍽',
         `${formatClock(step.t)}–${formatClock(step.until)} · ${where}`, Math.min(number, 30) * 30);
-      stepsEl.lastElementChild.classList.add('step-lunch');
+      const el = stepsEl.lastElementChild;
+      el.classList.add('step-lunch', 'checkable');
+      el.dataset.t = step.t;
+      el.dataset.lunch = String(step.until - step.t);
+      el.dataset.at = walk.steps.slice(stepIndex + 1).find(s => s.edge)?.edge.from || ctx.endId;
       return;
     }
     const { edge, t } = step;
@@ -732,9 +742,15 @@ function renderDayOption(index) {
     const parts = splitTrajecten(edge);
     const partTotal = parts.reduce((sum, p) => sum + (p.tijd || 0), 0) || 1;
     let partT = t;
-    parts.forEach(part => {
+    parts.forEach((part, partIndex) => {
       const div = stepElement(part, number, formatClock(partT));
       div.style.animationDelay = `${Math.min(number, 30) * 30}ms`;
+      div.classList.add('checkable');
+      div.dataset.t  = partT;
+      div.dataset.km = part.type === 'piste' ? part.km || 0 : 0;
+      // Halfway down a chain of pistes is not a station: replan from its end.
+      div.dataset.at = partIndex === 0 ? edge.from : edge.to;
+      if (partIndex > 0) div.dataset.finish = dayCost(edge, pace) * parts.slice(partIndex).reduce((sum, p) => sum + (p.tijd || 0), 0) / partTotal;
       stepsEl.appendChild(div);
       number++;
       partT += dayCost(edge, pace) * (part.tijd || 0) / partTotal;
@@ -748,4 +764,75 @@ function renderDayOption(index) {
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
     `piste times ×${pace.piste}. Short breaks are not included; check the last lift times locally. ` +
     `Restaurants come from OpenStreetMap and may be missing or closed.`;
+
+  const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
+  dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });
 }
+
+// ── Following the plan ───────────────────────────────────────────────────────
+
+const DAY_ON_TIME_MIN = 5;
+
+// Ahead or behind: the clock now against when the next step was planned.
+function dayStatus(done, items) {
+  const total = items.length;
+  let text;
+  if (done === 0) {
+    text = 'Tap a step once you have done it to see if you are on time.';
+  } else if (done === total) {
+    text = '🏁 All done — what a day!';
+  } else {
+    const planned = +items[done].dataset.t;
+    const now = nowMinutes();
+    const delta = Math.round(now - planned);
+    if (now < dayCtx.t0 - 60 || now > dayCtx.t1 + 120) {
+      text = `${done} of ${total} done`;
+    } else if (Math.abs(delta) <= DAY_ON_TIME_MIN) {
+      text = `${done} of ${total} done · ✅ on schedule`;
+    } else if (delta > 0) {
+      text = `${done} of ${total} done · ⏱ ${delta} min behind`;
+    } else {
+      text = `${done} of ${total} done · ⚡ ${-delta} min ahead`;
+    }
+  }
+  const replan = done > 0 && done < total
+    ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
+    : '';
+  renderProgress('dp-progress', done, total, text, replan);
+}
+
+// Plan the rest of the day from where you are now: the next step's start,
+// from the current time (rounded up to 5 min), with the km still to go.
+// Lunch stays in if it is still ahead; next up is lunch itself → eat first.
+function replanFromHere() {
+  if (!dayTracker) return;
+  const { items, done } = dayTracker;
+  const next = items[done];
+  if (!next) return;
+  const walk = dayOptions[dayShown];
+
+  const kmDone = items.slice(0, done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
+  let startT = nowMinutes() + (+next.dataset.finish || 0);
+  const lunchAhead = items.slice(done).some(item => item.dataset.lunch);
+  const lunchNext  = !!next.dataset.lunch;
+  if (lunchNext) startT += +next.dataset.lunch;
+  startT = Math.ceil(startT / 5) * 5;
+
+  restoreStation('dstart', next.dataset.at);
+  if (!selected.dend && dayCtx.endId !== next.dataset.at) restoreStation('dend', dayCtx.endId);
+  document.getElementById('day-t0').value = formatClock(startT);
+  document.getElementById('day-km').value = Math.max(1, Math.round(dayCtx.targetKm - kmDone));
+  const lunchBox = document.getElementById('day-lunch');
+  if (lunchNext || !lunchAhead) {
+    lunchBox.checked = false;
+  } else if (walk.lunch) {
+    document.getElementById('day-lunch-at').value = walk.lunch.restaurant.id;
+  }
+  toggleLunch();
+  planDay();
+}
+
+// Keep "ahead/behind" current while the plan is on screen.
+setInterval(() => {
+  if (dayTracker && document.getElementById('day-result').classList.contains('visible')) dayTracker.refresh();
+}, 60000);

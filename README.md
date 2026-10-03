@@ -61,6 +61,16 @@ under *Where*, and says which one lies right on the route. It also lists other h
 around lunchtime. Restaurants come from the OpenStreetMap enrichment below; places in the
 villages are left out, as are places whose mapped opening hours do not cover your arrival.
 
+### Following a route
+
+In both planners you tap a step once you have done it. A tap also ticks every step before
+it, so you can catch up after forgetting. Tap a ticked step to untick it and everything after
+it. The quick route shows how many minutes are left. The day plan compares the clock with the
+plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
+the rest of the day is planned again from the next step, from now, with the km still to go.
+Progress is stored on the phone, so a route being followed comes back when the app is
+reopened.
+
 ## OpenStreetMap enrichment
 
 `tools/osm-enrich.mjs` adds restaurants and huts (linked to the nearest lift station or
