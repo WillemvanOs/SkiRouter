@@ -1,7 +1,7 @@
 {
   "bron": "www.kitzski.at",
-  "sourceUpdate": "2026-10-03T19:17:55",
-  "changed": "2026-10-03T17:53:59.828Z",
+  "sourceUpdate": "2026-10-05T00:02:09",
+  "changed": "2026-10-04T22:09:12.873Z",
   "lifts": {
     "A1": {
       "open": true,
@@ -478,8 +478,8 @@
     "H11": {
       "open": true,
       "hours": "09:00-17:30",
-      "from": "2026-10-03",
-      "to": "2026-10-04",
+      "from": "2026-10-10",
+      "to": "2026-10-11",
       "weekdays": 96,
       "text": "Wochenendbetrieb Oktober"
     }
