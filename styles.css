@@ -331,10 +331,47 @@ main {
 }
 
 .chosen-side {
+  display: flex;
   font-size: 0.78rem;
   opacity: 0.85;
   flex-shrink: 0;
   white-space: nowrap;
+}
+
+/* Bottom / Top switch of a chosen lift, on its own line under the name */
+.chosen:has(.side-opt) {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.chosen:has(.side-opt) .chosen-reset {
+  order: 1;
+}
+
+.chosen-side:has(.side-opt) {
+  order: 2;
+  flex-basis: 100%;
+  justify-content: center;
+  opacity: 1;
+}
+
+.side-opt {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 600;
+  padding: 4px 7px;
+  cursor: pointer;
+}
+
+.side-opt:first-child { border-radius: 7px 0 0 7px; }
+.side-opt:last-child  { border-radius: 0 7px 7px 0; }
+
+.side-opt.active {
+  background: #fff;
+  color: var(--alpine);
 }
 
 .chosen-reset {

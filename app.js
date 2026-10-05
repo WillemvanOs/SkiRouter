@@ -372,25 +372,18 @@ function renderSheet() {
     list.appendChild(label);
 
     sectors[sector].forEach(lift => {
-      // Derive dal/berg from this lift's own endpoints rather than a global
-      // station.side — a place can be the dal side of one lift and the berg
-      // side of another (a shared hub), so "side" only makes sense per lift.
-      [['dal', lift.dal], ['berg', lift.berg]].forEach(([dalBerg, stationId]) => {
-        const station = STATIONS[stationId];
-        if (!station) return;
-        const btn = document.createElement('button');
-        btn.className = 'station-item';
-        btn.innerHTML = `
-          ${liftIcon(lift)}
-          <span class="station-item-nr">${lift.nr}</span>
-          <span class="station-item-name">${lift.name}</span>
-          <span class="station-item-side">${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}</span>
-          ${dalBerg === 'dal' ? liftStatusHtml(lift.nr) : ''}
-          ${station.alt != null ? `<span class="station-item-alt">${formatAlt(station.alt)}</span>` : ''}
-        `;
-        btn.addEventListener('click', () => pickStation(stationId, lift, dalBerg));
-        list.appendChild(btn);
-      });
+      // One row per lift; picking it chooses the bottom station. The top is
+      // one tap away on the chosen field (see setChosenSide).
+      const btn = document.createElement('button');
+      btn.className = 'station-item';
+      btn.innerHTML = `
+        ${liftIcon(lift)}
+        <span class="station-item-nr">${lift.nr}</span>
+        <span class="station-item-name">${lift.name}</span>
+        ${liftStatusHtml(lift.nr)}
+      `;
+      btn.addEventListener('click', () => pickStation(lift.dal, lift, 'dal'));
+      list.appendChild(btn);
     });
   });
 
@@ -417,8 +410,26 @@ function pickStation(stationId, lift, dalBerg) {
   document.getElementById(`${routeSide}-icon`).innerHTML           = liftIcon(lift);
   document.getElementById(`${routeSide}-nr`).textContent           = lift.nr;
   document.getElementById(`${routeSide}-liftname`).textContent     = lift.name;
-  document.getElementById(`${routeSide}-side`).textContent         = `${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}`;
+  setChosenSide(routeSide);
   if (routeSide === 'dend') setEndField(true);
+}
+
+// Bottom / Top switch on a chosen lift: the bottom station is picked by
+// default, a tap on Top moves the start or destination to the top station.
+function setChosenSide(routeSide) {
+  const s = selected[routeSide];
+  const el = document.getElementById(`${routeSide}-side`);
+  el.innerHTML = ['dal', 'berg'].map(dalBerg => `
+    <button type="button" class="side-opt${s.side === dalBerg ? ' active' : ''}" data-side="${dalBerg}"
+      aria-pressed="${s.side === dalBerg}">${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}</button>`).join('');
+  el.querySelectorAll('.side-opt').forEach(btn => btn.addEventListener('click', event => {
+    event.stopPropagation(); // the chosen field itself opens the picker
+    const dalBerg = btn.dataset.side;
+    if (dalBerg === s.side) return;
+    const stationId = s.lift[dalBerg];
+    selected[routeSide] = { ...s, id: stationId, ...STATIONS[stationId], side: dalBerg };
+    setChosenSide(routeSide);
+  }));
 }
 
 function resetSide(side) {
@@ -454,7 +465,8 @@ function swapSides() {
     document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON : liftIcon(s.lift);
     document.getElementById(`${side}-nr`).textContent       = s.liftNr;
     document.getElementById(`${side}-liftname`).textContent = s.liftName;
-    document.getElementById(`${side}-side`).textContent     = `${SIDE_ICONS[s.side]} ${s.side === 'dal' ? 'Bottom' : 'Top'}`;
+    if (s.gps) document.getElementById(`${side}-side`).textContent = '';
+    else setChosenSide(side);
   });
 }
 
