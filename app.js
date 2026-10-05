@@ -322,6 +322,7 @@ function openSheet(side) {
   renderSheet();
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
+  lockPageScroll();
   fitSheetToScreen();
   // Focus right away, still inside the tap: iPhones only bring up the
   // keyboard for a focus that happens during the tap itself, not after a delay.
@@ -331,7 +332,24 @@ function openSheet(side) {
 function closeSheet() {
   document.getElementById('overlay').style.display = 'none';
   document.getElementById('sheet').style.display = 'none';
+  unlockPageScroll();
   activeSide = null;
+}
+
+// While the picker is open the page behind it stays put, so a swipe scrolls
+// only the list. iPhones ignore overflow: hidden on the body for touch
+// scrolling, so the body is fixed in place at its current scroll position.
+let lockedScrollY = null;
+function lockPageScroll() {
+  if (lockedScrollY !== null) return;
+  lockedScrollY = window.scrollY;
+  Object.assign(document.body.style, { position: 'fixed', top: `-${lockedScrollY}px`, left: '0', right: '0' });
+}
+function unlockPageScroll() {
+  if (lockedScrollY === null) return;
+  Object.assign(document.body.style, { position: '', top: '', left: '', right: '' });
+  window.scrollTo(0, lockedScrollY);
+  lockedScrollY = null;
 }
 
 // Keep the results above the on-screen keyboard. On iPhones the keyboard
@@ -361,6 +379,11 @@ document.getElementById('sheet-list').addEventListener('touchmove', () => {
   const search = document.getElementById('sheet-search');
   if (document.activeElement === search) search.blur();
 }, { passive: true });
+
+// A swipe on the sheet outside the list (title, search field) moves nothing.
+document.getElementById('sheet').addEventListener('touchmove', event => {
+  if (!event.target.closest('.sheet-list')) event.preventDefault();
+}, { passive: false });
 
 // Enter / Go in the search: pick the only lift left, or the lift whose number
 // was typed ("a1"); otherwise close the keyboard so the whole list can be
