@@ -29,7 +29,12 @@ const RUN_END_SNAP_M   = 30;  // a run starting/ending this close to another run
 const STATION_SNAP_M   = 80;  // a run this close to a lift station can be reached from it
 const STATION_ELE_M    = 25;  // …unless it is this much above a bottom / below a top
 const FLAT_RUN_M       = 4;   // runs with less drop than this can be skied both ways
-const TRANSFER_M       = 60;  // two stations this close: walk across (transfer)
+const TRANSFER_M       = 150; // two stations this close (and level): walk across (transfer)
+const TRANSFER_NO_ELE_M = 80; // …this close when their elevation is unknown
+const TRANSFER_ELE_M   = 30;  // at most this much higher or lower
+const CONNECTOR_DROP_M = 150; // a long lift climbing less than this links two summits:
+const CONNECTOR_MIN_M  = 1000; // it runs both ways as a normal lift (like the 3S Bahn)
+const TINY_PART_M      = 60;  // run pieces shorter than this always fold into a neighbour
 const SHORT_PART_M     = 150; // shorter run pieces fold into their neighbour when no harder
 const MAX_PER_PAIR     = 4;   // alternatives kept per lift top → lift bottom
 
@@ -61,6 +66,18 @@ export function compileArea(input, meta = {}) {
     lift.lengthM = polylineLength(lift.coords.map(proj));
     stations.push({ id: `${lift.liftNr}-onder`, liftNr: lift.liftNr, side: 'onder', ...bottom });
     stations.push({ id: `${lift.liftNr}-boven`, liftNr: lift.liftNr, side: 'boven', ...top });
+  }
+  // Lifts linking two summits run both ways: add the return trip as a lift of
+  // its own ("D9r"), as the app has no penalty for those (unlike riding down).
+  for (const lift of [...lifts]) {
+    const climb = lift.bottom.e != null && lift.top.e != null ? lift.top.e - lift.bottom.e : null;
+    if (!RIDE_DOWN.has(lift.type) || climb == null || climb >= CONNECTOR_DROP_M || lift.lengthM < CONNECTOR_MIN_M) continue;
+    const back = { ...lift, liftNr: `${lift.liftNr}r`, bottom: lift.top, top: lift.bottom, bottomC: lift.topC, topC: lift.bottomC,
+      bottomName: lift.topName, topName: lift.bottomName, connector: true };
+    lift.connector = true;
+    lifts.push(back);
+    stations.push({ id: `${back.liftNr}-onder`, liftNr: back.liftNr, side: 'onder', ...back.bottom });
+    stations.push({ id: `${back.liftNr}-boven`, liftNr: back.liftNr, side: 'boven', ...back.top });
   }
 
   // ── Runs: oriented downhill, densified ────────────────────────────────────
@@ -180,7 +197,10 @@ export function compileArea(input, meta = {}) {
   for (let i = 0; i < stations.length; i++) {
     for (let j = i + 1; j < stations.length; j++) {
       const a = stations[i], b = stations[j];
-      if (a.liftNr === b.liftNr || dist(a, b) > TRANSFER_M) continue;
+      if (a.liftNr === b.liftNr) continue;
+      const level = a.e != null && b.e != null;
+      if (dist(a, b) > (level ? TRANSFER_M : TRANSFER_NO_ELE_M)) continue;
+      if (level && Math.abs(a.e - b.e) > TRANSFER_ELE_M) continue;
       overstappen.push([a.id, b.id]);
     }
   }
@@ -294,7 +314,7 @@ function toParts(path, runs, runKeys) {
     const p = parts[i];
     if (p.len >= SHORT_PART_M) continue;
     const nb = parts[i - 1] || parts[i + 1];
-    if (rank(p.diff) > rank(nb.diff)) continue;
+    if (p.len >= TINY_PART_M && rank(p.diff) > rank(nb.diff)) continue;
     nb.len += p.len;
     parts.splice(i, 1);
     i--;
