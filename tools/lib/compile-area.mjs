@@ -216,8 +216,8 @@ export function compileArea(input, meta = {}) {
       type: l.type,
       echteLift: !PRACTICE_LIFTS.has(l.type),
       tijd,
-      vertrektBij: l.bottomName || `Bottom station ${l.name || l.liftNr}`,
-      komtAanBij: l.topName || `Top station ${l.name || l.liftNr}`,
+      vertrektBij: stationName(l, l.bottomName, 'Bottom'),
+      komtAanBij: stationName(l, l.topName, 'Top'),
       coordOnder: round5(l.bottomC),
       coordBoven: round5(l.topC),
     };
@@ -389,16 +389,27 @@ function largestMutualGroup(stations, adj) {
 
 // ── Naming ───────────────────────────────────────────────────────────────────
 
-// Lift numbers: the mapped ref (A1, D9), else a short generated code.
-// Duplicates get a suffix, so every station id is unique.
+// Lift numbers: the mapped ref (A1, D9). A ref used by several lifts (two
+// sections of one lift) becomes F1a, F1b, …; lifts without a ref get OEF-1…
+// (practice lifts) or L1…, so every station id is unique.
 function assignLiftNumbers(lifts) {
-  const used = new Map();
-  let n = 0;
+  const refOf = l => (l.ref || '').trim().replace(/\s+/g, '');
+  const count = new Map();
+  lifts.forEach(l => { const r = refOf(l); if (r) count.set(r, (count.get(r) || 0) + 1); });
+  const seen = new Map();
+  let practice = 0, other = 0;
+  const taken = new Set();
   return lifts.map(l => {
-    let nr = (l.ref || '').trim().replace(/\s+/g, '') || `L${++n}`;
-    const count = used.get(nr) || 0;
-    used.set(nr, count + 1);
-    if (count) nr = `${nr}-${count + 1}`;
+    const ref = refOf(l);
+    let nr;
+    if (!ref) nr = PRACTICE_LIFTS.has(l.type) ? `OEF-${++practice}` : `L${++other}`;
+    else if (count.get(ref) > 1) {
+      const i = seen.get(ref) || 0;
+      seen.set(ref, i + 1);
+      nr = ref + String.fromCharCode(97 + i); // a, b, c…
+    } else nr = ref;
+    while (taken.has(nr)) nr += "'";
+    taken.add(nr);
     return { ...l, liftNr: nr };
   });
 }
@@ -419,6 +430,15 @@ function assignRunKeys(runs) {
     }
     return byLabel.get(id);
   });
+}
+
+// A station's own name, unless it just repeats the lift's name (or is missing):
+// then "Bottom station X" / "Top station X".
+function stationName(lift, name, side) {
+  const own = (name || '').trim();
+  const liftName = lift.name || lift.liftNr;
+  if (!own || own === liftName || own === lift.bottomName && own === lift.topName) return `${side} station ${liftName}`;
+  return own;
 }
 
 function defaultRunName(run, key) {
