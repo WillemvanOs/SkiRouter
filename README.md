@@ -46,6 +46,38 @@ the app with a connection.
 
 If you change the list of app files the planner needs offline, bump `CACHE_VERSION` in `sw.js`.
 
+### Building areas from OpenSkiData (format 2)
+
+Areas are moving to a build step, so that every European ski area can be added without
+hand work. `tools/build-areas.mjs` reads [OpenSkiData](https://openskidata.org) (OpenStreetMap ski data with
+elevation, lifts and runs already grouped per ski area) and compiles each area into
+**format 2**:
+
+- `liften`: as before (number, name, type, ride time, stations and their positions).
+- `pistes`: every run's number, name, colour and length.
+- `afdalingen`: every way down from the top of one lift to the bottom of another, as the
+  runs on the way with their metres (`{ "van": "A1", "naar": "B2", "delen": [["21", 800], ["21a", 300]] }`).
+  These are worked out from the run network itself — runs oriented downhill by elevation
+  and joined where they meet — once per difficulty ceiling and once per run leaving the top.
+- `overstappen`: stations next to each other (within 150 m, about level) — a short walk.
+- `pisteLijnen`, `verbindingen`, `restaurants`: as before.
+
+The app plans directly on these descents; it no longer needs the hand-made "which lifts
+does this run reach" lists of format 1, which it still reads for areas not yet moved.
+Lifts that link two summits (long, under 150 m of climb, like the 3S Bahn) get a return
+lift of their own (`D9r`).
+
+Which areas are built: `tools/build-areas.config.json`. Hand-made additions per area —
+bus links, display names, lift number fixes, dropping a bad descent — go in
+`overrides/<id>.json` and are applied on every build. The build also writes
+`report.json`: per area the share of lift stations that can all reach each other, lifts
+without a way down, and lifts you cannot ski to, from which an area gets the label
+`automatisch` (complete network) or `onvolledig` (gaps).
+
+The build runs in GitHub Actions (`.github/workflows/build-areas.yml`, by hand or on a
+push to a branch that changes the build) and commits the result to `data/build/` on that
+branch for review.
+
 ## Picking a lift station
 
 The station picker lists each lift once, with its status. Picking a lift chooses its bottom
