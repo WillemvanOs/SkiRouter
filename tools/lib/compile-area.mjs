@@ -35,6 +35,7 @@ const TRANSFER_ELE_M   = 30;  // at most this much higher or lower
 const CONNECTOR_DROP_M = 150; // a long lift climbing less than this links two summits:
 const CONNECTOR_MIN_M  = 1000; // it runs both ways as a normal lift (like the 3S Bahn)
 const TINY_PART_M      = 60;  // run pieces shorter than this always fold into a neighbour
+const UNNAMED_PART_M   = 300; // …and unnamed connectors shorter than this
 const SHORT_PART_M     = 150; // shorter run pieces fold into their neighbour when no harder
 const MAX_PER_PAIR     = 4;   // alternatives kept per lift top → lift bottom
 
@@ -299,34 +300,52 @@ function shortestDescents(out, startNodes, bottomAt, edgeAllowed, firstRun) {
   return paths;
 }
 
-// Edges -> [[runKey, metres], …], merging consecutive pieces of one run and
-// folding short pieces into a neighbour unless they are harder than it.
+// Edges -> [[runKey, metres], …] (or [runKey, metres, colour] — see below),
+// merging consecutive pieces of one run. Minor pieces fold into a
+// neighbouring run so the app does not show a step for every few metres:
+// unnamed connectors under 300 m, anything under 60 m, and pieces under
+// 150 m that are no harder than their neighbour. When a folded piece is
+// harder, the neighbour keeps its colour as a third element, so the
+// difficulty filter still sees it.
 function toParts(path, runs, runKeys) {
-  const parts = [];
+  const rank = d => DIFF_ORDER.indexOf(d);
+  let parts = [];
   for (const e of path) {
     const key = runKeys[e.run], diff = runs[e.run].difficulty;
     const last = parts[parts.length - 1];
     if (last && last.key === key) last.len += e.len;
-    else parts.push({ key, diff, len: e.len });
+    else parts.push({ key, diff, len: e.len, also: null });
   }
-  const rank = d => DIFF_ORDER.indexOf(d);
-  for (let i = 0; i < parts.length && parts.length > 1; i++) {
-    const p = parts[i];
-    if (p.len >= SHORT_PART_M) continue;
-    const nb = parts[i - 1] || parts[i + 1];
-    if (p.len >= TINY_PART_M && rank(p.diff) > rank(nb.diff)) continue;
-    nb.len += p.len;
-    parts.splice(i, 1);
-    i--;
+  const minor = (p, nb) => p.len < TINY_PART_M
+    || (p.key.startsWith('~') && p.len < UNNAMED_PART_M)
+    || (p.len < SHORT_PART_M && rank(p.diff) <= rank(nb.diff));
+  for (let changed = true; changed && parts.length > 1;) {
+    changed = false;
+    for (let i = 0; i < parts.length && parts.length > 1; i++) {
+      const p = parts[i];
+      const prev = parts[i - 1], next = parts[i + 1];
+      const nb = !prev ? next : !next ? prev : (next.key.startsWith('~') && !prev.key.startsWith('~')) || prev.len >= next.len ? prev : next;
+      if (!minor(p, nb)) continue;
+      nb.len += p.len;
+      const hardest = [nb.also, p.also, rank(p.diff) > rank(nb.diff) ? p.diff : null].filter(Boolean)
+        .sort((x, y) => rank(y) - rank(x))[0] || null;
+      if (hardest && rank(hardest) > rank(nb.diff)) nb.also = hardest;
+      parts.splice(i, 1);
+      changed = true;
+      break;
+    }
+    // Folding can leave two pieces of one run next to each other again.
+    const merged = [];
+    for (const p of parts) {
+      const last = merged[merged.length - 1];
+      if (last && last.key === p.key) {
+        last.len += p.len;
+        if (p.also && (!last.also || rank(p.also) > rank(last.also))) last.also = p.also;
+      } else merged.push({ ...p });
+    }
+    parts = merged;
   }
-  // Folding can leave two pieces of one run next to each other again.
-  const merged = [];
-  for (const p of parts) {
-    const last = merged[merged.length - 1];
-    if (last && last.key === p.key) last.len += p.len;
-    else merged.push({ ...p });
-  }
-  return merged.map(p => [p.key, Math.round(p.len)]);
+  return parts.map(p => p.also ? [p.key, Math.round(p.len), p.also] : [p.key, Math.round(p.len)]);
 }
 
 // ── Validation ───────────────────────────────────────────────────────────────

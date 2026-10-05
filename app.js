@@ -186,12 +186,15 @@ function addDescents(area, liftByNr, addEdge) {
   const info = new Map((area.pistes || []).map(p => [p.pisteNr, p]));
   area.afdalingen.forEach(({ van, naar, delen }) => {
     if (!liftByNr.has(van) || !liftByNr.has(naar) || !delen?.length) return;
-    const parts = delen.map(([pisteNr, metres]) => {
+    // A third element is the colour of a short, harder stretch folded into
+    // this part (a connector): not a step of its own, but the filter sees it.
+    const parts = delen.map(([pisteNr, metres, ookKleur]) => {
       const piste = info.get(pisteNr) || {};
       return {
         pisteNr,
         naam: piste.naam || `Piste ${pisteNr}`,
         kleur: piste.kleur,
+        ookKleur: ookKleur || null,
         lengteM: metres,
         tijd: Math.max(1, Math.round(metres / 200)),
       };
@@ -204,6 +207,7 @@ function addDescents(area, liftByNr, addEdge) {
       diff: parts[0].kleur,
       pisteNr: parts[0].pisteNr,
       name: parts[0].naam,
+      ookKleur: parts[0].ookKleur,
       trajecten: parts.length > 1 ? parts : null,
       tijd: parts.reduce((sum, p) => sum + p.tijd, 0),
       km: Math.round(metres / 10) / 100,
@@ -798,7 +802,8 @@ function backToPlanner(cardId) {
 // A piste edge with `trajecten` runs through several marked numbers (74a
 // that carries on as 75): every part's colour must pass the filter.
 function pisteKleuren(edge) {
-  return edge.trajecten ? edge.trajecten.map(t => t.kleur).filter(Boolean) : edge.diff ? [edge.diff] : [];
+  const parts = edge.trajecten || [{ kleur: edge.diff, ookKleur: edge.ookKleur }];
+  return parts.flatMap(t => [t.kleur, t.ookKleur]).filter(Boolean);
 }
 
 // Show each part of a gaatOverIn chain as its own step, with its own
@@ -812,6 +817,7 @@ function splitTrajecten(edge) {
     trajecten: null,
     pisteNr: t.pisteNr,
     diff: t.kleur,
+    ookKleur: t.ookKleur || null,
     name: t.naam || `Piste ${t.pisteNr}`,
     tijd: t.tijd,
     km: t.lengteM != null ? t.lengteM / 1000 : undefined,
