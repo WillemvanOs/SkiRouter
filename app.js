@@ -323,7 +323,9 @@ function openSheet(side) {
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
   fitSheetToScreen();
-  setTimeout(() => document.getElementById('sheet-search').focus(), 100);
+  // Focus right away, still inside the tap: iPhones only bring up the
+  // keyboard for a focus that happens during the tap itself, not after a delay.
+  document.getElementById('sheet-search').focus({ preventScroll: true });
 }
 
 function closeSheet() {
