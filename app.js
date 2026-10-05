@@ -322,6 +322,7 @@ function openSheet(side) {
   renderSheet();
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
+  fitSheetToScreen();
   setTimeout(() => document.getElementById('sheet-search').focus(), 100);
 }
 
@@ -329,6 +330,32 @@ function closeSheet() {
   document.getElementById('overlay').style.display = 'none';
   document.getElementById('sheet').style.display = 'none';
   activeSide = null;
+}
+
+// Keep the sheet above the on-screen keyboard: on iPhones a fixed element at
+// the bottom stays behind the keyboard, so lift it to the visible part.
+function fitSheetToScreen() {
+  const sheet = document.getElementById('sheet');
+  const vv = window.visualViewport;
+  if (!vv || sheet.style.display === 'none') return;
+  const hidden = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+  sheet.style.bottom = `${hidden}px`;
+  sheet.style.maxHeight = hidden > 0 ? `${Math.round(vv.height - 12)}px` : '';
+}
+window.visualViewport?.addEventListener('resize', fitSheetToScreen);
+window.visualViewport?.addEventListener('scroll', fitSheetToScreen);
+
+// Enter in the search: pick the only lift left, or the lift whose number was
+// typed ("a1"); otherwise close the keyboard so the whole list can be seen.
+function sheetSearchKey(event) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  const items = [...document.querySelectorAll('#sheet-list .station-item')];
+  const query = event.target.value.trim().toLowerCase();
+  const byNr = items.filter(item => item.querySelector('.station-item-nr')?.textContent.toLowerCase() === query);
+  if (items.length === 1) items[0].click();
+  else if (byNr.length === 1) byNr[0].click();
+  else event.target.blur();
 }
 
 function renderSheet() {

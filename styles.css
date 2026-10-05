@@ -481,9 +481,11 @@ main {
   border: 1.5px solid var(--ice);
   border-radius: 8px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
+  font-size: 16px; /* below 16px, iPhones zoom in on focus */
   flex-shrink: 0;
   outline: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .sheet-search:focus {
@@ -971,7 +973,7 @@ main {
   border-radius: 10px;
   background: var(--snow);
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
+  font-size: 16px; /* below 16px, iPhones zoom in on focus */
   font-weight: 600;
   color: var(--midnight);
 }

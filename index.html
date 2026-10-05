@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <title>Ski Route Planner</title>
   <meta name="description" content="Plan your route between lifts and pistes — works offline on the mountain.">
   <meta name="theme-color" content="#081629">
@@ -63,9 +63,11 @@
     <input
       class="sheet-search"
       id="sheet-search"
-      type="text"
+      type="search"
+      enterkeyhint="go"
       placeholder="Search lift or station…"
       oninput="renderSheet()"
+      onkeydown="sheetSearchKey(event)"
       autocomplete="off"
     >
     <div class="sheet-list" id="sheet-list"></div>
