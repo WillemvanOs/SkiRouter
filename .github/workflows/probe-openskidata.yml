@@ -1,0 +1,33 @@
+# Temporary: inspect OpenSkiData downloads (tools/probe-openskidata.sh) and
+# commit the findings to probe/ on the same branch.
+name: Probe OpenSkiData
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - tools/probe-openskidata.*
+      - .github/workflows/probe-openskidata.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Probe
+        run: bash tools/probe-openskidata.sh
+      - name: Commit findings
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add probe
+          git commit -m "Probe OpenSkiData" || exit 0
+          git push
