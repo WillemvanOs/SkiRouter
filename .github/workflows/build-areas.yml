@@ -58,4 +58,5 @@ jobs:
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
           git add data/build
           git commit -m "Build ski areas from OpenSkiData"
+          git pull --rebase
           git push
