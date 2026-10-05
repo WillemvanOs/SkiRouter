@@ -330,8 +330,12 @@ function openSheet(side) {
 }
 
 function closeSheet() {
+  const sheet = document.getElementById('sheet');
   document.getElementById('overlay').style.display = 'none';
-  document.getElementById('sheet').style.display = 'none';
+  sheet.style.display = 'none';
+  sheet.classList.remove('keyboard-open');
+  sheet.style.top = sheet.style.maxHeight = '';
+  sheetPinned = false;
   unlockPageScroll();
   activeSide = null;
 }
@@ -356,15 +360,23 @@ function unlockPageScroll() {
 // covers the bottom of the page without resizing it, so while it is open the
 // sheet is pinned to the top of the part still visible (visualViewport) and
 // sized to fit it.
+let sheetPinned = false;   // pinned to the top since the keyboard first came up
+let sheetTouched = false;  // a finger is on the sheet
 function fitSheetToScreen() {
   const sheet = document.getElementById('sheet');
   const vv = window.visualViewport;
   if (!vv || sheet.style.display === 'none') return;
+  // Never move or shrink the list under a finger: an iPhone drops the scroll
+  // when it does. The keyboard closing at the start of a swipe is handled
+  // once the finger lets go.
+  if (sheetTouched) return;
   const layoutHeight = document.documentElement.clientHeight;
-  const keyboardOpen = vv.height < layoutHeight - 80;
-  sheet.classList.toggle('keyboard-open', keyboardOpen);
-  sheet.style.top       = keyboardOpen ? `${Math.round(vv.offsetTop)}px` : '';
-  sheet.style.maxHeight = keyboardOpen ? `${Math.round(vv.height)}px` : '';
+  // Once pinned to the top the sheet stays there (only growing when the
+  // keyboard goes away), so the list never jumps from top to bottom.
+  if (vv.height < layoutHeight - 80) sheetPinned = true;
+  sheet.classList.toggle('keyboard-open', sheetPinned);
+  sheet.style.top       = sheetPinned ? `${Math.round(vv.offsetTop)}px` : '';
+  sheet.style.maxHeight = sheetPinned ? `${Math.round(vv.height)}px` : '';
 }
 window.visualViewport?.addEventListener('resize', fitSheetToScreen);
 window.visualViewport?.addEventListener('scroll', fitSheetToScreen);
@@ -379,6 +391,12 @@ document.getElementById('sheet-list').addEventListener('touchmove', () => {
   const search = document.getElementById('sheet-search');
   if (document.activeElement === search) search.blur();
 }, { passive: true });
+
+document.getElementById('sheet').addEventListener('touchstart', () => { sheetTouched = true; }, { passive: true });
+['touchend', 'touchcancel'].forEach(type => document.getElementById('sheet').addEventListener(type, () => {
+  sheetTouched = false;
+  setTimeout(fitSheetToScreen, 50);
+}, { passive: true }));
 
 // A swipe on the sheet outside the list (title, search field) moves nothing.
 document.getElementById('sheet').addEventListener('touchmove', event => {
