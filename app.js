@@ -332,30 +332,40 @@ function closeSheet() {
   activeSide = null;
 }
 
-// Keep the sheet above the on-screen keyboard: on iPhones a fixed element at
-// the bottom stays behind the keyboard, so lift it to the visible part.
+// Keep the results above the on-screen keyboard. On iPhones the keyboard
+// covers the bottom of the page without resizing it, so while it is open the
+// sheet is pinned to the top of the part still visible (visualViewport) and
+// sized to fit it.
 function fitSheetToScreen() {
   const sheet = document.getElementById('sheet');
   const vv = window.visualViewport;
   if (!vv || sheet.style.display === 'none') return;
-  const hidden = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
-  sheet.style.bottom = `${hidden}px`;
-  sheet.style.maxHeight = hidden > 0 ? `${Math.round(vv.height - 12)}px` : '';
+  const layoutHeight = document.documentElement.clientHeight;
+  const keyboardOpen = vv.height < layoutHeight - 80;
+  sheet.classList.toggle('keyboard-open', keyboardOpen);
+  sheet.style.top       = keyboardOpen ? `${Math.round(vv.offsetTop)}px` : '';
+  sheet.style.maxHeight = keyboardOpen ? `${Math.round(vv.height)}px` : '';
 }
 window.visualViewport?.addEventListener('resize', fitSheetToScreen);
 window.visualViewport?.addEventListener('scroll', fitSheetToScreen);
+window.addEventListener('resize', fitSheetToScreen);
+// The keyboard slides in after focus; check again once it is there.
+function sheetSearchFocus() {
+  [100, 350, 700].forEach(ms => setTimeout(fitSheetToScreen, ms));
+}
 
-// Enter in the search: pick the only lift left, or the lift whose number was
-// typed ("a1"); otherwise close the keyboard so the whole list can be seen.
-function sheetSearchKey(event) {
-  if (event.key !== 'Enter') return;
+// Enter / Go in the search: pick the only lift left, or the lift whose number
+// was typed ("a1"); otherwise close the keyboard so the whole list can be
+// seen. A form submit, because that is what the iPhone "Go" key reliably fires.
+function sheetSearchSubmit(event) {
   event.preventDefault();
+  const input = document.getElementById('sheet-search');
   const items = [...document.querySelectorAll('#sheet-list .station-item')];
-  const query = event.target.value.trim().toLowerCase();
+  const query = input.value.trim().toLowerCase();
   const byNr = items.filter(item => item.querySelector('.station-item-nr')?.textContent.toLowerCase() === query);
   if (items.length === 1) items[0].click();
   else if (byNr.length === 1) byNr[0].click();
-  else event.target.blur();
+  else input.blur();
 }
 
 function renderSheet() {

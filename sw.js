@@ -8,7 +8,7 @@
 //
 // Bump CACHE_VERSION when the list of shell files changes.
 
-const CACHE_VERSION = 'skirouter-v21';
+const CACHE_VERSION = 'skirouter-v22';
 const SHELL = [
   './',
   'index.html',
@@ -28,7 +28,8 @@ const NETWORK_TIMEOUT_MS = 3500; // weak mountain signal: don't wait forever
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_VERSION);
-    await cache.addAll(SHELL);
+    // 'reload': skip the browser's HTTP cache, so one version of every file.
+    await cache.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })));
     // Every area the registry lists, so any area can be opened offline.
     try {
       const areas = await (await fetch('data/areas.json', { cache: 'no-store' })).json();
@@ -73,7 +74,9 @@ async function cacheFirst(req) {
 async function networkFirst(req) {
   const cache = await caches.open(CACHE_VERSION);
   try {
-    const res = await withTimeout(fetch(req), NETWORK_TIMEOUT_MS);
+    // 'no-cache': always ask the server (cheap with ETags), never a stale
+    // HTTP-cached copy, so app.js, styles.css and index.html stay in step.
+    const res = await withTimeout(fetch(req, { cache: 'no-cache' }), NETWORK_TIMEOUT_MS);
     if (res.ok) cache.put(req, res.clone());
     return res;
   } catch {
