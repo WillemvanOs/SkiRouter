@@ -798,7 +798,7 @@ function renderDayOption(index) {
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
     `piste times ×${pace.piste}. Short breaks are not included; check the last lift times locally. ` +
     `Restaurants come from OpenStreetMap and may be missing or closed.` +
-    (LIFT_STATUS ? ` Lift hours from ${LIFT_STATUS.bron}, ${liftStatusAge()}.` : '');
+    (LIFT_STATUS ? ` Lift hours ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}.` : '');
 
   const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
   dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });

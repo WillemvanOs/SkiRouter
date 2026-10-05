@@ -809,7 +809,7 @@ function getTip(steps = []) {
     ? `<div class="closed-warning">⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</div>`
     : '';
   return warning + '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
-    ? `Lift status from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
+    ? `Lift status ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
     : 'Check the current opening times of your ski area before you set off.');
 }
 
@@ -901,17 +901,92 @@ function avoidLifts(nrs, planner) {
 
 let LIFT_STATUS = null; // { bron, sourceUpdate, changed, lifts: { A1: { open, hours, from, to, … } } }
 
+// Live from the area's own API, straight from the browser (kitzski.at sends
+// 'Access-Control-Allow-Origin: *'). Falls back to the last live result kept
+// on the phone, then to the file GitHub Actions refreshes in data/.
+const LIFT_STATUS_LIVE_KEY = 'skiplanner:liftstatus:';
+const LIFT_STATUS_REFRESH_MS = 5 * 60 * 1000;
+const LIFT_STATUS_TIMEOUT_MS = 8000;
+let liftStatusMeta = null; // the area's liftstatus config from areas.json
+
 async function loadLiftStatus(areaMeta) {
   LIFT_STATUS = null;
-  const file = areaMeta.liftstatus?.file;
-  if (!file) return;
+  liftStatusMeta = areaMeta.liftstatus || null;
+  if (!liftStatusMeta) return;
+  // Newest of the published file and the last live result on this phone.
+  let fromFile = null;
   try {
-    const response = await fetch(file);
-    if (response.ok) LIFT_STATUS = await response.json();
+    const response = await fetch(liftStatusMeta.file);
+    if (response.ok) fromFile = await response.json();
+  } catch {}
+  let fromPhone = null;
+  try { fromPhone = JSON.parse(localStorage.getItem(LIFT_STATUS_LIVE_KEY + areaMeta.id)); } catch {}
+  LIFT_STATUS = [fromFile, fromPhone].filter(Boolean)
+    .sort((a, b) => String(b.sourceUpdate || '').localeCompare(String(a.sourceUpdate || '')))[0] || null;
+  // Then live, without holding up the first screen.
+  refreshLiftStatusLive();
+}
+
+// Fetch the live status; on success redraw whatever route is on screen.
+async function refreshLiftStatusLive() {
+  const cfg = liftStatusMeta;
+  const areaId = currentArea?.id;
+  if (!cfg || cfg.bron !== 'micado-skigebietemanager' || !navigator.onLine) return;
+  try {
+    const params = new URLSearchParams({ client: cfg.client, lang: 'de', region: cfg.region, season: 'winter', type: 'lift' });
+    const url = `${cfg.base}/micadoapi/SkigebieteManager/Micado.SkigebieteManager.Plugin.FacilityApi/ListFacilities.api?${params}`;
+    const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(LIFT_STATUS_TIMEOUT_MS) });
+    if (!response.ok) return;
+    const data = await response.json();
+    if (currentArea?.id !== areaId) return; // switched area meanwhile
+    const live = liveLiftStatus(data, cfg);
+    if (!Object.keys(live.lifts).length) return;
+    LIFT_STATUS = live;
+    try { localStorage.setItem(LIFT_STATUS_LIVE_KEY + areaId, JSON.stringify(live)); } catch {}
+    redrawLiftStatus();
   } catch (err) {
-    console.warn('Lift status unavailable:', err);
+    console.warn('Live lift status unavailable:', err);
   }
 }
+
+// The Micado lift list in the same shape as data/<area>-liftstatus.json
+// (tools/lift-status.mjs does the same on the server side).
+function liveLiftStatus(data, cfg) {
+  const hours = value => {
+    const m = /(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})/.exec(value || '');
+    return m ? `${m[1].padStart(2, '0')}:${m[2]}-${m[3].padStart(2, '0')}:${m[4]}` : null;
+  };
+  const byId = new Map((data.facilities || []).map(f => [f.identifier, f]));
+  const lifts = {};
+  (currentArea.liften || []).forEach(lift => {
+    const f = byId.get(lift.liftNr) || byId.get(lift.liftNr.replace(/[a-z]+$/, ''));
+    if (!f) return;
+    lifts[lift.liftNr] = {
+      open: f.status === 1,
+      hours: hours(f.operatingTimePeriod || f.openingHours),
+      from: (f.operatingDateFrom || '').slice(0, 10) || null,
+      to: (f.operatingDateTo || '').slice(0, 10) || null,
+      weekdays: f.operatingWeekdays ?? null,
+      text: f.operatingText || '',
+    };
+  });
+  return { bron: new URL(cfg.base).hostname, sourceUpdate: data.meta?.lastUpdate || null, live: true, lifts };
+}
+
+// New status in: redraw an open station list and any route or day on screen.
+function redrawLiftStatus() {
+  if (document.getElementById('sheet').style.display !== 'none') renderSheet();
+  if (document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
+  if (document.getElementById('day-result').classList.contains('visible') && dayOptions.length) renderDayOption(dayShown);
+}
+
+// Keep it fresh while the app is open on the mountain.
+setInterval(() => {
+  if (document.visibilityState === 'visible') refreshLiftStatusLive();
+}, LIFT_STATUS_REFRESH_MS);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refreshLiftStatusLive();
+});
 
 function liftStatus(liftNr) {
   return LIFT_STATUS?.lifts?.[liftNr] || null;

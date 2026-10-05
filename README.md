@@ -87,7 +87,10 @@ entry in `data/areas.json`.
 The app shows "open 08:30–17:00" or "closed" in the station picker and at every lift step, warns
 about closed lifts on a route or day plan, and the day planner uses today's hours as lift windows.
 GitHub runs scheduled workflows on a best-effort basis, so an update can now and then be a little
-later than 30 minutes.
+later than 30 minutes. That is why the app also fetches the status live, straight from kitzski.at
+(its API allows requests from other sites), when an area opens and every 5 minutes while the app is
+on screen. The latest live result is kept on the phone. Without a connection the app uses whichever
+is newer, that stored result or the file from GitHub Actions. The tip then says "live" or not.
 
 ## Avoiding lifts
 
