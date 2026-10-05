@@ -356,6 +356,12 @@ function sheetSearchFocus() {
   [100, 350, 700].forEach(ms => setTimeout(fitSheetToScreen, ms));
 }
 
+// Scrolling the list closes the keyboard, so more of the list can be seen.
+document.getElementById('sheet-list').addEventListener('touchmove', () => {
+  const search = document.getElementById('sheet-search');
+  if (document.activeElement === search) search.blur();
+}, { passive: true });
+
 // Enter / Go in the search: pick the only lift left, or the lift whose number
 // was typed ("a1"); otherwise close the keyboard so the whole list can be
 // seen. A form submit, because that is what the iPhone "Go" key reliably fires.

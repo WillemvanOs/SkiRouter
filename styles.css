@@ -424,6 +424,7 @@ main {
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   z-index: 100;
+  touch-action: none; /* a swipe here must not scroll the page behind */
 }
 
 .sheet {
@@ -506,6 +507,9 @@ main {
   overflow-y: auto;
   padding: 4px 8px 24px;
   flex: 1;
+  min-height: 0; /* lets the list scroll inside the sheet, also when it is short */
+  overscroll-behavior: contain; /* scroll the list, not the page behind it */
+  -webkit-overflow-scrolling: touch;
 }
 
 .group-label {
