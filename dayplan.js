@@ -529,7 +529,9 @@ function daysVia(stop, ctx, random) {
 
 // The planning button shows it is working, then planning runs on the next
 // frame so that state is painted first (a lunch day can take a moment).
+// A fresh plan starts with nothing ticked, even when it is the same day as before.
 function planDayClicked(button) {
+  clearProgress('day');
   button.disabled = true;
   const label = button.textContent;
   button.textContent = 'PLANNING…';

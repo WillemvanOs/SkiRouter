@@ -1289,6 +1289,17 @@ function saveProgress(kind, data) {
   try { localStorage.setItem(progressKey(kind), JSON.stringify(data)); } catch {}
 }
 
+function clearProgress(kind) {
+  try { localStorage.removeItem(progressKey(kind)); } catch {}
+}
+
+// The plan button: a fresh route, so nothing ticked yet, even when it is the
+// same route as last time.
+function planRouteClicked() {
+  clearProgress('quick');
+  planRoute();
+}
+
 function nowMinutes() {
   const d = new Date();
   return d.getHours() * 60 + d.getMinutes();

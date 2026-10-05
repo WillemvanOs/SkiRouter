@@ -137,7 +137,8 @@ it. The quick route shows how many minutes are left. The day plan compares the c
 plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
 the rest of the day is planned again from the next step, from now, with the km still to go.
 Progress is stored on the phone, so a route being followed comes back when the app is
-reopened.
+reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
+it is the same route as before.
 
 When the delay carried through to the end of the day means getting back more than 10 minutes
 after **Back by**, the day plan warns automatically (checked against the clock every minute, also
