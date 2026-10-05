@@ -331,13 +331,20 @@ main {
 }
 
 .chosen-side {
+  display: flex;
   font-size: 0.78rem;
   opacity: 0.85;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
-.chosen-reset {
+/* Bottom / Top switch of a chosen lift, on its own line under the name */
+.chosen:has(.side-opt) {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.chosen:has(.side-opt) .chosen-reset {
   order: 1;
 }
 
@@ -560,29 +567,6 @@ main {
   color: #666;
   flex-shrink: 0;
   white-space: nowrap;
-}
-
-/* Secondary choice on a picker row: the row itself picks the bottom station. */
-.station-top-btn {
-  flex-shrink: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--alpine);
-  background: #fff;
-  border: 1px solid #c9d6e6;
-  border-radius: 6px;
-  padding: 4px 8px;
-  white-space: nowrap;
-}
-
-.station-top-btn:hover {
-  background: var(--ice);
-}
-
-.sheet-hint {
-  font-size: 0.78rem;
-  color: #666;
-  padding: 8px 10px 2px;
 }
 
 .station-item-alt {

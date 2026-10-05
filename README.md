@@ -48,9 +48,9 @@ If you change the list of app files the planner needs offline, bump `CACHE_VERSI
 
 ## Picking a lift station
 
-The station picker lists each lift once, with its status. Tapping a lift chooses its bottom
-station; the small **⬆ Top station** button on the same row chooses its top station instead. A line above
-the list says so.
+The station picker lists each lift once, with its status. Picking a lift chooses its bottom
+station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
+the top station instead.
 
 ## Riding a lift down
 
