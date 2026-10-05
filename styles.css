@@ -1393,6 +1393,29 @@ select.day-input {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* A setting with an on/off switch (ski bus, lunch), in the same box as the
+   collapsible settings. */
+.setting-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 14px;
+}
+
+.setting > .setting-switch {
+  margin: 0;
+}
+
+/* Room above the plan button, as the old switch row had. */
+.setting.bus-row {
+  margin-bottom: 18px;
+}
+
+.setting .lunch-grid {
+  padding: 0 14px 12px;
+}
+
 .setting-summary::-webkit-details-marker {
   display: none;
 }
