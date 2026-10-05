@@ -60,16 +60,19 @@
       <span class="sheet-title" id="sheet-title">Choose lift station</span>
       <button class="sheet-close" onclick="closeSheet()">✕</button>
     </div>
-    <input
-      class="sheet-search"
-      id="sheet-search"
-      type="search"
-      enterkeyhint="go"
-      placeholder="Search lift or station…"
-      oninput="renderSheet()"
-      onkeydown="sheetSearchKey(event)"
-      autocomplete="off"
-    >
+    <form class="sheet-search-form" action="#" onsubmit="sheetSearchSubmit(event)">
+      <input
+        class="sheet-search"
+        id="sheet-search"
+        type="search"
+        enterkeyhint="go"
+        placeholder="Search lift or station…"
+        oninput="renderSheet()"
+        onfocus="sheetSearchFocus()"
+        onblur="sheetSearchFocus()"
+        autocomplete="off"
+      >
+    </form>
     <div class="sheet-list" id="sheet-list"></div>
   </div>
 
