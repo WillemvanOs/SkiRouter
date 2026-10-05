@@ -562,19 +562,27 @@ main {
   white-space: nowrap;
 }
 
+/* Secondary choice on a picker row: the row itself picks the bottom station. */
 .station-top-btn {
   flex-shrink: 0;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--alpine);
-  background: var(--ice);
+  background: #fff;
+  border: 1px solid #c9d6e6;
   border-radius: 6px;
-  padding: 5px 8px;
+  padding: 4px 8px;
   white-space: nowrap;
 }
 
 .station-top-btn:hover {
-  background: #d6e6f5;
+  background: var(--ice);
+}
+
+.sheet-hint {
+  font-size: 0.78rem;
+  color: #666;
+  padding: 8px 10px 2px;
 }
 
 .station-item-alt {

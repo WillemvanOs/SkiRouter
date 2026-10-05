@@ -365,6 +365,13 @@ function renderSheet() {
     list.appendChild(gps);
   }
 
+  if (orderedSectors.length) {
+    const hint = document.createElement('div');
+    hint.className = 'sheet-hint';
+    hint.innerHTML = 'Tap a lift to pick its <b>⬇ bottom station</b>. Want the top? Tap <b>⬆ Top station</b> on that row.';
+    list.appendChild(hint);
+  }
+
   orderedSectors.forEach(sector => {
     const label = document.createElement('div');
     label.className = 'group-label';
@@ -380,7 +387,7 @@ function renderSheet() {
         ${liftIcon(lift)}
         <span class="station-item-nr">${lift.nr}</span>
         <span class="station-item-name">${lift.name}</span>
-        <span class="station-top-btn" role="button" title="Top station: ${STATIONS[lift.berg]?.name || ''}">${SIDE_ICONS.berg} Top</span>
+        <span class="station-top-btn" role="button" title="Top station: ${STATIONS[lift.berg]?.name || ''}">${SIDE_ICONS.berg} Top station</span>
         ${liftStatusHtml(lift.nr)}
       `;
       btn.addEventListener('click', event => {
