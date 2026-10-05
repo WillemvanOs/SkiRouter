@@ -372,17 +372,21 @@ function renderSheet() {
     list.appendChild(label);
 
     sectors[sector].forEach(lift => {
-      // One row per lift; picking it chooses the bottom station. The top is
-      // one tap away on the chosen field (see setChosenSide).
+      // One row per lift: tapping it picks the bottom station, the small
+      // "Top" button on the row picks the top station instead.
       const btn = document.createElement('button');
       btn.className = 'station-item';
       btn.innerHTML = `
         ${liftIcon(lift)}
         <span class="station-item-nr">${lift.nr}</span>
         <span class="station-item-name">${lift.name}</span>
+        <span class="station-top-btn" role="button" title="Top station: ${STATIONS[lift.berg]?.name || ''}">${SIDE_ICONS.berg} Top</span>
         ${liftStatusHtml(lift.nr)}
       `;
-      btn.addEventListener('click', () => pickStation(lift.dal, lift, 'dal'));
+      btn.addEventListener('click', event => {
+        const top = event.target.closest('.station-top-btn');
+        pickStation(top ? lift.berg : lift.dal, lift, top ? 'berg' : 'dal');
+      });
       list.appendChild(btn);
     });
   });
@@ -414,22 +418,10 @@ function pickStation(stationId, lift, dalBerg) {
   if (routeSide === 'dend') setEndField(true);
 }
 
-// Bottom / Top switch on a chosen lift: the bottom station is picked by
-// default, a tap on Top moves the start or destination to the top station.
+// "⬇ Bottom" or "⬆ Top" next to a chosen lift.
 function setChosenSide(routeSide) {
   const s = selected[routeSide];
-  const el = document.getElementById(`${routeSide}-side`);
-  el.innerHTML = ['dal', 'berg'].map(dalBerg => `
-    <button type="button" class="side-opt${s.side === dalBerg ? ' active' : ''}" data-side="${dalBerg}"
-      aria-pressed="${s.side === dalBerg}">${SIDE_ICONS[dalBerg]} ${dalBerg === 'dal' ? 'Bottom' : 'Top'}</button>`).join('');
-  el.querySelectorAll('.side-opt').forEach(btn => btn.addEventListener('click', event => {
-    event.stopPropagation(); // the chosen field itself opens the picker
-    const dalBerg = btn.dataset.side;
-    if (dalBerg === s.side) return;
-    const stationId = s.lift[dalBerg];
-    selected[routeSide] = { ...s, id: stationId, ...STATIONS[stationId], side: dalBerg };
-    setChosenSide(routeSide);
-  }));
+  document.getElementById(`${routeSide}-side`).textContent = `${SIDE_ICONS[s.side]} ${s.side === 'dal' ? 'Bottom' : 'Top'}`;
 }
 
 function resetSide(side) {
