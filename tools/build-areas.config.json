@@ -1,0 +1,5 @@
+{
+  "areas": [
+    { "id": "kitzski", "match": "^KitzSki|Kitzb(ü|ue)hel|Kirchberg", "name": "KitzSki" }
+  ]
+}

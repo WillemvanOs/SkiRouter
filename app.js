@@ -108,7 +108,8 @@ function buildFromSkimapData(area) {
     });
   });
 
-  pistes.forEach(piste => {
+  if (Array.isArray(area.afdalingen)) addDescents(area, liftByNr, addEdge);
+  else pistes.forEach(piste => {
     if (!piste.pisteNr) return;
     const beginLifts = piste.beginBovenBij || [];
     const reachLifts = piste.bereikbareLiften || piste.eindigtBij || [];
@@ -153,24 +154,61 @@ function buildFromSkimapData(area) {
 
   // aansluitendeLiften: reachable from the top of this lift without a
   // marked piste (e.g. a short walk between two stations at the same spot).
+  // Format 2 lists such pairs of stations as `overstappen`.
   const seenTransfers = new Set();
+  const addTransfer = (a, b) => {
+    if (!stations[a] || !stations[b] || a === b) return;
+    const key = [a, b].sort().join('|');
+    if (seenTransfers.has(key)) return;
+    seenTransfers.add(key);
+    addEdge({ from: a, to: b, type: 'transfer', name: 'Transfer', tijd: 0 });
+    addEdge({ from: b, to: a, type: 'transfer', name: 'Transfer', tijd: 0 });
+  };
   liften.forEach(lift => {
     (lift.aansluitendeLiften || []).forEach(otherNr => {
       if (!liftByNr.has(otherNr) || otherNr === lift.liftNr) return;
-      const a = `${lift.liftNr}-boven`;
-      const b = `${otherNr}-onder`;
-      const key = [a, b].sort().join('|');
-      if (seenTransfers.has(key)) return;
-      seenTransfers.add(key);
-      addEdge({ from: a, to: b, type: 'transfer', name: 'Transfer', tijd: 0 });
-      addEdge({ from: b, to: a, type: 'transfer', name: 'Transfer', tijd: 0 });
+      addTransfer(`${lift.liftNr}-boven`, `${otherNr}-onder`);
     });
   });
+  (area.overstappen || []).forEach(([a, b]) => addTransfer(a, b));
 
   STATIONS     = stations;
   LIFTS        = lifts;
   SECTOR_ORDER = sectorOrder;
   GRAPH        = graph;
+}
+
+// Format 2 (built by tools/build-areas.mjs): the descents are worked out at
+// build time from the run network. Each `afdalingen` entry goes from the top
+// of lift `van` to the bottom of lift `naar` along `delen` — [pisteNr,
+// metres] in order — with every piste's name and colour in `pistes`.
+function addDescents(area, liftByNr, addEdge) {
+  const info = new Map((area.pistes || []).map(p => [p.pisteNr, p]));
+  area.afdalingen.forEach(({ van, naar, delen }) => {
+    if (!liftByNr.has(van) || !liftByNr.has(naar) || !delen?.length) return;
+    const parts = delen.map(([pisteNr, metres]) => {
+      const piste = info.get(pisteNr) || {};
+      return {
+        pisteNr,
+        naam: piste.naam || `Piste ${pisteNr}`,
+        kleur: piste.kleur,
+        lengteM: metres,
+        tijd: Math.max(1, Math.round(metres / 200)),
+      };
+    });
+    const metres = parts.reduce((sum, p) => sum + p.lengteM, 0);
+    addEdge({
+      from: `${van}-boven`,
+      to: `${naar}-onder`,
+      type: 'piste',
+      diff: parts[0].kleur,
+      pisteNr: parts[0].pisteNr,
+      name: parts[0].naam,
+      trajecten: parts.length > 1 ? parts : null,
+      tijd: parts.reduce((sum, p) => sum + p.tijd, 0),
+      km: Math.round(metres / 10) / 100,
+    });
+  });
 }
 
 // ── Area loading ─────────────────────────────────────────────────────────────
