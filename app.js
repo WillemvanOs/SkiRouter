@@ -344,8 +344,25 @@ function renderAreaList() {
       .sort((x, y) => x.d - y.d).slice(0, 8).filter(n => n.d < 300000);
     section('Near you', near.map(n => ({ ...n.a, distance: n.d })));
   }
-  const curated = AREAS.filter(a => a.curated && !favourites.includes(a));
-  section('With live lift status', curated);
+  // A folded group (tap to open), kept open across redraws.
+  const foldGroup = (key, title, areas, className = '') => {
+    const box = document.createElement('details');
+    box.className = `area-country ${className}`.trim();
+    box.innerHTML = `<summary><span>${title}</span><span class="area-count">${areas.length}</span></summary>`;
+    box.addEventListener('toggle', () => {
+      if (box.open) openCountries.add(key); else openCountries.delete(key);
+      if (!box.open || box.dataset.filled) return;
+      box.dataset.filled = '1';
+      [...areas].sort((x, y) => x.name.localeCompare(y.name)).forEach(a => box.appendChild(areaButton(a)));
+    });
+    listEl.appendChild(box);
+    if (openCountries.has(key)) box.open = true;
+  };
+
+  // Areas with live lift status: the curated ones and the European areas
+  // with a status source (tools/liftstatus-sources.mjs).
+  const live = AREAS.filter(a => a.liftstatus);
+  if (live.length) foldGroup('live', '● With live lift status', live, 'area-live-group');
 
   // Everything else by country, folded away: tap a country to open it.
   const byCountry = new Map();
@@ -358,19 +375,7 @@ function renderAreaList() {
   label.className = 'area-group';
   label.textContent = 'All ski areas';
   listEl.appendChild(label);
-  [...byCountry].sort((x, y) => y[1].length - x[1].length).forEach(([code, areas]) => {
-    const box = document.createElement('details');
-    box.className = 'area-country';
-    box.innerHTML = `<summary><span>${countryName(code)}</span><span class="area-count">${areas.length}</span></summary>`;
-    box.addEventListener('toggle', () => {
-      if (box.open) openCountries.add(code); else openCountries.delete(code);
-      if (!box.open || box.dataset.filled) return;
-      box.dataset.filled = '1';
-      [...areas].sort((x, y) => x.name.localeCompare(y.name)).forEach(a => box.appendChild(areaButton(a)));
-    });
-    listEl.appendChild(box);
-    if (openCountries.has(code)) box.open = true;
-  });
+  [...byCountry].sort((x, y) => y[1].length - x[1].length).forEach(([code, areas]) => foldGroup(code, countryName(code), areas));
 }
 
 // A lift number to show: the mapped one (A1, D9). Lifts without a number
@@ -402,6 +407,7 @@ function areaButton(area) {
     <span class="area-btn-name">🏔 ${escapeHtml(area.name)}</span>
     <span class="area-btn-sub">${escapeHtml(where)}</span>
     ${facts ? `<span class="area-btn-facts">${facts}</span>` : ''}
+    ${area.liftstatus ? '<span class="area-btn-live">● Live lift status</span>' : ''}
     ${area.status === 'deels' ? '<span class="area-btn-warn">⚠ Not all lifts are connected</span>' : ''}
   `;
   btn.addEventListener('click', () => selectArea(area));
@@ -1243,22 +1249,43 @@ async function loadLiftStatus(areaMeta) {
   // Newest of the published file and the last live result on this phone.
   let fromFile = null;
   try {
-    const response = await fetch(liftStatusMeta.file);
+    const response = await fetch(liftStatusMeta.file, liftStatusMeta.europe ? { cache: 'no-store', signal: AbortSignal.timeout(LIFT_STATUS_TIMEOUT_MS) } : {});
     if (response.ok) fromFile = await response.json();
   } catch {}
   let fromPhone = null;
   try { fromPhone = JSON.parse(localStorage.getItem(LIFT_STATUS_LIVE_KEY + areaMeta.id)); } catch {}
-  LIFT_STATUS = [fromFile, fromPhone].filter(Boolean)
+  LIFT_STATUS = [fromFile, fromPhone].filter(Boolean).map(europeLiftStatus)
     .sort((a, b) => String(b.sourceUpdate || '').localeCompare(String(a.sourceUpdate || '')))[0] || null;
+  // A European area's file is on GitHub, not on this site, so the service
+  // worker does not keep it: the phone does, for offline use.
+  if (liftStatusMeta.europe && fromFile) {
+    try { localStorage.setItem(LIFT_STATUS_LIVE_KEY + areaMeta.id, JSON.stringify(fromFile)); } catch {}
+  }
   // Then live, without holding up the first screen.
   refreshLiftStatusLive();
+}
+
+// A European area's status file (tools/liftstatus-europe.mjs) has the
+// source's own lift names; match them to this area's lifts by name
+// (liftmatch.js). Other status files are keyed by lift number already.
+function europeLiftStatus(data) {
+  if (!Array.isArray(data?.lifts)) return data;
+  const matched = matchLifts(currentArea?.liften || [], data.lifts);
+  const lifts = {};
+  Object.entries(matched).forEach(([nr, i]) => {
+    const s = data.lifts[i];
+    lifts[nr] = { open: !!s.open, hours: s.hours || null, text: s.text || '' };
+  });
+  return { bron: data.bron, sourceUpdate: data.sourceUpdate, lifts };
 }
 
 // Fetch the live status; on success redraw whatever route is on screen.
 async function refreshLiftStatusLive() {
   const cfg = liftStatusMeta;
   const areaId = currentArea?.id;
-  if (!cfg || cfg.bron !== 'micado-skigebietemanager' || !navigator.onLine) return;
+  if (!cfg || !navigator.onLine) return;
+  if (cfg.europe) return refreshEuropeLiftStatus(cfg, areaId);
+  if (cfg.bron !== 'micado-skigebietemanager') return;
   try {
     const params = new URLSearchParams({ client: cfg.client, lang: 'de', region: cfg.region, season: 'winter', type: 'lift' });
     const url = `${cfg.base}/micadoapi/SkigebieteManager/Micado.SkigebieteManager.Plugin.FacilityApi/ListFacilities.api?${params}`;
@@ -1273,6 +1300,23 @@ async function refreshLiftStatusLive() {
     redrawLiftStatus();
   } catch (err) {
     console.warn('Live lift status unavailable:', err);
+  }
+}
+
+// A European area: fetch its status file again (GitHub Actions writes it
+// every 30 minutes); redraw when it is newer than what is shown.
+async function refreshEuropeLiftStatus(cfg, areaId) {
+  try {
+    const response = await fetch(cfg.file, { cache: 'no-store', signal: AbortSignal.timeout(LIFT_STATUS_TIMEOUT_MS) });
+    if (!response.ok) return;
+    const data = await response.json();
+    if (currentArea?.id !== areaId || !Array.isArray(data.lifts)) return;
+    if (LIFT_STATUS && String(data.sourceUpdate || '') <= String(LIFT_STATUS.sourceUpdate || '')) return;
+    LIFT_STATUS = europeLiftStatus(data);
+    try { localStorage.setItem(LIFT_STATUS_LIVE_KEY + areaId, JSON.stringify(data)); } catch {}
+    redrawLiftStatus();
+  } catch (err) {
+    console.warn('Lift status unavailable:', err);
   }
 }
 

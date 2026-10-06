@@ -1,3 +1,0 @@
-https://www.bergbahn-pillersee.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.bergbahn-pillersee.com&lang=de&region=bergbahn-pillersee&season=winter&type=lift
-
-{"copyrights":[],"facilities":[],"meta":{"lastUpdate":"2026-10-06T16:39:50","skiRegionIdentifier":"bergbahn-pillersee"}}

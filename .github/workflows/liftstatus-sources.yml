@@ -1,0 +1,84 @@
+# Weekly: which European ski areas have a live lift status source
+# (tools/liftstatus-sources.mjs), into data/liftstatus/sources.json and
+# report.md. Commits them when they changed; on main the site is then
+# redeployed, so the area list marks the areas with live status.
+#
+# Runs by hand too (Actions → "Find lift status sources" → Run workflow), and
+# on a push to another branch that changes the scripts or this workflow: then
+# it commits there, without a deploy.
+name: Find lift status sources
+
+on:
+  schedule:
+    - cron: '41 4 * * 1'   # Mondays 04:41 UTC
+  workflow_dispatch:
+  push:
+    branches-ignore: [main, liftstatus]
+    paths:
+      - tools/liftstatus-sources.mjs
+      - tools/lib/liftstatus-providers.mjs
+      - liftmatch.js
+      - .github/workflows/liftstatus-sources.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: liftstatus-sources-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Date
+        id: date
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/openskidata
+          key: openskidata-${{ steps.date.outputs.day }}
+
+      - name: Build the areas (for their lift names)
+        run: node tools/build-areas.mjs --europe --out build/europe
+
+      - name: HTML parser
+        run: npm install --no-save --no-package-lock cheerio@1
+
+      - name: Find sources
+        run: node tools/liftstatus-sources.mjs --areas build/europe --out data/liftstatus
+
+      - name: Commit when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/liftstatus)" ]; then
+            echo "No changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add data/liftstatus
+          git commit -m "Update lift status sources"
+          git pull --rebase
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: find
+    if: needs.find.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
