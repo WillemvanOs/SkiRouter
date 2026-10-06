@@ -1,6 +1,6 @@
 # Live lift status: sources
 
-Run 2026-10-06T15:47 UTC, 7 min. 2124 candidate sources, 116 with lifts.
+Run 2026-10-06T16:55 UTC, 6 min. 2124 candidate sources, 117 with lifts.
 
 **85 areas with live lift status** (at least 75 % of their named lifts matched).
 
@@ -100,6 +100,7 @@ Run 2026-10-06T15:47 UTC, 7 min. 2124 candidate sources, 116 with lifts.
 | Brauneck | DE | intermaps winter.intermaps.com/brauneck | 71 % | no |
 | Skigebiet Oberwiesenthal | DE | intermaps winter.intermaps.com/fichtelberg | 71 % | no |
 | Annaberg | AT | intermaps winter.intermaps.com/annaberg | 67 % | no |
+| Méribel | FR | lumiplan meribel | 64 % | no |
 | Raurisertal | AT | intermaps winter.intermaps.com/rauris | 60 % | no |
 | Sulden | IT | intermaps winter.intermaps.com/sulden | 60 % | no |
 | Goldeck | AT | intermaps winter.intermaps.com/goldeck | 40 % | no |
