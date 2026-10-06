@@ -315,9 +315,40 @@ main {
   padding-bottom: 10px;
 }
 
-.area-country[open] > .area-btn {
-  width: auto;
+.area-row {
+  position: relative;
+}
+
+.area-row > .area-btn {
+  padding-right: 52px;
+}
+
+.area-country[open] > .area-row {
   margin: 0 10px;
+}
+
+.area-fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #9aa9bd;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.area-fav.on {
+  color: #e0a100;
+}
+
+.area-hint {
+  font-size: 0.8rem;
+  color: #888;
 }
 
 .area-btn-facts {

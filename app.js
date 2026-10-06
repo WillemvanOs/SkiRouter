@@ -224,7 +224,8 @@ function addDescents(area, liftByNr, addEdge) {
 const AREA_REGISTRY_URL = 'data/areas.json';         // hand-curated areas (KitzSki)
 const EUROPE_INDEX_URL  = 'data/europe/index.json';  // every European area, built at deploy
 const LAST_AREA_KEY      = 'skiplanner:lastArea';
-const RECENT_AREAS_KEY   = 'skiplanner:recentAreas';
+const FAVOURITE_AREAS_KEY = 'skiplanner:favouriteAreas';
+const openCountries = new Set(); // countries unfolded in the picker, kept open when it redraws
 
 let currentArea = null;
 let AREAS = [];          // every area the picker can show: { id, name, file, country, region, places, … }
@@ -270,13 +271,20 @@ async function initApp() {
   if (lastArea) await selectArea(lastArea);
 }
 
-function recentAreaIds() {
-  try { return JSON.parse(localStorage.getItem(RECENT_AREAS_KEY)) || []; } catch { return []; }
+// Favourite ski areas: marked with ☆ in the picker, listed on top.
+function favouriteAreaIds() {
+  try { return JSON.parse(localStorage.getItem(FAVOURITE_AREAS_KEY)) || []; } catch { return []; }
 }
 
-function rememberArea(id) {
-  const ids = [id, ...recentAreaIds().filter(x => x !== id)].slice(0, 5);
-  try { localStorage.setItem(RECENT_AREAS_KEY, JSON.stringify(ids)); } catch {}
+function isFavourite(id) {
+  return favouriteAreaIds().includes(id);
+}
+
+function toggleFavourite(id) {
+  const ids = favouriteAreaIds();
+  const next = ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id];
+  try { localStorage.setItem(FAVOURITE_AREAS_KEY, JSON.stringify(next)); } catch {}
+  renderAreaList();
 }
 
 const fold = text => (text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -322,15 +330,22 @@ function renderAreaList() {
     return;
   }
 
-  const recent = recentAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean);
-  section('Recently used', recent);
+  const favourites = favouriteAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean)
+    .sort((x, y) => x.name.localeCompare(y.name));
+  if (favourites.length) section('★ Favourites', favourites);
+  else {
+    const hint = document.createElement('div');
+    hint.className = 'area-hint';
+    hint.textContent = 'Tap ☆ next to a ski area to keep it here, on top.';
+    listEl.appendChild(hint);
+  }
   if (areaHere) {
     const near = AREAS.filter(a => a.centre).map(a => ({ a, d: distanceM(areaHere, a.centre) }))
       .sort((x, y) => x.d - y.d).slice(0, 8).filter(n => n.d < 300000);
     section('Near you', near.map(n => ({ ...n.a, distance: n.d })));
   }
-  const curated = AREAS.filter(a => a.curated && !recent.includes(a));
-  section('With lift status and restaurants', curated);
+  const curated = AREAS.filter(a => a.curated && !favourites.includes(a));
+  section('With live lift status', curated);
 
   // Everything else by country, folded away: tap a country to open it.
   const byCountry = new Map();
@@ -348,11 +363,13 @@ function renderAreaList() {
     box.className = 'area-country';
     box.innerHTML = `<summary><span>${countryName(code)}</span><span class="area-count">${areas.length}</span></summary>`;
     box.addEventListener('toggle', () => {
+      if (box.open) openCountries.add(code); else openCountries.delete(code);
       if (!box.open || box.dataset.filled) return;
       box.dataset.filled = '1';
       [...areas].sort((x, y) => x.name.localeCompare(y.name)).forEach(a => box.appendChild(areaButton(a)));
     });
     listEl.appendChild(box);
+    if (openCountries.has(code)) box.open = true;
   });
 }
 
@@ -368,7 +385,11 @@ function escapeHtml(text) {
   return String(text ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+// One ski area in the picker: the area itself (tap to open it) and a star
+// to make it a favourite.
 function areaButton(area) {
+  const row = document.createElement('div');
+  row.className = 'area-row';
   const btn = document.createElement('button');
   btn.className = 'area-btn';
   const where = area.curated ? (area.subtitle || '') : [area.region, countryName(area.country)].filter(Boolean).join(', ');
@@ -384,7 +405,16 @@ function areaButton(area) {
     ${area.status === 'deels' ? '<span class="area-btn-warn">⚠ Not all lifts are connected</span>' : ''}
   `;
   btn.addEventListener('click', () => selectArea(area));
-  return btn;
+  const fav = isFavourite(area.id);
+  const star = document.createElement('button');
+  star.type = 'button';
+  star.className = `area-fav${fav ? ' on' : ''}`;
+  star.textContent = fav ? '★' : '☆';
+  star.setAttribute('aria-pressed', String(fav));
+  star.setAttribute('aria-label', `${fav ? 'Remove' : 'Add'} ${area.name} ${fav ? 'from' : 'to'} favourites`);
+  star.addEventListener('click', () => toggleFavourite(area.id));
+  row.append(btn, star);
+  return row;
 }
 
 // "Ski areas near me": sort by distance from where the user is.
@@ -416,7 +446,6 @@ async function selectArea(areaMeta) {
     await loadLiftStatus(areaMeta);
 
     localStorage.setItem(LAST_AREA_KEY, areaMeta.id);
-    rememberArea(areaMeta.id);
     applyAreaToHeader(area);
     resetPlanner();
 

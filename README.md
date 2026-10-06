@@ -93,8 +93,8 @@ amadé, …) are left out; their parts (Alta Badia, Kronplatz, …) are listed o
 Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not listed twice.
 
 The area picker searches names, villages, regions and countries (with a few local names:
-Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your recent areas on top and
-lists the rest per country. An area is downloaded when you open it and then stays
+Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your favourites (tap ☆) on top
+and lists the rest per country. An area is downloaded when you open it and then stays
 available offline. Areas without known mountain restaurants plan a day without the lunch
 box. Lifts without a number in the map data show their name only.
 
