@@ -1,12 +1,12 @@
 # Live lift status: probe
 
-Run 2026-10-06T14:40 UTC, 8 min.
+Run 2026-10-06T14:58 UTC, 14 min.
 
 - 579 listed areas, 506 with a website in OpenSkiData
 - Providers seen on area websites: intermaps 66, feratel 49, axess 37, lumiplan 29, infosnow 22, digitalsnow 19, dolomiti 13, micado 11, bergfex 10, skiresort 8, skidata 5, skiplan 3
-- Sources with lifts: Infosnow 12, Lumiplan 13, Micado 3
-- **Areas with a matching source: 19** — share of our lifts matched by name: ≥75 %: 13, 50–74 %: 2, <50 %: 4
-- Per country: CH 10, FR 8, AT 1
+- Sources with lifts: Infosnow 12, Lumiplan 13, Micado 3, Intermaps 89
+- **Areas with a matching source: 99** — share of our lifts matched by name: ≥75 %: 61, 50–74 %: 29, <50 %: 9
+- Per country: AT 58, CH 15, FR 9, DE 8, IT 8, LI 1
 
 ## Areas with a source
 
@@ -17,19 +17,99 @@ Run 2026-10-06T14:40 UTC, 8 min.
 | Grächen | CH | infosnow | pid 52 | 11 | 12 | 11 | 100 % |
 | Chäserrugg-Alt St. Johann | CH | infosnow | pid 154 | 23 | 16 | 23 | 100 % |
 | Gavarnie-Gèdre | FR | lumiplan | gavarnie | 7 | 8 | 7 | 100 % |
+| Brandnertal – Brand/​Bürserberg | AT | intermaps | winter.intermaps.com/brandnertal | 12 | 14 | 12 | 100 % |
+| Mölltaler Gletscher | AT | intermaps | winter.intermaps.com/moelltaler_gletscher | 9 | 8 | 9 | 100 % |
+| Pitztaler Gletscher | AT | intermaps | winter.intermaps.com/pitztaler_gletscher | 6 | 13 | 6 | 100 % |
+| Skigebiet Petzen | AT | intermaps | winter.intermaps.com/petzen | 5 | 5 | 5 | 100 % |
+| Tauplitz / Bad Mitterndorf | AT | intermaps | winter.intermaps.com/tauplitz | 16 | 16 | 16 | 100 % |
+| Bergeralm | AT | intermaps | winter.intermaps.com/bergeralm | 4 | 6 | 4 | 100 % |
+| Venet | AT | intermaps | winter.intermaps.com/venet | 5 | 7 | 5 | 100 % |
+| Hoch-Ybrig | CH | intermaps | winter.intermaps.com/hoch_ybrig | 7 | 11 | 7 | 100 % |
+| Ofterschwang/​Gunzesried | DE | intermaps | winter.intermaps.com/ofterschwang | 7 | 7 | 7 | 100 % |
+| Forni di Sopra | IT | intermaps | winter.intermaps.com/forni_di_sopra | 5 | 8 | 5 | 100 % |
+| Ski Arlberg | AT | intermaps | skiarlberg.intermaps.com/skiarlberg | 86 | 85 | 84 | 98 % |
+| Skigebiet Damüls-Mellau-Faschina | AT | intermaps | winter.intermaps.com/damuels_mellau_faschina | 22 | 28 | 21 | 95 % |
+| Hintertuxer Gletscher | AT | intermaps | winter.intermaps.com/hintertuxer_gletscher | 21 | 21 | 20 | 95 % |
+| Silvretta Montafon | AT | intermaps | winter.intermaps.com/montafon | 32 | 76 | 30 | 94 % |
+| Arosa Lenzerheide | CH | intermaps | winter.intermaps.com/arosa_lenzerheide | 45 | 47 | 42 | 93 % |
 | SkiWelt Wilder Kaiser - Brixental | AT | micado | https://www.skiwelt.at skiwelt | 72 | 83 | 67 | 93 % |
+| Gerlitzen Alpe | AT | intermaps | winter.intermaps.com/gerlitzen | 15 | 21 | 14 | 93 % |
+| Nauders Bergkastel | AT | intermaps | winter.intermaps.com/reschenpass | 12 | 22 | 11 | 92 % |
+| Kals-Matrei | AT | intermaps | winter.intermaps.com/kals_matrei | 13 | 18 | 12 | 92 % |
+| Schmittenhöhe Zell am See | AT | intermaps | winter.intermaps.com/zell_am_see | 25 | 83 | 23 | 92 % |
+| Bad Kleinkirchheim | AT | intermaps | winter.intermaps.com/bad_kleinkirchheim | 22 | 24 | 20 | 91 % |
+| Nassfeld, Mokrine | AT | intermaps | winter.intermaps.com/nassfeld | 23 | 29 | 21 | 91 % |
+| Tarvisio, Tarvis | IT | intermaps | winter.intermaps.com/tarvisio | 10 | 13 | 9 | 90 % |
 | Flumserberg | CH | infosnow | pid 37 | 18 | 17 | 16 | 89 % |
 | Font d'Urle Chaud Clapier | FR | lumiplan | font-d-urle | 9 | 11 | 8 | 89 % |
+| Hochzeiger | AT | intermaps | winter.intermaps.com/hochzeiger | 9 | 9 | 8 | 89 % |
+| Saas Fee | CH | intermaps | winter.intermaps.com/saas_fee | 28 | 23 | 25 | 89 % |
 | 4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon | CH | infosnow | pid 36 | 68 | 71 | 60 | 88 % |
 | Station du Col de Rousset | FR | lumiplan | col-de-rousset | 8 | 11 | 7 | 88 % |
+| Skigebiet Garmisch-Classic | DE | intermaps | winter.intermaps.com/zugspitzbahn_garmisch | 16 | 19 | 14 | 88 % |
+| Les Portes du Soleil | FR | intermaps | winter.intermaps.com/portes_du_soleil | 185 | 182 | 162 | 88 % |
+| Dreiländereck - Arnoldstein | AT | intermaps | winter.intermaps.com/dreilaendereck | 7 | 7 | 6 | 86 % |
+| Hochrindl | AT | intermaps | winter.intermaps.com/hochrindl | 7 | 8 | 6 | 86 % |
+| Silvretta Arena Ischgl/Samnaun | AT | intermaps | winter.intermaps.com/silvretta_arena | 43 | 46 | 37 | 86 % |
+| Hochkar | AT | intermaps | winter.intermaps.com/hochkar | 7 | 8 | 6 | 86 % |
+| Sillian - Hochpustertal | AT | intermaps | winter.intermaps.com/sillian | 7 | 8 | 6 | 86 % |
+| Skipisten Titlis Bergbahnen | CH | intermaps | winter.intermaps.com/engelberg | 29 | 24 | 25 | 86 % |
 | La Norma | FR | lumiplan | la-norma | 13 | 13 | 11 | 85 % |
 | Aletsch Arena | CH | infosnow | pid 51 | 37 | 35 | 31 | 84 % |
+| Mayrhofen Hippach | AT | intermaps | zillertal.intermaps.com/zillertal_uebersicht | 45 | 168 | 38 | 84 % |
+| Kronplatz - Plan de Corones, Kronplatz, Plan de Corones | IT | intermaps | winter.intermaps.com/kronplatz | 25 | 31 | 21 | 84 % |
 | Pizol | CH | infosnow | pid 47 | 12 | 12 | 10 | 83 % |
+| Schladming Dachstein | AT | intermaps | winter.intermaps.com/schladming_dachstein | 65 | 83 | 54 | 83 % |
+| Confin / San Bernardino | CH | intermaps | winter.intermaps.com/san_bernardino | 6 | 11 | 5 | 83 % |
+| Malbun | LI | intermaps | winter.intermaps.com/malbun | 6 | 4 | 5 | 83 % |
+| Hinterstoder | AT | intermaps | winter.intermaps.com/hinterstoder | 11 | 13 | 9 | 82 % |
+| Stuhleck - Semmering | AT | intermaps | winter.intermaps.com/stuhleck | 11 | 12 | 9 | 82 % |
+| Planneralm | AT | intermaps | winter.intermaps.com/planneralm | 5 | 6 | 4 | 80 % |
+| Sulden | IT | intermaps | winter.intermaps.com/sulden | 10 | 11 | 8 | 80 % |
+| Hochkössen - Unterberghorn | AT | intermaps | winter.intermaps.com/koessen | 9 | 11 | 7 | 78 % |
+| Skiregion Dachstein West | AT | intermaps | winter.intermaps.com/dachstein_west | 18 | 22 | 14 | 78 % |
+| Ski Gastein - Schlossalm/Angertal/Stubnerkogel | AT | intermaps | winter.intermaps.com/ski_gastein | 18 | 63 | 14 | 78 % |
+| Zillertal Arena | AT | intermaps | zillertal.intermaps.com/zillertalarena | 44 | 52 | 34 | 77 % |
+| Sudelfeld - Bayrischzell | DE | intermaps | winter.intermaps.com/sudelfeld | 13 | 13 | 10 | 77 % |
+| Ratschings-Jaufen | IT | intermaps | winter.intermaps.com/ratschings_jaufen | 8 | 8 | 6 | 75 % |
+| Gargellen | AT | intermaps | winter.intermaps.com/gargellen | 8 | 8 | 6 | 75 % |
+| Stubaier Gletscher | AT | intermaps | winter.intermaps.com/stubaier_gletscher | 18 | 26 | 13 | 72 % |
 | Leukerbad (Torrent) | CH | infosnow | pid 48 | 7 | 12 | 5 | 71 % |
+| Flachau | AT | intermaps | winter.intermaps.com/salzburger_sportwelt | 24 | 97 | 17 | 71 % |
+| Skigebiet Diedamskopf | AT | intermaps | winter.intermaps.com/diedamskopf | 7 | 9 | 5 | 71 % |
+| Drei Zinnen - Tre Cime, Drei Zinnen, Tre Cime | IT | intermaps | winter.intermaps.com/drei_zinnen | 31 | 30 | 22 | 71 % |
+| Berwang | AT | intermaps | winter.intermaps.com/berwang | 13 | 17 | 9 | 69 % |
+| Obergurgl-Hochgurgl | AT | intermaps | winter.intermaps.com/obergurgl_hochgurgl | 26 | 26 | 18 | 69 % |
+| Galtür | AT | intermaps | winter.intermaps.com/galtuer | 9 | 9 | 6 | 67 % |
+| Ramsau am Dachstein | AT | intermaps | winter.intermaps.com/ramsau_dachstein | 9 | 9 | 6 | 67 % |
+| Annaberg | AT | intermaps | winter.intermaps.com/annaberg | 6 | 6 | 4 | 67 % |
+| Golm | AT | intermaps | winter.intermaps.com/golm | 9 | 9 | 6 | 67 % |
+| Grebenzen | AT | intermaps | winter.intermaps.com/grebenzen | 6 | 8 | 4 | 67 % |
+| Passo Stelvio - Stilfserjoch | IT | intermaps | winter.intermaps.com/passo_stelvio | 6 | 6 | 4 | 67 % |
+| Gletscher-Skigebiet Zugspitze, Ski resort Zugspitze | DE | intermaps | winter.intermaps.com/zugspitzplatt | 8 | 8 | 5 | 63 % |
+| Axamer Lizum - Muttereralm | AT | intermaps | winter.intermaps.com/axamer_lizum | 15 | 12 | 9 | 60 % |
+| Glungezer | AT | intermaps | winter.intermaps.com/glungezer | 5 | 6 | 3 | 60 % |
+| Piancavallo | IT | intermaps | winter.intermaps.com/piancavallo | 10 | 12 | 6 | 60 % |
+| Kreischberg | AT | intermaps | winter.intermaps.com/kreischberg | 12 | 13 | 7 | 58 % |
+| Skiliftkarussell Winterberg | DE | intermaps | winter.intermaps.com/winterberg | 26 | 43 | 15 | 58 % |
+| Großglockner Heiligenblut | AT | intermaps | winter.intermaps.com/heiligenblut | 14 | 12 | 8 | 57 % |
+| Kaprun - Kitzsteinhorn/Maiskogel | AT | intermaps | winter.intermaps.com/kitzsteinhorn | 21 | 23 | 12 | 57 % |
+| Loser-Altaussee | AT | intermaps | winter.intermaps.com/loser | 9 | 10 | 5 | 56 % |
+| Lachtal | AT | intermaps | winter.intermaps.com/lachtal | 9 | 10 | 5 | 56 % |
+| Brauneck | DE | intermaps | winter.intermaps.com/brauneck | 18 | 19 | 10 | 56 % |
 | Megève | FR | lumiplan | megeve | 54 | 54 | 27 | 50 % |
+| See | AT | intermaps | winter.intermaps.com/kappl_see | 6 | 21 | 3 | 50 % |
+| Feldberg | DE | intermaps | winter.intermaps.com/feldberg | 14 | 17 | 7 | 50 % |
+| Skigebiet Oberwiesenthal | DE | intermaps | winter.intermaps.com/fichtelberg | 8 | 7 | 4 | 50 % |
+| Raurisertal | AT | intermaps | winter.intermaps.com/rauris | 10 | 10 | 5 | 50 % |
+| Innerkrems | AT | intermaps | winter.intermaps.com/innerkrems | 9 | 12 | 4 | 44 % |
+| Weinebene | AT | intermaps | winter.intermaps.com/weinebene | 7 | 8 | 3 | 43 % |
 | Forêt Blanche : Vars/Risoul | FR | lumiplan | risoul | 33 | 16 | 14 | 42 % |
+| Skicircus Saalbach-Hinterglemm Leogang Fieberbrunn | AT | intermaps | winter.intermaps.com/alpin_card | 75 | 121 | 31 | 41 % |
 | Paradiski | FR | lumiplan | les-arcs | 134 | 51 | 44 | 33 % |
-| Arosa Lenzerheide | CH | infosnow | pid 67 | 45 | 14 | 14 | 31 % |
+| Wurzeralm | AT | intermaps | winter.intermaps.com/wurzeralm | 16 | 8 | 5 | 31 % |
+| Obertauern | AT | intermaps | winter.intermaps.com/obertauern | 27 | 26 | 7 | 26 % |
+| Braunwald | CH | intermaps | winter.intermaps.com/braunwald | 20 | 10 | 5 | 25 % |
 | Brévent/Flégère (Chamonix) | FR | lumiplan | chamonix | 17 | 14 | 4 | 24 % |
 
 ## Sources without a matching area
@@ -41,14 +121,48 @@ Run 2026-10-06T14:40 UTC, 8 min.
 - lumiplan la-plagne (Bulletin d'ouvertures La Plagne): 1 lifts, e.g. CHAMPAGNY
 - lumiplan metabief (Bulletin de la station de Métabief): 1 lifts, e.g. TSD Morond
 - micado https://www.steinplatte.tirol steinplatte (steinplatte): 14 lifts, e.g. 15-EUB Gondelbahn Steinplatte (Waidring), 6-SB Kammerkör, 8-SB Steinplatte, 6-SB Plattenkogel
+- intermaps winter.intermaps.com/muttereralm (muttereralm): 2 lifts, e.g. A Muttereralmbahn, B Nockspitzbahn
+- intermaps winter.intermaps.com/goldeck (goldeck): 6 lifts, e.g. 3 6er-SL Bärnbissbahn, 4 6er-Gipfelbahn Skyliner, 2 8er-EUB Talbahn, 9 Kinderland I
 
 ## Name mismatches (areas under 75 %)
 
+- **Stubaier Gletscher** (intermaps winter.intermaps.com/stubaier_gletscher): source only: Gamsgarten I, Gamsgarten II, Schlepplift Windachferner, Schlepplift Daunscharte, Zauberteppich 1, Zauberteppich 2, Schneekarussell, Snowpark-Lift; ours only: Eisgratbahn 2, Eisgratbahn 1, Gamsgartenbahn I, ZOO-Shuttle, Gamsgarten 2
 - **Leukerbad (Torrent)** (infosnow pid 48): source only: E Kumme, I Rinderhütte Kinderland, O Leukerbad  -  Gemmi, P Daubensee  -  Gemmi, 1 Kandersteg  -  Sunnbüel, Thermi, Känguru; ours only: Rinderhütte-Torrenthorn, L6
+- **Flachau** (intermaps winter.intermaps.com/salzburger_sportwelt): source only: Popolo 1, Popolo 2, ÜL Topolino 1, ÜL Topolino 2, sixpack Mooslehen, B Grossbergbahn, A Papagenobahn, E Schwaigalmlift; ours only: WAGRAINi's Übungslift, L5, Lacknerlift, Top Liner, Rote 8er II, Rote 8er I, Rodelbahn Jet
+- **Skigebiet Diedamskopf** (intermaps winter.intermaps.com/diedamskopf): source only: A Gondelbahn I, B Gondelbahn II, H Grunholzlift, J Förderband in Au; ours only: Diedamskopfbahn I, Diedamskopfbahn II
+- **Drei Zinnen - Tre Cime, Drei Zinnen, Tre Cime** (intermaps winter.intermaps.com/drei_zinnen): source only: Helmjet Sesto, Hawaii, Helmissimo Versciaco, Uebungslift, Wiese, Hasenkoepfl, Laerchen, Heinrich Harrer; ours only: Helmjet Sexten, Hasenköpfl, Vierschach-Helm - Versciaco-Monte Elmo, Vierschach-Helm, Versciaco-Monte Elmo, Campo Scuola, Übungslift, 12 - Hahnspiel - Gallo Cedrone, Hahnspiel, Gallo Cedrone, L11, Lärchen
+- **Berwang** (intermaps winter.intermaps.com/berwang): source only: Sonnalmbahn, Panoramabahn Rastkopf, Sonnalmbahn, Panoramabahn Rastkopf, Rinnerlift; ours only: Rastkopfbahn, Berwanger SunnAlmBahn, Schilift Rinnen, Karlift
+- **Obergurgl-Hochgurgl** (intermaps winter.intermaps.com/obergurgl_hochgurgl): source only: 4SB Top - Wurmkogl I, 4SB Bruggenbodenbahn, Förderband Hochgurgl, SL Vorder Wurmkogllift II, 8EUB Topexpress Gurgl, 8EUB Hochgurgl I, 8EUB Hochgurgl II, Kinderland Obergurgl; ours only: Vorderer Wurmkogllift II, Hochgurglbahn I, Top Wurmkoglbahn I, Top-Express Obergurgl-Hochgurgl, Hochgurglbahn II, Snow Cab, Bruggenbodenlift, Top-Express Obergurgl-Hochgurgl
+- **Galtür** (intermaps winter.intermaps.com/galtuer): source only: Klein-Zeinislift, Kopsselifte I+II, Förderband; ours only: Kopsseelift I, Kopsseelift II, Klein-Zenislift
+- **Ramsau am Dachstein** (intermaps winter.intermaps.com/ramsau_dachstein): source only: Drachenlift 1, Drachenlift 2, Dachstein Glacier cable car; ours only: Drachenlift I, Drachenlift II, L8
+- **Annaberg** (intermaps winter.intermaps.com/annaberg): source only: D Förderband Reidl, E Anna-Land Lifte; ours only: Jugendherberge-Lift, Übungslift
+- **Golm** (intermaps winter.intermaps.com/golm): source only: Golmerbahn I, Golmerbahn II, Golmerbahn III; ours only: Golmerbahn 1, Golmerbahn 2, Golmerbahn 3
+- **Grebenzen** (intermaps winter.intermaps.com/grebenzen): source only: GrebenZEHN, Starnberglift 1, Dreiwiesnlift, Kinderlift; ours only: Dreiwiesenlift, Greben10
+- **Passo Stelvio - Stilfserjoch** (intermaps winter.intermaps.com/passo_stelvio): source only: Geister 1, Geister 2; ours only: Geister I, Geister II
+- **Gletscher-Skigebiet Zugspitze, Ski resort Zugspitze** (intermaps winter.intermaps.com/zugspitzplatt): source only: E Schneefernerkopf I + II, Zahnradbahn, C 6er Sesselbahn Wetterwandeck; ours only: Wetterwandeckbahn, Forschungsbahn, Tiroler Zugspitzbahn
+- **Axamer Lizum - Muttereralm** (intermaps winter.intermaps.com/axamer_lizum): source only: C3 Übungslift Birgitz, Sonnenlift Axams, C Hoadl I, D Hoadl II, B Schönbodenbahn; ours only: Almbodenlift, Hoadlbahn, Hoadlbahn, Nockspitzbahn, Muttereralmbahn, Pfriemesköpfl
+- **Glungezer** (intermaps winter.intermaps.com/glungezer): source only: A 10 EUB- Glungezer I, B Kombilift Glungezer Sektion 2, F Übungslift; ours only: Tulfein Express (Glungezerbahn II), Glungezerbahn I
+- **Piancavallo** (intermaps winter.intermaps.com/piancavallo): source only: 101 Tappeto Daini, 102 Tappeto Genzianella, 109 Tappeto Caprioli, 110 Tappeto Bambi, 111 Tappeto Busa, 112 - Tapetto Tremol; ours only: L1, L2, L3, L4
+- **Kreischberg** (intermaps winter.intermaps.com/kreischberg): source only: E Tubing Lift, 4 Zauberteppich, A 10er Gondelbahn 1. Sektion, B 10er Gondelbahn 2. Sektion, J Doppelsessellift Rosenkranz, K Schlepplift Rosenkranz; ours only: Rosenkranzbahn, Kreischberg 10er II, Tubinglift, Rosenkranzlift, Kreischberg 10er I
+- **Skiliftkarussell Winterberg** (intermaps winter.intermaps.com/winterberg): source only: 10 Brembergkopf I, 13 Nordhang, 21 Förderband Kinderland, 24 Förderb. Schneewittchen, 25 Schneewittchen, 18 Übungslifte Herrloh II, 19 Übungslifte Herrloh III, 5 Poppenberg I; ours only: Schneewittchenhang, L1, Brembergkopf 1, L2, Poppenberg 1, Nordhanglift, Brembergkopf 2, Übungslift Herrloh III
+- **Großglockner Heiligenblut** (intermaps winter.intermaps.com/heiligenblut): source only: D Seppenalm, J Hallenbad, K Snowland, M Tunnelbahn; ours only: Schulwiese, Kidsworld, Tunnelbahn Fleißalm, Tunnelbahn Fleißalm, Tunnelbahn Fleißalm, Tunnelbahn Fleißalm
+- **Kaprun - Kitzsteinhorn/Maiskogel** (intermaps winter.intermaps.com/kitzsteinhorn): source only: Gletscherjet 2, Gletschershuttle, Sonnenkarbahn 1, Sonnenkarbahn 2, Magnetköpfllift, Kitzlift 1, Kitzlift 2, Maisilifte; ours only: Magnetköpflift, Maisilift I, Gletscherjet II, Kitzlift I, Sonnenkarbahn I, Kitzlift II, Sonnenkarbahn II, Gletscherjet I
+- **Loser-Altaussee** (intermaps winter.intermaps.com/loser): source only: 26 Förderband (2x), 26 Mega Star Tellerlift, L1 Panoramabahn I, L2 Panoramabahn II, L7 Ramsau, Seillift Loseralm; ours only: L1, 26, Panoramabahn Loser, L7
+- **Lachtal** (intermaps winter.intermaps.com/lachtal): source only: D Hebert 2, F Schönberg-Lift, G Tanzstatt-Lift, H Dietrichalm-Lift, I Zauberteppich; ours only: Dietrichalmlift, Tanzstattlift, Hebertlift 2, Schönberglift
+- **Brauneck** (intermaps winter.intermaps.com/brauneck): source only: H Draxlhang-Lift I+II, F Streidlhang-Lift, G Jaudenhang-Lift I+II, C Schrödelstein 6er-Sesselbahn, Kinderland Michi Gerg, Kinderland Villa Lustig, KinderSchneeLand am Draxlhang, Förderband Draxlstüberl; ours only: Streidlhanglift, L1, Schrödelsteinbahn, Draxlhang Lift 1, Jaudenhanglift 1, Jaudenhang 2, Draxlhang Lift 2, Weltcupexpress
 - **Megève** (lumiplan megeve): source only: TP LADY, TP SCHUSS, TK LA CRY, TELEBABY, TK DES LOYERS, TC DE LA GORGE, TC DE MONTJOIE LAY, TC DU SIGNAL; ours only: Mont Joly, Gouet, L'Alpin, Les Nants, Croix du Christ, Bettex, Princesse, Communailles
+- **See** (intermaps winter.intermaps.com/kappl_see): source only: A Dias-Kabinenbahn, C 4er-Sesselbahn Alblitt, E Mardinalift, F Alblittlift, G Förderband Sunny I mit Galerie 200m, H Förderband Sunny II 90m, I Förderband Sunny III mit Galerie 100m, J Förderband Sunny IV mit Galerie 24 m; ours only: Medrigjochbahn, Zeinisbahn, Versingbahn
+- **Feldberg** (intermaps winter.intermaps.com/feldberg): source only: 4er-Sessel Herzogenhorn-Bahn, Zellerlift I, Zellerlift II, G Grafenmattlift II, G Grafenmattlift I, H Silberwiesenlift I, H Silberwiesenlift II; ours only: Zeller-Lift-II, Herzogenhornbahn, Grafenmatt-Lift-I, Zeller-Lift-I, Silberwiesen-Lift-I, Silberwiesen-Lift-II, Grafenmatt-Lift-II
+- **Skigebiet Oberwiesenthal** (intermaps winter.intermaps.com/fichtelberg): source only: A Seilschwebebahn, D Nachtskilauf - Lift 5, Zauberteppich; ours only: L1, Fichtelberg-Schwebebahn, Nachtskilauflift, O'thal-Coaster
+- **Raurisertal** (intermaps winter.intermaps.com/rauris): source only: C Jackalmlift rechts, G Kreuzbodenlift, H Schwazerlift rechts, C Jackalmlift links, H Schwazerlift links; ours only: Kreuzboden Tellerlift, Jackalmlift I, Schwazerlift 2, Schwazerlift 1, Jackalmlift II
+- **Innerkrems** (intermaps winter.intermaps.com/innerkrems): source only: Übungslift-Schönfeld, Strasseralm 1, Strasseralm 2, Übungslift 1 + Funpark, Übungslift 2 + Funpark, Mattehans-Innerkrems, Mattehans-Schönfeld, Schilchernock; ours only: Snowtubing Almresort Fruhauf, Schlepplift Strasseralm I, Schlepplift Strasseralm II, L7, Schlepplift Mattehanshöhe (Innerkrems)
+- **Weinebene** (intermaps winter.intermaps.com/weinebene): source only: Zauberteppich, Weinofenlift 1, Weinofenlift 2, Brandrückenlift 1, Brandrückenlift 2; ours only: Weinofenlift II, Brandrückenlift I, Weinofenlift I, Brandrückenlift II
 - **Forêt Blanche : Vars/Risoul** (lumiplan risoul): source only: R1 Télépulsé, R18 Accueil Bas, R5 Plate; ours only: Platte de la Nonne R5, Baby G2 V7, Escondus V15, Écrins V6, Clos Fournier 2 (ESF), Bois Noir V12, Crévoux 1 V19, Clos Fournier R1
+- **Skicircus Saalbach-Hinterglemm Leogang Fieberbrunn** (intermaps winter.intermaps.com/alpin_card): source only: L8 Alm lift 4-seater, H5 Magic 6-seater, D3 Rosswald 6-seater, L6 Mulden lift 8-seater, L7 Asitzkogel lift 8-seater, L5 Asitzgipfel lift 8-seater, D2 Hasenauer 8-seater, B6 Seekar lift; ours only: Reiterkogelbahn I, Rosswaldbahn, L1, Magic 6er (Bergeralm), Schanteilift, Asitzbahn II, Babylift Vorderglemm, Zillstattlift
 - **Paradiski** (lumiplan les-arcs): source only: TELEVILLAGE, 1ERE GLISSE, FUNICULAIRE, SNOWPARK, TRANSARC 1, TRANSARC 2, ST JACQUES., ELDORADOR.; ours only: Colorado, Verdons Sud, Mélèzes, Plan Bois, Aiglon, Solu, Inversens, Stade
-- **Arosa Lenzerheide** (infosnow pid 67): source only: A Weisshorn 1. Sektion, C Weisshorn 2. Sektion; ours only: Proschieri, Windegga, Fadail I, Weisshorn Speed, Panoramabahn Heidbüel, Lavoz, Motta, Crappa Grossa
+- **Wurzeralm** (intermaps winter.intermaps.com/wurzeralm): source only: A Standseilbahn, Sunny Kids Park, Almexpress; ours only: Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm, Standseilbahn Wurzeralm
+- **Obertauern** (intermaps winter.intermaps.com/obertauern): source only: 1 Zehnerkar, 2 Schaidberg, 4 Hundskogel, 7 Kehrkopf, 8 Grünwaldkopf, 9 Seekareck, 11 Schönalm, 12 Anger; ours only: Seekarspitzbahn, Achenrainbahn, Panoramabahn, Edelweissbahn, Seekareckbahn, Gamsleitenbahn 2, Zentralbahn, Schönalmbahn
+- **Braunwald** (intermaps winter.intermaps.com/braunwald): source only: Braunwald Standseilbahn (Zubringerbahn), Niederschlacht - Hüttenberg, Kombibahn Gumen, Mattwald, Bächital, Luchsingen - Brunnenberg (Winterwandern, Skitouren), Förderband Grotzenbüel; ours only: Gumenbahn, Braunwaldbahn, Braunwaldbahn, Braunwaldbahn, Braunwaldbahn, Braunwaldbahn, Braunwaldbahn, Braunwaldbahn
 - **Brévent/Flégère (Chamonix)** (lumiplan chamonix): source only: TPH AIGUILLE DU MIDI, TPH PLAN DE L'AIGUILLE, ASCENSEUR, TRAIN MONTENVERS MER DE GLACE, TC MER DE GLACE, FUNI 2000, TC CHARAMILLON, TC VALLORCINE; ours only: Altitude 2000, Parsa, Index, Sources, Floria, Floria, Évettes, Charlanon
 
 ## Providers on websites
