@@ -813,11 +813,11 @@ function dijkstra(startId, endId) {
 
   dist[startId] = 0;
   const visited = new Set();
-  const queue   = [{ id: startId, cost: 0 }];
+  const queue   = new MinHeap();
+  queue.push(0, startId);
 
-  while (queue.length) {
-    queue.sort((a, b) => a.cost - b.cost);
-    const { id: current } = queue.shift();
+  while (queue.size) {
+    const current = queue.pop();
     if (visited.has(current)) continue;
     visited.add(current);
     if (current === endId) break;
@@ -833,7 +833,7 @@ function dijkstra(startId, endId) {
         dist[edge.to]     = newCost;
         prev[edge.to]     = current;
         prevEdge[edge.to] = edge;
-        queue.push({ id: edge.to, cost: newCost });
+        queue.push(newCost, edge.to);
       }
     });
   }
@@ -976,9 +976,16 @@ function backToPlanner(cardId) {
 
 // A piste edge with `trajecten` runs through several marked numbers (74a
 // that carries on as 75): every part's colour must pass the filter.
+// Cached per edge: the day planner asks this many thousands of times.
+const pisteKleurenCache = new WeakMap();
 function pisteKleuren(edge) {
-  const parts = edge.trajecten || [{ kleur: edge.diff, ookKleur: edge.ookKleur }];
-  return parts.flatMap(t => [t.kleur, t.ookKleur]).filter(Boolean);
+  let kleuren = pisteKleurenCache.get(edge);
+  if (!kleuren) {
+    const parts = edge.trajecten || [{ kleur: edge.diff, ookKleur: edge.ookKleur }];
+    kleuren = parts.flatMap(t => [t.kleur, t.ookKleur]).filter(Boolean);
+    pisteKleurenCache.set(edge, kleuren);
+  }
+  return kleuren;
 }
 
 // Show each part of a gaatOverIn chain as its own step, with its own
