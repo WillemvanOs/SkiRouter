@@ -1,6 +1,6 @@
 {
  "summary": {
-  "date": "2026-10-06T14:28:48.690Z",
+  "date": "2026-10-06T14:40:16.865Z",
   "areas": 579,
   "withWebsite": 506,
   "websiteProviders": {
@@ -18,20 +18,22 @@
    "skiresort": 8
   },
   "sources": {
-   "infosnow": 0,
-   "lumiplan": 12,
-   "micado": 2
+   "infosnow": 12,
+   "lumiplan": 13,
+   "micado": 3
   },
-  "areasWithSource": 9,
+  "areasWithSource": 19,
   "byShare": {
-   "<50 %": 4,
-   "≥75 %": 5
+   "≥75 %": 13,
+   "50–74 %": 2,
+   "<50 %": 4
   },
   "byCountry": {
-   "FR": 7,
-   "AT": 2
+   "CH": 10,
+   "FR": 8,
+   "AT": 1
   },
-  "minutes": 9
+  "minutes": 8
  },
  "sites": [
   {
@@ -272,7 +274,8 @@
       "https://www.bergbahn-pillersee.com/de/oeffnungszeiten-bergbahn-pillersee.html",
       "https://www.bergbahn-pillersee.com/de/tiroler-sommer-bergbahnen.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.bergbahn-pillersee.com"
     }
    },
    "pages": 4
@@ -373,12 +376,15 @@
    "providers": {
     "feratel": {
      "pages": [
-      "https://www.feuerkogel.info/de"
+      "https://www.feuerkogel.info/de",
+      "https://www.feuerkogel.info/de/sommer/geoeffnete-bergbahn",
+      "https://www.feuerkogel.info/de/angebote-tickets/natuerlich-365-ticket",
+      "https://www.feuerkogel.info/de/winter/schneeschuhwandern"
      ],
      "ids": []
     }
    },
-   "pages": 1
+   "pages": 4
   },
   {
    "id": "filzmoos-neuberg-at",
@@ -390,7 +396,8 @@
      "pages": [
       "https://www.filzmoos.at/"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.filzmoos.at"
     },
     "intermaps": {
      "pages": [
@@ -572,7 +579,8 @@
       "https://www.grossarltal.info/de/erlebnisse-buchen.html",
       "https://www.grossarltal.info/de/sommer/pauschalen/almrosenwochen.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.grossarltal.info"
     },
     "feratel": {
      "pages": [
@@ -690,7 +698,8 @@
       "https://www.hochkoenig.at/",
       "https://www.hochkoenig.at/de/sommer/sommerbahnen/sommerbergbahnen-der-region-hochkoenig.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.hochkoenig.at"
     }
    },
    "pages": 2
@@ -775,7 +784,8 @@
       "https://www.hochzeiger.com/de/hochzeiger-preise-im-sommer.html",
       "https://www.hochzeiger.com/de/wanderkarte-hochzeiger.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.hochzeiger.com"
     },
     "feratel": {
      "pages": [
@@ -810,7 +820,7 @@
     "https://www.innerkrems.at/"
    ],
    "providers": {},
-   "pages": 2
+   "pages": 1
   },
   {
    "id": "kals-matrei-at",
@@ -1270,7 +1280,8 @@
      "pages": [
       "https://www.altenmarkt-zauchensee.at/"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.altenmarkt-zauchensee.at"
     },
     "intermaps": {
      "pages": [
@@ -1639,7 +1650,8 @@
       "https://www.diedamskopf.at/de/beste-oesterreichische-sommerbergbahn.html",
       "https://www.diedamskopf.at/de/winterbahnen.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.diedamskopf.at"
     },
     "axess": {
      "pages": [
@@ -1756,7 +1768,8 @@
       "https://www.skiwelt.at/de/einzeltickets-sommer.html",
       "https://www.skiwelt.at/de/winterwanderwege.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.skiwelt.at"
     }
    },
    "pages": 5
@@ -1858,7 +1871,8 @@
      "pages": [
       "https://www.steinplatte.tirol/de/stellenanzeigen-bergbahnen-steinplatte.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.steinplatte.tirol"
     }
    },
    "pages": 5
@@ -3057,7 +3071,8 @@
       "https://www.brauneck-bergbahn.de/de/geschichte-60-jahre-brauneck-bergbahn.html",
       "https://www.brauneck-bergbahn.de/de/tickets-angebote.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.brauneck-bergbahn.de"
     },
     "feratel": {
      "pages": [
@@ -3250,7 +3265,8 @@
       "https://www.alpenbahnen-spitzingsee.de/de/skifahren-snowboarden.html",
       "https://www.alpenbahnen-spitzingsee.de/de/liftstatus.html"
      ],
-     "ids": []
+     "ids": [],
+     "origin": "https://www.alpenbahnen-spitzingsee.de"
     },
     "feratel": {
      "pages": [
@@ -3810,7 +3826,7 @@
      "ids": []
     }
    },
-   "pages": 4
+   "pages": 5
   },
   {
    "id": "domaine-skiable-valberg-fr",
@@ -4259,8 +4275,8 @@
    "providers": {
     "lumiplan": {
      "pages": [
-      "https://www.les7laux.com/ete/",
-      "https://www.les7laux.com/ete/la-station/vtt-randonnees/vtt/les-pistes-vtt/le-vtt-de-descente/"
+      "https://www.les7laux.com/hiver/",
+      "https://www.les7laux.com/hiver/ski-alpin-nordique-autres-glisses/ski/plan-des-pistes/"
      ],
      "ids": [
       "sept-laux"
@@ -6980,6 +6996,1435 @@
  ],
  "sources": [
   {
+   "provider": "infosnow",
+   "source": "pid 31",
+   "title": "Verbier",
+   "match": {
+    "area": "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch",
+    "name": "4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon",
+    "country": "CH",
+    "ourLifts": 68,
+    "sourceLifts": 34,
+    "matched": 33,
+    "share": 49,
+    "unmatchedSource": [],
+    "unmatchedOurs": [
+     "Ethérolla",
+     "Meina",
+     "Greppon Blanc 3",
+     "Greppon Blanc 2",
+     "Veysonnaz",
+     "Cheminée",
+     "Les Masses",
+     "Greppon Blanc 1"
+    ]
+   },
+   "liftCount": 34,
+   "lifts": [
+    {
+     "name": "La Chaux - Col des Gentianes (Jumbo)",
+     "status": "closed"
+    },
+    {
+     "name": "Tortin - Col des Gentianes (Mont Fort 1)",
+     "status": "closed"
+    },
+    {
+     "name": "Gentianes",
+     "status": "closed"
+    },
+    {
+     "name": "Col des Gentianes - Mont Fort (Mont Fort 2)",
+     "status": "closed"
+    },
+    {
+     "name": "Le Châble - Verbier",
+     "status": "open"
+    },
+    {
+     "name": "Barnes Line (Médran 4)",
+     "status": "open"
+    },
+    {
+     "name": "Médran 2",
+     "status": "closed"
+    },
+    {
+     "name": "Mayentzet",
+     "status": "closed"
+    },
+    {
+     "name": "La Chaux-Express",
+     "status": "closed"
+    },
+    {
+     "name": "Funispace",
+     "status": "closed"
+    },
+    {
+     "name": "Attelas",
+     "status": "closed"
+    },
+    {
+     "name": "Chaux 2",
+     "status": "closed"
+    },
+    {
+     "name": "Lac des Vaux 1",
+     "status": "closed"
+    },
+    {
+     "name": "Lac des Vaux 2",
+     "status": "closed"
+    },
+    {
+     "name": "Tortin - Chassoure",
+     "status": "closed"
+    },
+    {
+     "name": "Mont Gelé",
+     "status": "closed"
+    },
+    {
+     "name": "Esserts",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Esserts",
+     "status": "closed"
+    },
+    {
+     "name": "Moulins",
+     "status": "closed"
+    },
+    {
+     "name": "Rouge",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Rouge",
+     "status": "closed"
+    },
+    {
+     "name": "Tournelle",
+     "status": "closed"
+    },
+    {
+     "name": "Les Creux - Savoleyres",
+     "status": "closed"
+    },
+    {
+     "name": "Piguet Galland (TMX Savoleyres)",
+     "status": "closed"
+    },
+    {
+     "name": "Tournelle",
+     "status": "closed"
+    },
+    {
+     "name": "La Tzoumaz - Savoleyres",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Tzoumaz",
+     "status": "closed"
+    },
+    {
+     "name": "Établons",
+     "status": "closed"
+    },
+    {
+     "name": "Taillay",
+     "status": "closed"
+    },
+    {
+     "name": "Nord",
+     "status": "closed"
+    },
+    {
+     "name": "Le Châble - Mayens de Bruson",
+     "status": "closed"
+    },
+    {
+     "name": "Moay",
+     "status": "closed"
+    },
+    {
+     "name": "Moay - La Pasay",
+     "status": "closed"
+    },
+    {
+     "name": "Grand Tsai",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 36",
+   "title": "Nendaz",
+   "match": {
+    "area": "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch",
+    "name": "4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon",
+    "country": "CH",
+    "ourLifts": 68,
+    "sourceLifts": 71,
+    "matched": 60,
+    "share": 88,
+    "unmatchedSource": [
+     "Riddes  -  Isérables",
+     "Tapis du lac",
+     "Slow Vallon",
+     "Bambino I",
+     "Bambino II",
+     "Thyon 2000"
+    ],
+    "unmatchedOurs": [
+     "Meina",
+     "L2",
+     "Bambino 1",
+     "L4",
+     "TSCD6/10 Prarion Telemixt",
+     "Funiculaire Ecluses - Telecabine",
+     "Bambino 2",
+     "L7"
+    ]
+   },
+   "liftCount": 71,
+   "lifts": [
+    {
+     "name": "La Chaux - Col des Gentianes (Jumbo)",
+     "status": "closed"
+    },
+    {
+     "name": "Tortin - Col des Gentianes (Mont Fort 1)",
+     "status": "closed"
+    },
+    {
+     "name": "Gentianes",
+     "status": "closed"
+    },
+    {
+     "name": "Col des Gentianes - Mont Fort (Mont Fort 2)",
+     "status": "closed"
+    },
+    {
+     "name": "Le Châble - Verbier",
+     "status": "open"
+    },
+    {
+     "name": "Barnes Line (Médran 4)",
+     "status": "open"
+    },
+    {
+     "name": "Médran 2",
+     "status": "closed"
+    },
+    {
+     "name": "Mayentzet",
+     "status": "closed"
+    },
+    {
+     "name": "Chaux - Express",
+     "status": "closed"
+    },
+    {
+     "name": "Funispace",
+     "status": "closed"
+    },
+    {
+     "name": "Attelas",
+     "status": "closed"
+    },
+    {
+     "name": "Chaux 2",
+     "status": "closed"
+    },
+    {
+     "name": "Lac des Vaux 1",
+     "status": "closed"
+    },
+    {
+     "name": "Lac des Vaux 2",
+     "status": "closed"
+    },
+    {
+     "name": "Tortin - Chassoure",
+     "status": "closed"
+    },
+    {
+     "name": "Mont Gelé",
+     "status": "closed"
+    },
+    {
+     "name": "Esserts",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Esserts",
+     "status": "closed"
+    },
+    {
+     "name": "Moulins",
+     "status": "closed"
+    },
+    {
+     "name": "Rouge",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Rouge",
+     "status": "closed"
+    },
+    {
+     "name": "Tournelle",
+     "status": "closed"
+    },
+    {
+     "name": "Les Creux - Savoleyres",
+     "status": "closed"
+    },
+    {
+     "name": "Piguet Galland (TMX Savoleyres)",
+     "status": "closed"
+    },
+    {
+     "name": "Tournelle",
+     "status": "closed"
+    },
+    {
+     "name": "La Tzoumaz - Savoleyres",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis Tzoumaz",
+     "status": "closed"
+    },
+    {
+     "name": "Établons",
+     "status": "closed"
+    },
+    {
+     "name": "Taillay",
+     "status": "closed"
+    },
+    {
+     "name": "Nord",
+     "status": "closed"
+    },
+    {
+     "name": "Le Châble - Mayens de Bruson",
+     "status": "closed"
+    },
+    {
+     "name": "Moay",
+     "status": "closed"
+    },
+    {
+     "name": "Moay - La Pasay",
+     "status": "closed"
+    },
+    {
+     "name": "Grand Tsai",
+     "status": "closed"
+    },
+    {
+     "name": "Aviation",
+     "status": "closed"
+    },
+    {
+     "name": "Riddes  -  Isérables",
+     "status": "0"
+    },
+    {
+     "name": "Tracouet",
+     "status": "open"
+    },
+    {
+     "name": "Tapis de Siviez",
+     "status": "closed"
+    },
+    {
+     "name": "Alpage",
+     "status": "closed"
+    },
+    {
+     "name": "La Dent",
+     "status": "closed"
+    },
+    {
+     "name": "Jean - Pierre",
+     "status": "closed"
+    },
+    {
+     "name": "Prarion - Tracouet",
+     "status": "closed"
+    },
+    {
+     "name": "Prarion  -  Plan du Fou",
+     "status": "closed"
+    },
+    {
+     "name": "Siviez  -  Plan du Fou",
+     "status": "closed"
+    },
+    {
+     "name": "Combatseline",
+     "status": "closed"
+    },
+    {
+     "name": "Greppon Blanc 1",
+     "status": "closed"
+    },
+    {
+     "name": "Greppon Blanc 2",
+     "status": "closed"
+    },
+    {
+     "name": "Tortin",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis de Tracouet",
+     "status": "closed"
+    },
+    {
+     "name": "Tapis du lac",
+     "status": "closed"
+    },
+    {
+     "name": "Snowtubing Tracouet",
+     "status": "closed"
+    },
+    {
+     "name": "Les Masses",
+     "status": "closed"
+    },
+    {
+     "name": "Trabanta",
+     "status": "closed"
+    },
+    {
+     "name": "La Matze",
+     "status": "closed"
+    },
+    {
+     "name": "JOC",
+     "status": "closed"
+    },
+    {
+     "name": "Petit Vallon",
+     "status": "closed"
+    },
+    {
+     "name": "Piccolo",
+     "status": "closed"
+    },
+    {
+     "name": "Theytaz 2",
+     "status": "closed"
+    },
+    {
+     "name": "Muraz",
+     "status": "closed"
+    },
+    {
+     "name": "Ethérolla",
+     "status": "closed"
+    },
+    {
+     "name": "Slow Vallon",
+     "status": "closed"
+    },
+    {
+     "name": "Veysonnaz",
+     "status": "closed"
+    },
+    {
+     "name": "Piste de l'Ours",
+     "status": "closed"
+    },
+    {
+     "name": "Bambino I",
+     "status": "closed"
+    },
+    {
+     "name": "Bambino II",
+     "status": "closed"
+    },
+    {
+     "name": "Inalpe",
+     "status": "closed"
+    },
+    {
+     "name": "Drus",
+     "status": "closed"
+    },
+    {
+     "name": "Cheminée",
+     "status": "closed"
+    },
+    {
+     "name": "Tsa",
+     "status": "closed"
+    },
+    {
+     "name": "Les Chottes",
+     "status": "closed"
+    },
+    {
+     "name": "Thyon 2000",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 37",
+   "title": "Flumserberg",
+   "match": {
+    "area": "flumserberg-ch",
+    "name": "Flumserberg",
+    "country": "CH",
+    "ourLifts": 18,
+    "sourceLifts": 17,
+    "matched": 16,
+    "share": 89,
+    "unmatchedSource": [],
+    "unmatchedOurs": [
+     "L1",
+     "Tanneboden"
+    ]
+   },
+   "liftCount": 17,
+   "lifts": [
+    {
+     "name": "SeeJet Sektion 1 (Unterterzen  -  Oberterzen)",
+     "status": "closed"
+    },
+    {
+     "name": "SeeJet Sektion 2 (Oberterzen  -  Tannenboden)",
+     "status": "closed"
+    },
+    {
+     "name": "BergJet (Tannenboden  -  Maschgenkamm)",
+     "status": "closed"
+    },
+    {
+     "name": "Chrüz",
+     "status": "closed"
+    },
+    {
+     "name": "Stelli",
+     "status": "closed"
+    },
+    {
+     "name": "Arve",
+     "status": "closed"
+    },
+    {
+     "name": "Seeben",
+     "status": "closed"
+    },
+    {
+     "name": "Leist",
+     "status": "closed"
+    },
+    {
+     "name": "Panüöl",
+     "status": "closed"
+    },
+    {
+     "name": "Plattis",
+     "status": "closed"
+    },
+    {
+     "name": "Prodalp - Express",
+     "status": "closed"
+    },
+    {
+     "name": "Prodkamm",
+     "status": "closed"
+    },
+    {
+     "name": "Twärchamm",
+     "status": "closed"
+    },
+    {
+     "name": "Tannenboden",
+     "status": "closed"
+    },
+    {
+     "name": "Schwammkopf",
+     "status": "closed"
+    },
+    {
+     "name": "Madils",
+     "status": "closed"
+    },
+    {
+     "name": "Mittenwald",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 39",
+   "title": "Gstaad",
+   "match": {
+    "area": "schonried-saanenmoser-zweisimmen-st-step-ch",
+    "name": "Schönried - Saanenmöser - Zweisimmen - St. Stephan",
+    "country": "CH",
+    "ourLifts": 16,
+    "sourceLifts": 44,
+    "matched": 16,
+    "share": 100,
+    "unmatchedSource": [
+     "C2 Saanenwald  -  Saanerslochgrat",
+     "D2 Läger",
+     "G1 Gstaad  -  Wasserngrat",
+     "H1 Gstaad - Wispile",
+     "H3 Stand  -  Wispile",
+     "H5 Rütti",
+     "H6 Zückerli",
+     "J1 Gstaad  -  Eggli"
+    ],
+    "unmatchedOurs": []
+   },
+   "liftCount": 44,
+   "lifts": [
+    {
+     "name": "A2 Lengebrand  -  Parwengesattel",
+     "status": "closed"
+    },
+    {
+     "name": "B1 Zweisimmen  -  Eggweid",
+     "status": "open"
+    },
+    {
+     "name": "B2 Eggweid  -  Rinderberg",
+     "status": "open"
+    },
+    {
+     "name": "B3 Birrmoos",
+     "status": "closed"
+    },
+    {
+     "name": "B6 Oeschseite  -  Büelti",
+     "status": "closed"
+    },
+    {
+     "name": "C1 Saanenmöser  -  Saanenwald",
+     "status": "closed"
+    },
+    {
+     "name": "C10 Lochstafel",
+     "status": "closed"
+    },
+    {
+     "name": "C12 Oeschseite  -  Chübeli",
+     "status": "closed"
+    },
+    {
+     "name": "C2 Saanenwald  -  Saanerslochgrat",
+     "status": "closed"
+    },
+    {
+     "name": "C4 Chaltebrunne  -  Saanerslochgrat (Verbindung)",
+     "status": "closed"
+    },
+    {
+     "name": "C5 Chaltebrunne  -  Parwengesattel (Verbindung)",
+     "status": "closed"
+    },
+    {
+     "name": "C7 Saanenwald  -  Hornberg",
+     "status": "closed"
+    },
+    {
+     "name": "C8 Hornfluh",
+     "status": "closed"
+    },
+    {
+     "name": "C9 Hüenerspil",
+     "status": "closed"
+    },
+    {
+     "name": "D1 Schönried  -  Horneggli",
+     "status": "open"
+    },
+    {
+     "name": "D2 Läger",
+     "status": "closed"
+    },
+    {
+     "name": "G1 Gstaad  -  Wasserngrat",
+     "status": "closed"
+    },
+    {
+     "name": "H1 Gstaad - Wispile",
+     "status": "open"
+    },
+    {
+     "name": "H3 Stand  -  Wispile",
+     "status": "closed"
+    },
+    {
+     "name": "H5 Rütti",
+     "status": "closed"
+    },
+    {
+     "name": "H6 Zückerli",
+     "status": "closed"
+    },
+    {
+     "name": "J1 Gstaad  -  Eggli",
+     "status": "closed"
+    },
+    {
+     "name": "J2 Stand  -  Eggli",
+     "status": "closed"
+    },
+    {
+     "name": "J3 Saanen  -  Eggli",
+     "status": "closed"
+    },
+    {
+     "name": "J4 Schopfen",
+     "status": "closed"
+    },
+    {
+     "name": "J6 Chalberhöni  -  Vorderes Eggli",
+     "status": "closed"
+    },
+    {
+     "name": "K1 Chalberhöni  -  Les Gouilles",
+     "status": "closed"
+    },
+    {
+     "name": "L1 Rougemont  -  La Videmanette",
+     "status": "closed"
+    },
+    {
+     "name": "L3 Les Gouilles (Va - et - vient)",
+     "status": "closed"
+    },
+    {
+     "name": "O1 Gsteig",
+     "status": "closed"
+    },
+    {
+     "name": "O2 Lauenen",
+     "status": "closed"
+    },
+    {
+     "name": "Tunnel",
+     "status": "closed"
+    },
+    {
+     "name": "Col du Pillon  -  Cabane",
+     "status": "open"
+    },
+    {
+     "name": "Cabane  -  Scex Rouge",
+     "status": "open"
+    },
+    {
+     "name": "Parkplatz Col du Pillon",
+     "status": "0"
+    },
+    {
+     "name": "Glacier  -  Scex Rouge",
+     "status": "open"
+    },
+    {
+     "name": "Oldenalp  -  Oldenegg",
+     "status": "closed"
+    },
+    {
+     "name": "Oldenegg  -  Cabane",
+     "status": "closed"
+    },
+    {
+     "name": "Dôme",
+     "status": "closed"
+    },
+    {
+     "name": "Tsanfleuron",
+     "status": "closed"
+    },
+    {
+     "name": "Quille du Diable",
+     "status": "closed"
+    },
+    {
+     "name": "Borer Scex Rouge",
+     "status": "closed"
+    },
+    {
+     "name": "Col d'Audon",
+     "status": "closed"
+    },
+    {
+     "name": "Reusch  -  Oldenegg",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 43",
+   "title": "Lauchernalp",
+   "match": {
+    "area": "lauchernalp-ch",
+    "name": "Lauchernalp",
+    "country": "CH",
+    "ourLifts": 5,
+    "sourceLifts": 6,
+    "matched": 5,
+    "share": 100,
+    "unmatchedSource": [
+     "Förderband Loichiland"
+    ],
+    "unmatchedOurs": []
+   },
+   "liftCount": 6,
+   "lifts": [
+    {
+     "name": "Wiler - Lauchernalp",
+     "status": "open"
+    },
+    {
+     "name": "Lauchernalp - Stafel",
+     "status": "closed"
+    },
+    {
+     "name": "Stafel - Gandegg",
+     "status": "closed"
+    },
+    {
+     "name": "Märwig - Gandegg",
+     "status": "closed"
+    },
+    {
+     "name": "Gandegg - Hockenhorngrat",
+     "status": "closed"
+    },
+    {
+     "name": "Förderband Loichiland",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 47",
+   "title": "Pizol",
+   "match": {
+    "area": "pizol-ch",
+    "name": "Pizol",
+    "country": "CH",
+    "ourLifts": 12,
+    "sourceLifts": 12,
+    "matched": 10,
+    "share": 83,
+    "unmatchedSource": [
+     "6er - Sessel Schwamm",
+     "Förderbänder Pardiel",
+     "Riderlift Riderpark"
+    ],
+    "unmatchedOurs": [
+     "Riderslift",
+     "Schwammbahn"
+    ]
+   },
+   "liftCount": 12,
+   "lifts": [
+    {
+     "name": "Bad Ragaz - Pardiel",
+     "status": "closed"
+    },
+    {
+     "name": "Pardiel - Laufböden",
+     "status": "closed"
+    },
+    {
+     "name": "Übungslift Prodboden",
+     "status": "closed"
+    },
+    {
+     "name": "6er - Sessel Schwamm",
+     "status": "closed"
+    },
+    {
+     "name": "Verbindungslift Pizolhütte  -  Laufböden",
+     "status": "closed"
+    },
+    {
+     "name": "SAC - Lift",
+     "status": "closed"
+    },
+    {
+     "name": "4er - Sessel Gaffia  -  Pizolhütte",
+     "status": "closed"
+    },
+    {
+     "name": "4er - Sessel Furt  -  Gaffia",
+     "status": "closed"
+    },
+    {
+     "name": "Übungslift Furt",
+     "status": "closed"
+    },
+    {
+     "name": "Gondelbahn Wangs  -  Maienberg  -  Furt",
+     "status": "closed"
+    },
+    {
+     "name": "Förderbänder Pardiel",
+     "status": "closed"
+    },
+    {
+     "name": "Riderlift Riderpark",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 48",
+   "title": "Leukerbad",
+   "match": {
+    "area": "leukerbad-torrent-ch",
+    "name": "Leukerbad (Torrent)",
+    "country": "CH",
+    "ourLifts": 7,
+    "sourceLifts": 12,
+    "matched": 5,
+    "share": 71,
+    "unmatchedSource": [
+     "E Kumme",
+     "I Rinderhütte Kinderland",
+     "O Leukerbad  -  Gemmi",
+     "P Daubensee  -  Gemmi",
+     "1 Kandersteg  -  Sunnbüel",
+     "Thermi",
+     "Känguru"
+    ],
+    "unmatchedOurs": [
+     "Rinderhütte-Torrenthorn",
+     "L6"
+    ]
+   },
+   "liftCount": 12,
+   "lifts": [
+    {
+     "name": "A Leukerbad  -  Rinderhütte",
+     "status": "open"
+    },
+    {
+     "name": "B Flaschen  -  Torrentalp",
+     "status": "preparation"
+    },
+    {
+     "name": "C Torrentalp  -  Rinderhütte",
+     "status": "preparation"
+    },
+    {
+     "name": "D Schwalbennest",
+     "status": "closed"
+    },
+    {
+     "name": "E Kumme",
+     "status": "closed"
+    },
+    {
+     "name": "F Rinderhalde",
+     "status": "closed"
+    },
+    {
+     "name": "I Rinderhütte Kinderland",
+     "status": "closed"
+    },
+    {
+     "name": "O Leukerbad  -  Gemmi",
+     "status": "open"
+    },
+    {
+     "name": "P Daubensee  -  Gemmi",
+     "status": "open"
+    },
+    {
+     "name": "1 Kandersteg  -  Sunnbüel",
+     "status": "open"
+    },
+    {
+     "name": "Thermi",
+     "status": "closed"
+    },
+    {
+     "name": "Känguru",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 51",
+   "title": "Aletsch Arena",
+   "match": {
+    "area": "aletsch-arena-ch",
+    "name": "Aletsch Arena",
+    "country": "CH",
+    "ourLifts": 37,
+    "sourceLifts": 35,
+    "matched": 31,
+    "share": 84,
+    "unmatchedSource": [
+     "Riederalp  -  Moosfluh Riederalp (View Point)",
+     "Bettmeralp Talstation – Bettmeralp",
+     "Tanzboden Bettmeralp",
+     "Bättmerhitta",
+     "Laxeralp I",
+     "Laxeralp II",
+     "Blätz (Fieschertal)"
+    ],
+    "unmatchedOurs": [
+     "L1",
+     "Prinzenland",
+     "Bättmer-Hitta",
+     "Gletscherbahn Moosfluh",
+     "Laxeralp 2",
+     "Laxeralp 1"
+    ]
+   },
+   "liftCount": 35,
+   "lifts": [
+    {
+     "name": "Mörel – Ried - Mörel",
+     "status": "0"
+    },
+    {
+     "name": "Ried - Mörel – Riederalp West",
+     "status": "0"
+    },
+    {
+     "name": "Mörel – Greich – Riederalp Mitte",
+     "status": "0"
+    },
+    {
+     "name": "Riederalp  -  Moosfluh Riederalp (View Point)",
+     "status": "0"
+    },
+    {
+     "name": "Hohfluh Riederalp (View Point)",
+     "status": "0"
+    },
+    {
+     "name": "Riederfurka Riederalp",
+     "status": "0"
+    },
+    {
+     "name": "Trainerlift Alpenrose I Riederalp",
+     "status": "0"
+    },
+    {
+     "name": "Trainerlift Alpenrose II Riederalp",
+     "status": "0"
+    },
+    {
+     "name": "Golmenegg Riederalp",
+     "status": "0"
+    },
+    {
+     "name": "Schweibe Riederalp",
+     "status": "0"
+    },
+    {
+     "name": "Bettmeralp Talstation – Betten Dorf",
+     "status": "0"
+    },
+    {
+     "name": "Betten Dorf – Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Bettmeralp Talstation – Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Blausee Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Läger I Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Läger II Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Tanzboden Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Alpmatten I Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Alpmatten II Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Bettmeralp – Bettmerhorn (View Point)",
+     "status": "0"
+    },
+    {
+     "name": "Schönbiel Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Wurzenbord Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Trainerlift Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Schräglift Alpmatten Bettmeralp",
+     "status": "0"
+    },
+    {
+     "name": "Bättmerhitta",
+     "status": "0"
+    },
+    {
+     "name": "Fiescheralp – Eggishorn (View Point)",
+     "status": "0"
+    },
+    {
+     "name": "Fiesch – Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Flesch Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Talegga Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Heimatt Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Laxeralp I",
+     "status": "0"
+    },
+    {
+     "name": "Laxeralp II",
+     "status": "0"
+    },
+    {
+     "name": "Trainerlift I Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Trainerlift II Fiescheralp",
+     "status": "0"
+    },
+    {
+     "name": "Blätz (Fieschertal)",
+     "status": "0"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 52",
+   "title": "Grächen",
+   "match": {
+    "area": "grachen-ch",
+    "name": "Grächen",
+    "country": "CH",
+    "ourLifts": 11,
+    "sourceLifts": 12,
+    "matched": 11,
+    "share": 100,
+    "unmatchedSource": [
+     "P Hannigalp (lang)",
+     "Q Hannigalp (kurz)"
+    ],
+    "unmatchedOurs": []
+   },
+   "liftCount": 12,
+   "lifts": [
+    {
+     "name": "A Grächen - Hannigalp",
+     "status": "open"
+    },
+    {
+     "name": "C Bärgji 1 Sektion",
+     "status": "closed"
+    },
+    {
+     "name": "C Bärgji 2 Sektion",
+     "status": "closed"
+    },
+    {
+     "name": "D Paradiesli",
+     "status": "closed"
+    },
+    {
+     "name": "E Furggen 1",
+     "status": "closed"
+    },
+    {
+     "name": "F Furggen 2",
+     "status": "closed"
+    },
+    {
+     "name": "G1 Härdera 1",
+     "status": "closed"
+    },
+    {
+     "name": "G2 Härdera 2",
+     "status": "closed"
+    },
+    {
+     "name": "M Stafel - Seetalhorn",
+     "status": "closed"
+    },
+    {
+     "name": "O Plattja",
+     "status": "closed"
+    },
+    {
+     "name": "P Hannigalp (lang)",
+     "status": "closed"
+    },
+    {
+     "name": "Q Hannigalp (kurz)",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 67",
+   "title": "Arosa",
+   "match": {
+    "area": "arosa-lenzerheide-ch",
+    "name": "Arosa Lenzerheide",
+    "country": "CH",
+    "ourLifts": 45,
+    "sourceLifts": 14,
+    "matched": 14,
+    "share": 31,
+    "unmatchedSource": [
+     "A Weisshorn 1. Sektion",
+     "C Weisshorn 2. Sektion"
+    ],
+    "unmatchedOurs": [
+     "Proschieri",
+     "Windegga",
+     "Fadail I",
+     "Weisshorn Speed",
+     "Panoramabahn Heidbüel",
+     "Lavoz",
+     "Motta",
+     "Crappa Grossa"
+    ]
+   },
+   "liftCount": 14,
+   "lifts": [
+    {
+     "name": "A Weisshorn 1. Sektion",
+     "status": "open"
+    },
+    {
+     "name": "C Weisshorn 2. Sektion",
+     "status": "open"
+    },
+    {
+     "name": "E Hörnli - Express",
+     "status": "open"
+    },
+    {
+     "name": "G Urdenbahn",
+     "status": "open"
+    },
+    {
+     "name": "H Hörnli",
+     "status": "closed"
+    },
+    {
+     "name": "I Plattenhorn",
+     "status": "closed"
+    },
+    {
+     "name": "J Carmenna",
+     "status": "closed"
+    },
+    {
+     "name": "K Kulm",
+     "status": "closed"
+    },
+    {
+     "name": "L Tschuggen Ost",
+     "status": "closed"
+    },
+    {
+     "name": "M Brüggerhorn",
+     "status": "closed"
+    },
+    {
+     "name": "N Tomeli",
+     "status": "closed"
+    },
+    {
+     "name": "O Tschuggen West",
+     "status": "closed"
+    },
+    {
+     "name": "P Ried",
+     "status": "closed"
+    },
+    {
+     "name": "Q Prätschli",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 154",
+   "title": "Toggenburg",
+   "match": {
+    "area": "chaserrugg-alt-st-johann-ch",
+    "name": "Chäserrugg-Alt St. Johann",
+    "country": "CH",
+    "ourLifts": 23,
+    "sourceLifts": 16,
+    "matched": 23,
+    "share": 100,
+    "unmatchedSource": [
+     "Oberdorfbahn",
+     "Freienalpbahn",
+     "Gamsalpbahn",
+     "Gamserrugglift",
+     "Oberdorflift",
+     "Zauberteppich Oberdorf",
+     "Wildhaus-Gamplüt"
+    ],
+    "unmatchedOurs": []
+   },
+   "liftCount": 16,
+   "lifts": [
+    {
+     "name": "Oberdorfbahn",
+     "status": "open"
+    },
+    {
+     "name": "Freienalpbahn",
+     "status": "closed"
+    },
+    {
+     "name": "Gamsalpbahn",
+     "status": "open"
+    },
+    {
+     "name": "Gamserrugglift",
+     "status": "closed"
+    },
+    {
+     "name": "Oberdorflift",
+     "status": "closed"
+    },
+    {
+     "name": "Zauberteppich Oberdorf",
+     "status": "closed"
+    },
+    {
+     "name": "Wildhaus-Gamplüt",
+     "status": "open"
+    },
+    {
+     "name": "Unterwasser-Iltios",
+     "status": "open"
+    },
+    {
+     "name": "Alt St.Johann-Sellamatt",
+     "status": "open"
+    },
+    {
+     "name": "Iltios - Chäserrugg",
+     "status": "open"
+    },
+    {
+     "name": "Verbindungslift Sellamatt-Zinggen",
+     "status": "0"
+    },
+    {
+     "name": "Chäserrugg",
+     "status": "0"
+    },
+    {
+     "name": "Ruestel",
+     "status": "0"
+    },
+    {
+     "name": "Espel - Stöfeli (1. Sektion)",
+     "status": "closed"
+    },
+    {
+     "name": "Stöfeli - Chäserrugg (2. Sektion)",
+     "status": "closed"
+    },
+    {
+     "name": "Iltios",
+     "status": "0"
+    }
+   ]
+  },
+  {
+   "provider": "infosnow",
+   "source": "pid 215",
+   "title": "Jaun",
+   "match": null,
+   "liftCount": 6,
+   "lifts": [
+    {
+     "name": "Gastlosenexpress - Ski",
+     "status": "closed"
+    },
+    {
+     "name": "Pinocchio - Kleinskilift",
+     "status": "closed"
+    },
+    {
+     "name": "Gastlosenexpress - Fussgänger",
+     "status": "open"
+    },
+    {
+     "name": "Schattenhalb",
+     "status": "closed"
+    },
+    {
+     "name": "Fussmatta",
+     "status": "closed"
+    },
+    {
+     "name": "Oberbach - Téléski enfants",
+     "status": "closed"
+    }
+   ]
+  },
+  {
    "provider": "lumiplan",
    "source": "chamonix",
    "title": "Bulletin d'ouvertures Chamonix Domaine de Balme",
@@ -6989,85 +8434,338 @@
     "country": "FR",
     "ourLifts": 17,
     "sourceLifts": 14,
-    "matched": 3,
-    "share": 18,
+    "matched": 4,
+    "share": 24,
     "unmatchedSource": [
-     "TPH AIGUILLE DU MIDI08:20 AM",
-     "TPH PLAN DE L'AIGUILLE08:10 AM",
-     "ASCENSEUR08:30 AM",
-     "TRAIN MONTENVERS MER DE GLACE08:30 AM",
-     "TC MER DE GLACEClosed: reopening from 17 october to 1 november",
-     "FUNI 2000Closed: reopening on 12 December",
-     "TC CHARAMILLONClosed: reopening on 12 December",
-     "TC VALLORCINEClosed: reopening on 12 December"
+     "TPH AIGUILLE DU MIDI",
+     "TPH PLAN DE L'AIGUILLE",
+     "ASCENSEUR",
+     "TRAIN MONTENVERS MER DE GLACE",
+     "TC MER DE GLACE",
+     "FUNI 2000",
+     "TC CHARAMILLON",
+     "TC VALLORCINE"
     ],
     "unmatchedOurs": [
-     "Liaison Brévent - Flégère",
      "Altitude 2000",
      "Parsa",
      "Index",
      "Sources",
      "Floria",
      "Floria",
-     "Évettes"
+     "Évettes",
+     "Charlanon"
     ]
    },
    "liftCount": 14,
    "lifts": [
     {
-     "name": "TPH AIGUILLE DU MIDI08:20 AM",
+     "name": "TPH AIGUILLE DU MIDI",
      "status": "scheduled"
     },
     {
-     "name": "TPH PLAN DE L'AIGUILLE08:10 AM",
+     "name": "TPH PLAN DE L'AIGUILLE",
      "status": "scheduled"
     },
     {
-     "name": "ASCENSEUR08:30 AM",
+     "name": "ASCENSEUR",
      "status": "scheduled"
     },
     {
-     "name": "TRAIN MONTENVERS MER DE GLACE08:30 AM",
+     "name": "TRAIN MONTENVERS MER DE GLACE",
      "status": "scheduled"
     },
     {
-     "name": "TC MER DE GLACEClosed: reopening from 17 october to 1 november",
+     "name": "TC MER DE GLACE",
      "status": "closed"
     },
     {
-     "name": "FUNI 2000Closed: reopening on 12 December",
+     "name": "FUNI 2000",
      "status": "closed"
     },
     {
-     "name": "TPH BREVENTClosed: reopening on 12 December",
+     "name": "TPH BREVENT",
      "status": "closed"
     },
     {
-     "name": "TC PLANPRAZClosed: reopening from 17 october to 1 november",
+     "name": "TC PLANPRAZ",
      "status": "closed"
     },
     {
-     "name": "TC FLEGEREClosed: Partial reopening on 28 November – subject to snow conditions",
+     "name": "TC FLEGERE",
      "status": "closed"
     },
     {
-     "name": "TC CHARAMILLONClosed: reopening on 12 December",
+     "name": "TC CHARAMILLON",
      "status": "closed"
     },
     {
-     "name": "TC VALLORCINEClosed: reopening on 12 December",
+     "name": "TC VALLORCINE",
      "status": "closed"
     },
     {
-     "name": "TPH BELLEVUEClosed: reopening on 19 December",
+     "name": "TPH BELLEVUE",
      "status": "closed"
     },
     {
-     "name": "TC PRARIONClosed: reopening on 19 December",
+     "name": "TC PRARION",
      "status": "closed"
     },
     {
-     "name": "TC PLAN JORANClosed: reopening on 5 December",
+     "name": "TC PLAN JORAN",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "megeve",
+   "title": "Bulletin Neige MEGEVE",
+   "match": {
+    "area": "megeve-fr",
+    "name": "Megève",
+    "country": "FR",
+    "ourLifts": 54,
+    "sourceLifts": 54,
+    "matched": 27,
+    "share": 50,
+    "unmatchedSource": [
+     "TP LADY",
+     "TP SCHUSS",
+     "TK LA CRY",
+     "TELEBABY",
+     "TK DES LOYERS",
+     "TC DE LA GORGE",
+     "TC DE MONTJOIE LAY",
+     "TC DU SIGNAL"
+    ],
+    "unmatchedOurs": [
+     "Mont Joly",
+     "Gouet",
+     "L'Alpin",
+     "Les Nants",
+     "Croix du Christ",
+     "Bettex",
+     "Princesse",
+     "Communailles"
+    ]
+   },
+   "liftCount": 54,
+   "lifts": [
+    {
+     "name": "TPH ROCHARBOIS",
+     "status": "out_period"
+    },
+    {
+     "name": "TPH ROCHEBRUNE",
+     "status": "out_period"
+    },
+    {
+     "name": "TC CABOCHE",
+     "status": "out_period"
+    },
+    {
+     "name": "TC CHAMOIS",
+     "status": "out_period"
+    },
+    {
+     "name": "TSD ALPETTE",
+     "status": "out_period"
+    },
+    {
+     "name": "TSD PETITE FONTAINE",
+     "status": "out_period"
+    },
+    {
+     "name": "TSF COTE 2000",
+     "status": "out_period"
+    },
+    {
+     "name": "TSF GRANDS CHAMPS",
+     "status": "out_period"
+    },
+    {
+     "name": "TSF JARDIN",
+     "status": "out_period"
+    },
+    {
+     "name": "TSF PETIT ROCHEBRUNE",
+     "status": "out_period"
+    },
+    {
+     "name": "TSF RADAZ",
+     "status": "out_period"
+    },
+    {
+     "name": "TK CABOCHON",
+     "status": "out_period"
+    },
+    {
+     "name": "TK LANCHETTES",
+     "status": "out_period"
+    },
+    {
+     "name": "TK MOUTELY",
+     "status": "out_period"
+    },
+    {
+     "name": "TK ROCHEFORT",
+     "status": "out_period"
+    },
+    {
+     "name": "TK TOUR",
+     "status": "out_period"
+    },
+    {
+     "name": "TK VILLAGE",
+     "status": "out_period"
+    },
+    {
+     "name": "TP LADY",
+     "status": "out_period"
+    },
+    {
+     "name": "TP SCHUSS",
+     "status": "out_period"
+    },
+    {
+     "name": "TC MONT D ARBOIS",
+     "status": "out_period"
+    },
+    {
+     "name": "TSD IDEAL",
+     "status": "out_period"
+    },
+    {
+     "name": "TK DEBUTANTS",
+     "status": "out_period"
+    },
+    {
+     "name": "TK ETUDIANTS",
+     "status": "out_period"
+    },
+    {
+     "name": "TK GRAND VORASSET",
+     "status": "out_period"
+    },
+    {
+     "name": "TK LA CRY",
+     "status": "out_period"
+    },
+    {
+     "name": "TK PETIT VORASSET",
+     "status": "out_period"
+    },
+    {
+     "name": "TP JARDINEIGE",
+     "status": "out_period"
+    },
+    {
+     "name": "LE VALLEEN",
+     "status": "opened"
+    },
+    {
+     "name": "ASCENSEUR DES THERMES",
+     "status": "opened"
+    },
+    {
+     "name": "TELEBABY",
+     "status": "closed"
+    },
+    {
+     "name": "TK DES LOYERS",
+     "status": "closed"
+    },
+    {
+     "name": "TC DE LA GORGE",
+     "status": "closed"
+    },
+    {
+     "name": "TC DE MONTJOIE LAY",
+     "status": "closed"
+    },
+    {
+     "name": "TC DU SIGNAL",
+     "status": "closed"
+    },
+    {
+     "name": "TSD DE MONTJOIE",
+     "status": "closed"
+    },
+    {
+     "name": "TK DES FOYERES",
+     "status": "closed"
+    },
+    {
+     "name": "TSD OLYMPIQUE",
+     "status": "closed"
+    },
+    {
+     "name": "TSD BUCHE CROISEE",
+     "status": "closed"
+    },
+    {
+     "name": "TK DE ROSELETTE",
+     "status": "closed"
+    },
+    {
+     "name": "TK DU SIGNAL",
+     "status": "closed"
+    },
+    {
+     "name": "TK PIERRE BLANCHE",
+     "status": "closed"
+    },
+    {
+     "name": "TSD DE NANT ROUGE",
+     "status": "closed"
+    },
+    {
+     "name": "TSD DES TIERCES",
+     "status": "closed"
+    },
+    {
+     "name": "TS AIGUILLE CROCHE",
+     "status": "closed"
+    },
+    {
+     "name": "TS DE JONCTION",
+     "status": "closed"
+    },
+    {
+     "name": "TK DE LA GREVETTAZ",
+     "status": "closed"
+    },
+    {
+     "name": "TK DU MONUMENT",
+     "status": "closed"
+    },
+    {
+     "name": "TK DU VELERAY",
+     "status": "closed"
+    },
+    {
+     "name": "TLC DES FEUX",
+     "status": "closed"
+    },
+    {
+     "name": "TC DE LA RUELLE",
+     "status": "closed"
+    },
+    {
+     "name": "TSD DU COL",
+     "status": "closed"
+    },
+    {
+     "name": "TK DE LA RUELLE",
+     "status": "closed"
+    },
+    {
+     "name": "TK DU CHOTON",
+     "status": "closed"
+    },
+    {
+     "name": "TK DU PLAN",
      "status": "closed"
     }
    ]
@@ -7082,93 +8780,88 @@
     "country": "FR",
     "ourLifts": 33,
     "sourceLifts": 16,
-    "matched": 4,
-    "share": 12,
+    "matched": 14,
+    "share": 42,
     "unmatchedSource": [
-     "R1 Télépulsé09:00 AM",
-     "R2 Clos du Vallon09:00 AM",
-     "R6 Peyrefolle09:10 AM",
-     "R8 Pré du Bois09:00 AM",
-     "R15 Combals09:20 AM",
-     "R18 Accueil Bas09:10 AM",
-     "R4 Mélézet09:00 AM",
-     "R5 Plate09:10 AM"
+     "R1 Télépulsé",
+     "R18 Accueil Bas",
+     "R5 Plate"
     ],
     "unmatchedOurs": [
-     "Pré du Bois R8",
      "Platte de la Nonne R5",
      "Baby G2 V7",
-     "Bergerie R16",
      "Escondus V15",
-     "Razis R7",
      "Écrins V6",
-     "Mélézet R4"
+     "Clos Fournier 2 (ESF)",
+     "Bois Noir V12",
+     "Crévoux 1 V19",
+     "Clos Fournier R1"
     ]
    },
    "liftCount": 16,
    "lifts": [
     {
-     "name": "R1 Télépulsé09:00 AM",
+     "name": "R1 Télépulsé",
      "status": "out_period"
     },
     {
-     "name": "R2 Clos du Vallon09:00 AM",
+     "name": "R2 Clos du Vallon",
      "status": "out_period"
     },
     {
-     "name": "R3 Homme de Pierre09:00 AM",
+     "name": "R3 Homme de Pierre",
      "status": "out_period"
     },
     {
-     "name": "R6 Peyrefolle09:10 AM",
+     "name": "R6 Peyrefolle",
      "status": "out_period"
     },
     {
-     "name": "R8 Pré du Bois09:00 AM",
+     "name": "R8 Pré du Bois",
      "status": "out_period"
     },
     {
-     "name": "R14 Pelinche08:45 AM",
+     "name": "R14 Pelinche",
      "status": "out_period"
     },
     {
-     "name": "R15 Combals09:20 AM",
+     "name": "R15 Combals",
      "status": "out_period"
     },
     {
-     "name": "R17 Exercice09:10 AM",
+     "name": "R17 Exercice",
      "status": "out_period"
     },
     {
-     "name": "R18 Accueil Bas09:10 AM",
+     "name": "R18 Accueil Bas",
      "status": "out_period"
     },
     {
-     "name": "R4 Mélézet09:00 AM",
+     "name": "R4 Mélézet",
      "status": "out_period"
     },
     {
-     "name": "R5 Plate09:10 AM",
+     "name": "R5 Plate",
      "status": "out_period"
     },
     {
-     "name": "R7 Razis09:20 AM",
+     "name": "R7 Razis",
      "status": "out_period"
     },
     {
-     "name": "R9 Clos Chardon09:20 AM",
+     "name": "R9 Clos Chardon",
      "status": "out_period"
     },
     {
-     "name": "R12 Mélézet09:00 AM",
+     "name": "R12 Mélézet",
      "status": "out_period"
     },
     {
-     "name": "R13 Orée du Bois08:45 AM",
+     "name": "R13 Orée du Bois",
      "status": "out_period"
     },
     {
-     "name": "R16 Bergerie09:20 AM",
+     "name": "R16 Bergerie",
      "status": "out_period"
     }
    ]
@@ -7320,7 +9013,7 @@
    "liftCount": 1,
    "lifts": [
     {
-     "name": "Marmotins (débutant)09:30 AM",
+     "name": "Marmotins (débutant)",
      "status": "out_period"
     }
    ]
@@ -7333,7 +9026,7 @@
    "liftCount": 4,
    "lifts": [
     {
-     "name": "Lys09:30 AM",
+     "name": "Lys",
      "status": "closed"
     },
     {
@@ -7341,11 +9034,11 @@
      "status": "closed"
     },
     {
-     "name": "Puntas09:30 AM",
+     "name": "Puntas",
      "status": "closed"
     },
     {
-     "name": "Gaube09:45 AM",
+     "name": "Gaube",
      "status": "closed"
     }
    ]
@@ -7363,18 +9056,18 @@
     "matched": 7,
     "share": 100,
     "unmatchedSource": [
-     "Tapis des Eterlous09:00 AM"
+     "Tapis des Eterlous"
     ],
     "unmatchedOurs": []
    },
    "liftCount": 8,
    "lifts": [
     {
-     "name": "TS Labas blanc09:00 AM",
+     "name": "TS Labas blanc",
      "status": "out_period"
     },
     {
-     "name": "TS Pic des tentes09:30 AM",
+     "name": "TS Pic des tentes",
      "status": "out_period"
     },
     {
@@ -7382,23 +9075,23 @@
      "status": "out_period"
     },
     {
-     "name": "TK Mourgat09:30 AM",
+     "name": "TK Mourgat",
      "status": "out_period"
     },
     {
-     "name": "TK Pahule09:00 AM",
+     "name": "TK Pahule",
      "status": "out_period"
     },
     {
-     "name": "TK Saint André09:30 AM",
+     "name": "TK Saint André",
      "status": "out_period"
     },
     {
-     "name": "TK Soutoulet09:00 AM",
+     "name": "TK Soutoulet",
      "status": "out_period"
     },
     {
-     "name": "Tapis des Eterlous09:00 AM",
+     "name": "Tapis des Eterlous",
      "status": "out_period"
     }
    ]
@@ -7411,11 +9104,11 @@
    "liftCount": 2,
    "lifts": [
     {
-     "name": "TPH Pic du Midi02:00 PM",
+     "name": "TPH Pic du Midi",
      "status": "opened"
     },
     {
-     "name": "TPH Taoulet09:30 AM",
+     "name": "TPH Taoulet",
      "status": "opened"
     }
    ]
@@ -7505,7 +9198,7 @@
    "liftCount": 1,
    "lifts": [
     {
-     "name": "CHAMPAGNY09:00 AM",
+     "name": "CHAMPAGNY",
      "status": "out_period"
     }
    ]
@@ -7519,13 +9212,13 @@
     "name": "Paradiski",
     "country": "FR",
     "ourLifts": 134,
-    "sourceLifts": 52,
+    "sourceLifts": 51,
     "matched": 44,
     "share": 33,
     "unmatchedSource": [
      "TELEVILLAGE",
      "1ERE GLISSE",
-     "FUNICULAIREEvery 30 min",
+     "FUNICULAIRE",
      "SNOWPARK",
      "TRANSARC 1",
      "TRANSARC 2",
@@ -7586,7 +9279,7 @@
      "status": "out_period"
     },
     {
-     "name": "FUNICULAIREEvery 30 min",
+     "name": "FUNICULAIRE",
      "status": "out_period"
     },
     {
@@ -7763,340 +9456,8 @@
    "liftCount": 1,
    "lifts": [
     {
-     "name": "TSD Morond09:30 AM",
+     "name": "TSD Morond",
      "status": "closed"
-    }
-   ]
-  },
-  {
-   "provider": "micado",
-   "source": "https://www.kitzski.at kitzski",
-   "title": "kitzski",
-   "match": {
-    "area": "schladming-dachstein-at",
-    "name": "Schladming Dachstein",
-    "country": "AT",
-    "ourLifts": 65,
-    "sourceLifts": 59,
-    "matched": 3,
-    "share": 5,
-    "unmatchedSource": [
-     "A1 Hahnenkammbahn",
-     "A2 Mocking",
-     "A3 Rasmusleiten",
-     "A4 Ministreif",
-     "A5 Ganslern",
-     "A6 Starthaus",
-     "A7 Märchenwald",
-     "A8 Walde"
-    ],
-    "unmatchedOurs": [
-     "Schoberbahn",
-     "Obertalbahn",
-     "Rohrmoos II",
-     "WM Shuttle",
-     "Hasecklift I",
-     "Preunegg Jet",
-     "Höfi-Express I",
-     "Fastenberg 6er"
-    ]
-   },
-   "liftCount": 59,
-   "lifts": [
-    {
-     "name": "A1 Hahnenkammbahn",
-     "id": "A1",
-     "status": 1
-    },
-    {
-     "name": "A2 Mocking",
-     "id": "A2",
-     "status": 2
-    },
-    {
-     "name": "A3 Rasmusleiten",
-     "id": "A3",
-     "status": 2
-    },
-    {
-     "name": "A4 Ministreif",
-     "id": "A4",
-     "status": 2
-    },
-    {
-     "name": "A5 Ganslern",
-     "id": "A5",
-     "status": 2
-    },
-    {
-     "name": "A6 Starthaus",
-     "id": "A6",
-     "status": 2
-    },
-    {
-     "name": "A7 Märchenwald",
-     "id": "A7",
-     "status": 2
-    },
-    {
-     "name": "A8 Walde",
-     "id": "A8",
-     "status": 2
-    },
-    {
-     "name": "B1 Fleckalmbahn",
-     "id": "B1",
-     "status": 1
-    },
-    {
-     "name": "B2 Maierlbahn",
-     "id": "B2",
-     "status": 2
-    },
-    {
-     "name": "B3 Ochsalm",
-     "id": "B3",
-     "status": 2
-    },
-    {
-     "name": "B4 Sonnenrast",
-     "id": "B4",
-     "status": 1
-    },
-    {
-     "name": "B5 Ehrenbachhöhe",
-     "id": "B5",
-     "status": 2
-    },
-    {
-     "name": "B6 Streiteckmulde",
-     "id": "B6",
-     "status": 1
-    },
-    {
-     "name": "C1 Steinbergkogel",
-     "id": "C1",
-     "status": 2
-    },
-    {
-     "name": "C2 Jufen",
-     "id": "C2",
-     "status": 2
-    },
-    {
-     "name": "D1 Pengelstein I",
-     "id": "D1",
-     "status": 2
-    },
-    {
-     "name": "D2 Pengelstein II",
-     "id": "D2",
-     "status": 2
-    },
-    {
-     "name": "D3 Brunn",
-     "id": "D3",
-     "status": 2
-    },
-    {
-     "name": "D4 Silberstube",
-     "id": "D4",
-     "status": 2
-    },
-    {
-     "name": "D5 Kasereck",
-     "id": "D5",
-     "status": 2
-    },
-    {
-     "name": "D6 Hieslegg",
-     "id": "D6",
-     "status": 2
-    },
-    {
-     "name": "D7 Usterkar",
-     "id": "D7",
-     "status": 2
-    },
-    {
-     "name": "D8 Hochsaukaser",
-     "id": "D8",
-     "status": 2
-    },
-    {
-     "name": "D9 3S-Bahn",
-     "id": "D9",
-     "status": 2
-    },
-    {
-     "name": "D10 Übungslift Aschau",
-     "id": "D10",
-     "status": 2
-    },
-    {
-     "name": "D11 Sun Kid Aschau",
-     "id": "D11",
-     "status": 2
-    },
-    {
-     "name": "E1 Gaisberg",
-     "id": "E1",
-     "status": 1
-    },
-    {
-     "name": "E2 Schatzerlift (Übungslift)",
-     "id": "E2",
-     "status": 2
-    },
-    {
-     "name": "E3 Übungslift Reith",
-     "id": "E3",
-     "status": 2
-    },
-    {
-     "name": "E4 Sun Cord Reith",
-     "id": "E4",
-     "status": 2
-    },
-    {
-     "name": "F1 Wagstättbahn",
-     "id": "F1",
-     "status": 2
-    },
-    {
-     "name": "F2 Hausleiten",
-     "id": "F2",
-     "status": 2
-    },
-    {
-     "name": "F3 Talsen",
-     "id": "F3",
-     "status": 2
-    },
-    {
-     "name": "F4 Bärenbadkogel I",
-     "id": "F4",
-     "status": 2
-    },
-    {
-     "name": "F5 Bärenbadkogel II",
-     "id": "F5",
-     "status": 2
-    },
-    {
-     "name": "F6 Gauxjoch",
-     "id": "F6",
-     "status": 2
-    },
-    {
-     "name": "F7 Trattenbach",
-     "id": "F7",
-     "status": 2
-    },
-    {
-     "name": "G1 Resterhöhe",
-     "id": "G1",
-     "status": 2
-    },
-    {
-     "name": "G2 Pass Thurn",
-     "id": "G2",
-     "status": 2
-    },
-    {
-     "name": "G3 Sun Kid Resterhöhe",
-     "id": "G3",
-     "status": 2
-    },
-    {
-     "name": "G4 Resterkogel",
-     "id": "G4",
-     "status": 2
-    },
-    {
-     "name": "G5 Hanglalm",
-     "id": "G5",
-     "status": 2
-    },
-    {
-     "name": "G6 Hartkaser",
-     "id": "G6",
-     "status": 2
-    },
-    {
-     "name": "G7 Zweitausender",
-     "id": "G7",
-     "status": 2
-    },
-    {
-     "name": "G8 Panoramabahn I",
-     "id": "G8",
-     "status": 1
-    },
-    {
-     "name": "G9 Panoramabahn II",
-     "id": "G9",
-     "status": 1
-    },
-    {
-     "name": "H1 Hornbahn I",
-     "id": "H1",
-     "status": 1
-    },
-    {
-     "name": "H2 Hornbahn II",
-     "id": "H2",
-     "status": 1
-    },
-    {
-     "name": "H3 Horngipfelbahn",
-     "id": "H3",
-     "status": 1
-    },
-    {
-     "name": "H4 Raintal",
-     "id": "H4",
-     "status": 2
-    },
-    {
-     "name": "H5 Brunelle",
-     "id": "H5",
-     "status": 2
-    },
-    {
-     "name": "H6 Alpenhaus",
-     "id": "H6",
-     "status": 2
-    },
-    {
-     "name": "H7 Hornköpfl",
-     "id": "H7",
-     "status": 2
-    },
-    {
-     "name": "H8 Eggl",
-     "id": "H8",
-     "status": 2
-    },
-    {
-     "name": "H9 Sun Kid Horn",
-     "id": "H9",
-     "status": 2
-    },
-    {
-     "name": "H10 Trattalmmulde",
-     "id": "H10",
-     "status": 2
-    },
-    {
-     "name": "H11 Bichlalm",
-     "id": "H11",
-     "status": 2
-    },
-    {
-     "name": "Schneekatze",
-     "id": "H12",
-     "status": 2
     }
    ]
   },
@@ -8104,6 +9465,7 @@
    "provider": "micado",
    "source": "https://www.skiwelt.at skiwelt",
    "title": "skiwelt",
+   "hint": "skiwelt-wilder-kaiser-brixental-at",
    "match": {
     "area": "skiwelt-wilder-kaiser-brixental-at",
     "name": "SkiWelt Wilder Kaiser - Brixental",
@@ -8533,317 +9895,39 @@
      "status": 2
     }
    ]
-  }
- ],
- "micado": [
-  {
-   "base": "https://www.kitzski.at",
-   "client": "https://sgm.kitzski.at",
-   "region": "kitzski",
-   "url": "https://www.kitzski.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.kitzski.at&lang=de&region=kitzski&season=winter&type=lift",
-   "lifts": [
-    {
-     "name": "A1 Hahnenkammbahn",
-     "id": "A1",
-     "status": 1
-    },
-    {
-     "name": "A2 Mocking",
-     "id": "A2",
-     "status": 2
-    },
-    {
-     "name": "A3 Rasmusleiten",
-     "id": "A3",
-     "status": 2
-    },
-    {
-     "name": "A4 Ministreif",
-     "id": "A4",
-     "status": 2
-    },
-    {
-     "name": "A5 Ganslern",
-     "id": "A5",
-     "status": 2
-    },
-    {
-     "name": "A6 Starthaus",
-     "id": "A6",
-     "status": 2
-    },
-    {
-     "name": "A7 Märchenwald",
-     "id": "A7",
-     "status": 2
-    },
-    {
-     "name": "A8 Walde",
-     "id": "A8",
-     "status": 2
-    },
-    {
-     "name": "B1 Fleckalmbahn",
-     "id": "B1",
-     "status": 1
-    },
-    {
-     "name": "B2 Maierlbahn",
-     "id": "B2",
-     "status": 2
-    },
-    {
-     "name": "B3 Ochsalm",
-     "id": "B3",
-     "status": 2
-    },
-    {
-     "name": "B4 Sonnenrast",
-     "id": "B4",
-     "status": 1
-    },
-    {
-     "name": "B5 Ehrenbachhöhe",
-     "id": "B5",
-     "status": 2
-    },
-    {
-     "name": "B6 Streiteckmulde",
-     "id": "B6",
-     "status": 1
-    },
-    {
-     "name": "C1 Steinbergkogel",
-     "id": "C1",
-     "status": 2
-    },
-    {
-     "name": "C2 Jufen",
-     "id": "C2",
-     "status": 2
-    },
-    {
-     "name": "D1 Pengelstein I",
-     "id": "D1",
-     "status": 2
-    },
-    {
-     "name": "D2 Pengelstein II",
-     "id": "D2",
-     "status": 2
-    },
-    {
-     "name": "D3 Brunn",
-     "id": "D3",
-     "status": 2
-    },
-    {
-     "name": "D4 Silberstube",
-     "id": "D4",
-     "status": 2
-    },
-    {
-     "name": "D5 Kasereck",
-     "id": "D5",
-     "status": 2
-    },
-    {
-     "name": "D6 Hieslegg",
-     "id": "D6",
-     "status": 2
-    },
-    {
-     "name": "D7 Usterkar",
-     "id": "D7",
-     "status": 2
-    },
-    {
-     "name": "D8 Hochsaukaser",
-     "id": "D8",
-     "status": 2
-    },
-    {
-     "name": "D9 3S-Bahn",
-     "id": "D9",
-     "status": 2
-    },
-    {
-     "name": "D10 Übungslift Aschau",
-     "id": "D10",
-     "status": 2
-    },
-    {
-     "name": "D11 Sun Kid Aschau",
-     "id": "D11",
-     "status": 2
-    },
-    {
-     "name": "E1 Gaisberg",
-     "id": "E1",
-     "status": 1
-    },
-    {
-     "name": "E2 Schatzerlift (Übungslift)",
-     "id": "E2",
-     "status": 2
-    },
-    {
-     "name": "E3 Übungslift Reith",
-     "id": "E3",
-     "status": 2
-    },
-    {
-     "name": "E4 Sun Cord Reith",
-     "id": "E4",
-     "status": 2
-    },
-    {
-     "name": "F1 Wagstättbahn",
-     "id": "F1",
-     "status": 2
-    },
-    {
-     "name": "F2 Hausleiten",
-     "id": "F2",
-     "status": 2
-    },
-    {
-     "name": "F3 Talsen",
-     "id": "F3",
-     "status": 2
-    },
-    {
-     "name": "F4 Bärenbadkogel I",
-     "id": "F4",
-     "status": 2
-    },
-    {
-     "name": "F5 Bärenbadkogel II",
-     "id": "F5",
-     "status": 2
-    },
-    {
-     "name": "F6 Gauxjoch",
-     "id": "F6",
-     "status": 2
-    },
-    {
-     "name": "F7 Trattenbach",
-     "id": "F7",
-     "status": 2
-    },
-    {
-     "name": "G1 Resterhöhe",
-     "id": "G1",
-     "status": 2
-    },
-    {
-     "name": "G2 Pass Thurn",
-     "id": "G2",
-     "status": 2
-    },
-    {
-     "name": "G3 Sun Kid Resterhöhe",
-     "id": "G3",
-     "status": 2
-    },
-    {
-     "name": "G4 Resterkogel",
-     "id": "G4",
-     "status": 2
-    },
-    {
-     "name": "G5 Hanglalm",
-     "id": "G5",
-     "status": 2
-    },
-    {
-     "name": "G6 Hartkaser",
-     "id": "G6",
-     "status": 2
-    },
-    {
-     "name": "G7 Zweitausender",
-     "id": "G7",
-     "status": 2
-    },
-    {
-     "name": "G8 Panoramabahn I",
-     "id": "G8",
-     "status": 1
-    },
-    {
-     "name": "G9 Panoramabahn II",
-     "id": "G9",
-     "status": 1
-    },
-    {
-     "name": "H1 Hornbahn I",
-     "id": "H1",
-     "status": 1
-    },
-    {
-     "name": "H2 Hornbahn II",
-     "id": "H2",
-     "status": 1
-    },
-    {
-     "name": "H3 Horngipfelbahn",
-     "id": "H3",
-     "status": 1
-    },
-    {
-     "name": "H4 Raintal",
-     "id": "H4",
-     "status": 2
-    },
-    {
-     "name": "H5 Brunelle",
-     "id": "H5",
-     "status": 2
-    },
-    {
-     "name": "H6 Alpenhaus",
-     "id": "H6",
-     "status": 2
-    },
-    {
-     "name": "H7 Hornköpfl",
-     "id": "H7",
-     "status": 2
-    },
-    {
-     "name": "H8 Eggl",
-     "id": "H8",
-     "status": 2
-    },
-    {
-     "name": "H9 Sun Kid Horn",
-     "id": "H9",
-     "status": 2
-    },
-    {
-     "name": "H10 Trattalmmulde",
-     "id": "H10",
-     "status": 2
-    },
-    {
-     "name": "H11 Bichlalm",
-     "id": "H11",
-     "status": 2
-    },
-    {
-     "name": "Schneekatze",
-     "id": "H12",
-     "status": 2
-    }
-   ]
   },
   {
-   "base": "https://www.skiwelt.at",
-   "client": "https://sgm.skiwelt.at",
-   "region": "skiwelt",
-   "url": "https://www.skiwelt.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.skiwelt.at&lang=de&region=skiwelt&season=winter&type=lift",
+   "provider": "micado",
+   "source": "https://www.skiwelt.at skiwelt",
+   "title": "skiwelt",
+   "hint": "skiwelt-wilder-kaiser-brixental-at",
+   "match": {
+    "area": "skiwelt-wilder-kaiser-brixental-at",
+    "name": "SkiWelt Wilder Kaiser - Brixental",
+    "country": "AT",
+    "ourLifts": 72,
+    "sourceLifts": 83,
+    "matched": 67,
+    "share": 93,
+    "unmatchedSource": [
+     "Würstlexpress",
+     "Sonnenband",
+     "Zauberteppich Bodenschmied",
+     "Zauberteppich Högerfeld",
+     "Tellerschlepplift Salvista",
+     "Pfaringlift",
+     "Förderband Kelchsau",
+     "Hexenteppich 1"
+    ],
+    "unmatchedOurs": [
+     "Sternfeld Übungslift",
+     "Wagnerfeld",
+     "Tellerlift Salvista",
+     "Würstelexpress",
+     "Bärenlift"
+    ]
+   },
+   "liftCount": 83,
    "lifts": [
     {
      "name": "6er Gondelbahn Hochbrixen",
@@ -9244,23 +10328,620 @@
      "name": "Windauberg",
      "id": "118",
      "status": 2
-    },
+    }
+   ]
+  },
+  {
+   "provider": "micado",
+   "source": "https://www.steinplatte.tirol steinplatte",
+   "title": "steinplatte",
+   "hint": "steinplatte-waidring-tirol-at",
+   "match": null,
+   "liftCount": 14,
+   "lifts": [
     {
-     "name": "Gampenkogel",
-     "id": "119",
+     "name": "15-EUB Gondelbahn Steinplatte (Waidring)",
+     "id": "A",
      "status": 2
     },
     {
-     "name": "Sammer",
-     "id": "125",
+     "name": "6-SB Kammerkör",
+     "id": "B",
      "status": 2
     },
     {
-     "name": "Schneeberg",
-     "id": "126",
+     "name": "8-SB Steinplatte",
+     "id": "C",
+     "status": 2
+    },
+    {
+     "name": "6-SB Plattenkogel",
+     "id": "D",
+     "status": 2
+    },
+    {
+     "name": "6-SB Bäreck",
+     "id": "E",
+     "status": 2
+    },
+    {
+     "name": "8-SB Kapellen",
+     "id": "F",
+     "status": 2
+    },
+    {
+     "name": "4-SB Mösern",
+     "id": "G",
+     "status": 2
+    },
+    {
+     "name": "4-SL Schwarzlofer",
+     "id": "H",
+     "status": 2
+    },
+    {
+     "name": "Dorflift Waidring",
+     "id": "I",
+     "status": 2
+    },
+    {
+     "name": "4-SL Roßalm (Reit im Winkl)",
+     "id": "J",
+     "status": 2
+    },
+    {
+     "name": "Schlepplift Roßalm (Reit im Winkl)",
+     "id": "K",
+     "status": 2
+    },
+    {
+     "name": "Schlepplift-Kurven-Lift (Reit im Winkl)",
+     "id": "L",
+     "status": 2
+    },
+    {
+     "name": "6-SB Scheibelberg (Reit im Winkl)",
+     "id": "M",
+     "status": 2
+    },
+    {
+     "name": "8-EUB Winklmoosalmbahn (Reit im Winkl)",
+     "id": "N",
      "status": 2
     }
    ]
+  }
+ ],
+ "micado": [
+  {
+   "base": "https://www.skiwelt.at",
+   "client": "https://sgm.skiwelt.at",
+   "region": "skiwelt",
+   "area": "skiwelt-wilder-kaiser-brixental-at",
+   "url": "https://www.skiwelt.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.skiwelt.at&lang=de&region=skiwelt&season=winter&type=lift",
+   "liftCount": 83
+  },
+  {
+   "base": "https://www.bergbahn-pillersee.com",
+   "client": "https://sgm.bergbahn-pillersee.com",
+   "region": "bergbahn-pillersee",
+   "area": "buchensteinwand-pillersee-at",
+   "url": "https://www.bergbahn-pillersee.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.bergbahn-pillersee.com&lang=de&region=bergbahn-pillersee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.bergbahn-pillersee.com",
+   "client": "https://sgm.bergbahn-pillersee.com",
+   "region": "bergbahnpillersee",
+   "area": "buchensteinwand-pillersee-at",
+   "url": "https://www.bergbahn-pillersee.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.bergbahn-pillersee.com&lang=de&region=bergbahnpillersee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.bergbahn-pillersee.com",
+   "client": "https://sgm.bergbahn-pillersee.com",
+   "region": "buchensteinwand",
+   "area": "buchensteinwand-pillersee-at",
+   "url": "https://www.bergbahn-pillersee.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.bergbahn-pillersee.com&lang=de&region=buchensteinwand&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.bergbahn-pillersee.com",
+   "client": "https://sgm.bergbahn-pillersee.com",
+   "region": "buchensteinwand-pillersee",
+   "area": "buchensteinwand-pillersee-at",
+   "url": "https://www.bergbahn-pillersee.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.bergbahn-pillersee.com&lang=de&region=buchensteinwand-pillersee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.filzmoos.at",
+   "client": "https://sgm.filzmoos.at",
+   "region": "filzmoos",
+   "area": "filzmoos-neuberg-at",
+   "url": "https://www.filzmoos.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.filzmoos.at&lang=de&region=filzmoos&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.filzmoos.at",
+   "client": "https://sgm.filzmoos.at",
+   "region": "filzmoos-neuberg",
+   "area": "filzmoos-neuberg-at",
+   "url": "https://www.filzmoos.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.filzmoos.at&lang=de&region=filzmoos-neuberg&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.grossarltal.info",
+   "client": "https://sgm.grossarltal.info",
+   "region": "grossarltal",
+   "area": "grossarltal-dorfgastein-at",
+   "url": "https://www.grossarltal.info/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.grossarltal.info&lang=de&region=grossarltal&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.grossarltal.info",
+   "client": "https://sgm.grossarltal.info",
+   "region": "grossarltal-dorfgastein",
+   "area": "grossarltal-dorfgastein-at",
+   "url": "https://www.grossarltal.info/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.grossarltal.info&lang=de&region=grossarltal-dorfgastein&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.hochkoenig.at",
+   "client": "https://sgm.hochkoenig.at",
+   "region": "hochkoenig",
+   "area": "hochkonig-at",
+   "url": "https://www.hochkoenig.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.hochkoenig.at&lang=de&region=hochkoenig&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.hochkoenig.at",
+   "client": "https://sgm.hochkoenig.at",
+   "region": "hochkonig",
+   "area": "hochkonig-at",
+   "url": "https://www.hochkoenig.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.hochkoenig.at&lang=de&region=hochkonig&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.hochzeiger.com",
+   "client": "https://sgm.hochzeiger.com",
+   "region": "hochzeiger",
+   "area": "hochzeiger-at",
+   "url": "https://www.hochzeiger.com/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.hochzeiger.com&lang=de&region=hochzeiger&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.altenmarkt-zauchensee.at",
+   "client": "https://sgm.altenmarkt-zauchensee.at",
+   "region": "altenmarkt-zauchensee",
+   "area": "radstadt-altenmarkt-at",
+   "url": "https://www.altenmarkt-zauchensee.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.altenmarkt-zauchensee.at&lang=de&region=altenmarkt-zauchensee&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.altenmarkt-zauchensee.at",
+   "client": "https://sgm.altenmarkt-zauchensee.at",
+   "region": "altenmarktzauchensee",
+   "area": "radstadt-altenmarkt-at",
+   "url": "https://www.altenmarkt-zauchensee.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.altenmarkt-zauchensee.at&lang=de&region=altenmarktzauchensee&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.altenmarkt-zauchensee.at",
+   "client": "https://sgm.altenmarkt-zauchensee.at",
+   "region": "radstadt",
+   "area": "radstadt-altenmarkt-at",
+   "url": "https://www.altenmarkt-zauchensee.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.altenmarkt-zauchensee.at&lang=de&region=radstadt&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.altenmarkt-zauchensee.at",
+   "client": "https://sgm.altenmarkt-zauchensee.at",
+   "region": "radstadt-altenmarkt",
+   "area": "radstadt-altenmarkt-at",
+   "url": "https://www.altenmarkt-zauchensee.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.altenmarkt-zauchensee.at&lang=de&region=radstadt-altenmarkt&season=winter&type=lift",
+   "error": "HTTP 404",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.diedamskopf.at",
+   "client": "https://sgm.diedamskopf.at",
+   "region": "diedamskopf",
+   "area": "skigebiet-diedamskopf-at",
+   "url": "https://www.diedamskopf.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.diedamskopf.at&lang=de&region=diedamskopf&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.diedamskopf.at",
+   "client": "https://sgm.diedamskopf.at",
+   "region": "skigebiet",
+   "area": "skigebiet-diedamskopf-at",
+   "url": "https://www.diedamskopf.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.diedamskopf.at&lang=de&region=skigebiet&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.diedamskopf.at",
+   "client": "https://sgm.diedamskopf.at",
+   "region": "skigebiet-diedamskopf",
+   "area": "skigebiet-diedamskopf-at",
+   "url": "https://www.diedamskopf.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.diedamskopf.at&lang=de&region=skigebiet-diedamskopf&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.skiwelt.at",
+   "client": "https://sgm.skiwelt.at",
+   "region": "skiwelt",
+   "area": "skiwelt-wilder-kaiser-brixental-at",
+   "url": "https://www.skiwelt.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.skiwelt.at&lang=de&region=skiwelt&season=winter&type=lift",
+   "liftCount": 83
+  },
+  {
+   "base": "https://www.skiwelt.at",
+   "client": "https://sgm.skiwelt.at",
+   "region": "skiwelt-wilder-kaiser-brixental",
+   "area": "skiwelt-wilder-kaiser-brixental-at",
+   "url": "https://www.skiwelt.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.skiwelt.at&lang=de&region=skiwelt-wilder-kaiser-brixental&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.steinplatte.tirol",
+   "client": "https://sgm.steinplatte.tirol",
+   "region": "steinplatte",
+   "area": "steinplatte-waidring-tirol-at",
+   "url": "https://www.steinplatte.tirol/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.steinplatte.tirol&lang=de&region=steinplatte&season=winter&type=lift",
+   "liftCount": 14
+  },
+  {
+   "base": "https://www.steinplatte.tirol",
+   "client": "https://sgm.steinplatte.tirol",
+   "region": "steinplatte-waidring-tirol",
+   "area": "steinplatte-waidring-tirol-at",
+   "url": "https://www.steinplatte.tirol/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.steinplatte.tirol&lang=de&region=steinplatte-waidring-tirol&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.brauneck-bergbahn.de",
+   "client": "https://sgm.brauneck-bergbahn.de",
+   "region": "brauneck-bergbahn",
+   "area": "brauneck-de",
+   "url": "https://www.brauneck-bergbahn.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.brauneck-bergbahn.de&lang=de&region=brauneck-bergbahn&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.brauneck-bergbahn.de",
+   "client": "https://sgm.brauneck-bergbahn.de",
+   "region": "brauneckbergbahn",
+   "area": "brauneck-de",
+   "url": "https://www.brauneck-bergbahn.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.brauneck-bergbahn.de&lang=de&region=brauneckbergbahn&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.brauneck-bergbahn.de",
+   "client": "https://sgm.brauneck-bergbahn.de",
+   "region": "brauneck",
+   "area": "brauneck-de",
+   "url": "https://www.brauneck-bergbahn.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.brauneck-bergbahn.de&lang=de&region=brauneck&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.alpenbahnen-spitzingsee.de",
+   "client": "https://sgm.alpenbahnen-spitzingsee.de",
+   "region": "alpenbahnen-spitzingsee",
+   "area": "skigebiet-spitzingsee-tegernsee-de",
+   "url": "https://www.alpenbahnen-spitzingsee.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.alpenbahnen-spitzingsee.de&lang=de&region=alpenbahnen-spitzingsee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.alpenbahnen-spitzingsee.de",
+   "client": "https://sgm.alpenbahnen-spitzingsee.de",
+   "region": "alpenbahnenspitzingsee",
+   "area": "skigebiet-spitzingsee-tegernsee-de",
+   "url": "https://www.alpenbahnen-spitzingsee.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.alpenbahnen-spitzingsee.de&lang=de&region=alpenbahnenspitzingsee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.alpenbahnen-spitzingsee.de",
+   "client": "https://sgm.alpenbahnen-spitzingsee.de",
+   "region": "skigebiet",
+   "area": "skigebiet-spitzingsee-tegernsee-de",
+   "url": "https://www.alpenbahnen-spitzingsee.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.alpenbahnen-spitzingsee.de&lang=de&region=skigebiet&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  },
+  {
+   "base": "https://www.alpenbahnen-spitzingsee.de",
+   "client": "https://sgm.alpenbahnen-spitzingsee.de",
+   "region": "skigebiet-spitzingsee-tegernsee",
+   "area": "skigebiet-spitzingsee-tegernsee-de",
+   "url": "https://www.alpenbahnen-spitzingsee.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.alpenbahnen-spitzingsee.de&lang=de&region=skigebiet-spitzingsee-tegernsee&season=winter&type=lift",
+   "error": "HTTP 200",
+   "liftCount": 0
+  }
+ ],
+ "intermapsProjects": {
+  "https://winter.intermaps.com/muttereralm": "axamer-lizum-muttereralm-at",
+  "https://winter.intermaps.com/bad_kleinkirchheim": "bad-kleinkirchheim-at-2",
+  "https://winter.intermaps.com/brandnertal": "brandnertal-brand-burserberg-at",
+  "https://winter.intermaps.com/montafon": "brandnertal-brand-burserberg-at",
+  "https://winter.intermaps.com/damuels_mellau_faschina": "skigebiet-damuls-mellau-faschina-at",
+  "https://winter.intermaps.com/dreilaendereck": "dreilandereck-arnoldstein-at",
+  "https://winter.intermaps.com/salzburger_sportwelt": "filzmoos-neuberg-at",
+  "https://winter.intermaps.com/galtuer": "galtur-at",
+  "https://winter.intermaps.com/gerlitzen": "gerlitzen-alpe-at",
+  "https://winter.intermaps.com/heiligenblut": "grossglockner-heiligenblut-at",
+  "https://winter.intermaps.com/schladming_dachstein": "hauser-kaibling-at",
+  "https://winter.intermaps.com/koessen": "hochkossen-unterberghorn-at",
+  "https://winter.intermaps.com/hochrindl": "hochrindl-at",
+  "https://winter.intermaps.com/kappl_see": "see-at",
+  "https://winter.intermaps.com/kitzsteinhorn": "kaprun-kitzsteinhorn-maiskogel-at",
+  "https://winter.intermaps.com/alpin_card": "kaprun-kitzsteinhorn-maiskogel-at",
+  "https://winter.intermaps.com/kreischberg": "kreischberg-at",
+  "https://skiarlberg.intermaps.com/skiarlberg": "ski-arlberg-at-2",
+  "https://winter.intermaps.com/loser": "loser-altaussee-at",
+  "https://zillertal.intermaps.com/zillertal_uebersicht": "mayrhofen-hippach-at",
+  "https://winter.intermaps.com/moelltaler_gletscher": "molltaler-gletscher-at",
+  "https://winter.intermaps.com/reschenpass": "nauders-bergkastel-at",
+  "https://winter.intermaps.com/obertauern": "obertauern-at",
+  "https://winter.intermaps.com/pitztaler_gletscher": "rifflsee-at",
+  "https://winter.intermaps.com/ramsau_dachstein": "ramsau-am-dachstein-at",
+  "https://winter.intermaps.com/silvretta_arena": "silvretta-arena-ischgl-samnaun-at",
+  "https://winter.intermaps.com/diedamskopf": "skigebiet-diedamskopf-at",
+  "https://winter.intermaps.com/petzen": "skigebiet-petzen-at",
+  "https://winter.intermaps.com/dachstein_west": "skiregion-dachstein-west-at",
+  "https://winter.intermaps.com/sonnenkopf": "sonnenkopf-at",
+  "https://winter.intermaps.com/stubaier_gletscher": "stubaier-gletscher-at",
+  "https://winter.intermaps.com/tauplitz": "tauplitz-bad-mitterndorf-at",
+  "https://winter.intermaps.com/weißsee_gletscherwelt": "weisssee-gletscherwelt-at",
+  "https://zillertal.intermaps.com/zillertalarena": "zillertal-arena-at",
+  "https://winter.intermaps.com/san_bernardino": "confin-san-bernardino-ch",
+  "https://winter.intermaps.com/feldberg": "feldberg-de",
+  "https://winter.intermaps.com/zugspitzplatt": "gletscher-skigebiet-zugspitze-ski-resort-de",
+  "https://winter.intermaps.com/zugspitzbahn_garmisch": "skigebiet-garmisch-classic-de",
+  "https://winter.intermaps.com/fichtelberg": "skigebiet-oberwiesenthal-de",
+  "https://winter.intermaps.com/portes_du_soleil": "les-gets-morzine-fr",
+  "https://winter.intermaps.com/ratschings_jaufen": "ratschings-jaufen-it",
+  "https://winter.intermaps.com/malbun": "malbun-li"
+ },
+ "explore": [
+  {
+   "name": "intermaps-1-map.html",
+   "url": "https://winter.intermaps.com/muttereralm?lang=en",
+   "status": 200,
+   "bytes": 12285,
+   "json": false
+  },
+  {
+   "name": "intermaps-1-script0.js",
+   "url": "https://www.googletagmanager.com/gtag/js?id=G-W0S4J7HYKM",
+   "status": 200,
+   "bytes": 495773,
+   "json": false
+  },
+  {
+   "name": "intermaps-1-script1.js",
+   "url": "https://winter.intermaps.com/js/build/map.06f886c4798ed9749df7.js",
+   "status": 200,
+   "bytes": 462418,
+   "json": false
+  },
+  {
+   "name": "intermaps-1-data_lang_en.txt",
+   "url": "https://winter.intermaps.com/muttereralm/data?lang=en",
+   "status": 200,
+   "bytes": 42838,
+   "json": true
+  },
+  {
+   "name": "intermaps-1-data.txt",
+   "url": "https://winter.intermaps.com/muttereralm/data",
+   "status": 200,
+   "bytes": 42938,
+   "json": true
+  },
+  {
+   "name": "intermaps-1-api_data_lang_en.txt",
+   "url": "https://winter.intermaps.com/muttereralm/api/data?lang=en",
+   "status": 404,
+   "bytes": 9,
+   "json": false
+  },
+  {
+   "name": "intermaps-1-json_lang_en.txt",
+   "url": "https://winter.intermaps.com/muttereralm/json?lang=en",
+   "status": 200,
+   "bytes": 12297,
+   "json": false
+  },
+  {
+   "name": "intermaps-1-status_lang_en.txt",
+   "url": "https://winter.intermaps.com/muttereralm/status?lang=en",
+   "status": 200,
+   "bytes": 12301,
+   "json": false
+  },
+  {
+   "name": "intermaps-2-map.html",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim?lang=en",
+   "status": 200,
+   "bytes": 15039,
+   "json": false
+  },
+  {
+   "name": "intermaps-2-data_lang_en.txt",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim/data?lang=en",
+   "status": 200,
+   "bytes": 72236,
+   "json": true
+  },
+  {
+   "name": "intermaps-2-data.txt",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim/data",
+   "status": 200,
+   "bytes": 71699,
+   "json": true
+  },
+  {
+   "name": "intermaps-2-api_data_lang_en.txt",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim/api/data?lang=en",
+   "status": 404,
+   "bytes": 9,
+   "json": false
+  },
+  {
+   "name": "intermaps-2-json_lang_en.txt",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim/json?lang=en",
+   "status": 200,
+   "bytes": 15051,
+   "json": false
+  },
+  {
+   "name": "intermaps-2-status_lang_en.txt",
+   "url": "https://winter.intermaps.com/bad_kleinkirchheim/status?lang=en",
+   "status": 200,
+   "bytes": 15055,
+   "json": false
+  },
+  {
+   "name": "intermaps-3-map.html",
+   "url": "https://winter.intermaps.com/brandnertal?lang=en",
+   "status": 200,
+   "bytes": 16721,
+   "json": false
+  },
+  {
+   "name": "intermaps-3-data_lang_en.txt",
+   "url": "https://winter.intermaps.com/brandnertal/data?lang=en",
+   "status": 200,
+   "bytes": 130256,
+   "json": true
+  },
+  {
+   "name": "intermaps-3-data.txt",
+   "url": "https://winter.intermaps.com/brandnertal/data",
+   "status": 200,
+   "bytes": 129525,
+   "json": true
+  },
+  {
+   "name": "intermaps-3-api_data_lang_en.txt",
+   "url": "https://winter.intermaps.com/brandnertal/api/data?lang=en",
+   "status": 404,
+   "bytes": 9,
+   "json": false
+  },
+  {
+   "name": "intermaps-3-json_lang_en.txt",
+   "url": "https://winter.intermaps.com/brandnertal/json?lang=en",
+   "status": 200,
+   "bytes": 16733,
+   "json": false
+  },
+  {
+   "name": "intermaps-3-status_lang_en.txt",
+   "url": "https://winter.intermaps.com/brandnertal/status?lang=en",
+   "status": 200,
+   "bytes": 16737,
+   "json": false
+  },
+  {
+   "name": "intermaps-4-map.html",
+   "url": "https://winter.intermaps.com/montafon?lang=en",
+   "status": 200,
+   "bytes": 18133,
+   "json": false
+  },
+  {
+   "name": "intermaps-4-data_lang_en.txt",
+   "url": "https://winter.intermaps.com/montafon/data?lang=en",
+   "status": 200,
+   "bytes": 242466,
+   "json": true
+  },
+  {
+   "name": "intermaps-4-data.txt",
+   "url": "https://winter.intermaps.com/montafon/data",
+   "status": 200,
+   "bytes": 241855,
+   "json": true
+  },
+  {
+   "name": "intermaps-4-api_data_lang_en.txt",
+   "url": "https://winter.intermaps.com/montafon/api/data?lang=en",
+   "status": 404,
+   "bytes": 9,
+   "json": false
+  },
+  {
+   "name": "intermaps-4-json_lang_en.txt",
+   "url": "https://winter.intermaps.com/montafon/json?lang=en",
+   "status": 200,
+   "bytes": 18145,
+   "json": false
+  },
+  {
+   "name": "intermaps-4-status_lang_en.txt",
+   "url": "https://winter.intermaps.com/montafon/status?lang=en",
+   "status": 200,
+   "bytes": 18149,
+   "json": false
+  },
+  {
+   "name": "digisnow-avoriaz.html",
+   "url": "https://avoriaz.digisnow.app/",
+   "status": 200,
+   "bytes": 1173,
+   "json": false
+  },
+  {
+   "name": "digisnow-avoriaz-lifts.html",
+   "url": "https://avoriaz.digisnow.app/lifts/winter/true/fr",
+   "status": 200,
+   "bytes": 1173,
+   "json": false
+  },
+  {
+   "name": "dolomiti-lifts.html",
+   "url": "https://www.dolomitisuperski.com/en/live-info/lifts",
+   "status": 403,
+   "bytes": 4915,
+   "json": false
+  },
+  {
+   "name": "altabadia-lifts.html",
+   "url": "https://www.altabadia.org/en/winter-holidays/italian-alps/open-lifts-snow-report.html",
+   "status": 200,
+   "bytes": 315601,
+   "json": false
+  },
+  {
+   "name": "bergfex-lifte-630.html",
+   "url": "https://content.bergfex.at/lifte/630/",
+   "status": 429,
+   "bytes": 162,
+   "json": false
   }
  ]
 }

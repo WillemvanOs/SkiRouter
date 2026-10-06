@@ -1,41 +1,55 @@
 # Live lift status: probe
 
-Run 2026-10-06T14:28 UTC, 9 min.
+Run 2026-10-06T14:40 UTC, 8 min.
 
 - 579 listed areas, 506 with a website in OpenSkiData
 - Providers seen on area websites: intermaps 66, feratel 49, axess 37, lumiplan 29, infosnow 22, digitalsnow 19, dolomiti 13, micado 11, bergfex 10, skiresort 8, skidata 5, skiplan 3
-- Sources with lifts: Infosnow 0, Lumiplan 12, Micado 2
-- **Areas with a matching source: 9** — share of our lifts matched by name: <50 %: 4, ≥75 %: 5
-- Per country: FR 7, AT 2
+- Sources with lifts: Infosnow 12, Lumiplan 13, Micado 3
+- **Areas with a matching source: 19** — share of our lifts matched by name: ≥75 %: 13, 50–74 %: 2, <50 %: 4
+- Per country: CH 10, FR 8, AT 1
 
 ## Areas with a source
 
 | Area | Country | Provider | Source | Our lifts | Source lifts | Matched | Share |
 |---|---|---|---|---:|---:|---:|---:|
+| Schönried - Saanenmöser - Zweisimmen - St. Stephan | CH | infosnow | pid 39 | 16 | 44 | 16 | 100 % |
+| Lauchernalp | CH | infosnow | pid 43 | 5 | 6 | 5 | 100 % |
+| Grächen | CH | infosnow | pid 52 | 11 | 12 | 11 | 100 % |
+| Chäserrugg-Alt St. Johann | CH | infosnow | pid 154 | 23 | 16 | 23 | 100 % |
 | Gavarnie-Gèdre | FR | lumiplan | gavarnie | 7 | 8 | 7 | 100 % |
 | SkiWelt Wilder Kaiser - Brixental | AT | micado | https://www.skiwelt.at skiwelt | 72 | 83 | 67 | 93 % |
+| Flumserberg | CH | infosnow | pid 37 | 18 | 17 | 16 | 89 % |
 | Font d'Urle Chaud Clapier | FR | lumiplan | font-d-urle | 9 | 11 | 8 | 89 % |
+| 4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon | CH | infosnow | pid 36 | 68 | 71 | 60 | 88 % |
 | Station du Col de Rousset | FR | lumiplan | col-de-rousset | 8 | 11 | 7 | 88 % |
 | La Norma | FR | lumiplan | la-norma | 13 | 13 | 11 | 85 % |
-| Paradiski | FR | lumiplan | les-arcs | 134 | 52 | 44 | 33 % |
-| Brévent/Flégère (Chamonix) | FR | lumiplan | chamonix | 17 | 14 | 3 | 18 % |
-| Forêt Blanche : Vars/Risoul | FR | lumiplan | risoul | 33 | 16 | 4 | 12 % |
-| Schladming Dachstein | AT | micado | https://www.kitzski.at kitzski | 65 | 59 | 3 | 5 % |
+| Aletsch Arena | CH | infosnow | pid 51 | 37 | 35 | 31 | 84 % |
+| Pizol | CH | infosnow | pid 47 | 12 | 12 | 10 | 83 % |
+| Leukerbad (Torrent) | CH | infosnow | pid 48 | 7 | 12 | 5 | 71 % |
+| Megève | FR | lumiplan | megeve | 54 | 54 | 27 | 50 % |
+| Forêt Blanche : Vars/Risoul | FR | lumiplan | risoul | 33 | 16 | 14 | 42 % |
+| Paradiski | FR | lumiplan | les-arcs | 134 | 51 | 44 | 33 % |
+| Arosa Lenzerheide | CH | infosnow | pid 67 | 45 | 14 | 14 | 31 % |
+| Brévent/Flégère (Chamonix) | FR | lumiplan | chamonix | 17 | 14 | 4 | 24 % |
 
 ## Sources without a matching area
 
-- lumiplan lus-la-jarjatte (Bulletin Neige LUS LA JARJATTE): 1 lifts, e.g. Marmotins (débutant)09:30 AM
-- lumiplan cauterets (Bulletin d'ouvertures Cauterets): 4 lifts, e.g. Lys09:30 AM, Grand-Barbat, Puntas09:30 AM, Gaube09:45 AM
-- lumiplan grand-tourmalet (Bulletin du Domaine de GRAND TOURMALET): 2 lifts, e.g. TPH Pic du Midi02:00 PM, TPH Taoulet09:30 AM
-- lumiplan la-plagne (Bulletin d'ouvertures La Plagne): 1 lifts, e.g. CHAMPAGNY09:00 AM
-- lumiplan metabief (Bulletin de la station de Métabief): 1 lifts, e.g. TSD Morond09:30 AM
+- infosnow pid 215 (Jaun): 6 lifts, e.g. Gastlosenexpress - Ski, Pinocchio - Kleinskilift, Gastlosenexpress - Fussgänger, Schattenhalb
+- lumiplan lus-la-jarjatte (Bulletin Neige LUS LA JARJATTE): 1 lifts, e.g. Marmotins (débutant)
+- lumiplan cauterets (Bulletin d'ouvertures Cauterets): 4 lifts, e.g. Lys, Grand-Barbat, Puntas, Gaube
+- lumiplan grand-tourmalet (Bulletin du Domaine de GRAND TOURMALET): 2 lifts, e.g. TPH Pic du Midi, TPH Taoulet
+- lumiplan la-plagne (Bulletin d'ouvertures La Plagne): 1 lifts, e.g. CHAMPAGNY
+- lumiplan metabief (Bulletin de la station de Métabief): 1 lifts, e.g. TSD Morond
+- micado https://www.steinplatte.tirol steinplatte (steinplatte): 14 lifts, e.g. 15-EUB Gondelbahn Steinplatte (Waidring), 6-SB Kammerkör, 8-SB Steinplatte, 6-SB Plattenkogel
 
 ## Name mismatches (areas under 75 %)
 
-- **Paradiski** (lumiplan les-arcs): source only: TELEVILLAGE, 1ERE GLISSE, FUNICULAIREEvery 30 min, SNOWPARK, TRANSARC 1, TRANSARC 2, ST JACQUES., ELDORADOR.; ours only: Colorado, Verdons Sud, Mélèzes, Plan Bois, Aiglon, Solu, Inversens, Stade
-- **Brévent/Flégère (Chamonix)** (lumiplan chamonix): source only: TPH AIGUILLE DU MIDI08:20 AM, TPH PLAN DE L'AIGUILLE08:10 AM, ASCENSEUR08:30 AM, TRAIN MONTENVERS MER DE GLACE08:30 AM, TC MER DE GLACEClosed: reopening from 17 october to 1 november, FUNI 2000Closed: reopening on 12 December, TC CHARAMILLONClosed: reopening on 12 December, TC VALLORCINEClosed: reopening on 12 December; ours only: Liaison Brévent - Flégère, Altitude 2000, Parsa, Index, Sources, Floria, Floria, Évettes
-- **Forêt Blanche : Vars/Risoul** (lumiplan risoul): source only: R1 Télépulsé09:00 AM, R2 Clos du Vallon09:00 AM, R6 Peyrefolle09:10 AM, R8 Pré du Bois09:00 AM, R15 Combals09:20 AM, R18 Accueil Bas09:10 AM, R4 Mélézet09:00 AM, R5 Plate09:10 AM; ours only: Pré du Bois R8, Platte de la Nonne R5, Baby G2 V7, Bergerie R16, Escondus V15, Razis R7, Écrins V6, Mélézet R4
-- **Schladming Dachstein** (micado https://www.kitzski.at kitzski): source only: A1 Hahnenkammbahn, A2 Mocking, A3 Rasmusleiten, A4 Ministreif, A5 Ganslern, A6 Starthaus, A7 Märchenwald, A8 Walde; ours only: Schoberbahn, Obertalbahn, Rohrmoos II, WM Shuttle, Hasecklift I, Preunegg Jet, Höfi-Express I, Fastenberg 6er
+- **Leukerbad (Torrent)** (infosnow pid 48): source only: E Kumme, I Rinderhütte Kinderland, O Leukerbad  -  Gemmi, P Daubensee  -  Gemmi, 1 Kandersteg  -  Sunnbüel, Thermi, Känguru; ours only: Rinderhütte-Torrenthorn, L6
+- **Megève** (lumiplan megeve): source only: TP LADY, TP SCHUSS, TK LA CRY, TELEBABY, TK DES LOYERS, TC DE LA GORGE, TC DE MONTJOIE LAY, TC DU SIGNAL; ours only: Mont Joly, Gouet, L'Alpin, Les Nants, Croix du Christ, Bettex, Princesse, Communailles
+- **Forêt Blanche : Vars/Risoul** (lumiplan risoul): source only: R1 Télépulsé, R18 Accueil Bas, R5 Plate; ours only: Platte de la Nonne R5, Baby G2 V7, Escondus V15, Écrins V6, Clos Fournier 2 (ESF), Bois Noir V12, Crévoux 1 V19, Clos Fournier R1
+- **Paradiski** (lumiplan les-arcs): source only: TELEVILLAGE, 1ERE GLISSE, FUNICULAIRE, SNOWPARK, TRANSARC 1, TRANSARC 2, ST JACQUES., ELDORADOR.; ours only: Colorado, Verdons Sud, Mélèzes, Plan Bois, Aiglon, Solu, Inversens, Stade
+- **Arosa Lenzerheide** (infosnow pid 67): source only: A Weisshorn 1. Sektion, C Weisshorn 2. Sektion; ours only: Proschieri, Windegga, Fadail I, Weisshorn Speed, Panoramabahn Heidbüel, Lavoz, Motta, Crappa Grossa
+- **Brévent/Flégère (Chamonix)** (lumiplan chamonix): source only: TPH AIGUILLE DU MIDI, TPH PLAN DE L'AIGUILLE, ASCENSEUR, TRAIN MONTENVERS MER DE GLACE, TC MER DE GLACE, FUNI 2000, TC CHARAMILLON, TC VALLORCINE; ours only: Altitude 2000, Parsa, Index, Sources, Floria, Floria, Évettes, Charlanon
 
 ## Providers on websites
 

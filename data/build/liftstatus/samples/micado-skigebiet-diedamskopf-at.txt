@@ -1,0 +1,3 @@
+https://www.diedamskopf.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.diedamskopf.at&lang=de&region=skigebiet&season=winter&type=lift
+
+{}
