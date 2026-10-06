@@ -24,6 +24,7 @@ import { createInterface } from 'node:readline';
 import { compileArea, validate } from './lib/compile-area.mjs';
 import { download, readFeatures, skiAreaIds, toLift, toRuns } from './lib/openskidata.mjs';
 
+const countryNames = new Intl.DisplayNames(['en'], { type: 'region' });
 const MIN_LIFTS = 5;
 const MIN_KM = 10;
 // European countries (ISO 3166-1 alpha-2), incl. Turkey, Georgia and Russia,
@@ -118,7 +119,7 @@ for (const meta of areas.values()) {
   const { area, diagnostics } = compileArea(input, {
     id: meta.id,
     name: overrides.name || meta.name || meta.id,
-    subtitle: overrides.subtitle || [meta.region, meta.country].filter(Boolean).join(', '),
+    subtitle: overrides.subtitle || [meta.region, countryNames.of(meta.country)].filter(Boolean).join(', '),
     bron: `OpenSkiData (OpenStreetMap) ${meta.osd.join(', ')}, ${new Date().toISOString().slice(0, 10)}`,
   });
   applyOverrides(area, overrides);

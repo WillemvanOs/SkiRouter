@@ -692,6 +692,12 @@ main {
   white-space: nowrap;
 }
 
+.station-item-nr:empty,
+.lift-code:empty,
+.chosen-nr:empty {
+  display: none;
+}
+
 .station-item-alt {
   font-size: 0.75rem;
   font-weight: 700;
@@ -1013,6 +1019,7 @@ main {
 .sign-rood     { background: var(--red); }
 .sign-zwart    { background: var(--black); }
 .sign-noname   { font-size: 1.3rem; }
+.sign-long     { font-size: 1.15rem; letter-spacing: 0; }
 
 /* Ski route: a diamond, like the orange/yellow markers on the mountain. */
 .sign-skiroute {

@@ -237,7 +237,15 @@ const COUNTRY_NAMES = {
   NO: 'Norway', PL: 'Poland', RO: 'Romania', RS: 'Serbia', RU: 'Russia', SE: 'Sweden', SI: 'Slovenia', SK: 'Slovakia',
   TR: 'Turkey', UA: 'Ukraine',
 };
-const countryName = code => COUNTRY_NAMES[code] || code || '';
+const regionNames = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['en'], { type: 'region' }) : null;
+const countryName = code => { try { return regionNames?.of(code) || COUNTRY_NAMES[code] || code || ''; } catch { return COUNTRY_NAMES[code] || code || ''; } };
+
+// Other names people search by, for regions the map data names in English.
+const SEARCH_ALIASES = {
+  tirol: 'tyrol', sudtirol: 'south tyrol', 'alto adige': 'south tyrol', wallis: 'valais',
+  graubunden: 'grisons', karnten: 'carinthia', steiermark: 'styria', salzburgerland: 'salzburg',
+  savoie: 'savoy', piemonte: 'piedmont', lombardia: 'lombardy', bayern: 'bavaria',
+};
 
 async function initApp() {
   const listEl = document.getElementById('area-list');
@@ -276,6 +284,12 @@ const fold = text => (text || '').toLowerCase().normalize('NFD').replace(/[\u030
 // How well an area matches the search: 3 name starts with it, 2 a word in
 // the name does, 1 the name, region, village or country contains it.
 function areaMatch(area, query) {
+  const alias = Object.entries(SEARCH_ALIASES).find(([k]) => k.startsWith(query) && query.length >= 4)?.[1];
+  if (alias && alias !== query) return Math.max(areaMatch(area, alias), plainMatch(area, query));
+  return plainMatch(area, query);
+}
+
+function plainMatch(area, query) {
   const name = fold(area.name);
   if (name.startsWith(query)) return 3;
   if (name.split(/[^a-z0-9]+/).some(w => w.startsWith(query))) return 2;
@@ -340,6 +354,13 @@ function renderAreaList() {
     });
     listEl.appendChild(box);
   });
+}
+
+// A lift number to show: the mapped one (A1, D9). Lifts without a number
+// in the map data get a generated code (L12, OEF-3) that means nothing to a
+// skier, so for those only the name is shown.
+function liftCode(nr) {
+  return /^(L\d+|OEF-\d+)(r|-\d+)?$/.test(nr || '') ? '' : (nr || '');
 }
 
 // Text from map data goes into the page as text, never as HTML.
@@ -424,6 +445,8 @@ function applyAreaToHeader(area) {
 }
 
 function showAreaPicker() {
+  document.getElementById('area-search').value = '';
+  renderAreaList();
   document.getElementById('planner-cards').style.display = 'none';
   document.getElementById('area-picker').style.display   = 'block';
   document.getElementById('area-picker').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -629,7 +652,7 @@ function renderSheet() {
       btn.className = 'station-item';
       btn.innerHTML = `
         ${liftIcon(lift)}
-        <span class="station-item-nr">${lift.nr}</span>
+        <span class="station-item-nr">${liftCode(lift.nr)}</span>
         <span class="station-item-name">${lift.name}</span>
         ${liftStatusHtml(lift.nr)}
       `;
@@ -659,7 +682,7 @@ function pickStation(stationId, lift, dalBerg) {
   document.getElementById(`${routeSide}-box`).style.display        = 'none';
   document.getElementById(`${routeSide}-chosen`).style.display     = 'flex';
   document.getElementById(`${routeSide}-icon`).innerHTML           = liftIcon(lift);
-  document.getElementById(`${routeSide}-nr`).textContent           = lift.nr;
+  document.getElementById(`${routeSide}-nr`).textContent           = liftCode(lift.nr);
   document.getElementById(`${routeSide}-liftname`).textContent     = lift.name;
   setChosenSide(routeSide);
   if (routeSide === 'dend') setEndField(true);
@@ -714,7 +737,7 @@ function swapSides() {
     document.getElementById(`${side}-box`).style.display    = 'none';
     document.getElementById(`${side}-chosen`).style.display = 'flex';
     document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON : liftIcon(s.lift);
-    document.getElementById(`${side}-nr`).textContent       = s.liftNr;
+    document.getElementById(`${side}-nr`).textContent       = s.gps ? s.liftNr : liftCode(s.liftNr);
     document.getElementById(`${side}-liftname`).textContent = s.liftName;
     if (s.gps) document.getElementById(`${side}-side`).textContent = '';
     else setChosenSide(side);
@@ -1000,18 +1023,21 @@ function quickStatus(done, items) {
 // "09:12"-style time shown in front of the step (used by the day planner).
 function stepElement(edge, index, clock) {
   const div   = document.createElement('div');
-  const facts = [edge.km ? `${edge.km} km` : '', edge.tijd ? `~${edge.tijd} min` : ''].filter(Boolean).join(' · ');
+  const km = edge.km ? Math.round(edge.km * 10) / 10 : 0;
+  const facts = [km ? `${km || 0.1} km` : '', edge.tijd ? `~${edge.tijd} min` : ''].filter(Boolean).join(' · ');
   const clockHtml = clock ? `<span class="step-clock">${clock}</span>` : '';
 
   if (edge.type === 'piste') {
     // Piste: the number sits inside a sign in the difficulty colour, like on the mountain.
     const diff = edge.diff || 'rood';
     const nr = String(edge.pisteNr || '');
-    const short = nr.length <= 4; // unnumbered runs use their name as pisteNr
+    // Unnumbered runs use their name (or a generated "~n" key) as pisteNr:
+    // the sign then shows a skier instead.
+    const short = nr.replace(/\s+/g, '').length <= 3 && !nr.startsWith('~');
     div.className = `step step-piste piste-${diff}`;
     div.innerHTML = `
       <span class="step-number">${index + 1}</span>
-      <div class="piste-sign sign-${diff}${short ? '' : ' sign-noname'}" aria-label="Piste ${nr}"><span>${short ? nr : '⛷'}</span></div>
+      <div class="piste-sign sign-${diff}${short ? (nr.replace(/\s+/g, '').length === 3 ? ' sign-long' : '') : ' sign-noname'}" aria-label="Piste ${escapeHtml(nr)}"><span>${short ? escapeHtml(nr.replace(/\s+/g, '')) : '⛷'}</span></div>
       <div class="step-info">
         <div class="step-kind kind-${diff}">${PISTE_KIND[diff] || 'Piste'}</div>
         <div class="step-name">${edge.name}</div>
@@ -1044,7 +1070,7 @@ function stepElement(edge, index, clock) {
       <div class="step-info">
         <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
         <div class="step-actions">${liftStatusHtml(edge.liftNr)}<button class="avoid-btn" type="button" data-avoid="${edge.liftNr}" aria-label="Avoid ${edge.liftNr}">⊘ Avoid</button></div>
-        <div class="step-title"><span class="lift-code">${edge.liftNr}</span><span class="step-name">${edge.name}</span></div>
+        <div class="step-title"><span class="lift-code">${liftCode(edge.liftNr)}</span><span class="step-name">${edge.name}</span></div>
       </div>
     `;
   }
@@ -1119,7 +1145,7 @@ function renderAvoided() {
     el.innerHTML = nrs.length
       ? '<span class="avoid-label">🚫 Avoiding</span>' + nrs.map(nr => {
           const lift = LIFTS.find(l => l.nr === nr);
-          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${nr}')" aria-label="Stop avoiding ${nr}">${nr}${lift ? ` ${lift.name}` : ''} ✕</button>`;
+          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${nr}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${[liftCode(nr), lift?.name].filter(Boolean).join(' ')} ✕</button>`;
         }).join('')
       : '';
   });
