@@ -8,8 +8,10 @@
 //   node tools/fetch-pois.mjs [--areas build/europe/areas] [--out data/pois/europe.json]
 //
 // The Overpass API is free and shared: areas are asked in batches of bounding
-// boxes, one batch at a time with a pause in between, so a full run is a few
-// dozen queries. Runs weekly in GitHub Actions (.github/workflows/pois.yml).
+// boxes, one batch at a time with a pause in between. A run stops after
+// BUDGET_MIN minutes and saves what it has; the next run carries on with the
+// areas fetched longest ago. Runs daily in GitHub Actions
+// (.github/workflows/pois.yml); areas fetched in the last few days are skipped.
 
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname } from 'node:path';
@@ -23,7 +25,13 @@ const PAUSE_MS = 3000;     // between queries
 const PAD = 0.004;         // ~400 m around an area's lifts and runs
 const KEEP_RUN_M = 100;    // keep a place this close to a run's course…
 const KEEP_TOP_M = 130;    // …or to a top station (the build applies the exact rules)
-const OVERPASS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+const OVERPASS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.private.coffee/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+];
+const FRESH_DAYS = 6;      // an area fetched this recently is skipped
+const BUDGET_MIN = Number(process.env.BUDGET_MIN || 80); // then stop and save what we have
 const UA = 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)';
 
 // Every built area: its bounding box, run courses and top stations.
@@ -43,44 +51,52 @@ const areas = readdirSync(AREAS_DIR).filter(f => f.endsWith('.json')).map(f => {
 }).filter(a => a.lines.length);
 console.log(`${areas.length} areas`);
 
-// Batches of nearby areas (sorted west to east), one Overpass query each.
-// A batch that keeps failing (the server times out on busy areas) is split
-// in halves, down to single areas; an area that still fails keeps the places
-// it had in the previous file, and the run carries on.
-areas.sort((a, b) => a.bbox[1] - b.bbox[1]);
-const previous = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')).pois : [];
+// Batches of nearby areas, one Overpass query each. The public Overpass
+// servers are often busy, so a run does what it can within BUDGET_MIN and
+// saves it: areas never fetched (or fetched longest ago) go first, and the
+// next run carries on from there. A batch that keeps failing is split in
+// halves, down to single areas; an area that still fails keeps the places it
+// had before.
+const prevFile = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {};
+const previous = prevFile.pois || [];
+const fetchedAt = { ...(prevFile.fetched || {}) };
+const today = new Date().toISOString().slice(0, 10);
+const fresh = id => fetchedAt[id] && (Date.now() - Date.parse(fetchedAt[id])) / 864e5 < FRESH_DAYS;
+const deadline = Date.now() + BUDGET_MIN * 60e3;
+const todo = areas.filter(a => !fresh(a.id))
+  .sort((a, b) => (fetchedAt[a.id] || '').localeCompare(fetchedAt[b.id] || '') || a.bbox[1] - b.bbox[1]);
+console.log(`${todo.length} to fetch (${areas.length - todo.length} fetched in the last ${FRESH_DAYS} days)`);
 const pois = new Map();
+const done = [];
 const failed = [];
 const batches = [];
-for (let i = 0; i < areas.length; i += BATCH) batches.push(areas.slice(i, i + BATCH));
+for (let i = 0; i < todo.length; i += BATCH) batches.push(todo.slice(i, i + BATCH));
 for (let b = 0; b < batches.length; b++) {
+  if (Date.now() > deadline) { console.log(`Time is up: ${batches.length - b} batches left for the next run.`); break; }
   await fetchBatch(batches[b], `${b + 1}/${batches.length}`);
 }
-for (const area of failed) {
-  const kept = previous.filter(p => inBox(area.bbox, [p.lat, p.lon]));
-  kept.forEach(p => pois.set(p.id, p));
-  console.log(`- ${area.id}: not fetched, kept ${kept.length} places from the previous run`);
-}
+for (const area of failed) console.log(`- ${area.id}: not fetched, keeps its previous places`);
 
 async function fetchBatch(batch, label) {
   const boxes = batch.map(a => a.bbox.map(v => v.toFixed(4)).join(','));
-  const query = `[out:json][timeout:180];(${boxes.map(b =>
+  const query = `[out:json][timeout:90];(${boxes.map(b =>
     `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
   let data;
   try {
-    data = await overpass(query, 3);
+    data = await overpass(query, 2);
   } catch (err) {
-    if (batch.length > 1) {
+    if (batch.length > 1 && Date.now() < deadline) {
       console.log(`batch ${label}: ${err.message}; splitting it`);
       const half = Math.ceil(batch.length / 2);
       await fetchBatch(batch.slice(0, half), `${label}a`);
       await fetchBatch(batch.slice(half), `${label}b`);
     } else {
-      console.log(`batch ${label} (${batch[0].id}): ${err.message}; skipped`);
-      failed.push(batch[0]);
+      console.log(`batch ${label} (${batch.map(a => a.id).join(', ')}): ${err.message}; skipped`);
+      failed.push(...batch);
     }
     return;
   }
+  batch.forEach(a => { fetchedAt[a.id] = today; done.push(a); });
   let kept = 0;
   for (const e of data.elements || []) {
     const lat = e.lat ?? e.center?.lat, lon = e.lon ?? e.center?.lon;
@@ -101,13 +117,19 @@ async function fetchBatch(batch, label) {
   await new Promise(r => setTimeout(r, PAUSE_MS));
 }
 
+// Places of the areas fetched now replace what they had; every other area
+// keeps its places from before.
+const kept = previous.filter(p => !done.some(a => inBox(a.bbox, [p.lat, p.lon])));
+kept.forEach(p => { if (!pois.has(p.id)) pois.set(p.id, p); });
 const list = [...pois.values()].sort((a, b) => a.id.localeCompare(b.id));
+const fetched = Object.fromEntries(Object.entries(fetchedAt).filter(([id]) => areas.some(a => a.id === id)).sort());
 mkdirSync(dirname(OUT), { recursive: true });
-if (previous.length && JSON.stringify(previous) === JSON.stringify(list)) {
+if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile.fetched || {}) === JSON.stringify(fetched)) {
   console.log('unchanged');
 } else {
-  writeFileSync(OUT, JSON.stringify({ updated: new Date().toISOString().slice(0, 10), count: list.length, pois: list }) + '\n');
-  console.log(`written ${list.length} places to ${OUT}${failed.length ? ` (${failed.length} areas not fetched)` : ''}`);
+  writeFileSync(OUT, JSON.stringify({ updated: today, count: list.length, fetched, pois: list }) + '\n');
+  const covered = Object.keys(fetched).length;
+  console.log(`written ${list.length} places to ${OUT}; ${covered}/${areas.length} areas fetched so far${failed.length ? `, ${failed.length} failed this run` : ''}`);
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -144,14 +166,14 @@ async function overpass(query, attempts = 3) {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': UA },
         body: 'data=' + encodeURIComponent(query),
-        signal: AbortSignal.timeout(200000),
+        signal: AbortSignal.timeout(120000),
       });
       if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
       return await res.json();
     } catch (err) {
       lastErr = err;
       console.warn(`  overpass failed (${err.message}), retrying…`);
-      await new Promise(r => setTimeout(r, 10000 * (attempt + 1)));
+      await new Promise(r => setTimeout(r, 8000));
     }
   }
   throw lastErr;

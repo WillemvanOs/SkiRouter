@@ -1,6 +1,9 @@
-# Weekly: fetch mountain restaurants and huts for every European ski area
-# from OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and
-# commit it when it changed. On main the site is then redeployed, so the
+# Daily: fetch mountain restaurants and huts for European ski areas from
+# OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and commit
+# it when it changed. The public Overpass servers are often busy, so each run
+# works for up to 80 minutes on the areas fetched longest ago (areas fetched
+# in the last 6 days are skipped) and saves what it got; together the daily
+# runs keep every area about a week fresh. On main the site is then redeployed, so the
 # areas built at deploy time get the new restaurants. A commit made with
 # GITHUB_TOKEN does not start other workflows, hence the explicit deploy job.
 #
@@ -11,7 +14,7 @@ name: Fetch mountain restaurants
 
 on:
   schedule:
-    - cron: '23 3 * * 1'   # Mondays 03:23 UTC
+    - cron: '23 3 * * *'   # daily 03:23 UTC
   workflow_dispatch:
   push:
     branches-ignore: [main]
@@ -29,7 +32,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 110
     outputs:
       changed: ${{ steps.commit.outputs.changed }}
     steps:
