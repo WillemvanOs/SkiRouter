@@ -122,6 +122,8 @@ async function probeWebsite(area) {
       if (name === 'infosnow') for (const m of page.text.matchAll(/pid=(\d+)/g)) hit.ids.push(m[1]);
       if (name === 'micado') for (const m of page.text.matchAll(/["'(]((?:https?:)?\/\/[^"'()\s]*micadoweb[^"'()\s]*|\/webapi\/micadoweb[^"'()\s]*)/g)) hit.ids.push(new URL(m[1].replace(/&amp;/g, '&'), page.url).href);
       if (name === 'micado') for (const m of page.text.matchAll(/(?:client|region)["']?\s*[:=]\s*["']([\w.:/-]+)["']/g)) hit.ids.push(m[0].slice(0, 120));
+      if (name === 'micado') for (const m of page.text.matchAll(/https?:\/\/sgm\.[\w.-]+/g)) hit.ids.push(m[0]);
+      if (name === 'micado') hit.origin = hit.origin || new URL(page.url).origin;
       if (name === 'intermaps') for (const m of page.text.matchAll(/https?:\/\/[\w.-]*intermaps[\w.-]*\/[^"'\s<>]*/g)) hit.ids.push(m[0].slice(0, 200));
       saveSample(`site-${name}.html`, page.text);
     }
@@ -156,20 +158,21 @@ log(`websites: ${sites.filter(s => s.websites.length).length} areas with a websi
 
 // ── 2. Infosnow ──────────────────────────────────────────────────────────────
 
-// The lift table of an Infosnow (APG|SGA) page, as Liftie reads it: the
-// table whose heading row starts with "Lifts", one row per lift with a status icon.
+// The lift block of an Infosnow (APG|SGA) page: a .block whose heading says
+// "Lifts (2 from 34 installations in service)", then tables with three cells
+// per lift: status icon (…/data/status/8/1.gif: 1 open, 2 in preparation,
+// 3 closed), type icon, name.
 function parseInfosnow(html) {
   const $ = cheerio.load(html);
-  const title = $('title').text().trim() || $('h1').first().text().trim();
+  const title = $('title').text().trim();
   const lifts = [];
-  $('.block table tr').each((_, tr) => {
-    if ($(tr).children().first().text().trim().split(' ')[0] !== 'Lifts') return;
-    const block = $(tr).parent().parent().parent();
-    block.find('.content table tr .icon[src*="status"]').each((_, icon) => {
-      const row = $(icon).closest('tr');
-      const cells = row.children('td');
-      const name = cells.eq(2).text().trim() || cells.eq(1).text().trim();
-      lifts.push({ name, status: ($(icon).attr('src') || '').split('/').pop().replace(/\.\w+$/, '') });
+  $('.block').each((_, block) => {
+    if (!/^\s*Lifts\b/.test($(block).children('h1').text())) return;
+    $(block).find('.content img.icon[src*="/data/status/"]').each((_, icon) => {
+      const cell = $(icon).closest('td');
+      const name = cell.next().next().text().trim();
+      const code = (/\/(\d)\.gif$/.exec($(icon).attr('src') || '') || [])[1];
+      if (name) lifts.push({ name, status: { 1: 'open', 2: 'preparation', 3: 'closed' }[code] || code });
     });
   });
   return { title, lifts };
@@ -199,7 +202,10 @@ function parseLumiplan(html) {
   $('.POI_title').each((_, t) => {
     if (!/lift|remont/i.test($(t).text())) return;
     $(t).next('.liaisons').find('.POI_info').each((_, info) => {
-      const name = $(info).children().eq(1).text().trim().split('\n')[0].trim() || $(info).text().trim().split('\n')[0].trim();
+      if (lifts.length === 0) saveSample('lumiplan-poi.html', $.html(info));
+      const raw = $(info).children().eq(1).text().trim().split('\n')[0].trim() || $(info).text().trim().split('\n')[0].trim();
+      // The opening time or a remark is glued to the name: "Lys09:30 AM".
+      const name = raw.replace(/\d{1,2}:\d{2}\s*(AM|PM)?.*$/i, '').replace(/(Closed|Every|Fermé|Ouvert|Open)\b.*$/i, '').trim();
       const src = $(info).find('img').map((_, i) => $(i).attr('src')).get().find(s => /lp_runway_trail_/.test(s)) || '';
       lifts.push({ name, status: (/lp_runway_trail_(\w+)\.svg/.exec(src) || [])[1] || null });
     });
@@ -224,7 +230,7 @@ log(`Lumiplan: ${guesses.size} station ids to try`);
 const lumiplan = (await pool([...guesses], 4, async station => {
   const url = `https://bulletinv3.lumiplan.pro/bulletin.php?station=${encodeURIComponent(station)}&lang=en`;
   const page = await get(url);
-  if (station === 'meribel') saveSample('lumiplan-meribel.html', page.text || `HTTP ${page.status} ${page.error || ''}`);
+  if (station === 'risoul') saveSample('lumiplan-risoul.html', page.text || `HTTP ${page.status} ${page.error || ''}`);
   await sleep(150);
   if (!page.ok) return null;
   const parsed = parseLumiplan(page.text);
@@ -241,29 +247,65 @@ for (const u of ['https://bulletinv3.lumiplan.pro/', 'https://www.lumiplan.com/'
 
 const MICADO_API = 'SkigebieteManager/Micado.SkigebieteManager.Plugin.FacilityApi/ListFacilities.api';
 const micadoCandidates = [
-  { base: 'https://www.kitzski.at', client: 'https://sgm.kitzski.at', region: 'kitzski' },
-  { base: 'https://www.skiwelt.at', client: 'https://sgm.skiwelt.at', region: 'skiwelt' },
+  { base: 'https://www.skiwelt.at', client: 'https://sgm.skiwelt.at', region: 'skiwelt', area: 'skiwelt-wilder-kaiser-brixental-at' },
 ];
+// Sites built on Micado: the lift list sits at <site>/webapi/micadoweb with
+// the site's "sgm." host as client and a region name we have to guess.
 for (const s of sites) {
-  for (const id of s.providers.micado?.ids || []) {
-    try {
-      const u = new URL(id);
-      const client = u.searchParams.get('client'), region = u.searchParams.get('region');
-      if (client && region) micadoCandidates.push({ base: u.origin, client, region, area: s.id });
-    } catch {}
-  }
+  const hit = s.providers.micado;
+  if (!hit?.origin) continue;
+  const host = new URL(hit.origin).hostname.replace(/^www\./, '');
+  const label = host.split('.').slice(-2, -1)[0];
+  const clients = [...new Set([...hit.ids.filter(i => /^https?:\/\/sgm\./.test(i)), `https://sgm.${host}`])];
+  const regions = [...new Set([label, label.replace(/-/g, ''), s.id.replace(/-at$|-de$|-ch$|-it$/, '').split('-')[0], s.id.replace(/-[a-z]{2}$/, '')])];
+  for (const client of clients.slice(0, 2)) for (const region of regions) micadoCandidates.push({ base: hit.origin, client, region, area: s.id });
 }
+log(`Micado: ${micadoCandidates.length} endpoints to try`);
 const micado = (await pool(micadoCandidates, 3, async c => {
   const params = new URLSearchParams({ api: MICADO_API, client: c.client, lang: 'de', region: c.region, season: 'winter', type: 'lift' });
   const url = `${c.base}/webapi/micadoweb?${params}`;
   const page = await get(url, { json: true });
   let data = null;
   try { data = JSON.parse(page.text); } catch {}
-  if (c.region === 'skiwelt') saveSample('micado-skiwelt.json', page.text || `HTTP ${page.status} ${page.error || ''}`);
+  saveSample(`micado-${c.area}.txt`, `${url}\n\n${page.text || `HTTP ${page.status} ${page.error || ''}`}`.slice(0, 20000));
   const lifts = (data?.facilities || []).map(f => ({ name: f.title || f.name || f.identifier, id: f.identifier, status: f.status }));
   return lifts.length ? { ...c, url, lifts } : { ...c, url, lifts: [], error: page.error || `HTTP ${page.status}` };
 }));
 log(`micado: ${micado.filter(m => m.lifts.length).length}/${micado.length} endpoints with lifts`);
+
+// ── 5. Intermaps, Digisnow, Dolomiti Superski: where does the status come from? ─
+//
+// No parser yet: save the map pages, the scripts they load and a few likely
+// data URLs, to find each one's data feed.
+
+const explore = [];
+async function exploreUrl(name, url) {
+  const page = await get(url);
+  explore.push({ name, url, status: page.status, bytes: page.text.length, json: /^\s*[[{]/.test(page.text), error: page.error });
+  saveSample(name, `${url}\n\n${page.text || `HTTP ${page.status} ${page.error || ''}`}`);
+  return page;
+}
+const intermapsProjects = new Map(); // "https://winter.intermaps.com/obertauern" -> area
+for (const s of sites) {
+  for (const id of s.providers.intermaps?.ids || []) {
+    const m = /^(https:\/\/(?:winter|skiarlberg|zillertal)\.intermaps\.com)\/([\w%ß-]+)/.exec(id.replace(/&amp;/g, '&'));
+    if (m && !/_hike$/.test(m[2])) intermapsProjects.set(`${m[1]}/${m[2]}`, s.id);
+  }
+}
+log(`Intermaps: ${intermapsProjects.size} map projects`);
+let n = 0;
+for (const [project] of [...intermapsProjects].slice(0, 4)) {
+  const tag = `intermaps-${++n}`;
+  const page = await exploreUrl(`${tag}-map.html`, `${project}?lang=en`);
+  const scripts = [...page.text.matchAll(/<script[^>]+src=["']([^"']+)["']/g)].map(m => new URL(m[1], page.url || project).href);
+  for (const [i, src] of scripts.slice(0, 4).entries()) if (n === 1) await exploreUrl(`${tag}-script${i}.js`, src);
+  for (const path of ['data?lang=en', 'data', 'api/data?lang=en', 'json?lang=en', 'status?lang=en']) await exploreUrl(`${tag}-${path.replace(/\W+/g, '_')}.txt`, `${project}/${path}`);
+}
+await exploreUrl('digisnow-avoriaz.html', 'https://avoriaz.digisnow.app/');
+await exploreUrl('digisnow-avoriaz-lifts.html', 'https://avoriaz.digisnow.app/lifts/winter/true/fr');
+await exploreUrl('dolomiti-lifts.html', 'https://www.dolomitisuperski.com/en/live-info/lifts');
+await exploreUrl('altabadia-lifts.html', 'https://www.altabadia.org/en/winter-holidays/italian-alps/open-lifts-snow-report.html');
+await exploreUrl('bergfex-lifte-630.html', 'https://content.bergfex.at/lifte/630/');
 
 // ── Matching ─────────────────────────────────────────────────────────────────
 
@@ -335,7 +377,7 @@ const summary = {
   byCountry: covered.reduce((acc, s) => { acc[s.match.country] = (acc[s.match.country] || 0) + 1; return acc; }, {}),
   minutes: Math.round((Date.now() - started) / 60000),
 };
-writeFileSync(`${OUT}/probe.json`, JSON.stringify({ summary, sites, sources: sources.map(({ lifts, ...s }) => ({ ...s, liftCount: lifts.length, lifts: lifts.slice(0, 80) })), micado }, null, 1) + '\n');
+writeFileSync(`${OUT}/probe.json`, JSON.stringify({ summary, sites, sources: sources.map(({ lifts, ...s }) => ({ ...s, liftCount: lifts.length, lifts: lifts.slice(0, 80) })), micado: micado.map(({ lifts, ...m }) => ({ ...m, liftCount: lifts.length })), intermapsProjects: Object.fromEntries(intermapsProjects), explore }, null, 1) + '\n');
 
 const md = [];
 md.push('# Live lift status: probe', '', `Run ${summary.date.slice(0, 16)} UTC, ${summary.minutes} min.`, '');
