@@ -1,0 +1,64 @@
+# Every 30 minutes during the day: the live lift status of every European
+# ski area with a source (data/liftstatus/sources.json), fetched by
+# tools/liftstatus-europe.mjs and published as the single commit of the
+# `liftstatus` branch (force-pushed, so it never grows). The app reads the
+# files from there; main and the site are not touched.
+#
+# Runs by hand too (Actions → "European lift status" → Run workflow), and on
+# a push to another branch that changes the script or this workflow.
+name: European lift status
+
+on:
+  schedule:
+    - cron: '7,37 5-17 * * *'   # 06:07–18:37 CET, 07:07–19:37 CEST
+  workflow_dispatch:
+  push:
+    branches-ignore: [main, liftstatus]
+    paths:
+      - tools/liftstatus-europe.mjs
+      - tools/lib/liftstatus-providers.mjs
+      - .github/workflows/liftstatus-europe.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: liftstatus-europe
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: HTML parser
+        run: npm install --no-save --no-package-lock cheerio@1
+
+      - name: Previous status
+        run: |
+          git fetch --depth 1 origin liftstatus && git worktree add liftstatus-data origin/liftstatus || mkdir -p liftstatus-data
+          rm -rf liftstatus-data/.git
+
+      - name: Fetch the lift status
+        run: node tools/liftstatus-europe.mjs --sources data/liftstatus/sources.json --out liftstatus-data
+
+      - name: Publish to the liftstatus branch
+        run: |
+          cd liftstatus-data
+          cat > README.md <<'EOF'
+          Live lift status of the European ski areas, written every 30 minutes
+          during the day by .github/workflows/liftstatus-europe.yml on main.
+          This branch is one commit, replaced on every run.
+          EOF
+          git init -q -b liftstatus
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Lift status $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" liftstatus

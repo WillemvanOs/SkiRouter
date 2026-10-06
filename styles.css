@@ -363,6 +363,16 @@ main {
   font-weight: 600;
 }
 
+.area-btn-live {
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.area-live-group > summary > span:first-child {
+  color: var(--green);
+}
+
 .area-credit {
   margin-top: 14px;
   font-size: 0.72rem;

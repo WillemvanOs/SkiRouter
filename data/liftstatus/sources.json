@@ -1,0 +1,1034 @@
+{
+ "updated": "2026-10-06",
+ "minShare": 75,
+ "areas": {
+  "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
+   "name": "4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon",
+   "country": "CH",
+   "share": 92,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 36
+    }
+   ]
+  },
+  "albiez-montrond-fr": {
+   "name": "Albiez-Montrond",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "albiez-montrond"
+    }
+   ]
+  },
+  "arosa-lenzerheide-ch": {
+   "name": "Arosa Lenzerheide",
+   "country": "CH",
+   "share": 96,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/arosa_lenzerheide"
+    }
+   ]
+  },
+  "bad-kleinkirchheim-at-2": {
+   "name": "Bad Kleinkirchheim",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/bad_kleinkirchheim"
+    }
+   ]
+  },
+  "bergeralm-at": {
+   "name": "Bergeralm",
+   "country": "AT",
+   "share": 80,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/bergeralm"
+    }
+   ]
+  },
+  "berwang-at": {
+   "name": "Berwang",
+   "country": "AT",
+   "share": 92,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/berwang"
+    }
+   ]
+  },
+  "brandnertal-brand-burserberg-at": {
+   "name": "Brandnertal – Brand/​Bürserberg",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/brandnertal"
+    }
+   ]
+  },
+  "braunwald-ch": {
+   "name": "Braunwald",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/braunwald"
+    }
+   ]
+  },
+  "confin-san-bernardino-ch": {
+   "name": "Confin / San Bernardino",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/san_bernardino"
+    }
+   ]
+  },
+  "drei-zinnen-tre-cime-drei-zinnen-tre-cim-it": {
+   "name": "Drei Zinnen - Tre Cime, Drei Zinnen, Tre Cime",
+   "country": "IT",
+   "share": 86,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/drei_zinnen"
+    }
+   ]
+  },
+  "dreilandereck-arnoldstein-at": {
+   "name": "Dreiländereck - Arnoldstein",
+   "country": "AT",
+   "share": 86,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/dreilaendereck"
+    }
+   ]
+  },
+  "flumserberg-ch": {
+   "name": "Flumserberg",
+   "country": "CH",
+   "share": 94,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 37
+    }
+   ]
+  },
+  "font-d-urle-chaud-clapier-fr": {
+   "name": "Font d'Urle Chaud Clapier",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "font-d-urle"
+    }
+   ]
+  },
+  "forni-di-sopra-it": {
+   "name": "Forni di Sopra",
+   "country": "IT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/forni_di_sopra"
+    }
+   ]
+  },
+  "galtur-at": {
+   "name": "Galtür",
+   "country": "AT",
+   "share": 78,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/galtuer"
+    }
+   ]
+  },
+  "gargellen-at": {
+   "name": "Gargellen",
+   "country": "AT",
+   "share": 88,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/gargellen"
+    }
+   ]
+  },
+  "gavarnie-gedre-fr": {
+   "name": "Gavarnie-Gèdre",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "gavarnie"
+    }
+   ]
+  },
+  "gerlitzen-alpe-at": {
+   "name": "Gerlitzen Alpe",
+   "country": "AT",
+   "share": 93,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/gerlitzen"
+    }
+   ]
+  },
+  "glacier-3000-ch": {
+   "name": "Glacier 3000",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/gstaad"
+    }
+   ]
+  },
+  "gletscher-skigebiet-zugspitze-ski-resort-de": {
+   "name": "Gletscher-Skigebiet Zugspitze, Ski resort Zugspitze",
+   "country": "DE",
+   "share": 75,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/zugspitzplatt"
+    }
+   ]
+  },
+  "glungezer-at": {
+   "name": "Glungezer",
+   "country": "AT",
+   "share": 80,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/glungezer"
+    }
+   ]
+  },
+  "golm-at": {
+   "name": "Golm",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/golm"
+    }
+   ]
+  },
+  "grachen-ch": {
+   "name": "Grächen",
+   "country": "CH",
+   "share": 91,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 52
+    }
+   ]
+  },
+  "grebenzen-at": {
+   "name": "Grebenzen",
+   "country": "AT",
+   "share": 83,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/grebenzen"
+    }
+   ]
+  },
+  "grossglockner-heiligenblut-at": {
+   "name": "Großglockner Heiligenblut",
+   "country": "AT",
+   "share": 86,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/heiligenblut"
+    }
+   ]
+  },
+  "hintertuxer-gletscher-at": {
+   "name": "Hintertuxer Gletscher",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hintertuxer_gletscher"
+    }
+   ]
+  },
+  "hoch-ybrig-ch": {
+   "name": "Hoch-Ybrig",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hoch_ybrig"
+    }
+   ]
+  },
+  "hochkar-at": {
+   "name": "Hochkar",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hochkar"
+    }
+   ]
+  },
+  "hochkossen-unterberghorn-at": {
+   "name": "Hochkössen - Unterberghorn",
+   "country": "AT",
+   "share": 78,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/koessen"
+    }
+   ]
+  },
+  "hochrindl-at": {
+   "name": "Hochrindl",
+   "country": "AT",
+   "share": 86,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hochrindl"
+    }
+   ]
+  },
+  "hochzeiger-at": {
+   "name": "Hochzeiger",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hochzeiger"
+    }
+   ]
+  },
+  "innerkrems-at": {
+   "name": "Innerkrems",
+   "country": "AT",
+   "share": 75,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/innerkrems"
+    }
+   ]
+  },
+  "kals-matrei-at": {
+   "name": "Kals-Matrei",
+   "country": "AT",
+   "share": 92,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/kals_matrei"
+    }
+   ]
+  },
+  "kappl-at": {
+   "name": "Kappl",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/kappl_see"
+    }
+   ]
+  },
+  "kaprun-kitzsteinhorn-maiskogel-at": {
+   "name": "Kaprun - Kitzsteinhorn/Maiskogel",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/kitzsteinhorn"
+    }
+   ]
+  },
+  "kreischberg-at": {
+   "name": "Kreischberg",
+   "country": "AT",
+   "share": 75,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/kreischberg"
+    }
+   ]
+  },
+  "kronplatz-plan-de-corones-kronplatz-plan-it": {
+   "name": "Kronplatz - Plan de Corones, Kronplatz, Plan de Corones",
+   "country": "IT",
+   "share": 96,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/kronplatz"
+    }
+   ]
+  },
+  "la-norma-fr": {
+   "name": "La Norma",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "la-norma"
+    }
+   ]
+  },
+  "lachtal-at": {
+   "name": "Lachtal",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/lachtal"
+    }
+   ]
+  },
+  "lauchernalp-ch": {
+   "name": "Lauchernalp",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/lauchernalp"
+    }
+   ]
+  },
+  "lech-zurs-at": {
+   "name": "Lech/Zürs",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://skiarlberg.intermaps.com/skiarlberg"
+    }
+   ]
+  },
+  "les-arcs-fr": {
+   "name": "Les Arcs",
+   "country": "FR",
+   "share": 89,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "les-arcs"
+    }
+   ]
+  },
+  "les-contamines-fr": {
+   "name": "Les Contamines",
+   "country": "FR",
+   "share": 96,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "megeve"
+    }
+   ]
+  },
+  "les-gets-morzine-fr": {
+   "name": "Les Gets-Morzine",
+   "country": "FR",
+   "share": 93,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/portes_du_soleil"
+    }
+   ]
+  },
+  "leukerbad-torrent-ch": {
+   "name": "Leukerbad (Torrent)",
+   "country": "CH",
+   "share": 100,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 48
+    }
+   ]
+  },
+  "malbun-li": {
+   "name": "Malbun",
+   "country": "LI",
+   "share": 80,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/malbun"
+    }
+   ]
+  },
+  "molltaler-gletscher-at": {
+   "name": "Mölltaler Gletscher",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/moelltaler_gletscher"
+    }
+   ]
+  },
+  "nassfeld-mokrine-at": {
+   "name": "Nassfeld, Mokrine",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/nassfeld"
+    }
+   ]
+  },
+  "nauders-bergkastel-at": {
+   "name": "Nauders Bergkastel",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/reschenpass"
+    }
+   ]
+  },
+  "obergurgl-hochgurgl-at": {
+   "name": "Obergurgl-Hochgurgl",
+   "country": "AT",
+   "share": 85,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/obergurgl_hochgurgl"
+    }
+   ]
+  },
+  "obertauern-at": {
+   "name": "Obertauern",
+   "country": "AT",
+   "share": 96,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/obertauern"
+    }
+   ]
+  },
+  "ofterschwang-gunzesried-de": {
+   "name": "Ofterschwang/​Gunzesried",
+   "country": "DE",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/ofterschwang"
+    }
+   ]
+  },
+  "passo-stelvio-stilfserjoch-it": {
+   "name": "Passo Stelvio - Stilfserjoch",
+   "country": "IT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/passo_stelvio"
+    }
+   ]
+  },
+  "piancavallo-it": {
+   "name": "Piancavallo",
+   "country": "IT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/piancavallo"
+    }
+   ]
+  },
+  "pitztaler-gletscher-at": {
+   "name": "Pitztaler Gletscher",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/pitztaler_gletscher"
+    }
+   ]
+  },
+  "pizol-ch": {
+   "name": "Pizol",
+   "country": "CH",
+   "share": 92,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 47
+    }
+   ]
+  },
+  "planneralm-at": {
+   "name": "Planneralm",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/planneralm"
+    }
+   ]
+  },
+  "ramsau-am-dachstein-at": {
+   "name": "Ramsau am Dachstein",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/ramsau_dachstein"
+    }
+   ]
+  },
+  "ratschings-jaufen-it": {
+   "name": "Ratschings-Jaufen",
+   "country": "IT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/ratschings_jaufen"
+    }
+   ]
+  },
+  "reiteralm-at": {
+   "name": "Reiteralm",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/schladming_dachstein"
+    }
+   ]
+  },
+  "saas-fee-ch": {
+   "name": "Saas Fee",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/saas_fee"
+    }
+   ]
+  },
+  "schmittenhohe-zell-am-see-at": {
+   "name": "Schmittenhöhe Zell am See",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/alpin_card"
+    }
+   ]
+  },
+  "sillian-hochpustertal-at": {
+   "name": "Sillian - Hochpustertal",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/sillian"
+    }
+   ]
+  },
+  "silvretta-arena-ischgl-samnaun-at": {
+   "name": "Silvretta Arena Ischgl/Samnaun",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/silvretta_arena"
+    },
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/samnaun"
+    }
+   ]
+  },
+  "silvretta-montafon-at": {
+   "name": "Silvretta Montafon",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/montafon"
+    }
+   ]
+  },
+  "ski-gastein-schlossalm-angertal-stubnerk-at": {
+   "name": "Ski Gastein - Schlossalm/Angertal/Stubnerkogel",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/ski_gastein"
+    }
+   ]
+  },
+  "skigebiet-damuls-mellau-faschina-at": {
+   "name": "Skigebiet Damüls-Mellau-Faschina",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/damuels_mellau_faschina"
+    }
+   ]
+  },
+  "skigebiet-garmisch-classic-de": {
+   "name": "Skigebiet Garmisch-Classic",
+   "country": "DE",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/zugspitzbahn_garmisch"
+    }
+   ]
+  },
+  "skigebiet-petzen-at": {
+   "name": "Skigebiet Petzen",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/petzen"
+    }
+   ]
+  },
+  "skiliftkarussell-winterberg-de-2": {
+   "name": "Skiliftkarussell Winterberg",
+   "country": "DE",
+   "share": 96,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/winterberg"
+    }
+   ]
+  },
+  "skipisten-titlis-bergbahnen-ch": {
+   "name": "Skipisten Titlis Bergbahnen",
+   "country": "CH",
+   "share": 93,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/engelberg"
+    }
+   ]
+  },
+  "skiregion-dachstein-west-at": {
+   "name": "Skiregion Dachstein West",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/dachstein_west"
+    }
+   ]
+  },
+  "skiwelt-wilder-kaiser-brixental-at": {
+   "name": "SkiWelt Wilder Kaiser - Brixental",
+   "country": "AT",
+   "share": 96,
+   "bron": "skiwelt.at",
+   "sources": [
+    {
+     "provider": "micado",
+     "base": "https://www.skiwelt.at",
+     "client": "https://sgm.skiwelt.at",
+     "region": "skiwelt"
+    }
+   ]
+  },
+  "sonnenkopf-at": {
+   "name": "Sonnenkopf",
+   "country": "AT",
+   "share": 90,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/sonnenkopf"
+    }
+   ]
+  },
+  "station-du-col-de-rousset-fr": {
+   "name": "Station du Col de Rousset",
+   "country": "FR",
+   "share": 88,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "col-de-rousset"
+    }
+   ]
+  },
+  "steinplatte-waidring-tirol-at": {
+   "name": "Steinplatte Waidring-Tirol",
+   "country": "AT",
+   "share": 79,
+   "bron": "steinplatte.tirol",
+   "sources": [
+    {
+     "provider": "micado",
+     "base": "https://www.steinplatte.tirol",
+     "client": "https://sgm.steinplatte.tirol",
+     "region": "steinplatte"
+    }
+   ]
+  },
+  "stubaier-gletscher-at": {
+   "name": "Stubaier Gletscher",
+   "country": "AT",
+   "share": 94,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/stubaier_gletscher"
+    }
+   ]
+  },
+  "sudelfeld-bayrischzell-de": {
+   "name": "Sudelfeld - Bayrischzell",
+   "country": "DE",
+   "share": 92,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/sudelfeld"
+    }
+   ]
+  },
+  "tauplitz-bad-mitterndorf-at": {
+   "name": "Tauplitz / Bad Mitterndorf",
+   "country": "AT",
+   "share": 94,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/tauplitz"
+    }
+   ]
+  },
+  "venet-at": {
+   "name": "Venet",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/venet"
+    }
+   ]
+  },
+  "wagrain-at": {
+   "name": "Wagrain",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/salzburger_sportwelt"
+    }
+   ]
+  },
+  "weinebene-at": {
+   "name": "Weinebene",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/weinebene"
+    }
+   ]
+  },
+  "weisssee-gletscherwelt-at": {
+   "name": "Weißsee Gletscherwelt",
+   "country": "AT",
+   "share": 88,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/weisssee_gletscherwelt"
+    }
+   ]
+  },
+  "wildhaus-ch": {
+   "name": "Wildhaus",
+   "country": "CH",
+   "share": 100,
+   "bron": "infosnow.ch",
+   "sources": [
+    {
+     "provider": "infosnow",
+     "pid": 154
+    }
+   ]
+  },
+  "zillertal-arena-at": {
+   "name": "Zillertal Arena",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://zillertal.intermaps.com/zillertal_uebersicht"
+    }
+   ]
+  }
+ }
+}

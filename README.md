@@ -19,7 +19,7 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 
 ## Published site (GitHub Pages)
 
-Only the planner files go online: `index.html`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
+Only the planner files go online: `index.html`, `liftmatch.js`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
 `manifest.webmanifest`, `icons/` and `data/`.
 
 Pages must be set to **Settings → Pages → Build and deployment → Source: GitHub Actions**.
@@ -169,6 +169,39 @@ later than 30 minutes. That is why the app also fetches the status live, straigh
 (its API allows requests from other sites), when an area opens and every 5 minutes while the app is
 on screen. The latest live result is kept on the phone. Without a connection the app uses whichever
 is newer, that stored result or the file from GitHub Actions. The tip then says "live" or not.
+
+### Live lift status for European ski areas
+
+Many European areas publish their lift status through a few providers. The planner reads
+four of them:
+- **Intermaps:** the interactive piste maps of many Austrian, German, Swiss and Italian areas.
+  Every map has a JSON feed at `<map>/data`.
+- **Infosnow:** Switzerland.
+- **Lumiplan:** French snow bulletins, with opening hours.
+- **Micado:** SkiWelt.
+
+The parsers are in `tools/lib/liftstatus-providers.mjs`.
+
+- **Which areas** (weekly, `.github/workflows/liftstatus-sources.yml`):
+  `tools/liftstatus-sources.mjs` finds candidate sources in four ways: on each area's website
+  (from OpenSkiData), by guessing map and station names from area and village names, by
+  trying every Infosnow page, and from the Micado sites. Each source belongs to the area
+  whose lift names it matches best. An area gets live status when its sources cover at least
+  75 % of its named lifts. The result goes into `data/liftstatus/sources.json` and
+  `report.md`; the deploy then marks those areas in the area list.
+- **The status** (every 30 minutes from 06:00 to 19:00, `.github/workflows/liftstatus-europe.yml`):
+  `tools/liftstatus-europe.mjs` writes one file per area with the provider's own lift names,
+  open or closed and, where known, the hours. The files are published as the single commit of
+  the `liftstatus` branch, replaced on every run, so main and the site are not touched. When
+  a source cannot be read, the area keeps its previous file and time.
+- **In the app:** the app reads the file from `raw.githubusercontent.com` (the repository is
+  public). It matches the names to the area's lifts with `liftmatch.js`, refreshes every 5
+  minutes, and keeps the last status on the phone for offline use. Names are compared without
+  accents, type words ("TSD", "8EUB", "Sesselbahn") or map codes ("A", "C3"), with Roman
+  numerals as digits; two lifts whose numbers differ are never matched. These areas are listed
+  under **● With live lift status** in the area picker. From there, everything works as
+  for KitzSki: status in the station picker, warnings, avoiding and the day planner's lift
+  hours.
 
 ## Avoiding lifts
 

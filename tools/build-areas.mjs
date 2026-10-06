@@ -122,6 +122,15 @@ function poisIn(input) {
   return ALL_POIS.filter(p => p.lat >= s - pad && p.lat <= n + pad && p.lon >= w - pad && p.lon <= e + pad);
 }
 
+// Areas with a live lift status source (tools/liftstatus-sources.mjs). The
+// status itself is on the `liftstatus` branch (tools/liftstatus-europe.mjs),
+// which the app reads from raw.githubusercontent.com; in GitHub Actions the
+// repository is known, elsewhere set LIFTSTATUS_RAW to turn it on.
+const LIVE_SOURCES = existsSync('data/liftstatus/sources.json') ? JSON.parse(readFileSync('data/liftstatus/sources.json', 'utf8')).areas : {};
+const LIVE_RAW = process.env.LIFTSTATUS_RAW
+  || (process.env.GITHUB_REPOSITORY ? `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}/liftstatus` : null);
+console.log(`${Object.keys(LIVE_SOURCES).length} areas with a lift status source${LIVE_RAW ? '' : ' (not linked: no LIFTSTATUS_RAW)'}`);
+
 // 3. Compile each area, merge overrides, write.
 const reports = {};
 const index = [];
@@ -165,7 +174,8 @@ for (const meta of areas.values()) {
   index.push({ id: meta.id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
     places: [...meta.places].filter(n => n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 8), centre,
     liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte,
-    status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${meta.id}.json` });
+    status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${meta.id}.json`,
+    ...(LIVE_RAW && LIVE_SOURCES[meta.id] ? { liftstatus: { europe: true, file: `${LIVE_RAW}/europe/${meta.id}.json` } } : {}) });
   if (!EUROPE_MODE) console.log(`- ${meta.id}: ${JSON.stringify(reports[meta.id])}`);
 }
 rmSync(SPILL, { recursive: true, force: true });
