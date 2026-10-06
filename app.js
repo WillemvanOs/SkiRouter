@@ -359,10 +359,18 @@ function renderAreaList() {
     if (openCountries.has(key)) box.open = true;
   };
 
-  // Areas with live lift status: the curated ones and the European areas
-  // with a status source (tools/liftstatus-sources.mjs).
-  const live = AREAS.filter(a => a.liftstatus);
-  if (live.length) foldGroup('live', '● With live lift status', live, 'area-live-group');
+  // Areas with live lift status: the curated ones (KitzSki) in view, the
+  // European areas with a status source (tools/liftstatus-sources.mjs) folded.
+  const curated = AREAS.filter(a => a.curated && !favourites.includes(a));
+  const live = AREAS.filter(a => a.liftstatus && !a.curated);
+  if (curated.length || live.length) {
+    const label = document.createElement('div');
+    label.className = 'area-group';
+    label.textContent = 'With live lift status';
+    listEl.appendChild(label);
+    curated.forEach(a => listEl.appendChild(areaButton(a)));
+    if (live.length) foldGroup('live', `● ${curated.length ? `${live.length} more ski area${live.length === 1 ? '' : 's'}` : 'Ski areas'}`, live, 'area-live-group');
+  }
 
   // Everything else by country, folded away: tap a country to open it.
   const byCountry = new Map();
