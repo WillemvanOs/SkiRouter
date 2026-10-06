@@ -8,13 +8,17 @@ Share of lift stations that can all reach each other: p10 90% · median 90% · p
 
 Per country: AT 1
 
+Why lifts fall outside their area's main network: runs attached, no way into/out of the main network: 5
+
+Areas made of several separate parts (ski passes covering several domains): 0
+
 ## The 40 biggest areas
 
-| Area | Country | Lifts | km | Connected | Label | Lifts outside the main network |
-|---|---|---|---|---|---|---|
-| KitzSki | AT | 50 | 184 | 90% | automatisch | D10 E2 E3 H11 E1 |
+| Area | Country | Lifts | km | Connected | Parts | Label | Lifts outside the main network |
+|---|---|---|---|---|---|---|---|
+| KitzSki | AT | 50 | 184 | 90% | 46 | automatisch | D10 E2 E3 H11 E1 |
 
 ## The 25 biggest areas with gaps (label onvolledig)
 
-| Area | Country | Lifts | km | Connected | Label | Lifts outside the main network |
-|---|---|---|---|---|---|---|
+| Area | Country | Lifts | km | Connected | Parts | Label | Lifts outside the main network |
+|---|---|---|---|---|---|---|---|
