@@ -1,3 +1,0 @@
-https://www.brauneck-bergbahn.de/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.brauneck-bergbahn.de&lang=de&region=brauneck-bergbahn&season=winter&type=lift
-
-{}

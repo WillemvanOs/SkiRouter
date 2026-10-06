@@ -9,7 +9,7 @@
 // (.github/workflows/liftstatus-probe.yml); writes probe.json and probe.md,
 // plus one sample page per provider for writing the real parsers.
 //
-// Four ways in:
+// Five ways in:
 // 1. The area's own website (from OpenSkiData): the home page and a few
 //    lift-status-looking links on it, searched for known providers.
 // 2. Infosnow (Switzerland): every page id, 1..INFOSNOW_MAX.
@@ -17,6 +17,8 @@
 //    and guesses from area and village names.
 // 4. Micado SkigebieteManager (Austria): endpoints found on websites, and the
 //    ones we know.
+// 5. Intermaps (Austria, Germany, …): map feeds linked from websites, and
+//    guesses from area names.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import * as cheerio from 'cheerio';
@@ -27,7 +29,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
 const AREAS = args.areas || 'build/europe';
 const OUT = args.out || 'data/build/liftstatus';
 const CACHE = process.env.OSD_CACHE || '/tmp/openskidata';
-const INFOSNOW_MAX = Number(process.env.INFOSNOW_MAX || 450);
+const INFOSNOW_MAX = Number(process.env.INFOSNOW_MAX || 900);
 const UA = 'Mozilla/5.0 (compatible; SkiRouter/1.0; +https://github.com/WillemvanOs/SkiRouter)';
 mkdirSync(`${OUT}/samples`, { recursive: true });
 const started = Date.now();
@@ -273,18 +275,12 @@ const micado = (await pool(micadoCandidates, 3, async c => {
 }));
 log(`micado: ${micado.filter(m => m.lifts.length).length}/${micado.length} endpoints with lifts`);
 
-// ── 5. Intermaps, Digisnow, Dolomiti Superski: where does the status come from? ─
+// ── 5. Intermaps ─────────────────────────────────────────────────────────────
 //
-// No parser yet: save the map pages, the scripts they load and a few likely
-// data URLs, to find each one's data feed.
+// Intermaps draws the interactive piste maps of many Alpine areas; every map
+// has a JSON feed at <map>/data with each lift's title and status. Maps
+// linked from area websites, and guesses from area and village names.
 
-const explore = [];
-async function exploreUrl(name, url) {
-  const page = await get(url);
-  explore.push({ name, url, status: page.status, bytes: page.text.length, json: /^\s*[[{]/.test(page.text), error: page.error });
-  saveSample(name, `${url}\n\n${page.text || `HTTP ${page.status} ${page.error || ''}`}`);
-  return page;
-}
 const intermapsProjects = new Map(); // "https://winter.intermaps.com/obertauern" -> area
 for (const s of sites) {
   for (const id of s.providers.intermaps?.ids || []) {
@@ -292,20 +288,29 @@ for (const s of sites) {
     if (m && !/_hike$/.test(m[2])) intermapsProjects.set(`${m[1]}/${m[2]}`, s.id);
   }
 }
-log(`Intermaps: ${intermapsProjects.size} map projects`);
-let n = 0;
-for (const [project] of [...intermapsProjects].slice(0, 4)) {
-  const tag = `intermaps-${++n}`;
-  const page = await exploreUrl(`${tag}-map.html`, `${project}?lang=en`);
-  const scripts = [...page.text.matchAll(/<script[^>]+src=["']([^"']+)["']/g)].map(m => new URL(m[1], page.url || project).href);
-  for (const [i, src] of scripts.slice(0, 4).entries()) if (n === 1) await exploreUrl(`${tag}-script${i}.js`, src);
-  for (const path of ['data?lang=en', 'data', 'api/data?lang=en', 'json?lang=en', 'status?lang=en']) await exploreUrl(`${tag}-${path.replace(/\W+/g, '_')}.txt`, `${project}/${path}`);
+const fromSites = intermapsProjects.size;
+for (const a of areas.filter(a => ['AT', 'DE', 'CH', 'IT', 'LI', 'SI', 'FR'].includes(a.country))) {
+  for (const name of [a.name, ...a.places.slice(0, 2)]) {
+    const base = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/[,/(–]| - /)[0].trim()
+      .replace(/[^a-z0-9ß]+/g, '_').replace(/^_|_$/g, '');
+    if (base.length >= 3) {
+      const project = `https://winter.intermaps.com/${base}`;
+      if (!intermapsProjects.has(project)) intermapsProjects.set(project, null);
+    }
+  }
 }
-await exploreUrl('digisnow-avoriaz.html', 'https://avoriaz.digisnow.app/');
-await exploreUrl('digisnow-avoriaz-lifts.html', 'https://avoriaz.digisnow.app/lifts/winter/true/fr');
-await exploreUrl('dolomiti-lifts.html', 'https://www.dolomitisuperski.com/en/live-info/lifts');
-await exploreUrl('altabadia-lifts.html', 'https://www.altabadia.org/en/winter-holidays/italian-alps/open-lifts-snow-report.html');
-await exploreUrl('bergfex-lifte-630.html', 'https://content.bergfex.at/lifte/630/');
+log(`Intermaps: ${intermapsProjects.size} maps to try (${fromSites} linked from websites)`);
+const intermaps = (await pool([...intermapsProjects], 4, async ([project, area]) => {
+  const page = await get(`${project}/data?lang=en`, { json: true });
+  await sleep(150);
+  let data = null;
+  try { data = JSON.parse(page.text); } catch {}
+  const lifts = (data?.lifts || []).map(l => ({ name: l.popup?.title || l.title || '', status: l.status || l.popup?.status || null, type: l.subtitle || null }))
+    .filter(l => l.name);
+  if (lifts.length && !samples.has('intermaps-data.json')) saveSample('intermaps-data.json', page.text);
+  return lifts.length ? { project, area, lifts, lastUpdate: data.lastUpdate || null } : null;
+})).filter(Boolean);
+log(`intermaps: ${intermaps.length} maps with lifts`);
 
 // ── Matching ─────────────────────────────────────────────────────────────────
 
@@ -350,6 +355,7 @@ const sources = [
   ...infosnow.map(s => ({ provider: 'infosnow', source: `pid ${s.pid}`, title: s.title, lifts: s.lifts })),
   ...lumiplan.map(s => ({ provider: 'lumiplan', source: s.station, title: s.title, lifts: s.lifts })),
   ...micado.filter(m => m.lifts.length).map(m => ({ provider: 'micado', source: `${m.base} ${m.region}`, title: m.region, lifts: m.lifts, hint: m.area })),
+  ...intermaps.map(m => ({ provider: 'intermaps', source: m.project.replace('https://', ''), title: m.project.split('/').pop(), lifts: m.lifts, hint: m.area })),
 ].map(s => ({ ...s, match: bestArea(s.lifts, s.hint) }));
 
 // Per area: the best-matching source.
@@ -371,19 +377,19 @@ const summary = {
   areas: areas.length,
   withWebsite: sites.filter(s => s.websites.length).length,
   websiteProviders: providerCount,
-  sources: { infosnow: infosnow.length, lumiplan: lumiplan.length, micado: micado.filter(m => m.lifts.length).length },
+  sources: { infosnow: infosnow.length, lumiplan: lumiplan.length, micado: micado.filter(m => m.lifts.length).length, intermaps: intermaps.length },
   areasWithSource: covered.length,
   byShare: covered.reduce((acc, s) => { const b = bucket(s.match.share); acc[b] = (acc[b] || 0) + 1; return acc; }, {}),
   byCountry: covered.reduce((acc, s) => { acc[s.match.country] = (acc[s.match.country] || 0) + 1; return acc; }, {}),
   minutes: Math.round((Date.now() - started) / 60000),
 };
-writeFileSync(`${OUT}/probe.json`, JSON.stringify({ summary, sites, sources: sources.map(({ lifts, ...s }) => ({ ...s, liftCount: lifts.length, lifts: lifts.slice(0, 80) })), micado: micado.map(({ lifts, ...m }) => ({ ...m, liftCount: lifts.length })), intermapsProjects: Object.fromEntries(intermapsProjects), explore }, null, 1) + '\n');
+writeFileSync(`${OUT}/probe.json`, JSON.stringify({ summary, sites, sources: sources.map(({ lifts, ...s }) => ({ ...s, liftCount: lifts.length, lifts: lifts.slice(0, 80) })), micado: micado.map(({ lifts, ...m }) => ({ ...m, liftCount: lifts.length })), intermaps: intermaps.map(({ lifts, ...m }) => ({ ...m, liftCount: lifts.length })) }, null, 1) + '\n');
 
 const md = [];
 md.push('# Live lift status: probe', '', `Run ${summary.date.slice(0, 16)} UTC, ${summary.minutes} min.`, '');
 md.push(`- ${summary.areas} listed areas, ${summary.withWebsite} with a website in OpenSkiData`);
 md.push(`- Providers seen on area websites: ${Object.entries(providerCount).sort((a, b) => b[1] - a[1]).map(([p, n]) => `${p} ${n}`).join(', ') || 'none'}`);
-md.push(`- Sources with lifts: Infosnow ${summary.sources.infosnow}, Lumiplan ${summary.sources.lumiplan}, Micado ${summary.sources.micado}`);
+md.push(`- Sources with lifts: Infosnow ${summary.sources.infosnow}, Lumiplan ${summary.sources.lumiplan}, Micado ${summary.sources.micado}, Intermaps ${summary.sources.intermaps}`);
 md.push(`- **Areas with a matching source: ${summary.areasWithSource}** — share of our lifts matched by name: ${Object.entries(summary.byShare).map(([b, n]) => `${b}: ${n}`).join(', ')}`);
 md.push(`- Per country: ${Object.entries(summary.byCountry).sort((a, b) => b[1] - a[1]).map(([c, n]) => `${c} ${n}`).join(', ')}`, '');
 md.push('## Areas with a source', '', '| Area | Country | Provider | Source | Our lifts | Source lifts | Matched | Share |', '|---|---|---|---|---:|---:|---:|---:|');
