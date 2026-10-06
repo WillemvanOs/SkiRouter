@@ -108,6 +108,20 @@ for (const [name, convert] of [['lifts.geojson', f => { const l = toLift(f); ret
   flush();
 }
 
+// Mountain restaurants and huts (tools/fetch-pois.mjs), when fetched.
+const POIS_FILE = 'data/pois/europe.json';
+const ALL_POIS = existsSync(POIS_FILE) ? JSON.parse(readFileSync(POIS_FILE, 'utf8')).pois : [];
+console.log(`${ALL_POIS.length} mountain restaurants and huts`);
+// The places inside an area's lifts and runs (plus ~400 m around).
+function poisIn(input) {
+  let s = 90, w = 180, n = -90, e = -180;
+  for (const f of [...input.lifts, ...input.runs]) for (const [lon, lat] of f.coords) {
+    if (lat < s) s = lat; if (lat > n) n = lat; if (lon < w) w = lon; if (lon > e) e = lon;
+  }
+  const pad = 0.004;
+  return ALL_POIS.filter(p => p.lat >= s - pad && p.lat <= n + pad && p.lon >= w - pad && p.lon <= e + pad);
+}
+
 // 3. Compile each area, merge overrides, write.
 const reports = {};
 const index = [];
@@ -115,6 +129,7 @@ let skipped = 0;
 for (const meta of areas.values()) {
   const input = await readSpill(meta.id);
   if (!input) { skipped++; continue; }
+  input.pois = poisIn(input);
   const overrides = existsSync(`overrides/${meta.id}.json`) ? JSON.parse(readFileSync(`overrides/${meta.id}.json`, 'utf8')) : {};
   const { area, diagnostics } = compileArea(input, {
     id: meta.id,

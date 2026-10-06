@@ -93,10 +93,27 @@ amadé, …) are left out; their parts (Alta Badia, Kronplatz, …) are listed o
 Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not listed twice.
 
 The area picker searches names, villages, regions and countries (with a few local names:
-Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your recent areas on top and
-lists the rest per country. An area is downloaded when you open it and then stays
+Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your favourites (tap ☆) on top
+and lists the rest per country. An area is downloaded when you open it and then stays
 available offline. Areas without known mountain restaurants plan a day without the lunch
 box. Lifts without a number in the map data show their name only.
+
+### Mountain restaurants for every area
+
+`tools/fetch-pois.mjs` asks OpenStreetMap (Overpass API) for restaurants, cafés, bars and
+huts around every built area and keeps the ones within 100 m of a run or 130 m of a top
+station in `data/pois/europe.json`. The build links them to the area with the same rules
+as the KitzSki enrichment below (80 m of a piste, huts 100 m, 130 m of a top station;
+within 130 m of a station it is linked to that station, else to its run).
+
+The public Overpass servers are often busy, so `.github/workflows/pois.yml` runs daily:
+each run spends at most about 80 minutes, starts with the areas never fetched (or fetched
+longest ago), skips areas fetched in the last 6 days, and commits the file when it changed,
+after which it redeploys the site. An area whose query keeps failing keeps the places it
+had. Start it by hand from **Actions → Fetch mountain restaurants → Run workflow**.
+
+In big areas the day planner tries at most 16 lunch stops when no restaurant is chosen:
+ones you can reach by lunchtime and get back from, the same sample for the same inputs.
 
 Map data © OpenStreetMap contributors (ODbL), via OpenSkiMap / OpenSkiData; the picker
 says so.

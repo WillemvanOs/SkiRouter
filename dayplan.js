@@ -34,6 +34,7 @@ const DAY_LATE_SLACK    = 10;  // minutes past "back by" a walk may plan for
 const DAY_MAX_OPTIONS   = 3;
 const DAY_LUNCH_RUNS    = 30;  // morning walks per restaurant
 const DAY_LUNCH_PM_RUNS = 15;  // afternoon walks per kept morning
+const DAY_LUNCH_STOPS   = 16;  // lunch stops tried at most when no restaurant is chosen
 const DAY_LUNCH_FIT_MIN = 15;  // arriving this close to lunchtime is "perfect"
 const DAY_ALONG_WINDOW  = 60;  // "also on your route" around lunchtime, ± minutes
 const DAY_MOUNTAIN_ELE  = 1100; // a restaurant this high is on the mountain
@@ -45,6 +46,7 @@ let dayBus     = true;   // may the plan use the ski bus
 let dayOptions = [];
 let dayCtx     = null;
 let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
+let dayMoves   = {}; // per node, the edges this plan may take, with their cost (see prepareDayMoves)
 let dayTracker = null; // ticking off the shown option's steps
 let dayShown   = 0;    // index of the option on screen
 
@@ -205,10 +207,18 @@ function mountainRestaurants() {
 }
 
 function restaurantWhere(r) {
-  if (r.piste) return `on piste ${r.piste}`;
+  if (r.piste) return `on ${pisteLabel(r.piste)}`;
   const lift = LIFTS.find(l => l.dal === r.station || l.berg === r.station);
   if (!lift) return STATIONS[r.station]?.name || '';
-  return `${lift.berg === r.station ? 'top' : 'bottom'} of ${lift.nr} ${lift.name}`;
+  return `${lift.berg === r.station ? 'top' : 'bottom'} of ${[liftCode(lift.nr), lift.name].filter(Boolean).join(' ')}`;
+}
+
+// "piste 21", or the run's name when it has no number of its own (areas
+// built from map data use the name, or a generated "~n", as its key).
+function pisteLabel(nr) {
+  const piste = (currentArea?.pistes || []).find(p => p.pisteNr === nr);
+  if (nr && !nr.startsWith('~') && nr.length <= 4) return `piste ${nr}`;
+  return piste?.naam ? `the ${piste.naam} piste` : 'the piste';
 }
 
 // ── Cost model ───────────────────────────────────────────────────────────────
@@ -247,10 +257,10 @@ function costsToEnd(endId, pace) {
   const cost = { [endId]: 0 };
   const next = {};
   const done = new Set();
-  const queue = [{ id: endId, cost: 0 }];
-  while (queue.length) {
-    queue.sort((a, b) => a.cost - b.cost);
-    const { id } = queue.shift();
+  const queue = new MinHeap();
+  queue.push(0, endId);
+  while (queue.size) {
+    const id = queue.pop();
     if (done.has(id)) continue;
     done.add(id);
     (reverse[id] || []).forEach(edge => {
@@ -258,7 +268,7 @@ function costsToEnd(endId, pace) {
       if (c < (cost[edge.from] ?? Infinity)) {
         cost[edge.from] = c;
         next[edge.from] = edge;
-        queue.push({ id: edge.from, cost: c });
+        queue.push(c, edge.from);
       }
     });
   }
@@ -280,22 +290,85 @@ function costsToEnd(endId, pace) {
   return { dist, next, homeKm };
 }
 
-// Best km-per-minute reachable by taking `edge` and up to `depth` more
+// The edges a plan may take from each node, with their cost and piste key
+// worked out once: a walk weighs them many thousands of times, and big areas
+// have top stations with well over a hundred ways down.
+function prepareDayMoves(pace) {
+  dayMoves = {};
+  Object.entries(dayGraph).forEach(([node, edges]) => {
+    dayMoves[node] = edges.filter(dayAllowed).map(edge => ({
+      edge,
+      cost: dayCost(edge, pace),
+      piste: edge.type === 'piste',
+      transfer: edge.type === 'transfer',
+      key: edge.type === 'piste' ? pisteKey(edge) : null,
+      km: edge.km || 0,
+      memo: [], // lookahead answers for the current step, per depth
+      step: -1,
+    }));
+  });
+}
+
+// Best km-per-minute reachable by taking `move` and up to `depth` more
 // non-piste moves to reach a piste. Returns the gain and the time it takes.
-function lookahead(edge, usage, depth, pace) {
-  const cost = dayCost(edge, pace);
-  if (edge.type === 'piste') return { gain: (edge.km || 0) * novelty(usage.get(pisteKey(edge)) || 0), cost };
+// Answers are kept for one step of a walk (`step`; the usage is the same
+// throughout it), since the same edges come up again and again.
+function lookahead(move, usage, depth, step) {
+  const cost = move.cost;
+  if (move.piste) return { gain: move.km * novelty(usage.get(move.key) || 0), cost };
   if (depth === 0) return { gain: 0, cost };
+  if (move.step === step && move.memo[depth]) return move.memo[depth];
 
   let best = { gain: 0, cost };
   let bestRate = 0;
-  (dayGraph[edge.to] || []).forEach(nextEdge => {
-    if (!dayAllowed(nextEdge) || (edge.type === 'transfer' && nextEdge.type === 'transfer')) return;
-    const ahead = lookahead(nextEdge, usage, depth - 1, pace);
+  const next = dayMoves[move.edge.to] || [];
+  for (let i = 0; i < next.length; i++) {
+    const nextMove = next[i];
+    if (move.transfer && nextMove.transfer) continue;
+    const ahead = lookahead(nextMove, usage, depth - 1, step);
     const rate = ahead.gain / (cost + ahead.cost);
     if (rate > bestRate) { bestRate = rate; best = { gain: ahead.gain, cost: cost + ahead.cost }; }
-  });
+  }
+  if (move.step !== step) { move.step = step; move.memo = []; }
+  move.memo[depth] = best;
   return best;
+}
+let lookaheadStep = 0;
+
+// Priority queue for the shortest-path searches (here and in app.js): the
+// large European areas have thousands of edges, too many to sort each step.
+class MinHeap {
+  constructor() { this.keys = []; this.items = []; }
+  get size() { return this.keys.length; }
+  push(key, item) {
+    const { keys, items } = this;
+    let i = keys.length;
+    keys.push(key); items.push(item);
+    while (i > 0) {
+      const p = (i - 1) >> 1;
+      if (keys[p] <= key) break;
+      keys[i] = keys[p]; items[i] = items[p]; i = p;
+    }
+    keys[i] = key; items[i] = item;
+  }
+  pop() {
+    const { keys, items } = this;
+    const top = items[0];
+    const key = keys.pop(), item = items.pop();
+    const n = keys.length;
+    if (n) {
+      let i = 0;
+      for (;;) {
+        let c = 2 * i + 1;
+        if (c >= n) break;
+        if (c + 1 < n && keys[c + 1] < keys[c]) c++;
+        if (keys[c] >= key) break;
+        keys[i] = keys[c]; items[i] = items[c]; i = c;
+      }
+      keys[i] = key; items[i] = item;
+    }
+    return top;
+  }
 }
 
 function seededRandom(seed) {
@@ -349,14 +422,14 @@ function dayWalk(ctx, random, initialUsage) {
     if (kmDone && !(ctx.fillUntil && t + (home.dist[node] || 0) < ctx.fillUntil)) break;
 
     const candidates = [];
-    (dayGraph[node] || []).forEach(edge => {
-      if (!dayAllowed(edge)) return;
-      if (edge.type === 'transfer' && prevEdge?.type === 'transfer') return;
-      const cost = dayCost(edge, pace);
+    const step = ++lookaheadStep;
+    (dayMoves[node] || []).forEach(move => {
+      const { edge, cost } = move;
+      if (move.transfer && prevEdge?.type === 'transfer') return;
       const rest = home.dist[edge.to];
       if (rest == null || t + cost + rest > t1 + DAY_LATE_SLACK) return;
       if (!liftOpenAt(edge, t, ctx)) return;
-      const ahead = lookahead(edge, usage, 3, pace);
+      const ahead = lookahead(move, usage, 3, step);
       let weight = (ahead.gain + 0.01) / ahead.cost;
       if (edge.echteLift === false) weight *= 0.2;
       if (edge.descent) weight *= 0.3;
@@ -420,25 +493,67 @@ function distinctBest(walks, count, isDistinct) {
 // Where a day can stop for lunch. Restaurants at the same station (or on
 // the same piste edge) share one stop, so their walks are computed once.
 // A station restaurant is a graph node; one on a piste is reached by skiing
-// that piste, so the stop sits halfway down one of its edges.
+// that piste, so the stop sits halfway down the quickest way down that
+// includes it. In big areas a piste is part of many ways down, and one
+// stop each would make the lunch day far too slow to plan; only a single
+// chosen restaurant gets every way down past it.
 function lunchStops(restaurants) {
   const stops = new Map();
   const add = (key, node, piste, r) => {
     if (!stops.has(key)) stops.set(key, { key, node, piste, pisteNr: r.piste || null, restaurants: [] });
     stops.get(key).restaurants.push(r);
   };
-  const pisteEdges = Object.values(dayGraph).flat().filter(e => e.type === 'piste' && e.from !== GPS_NODE && dayAllowed(e));
-  restaurants.forEach(r => {
-    if (r.station) { add(r.station, r.station, null, r); return; }
-    const seen = new Set();
-    pisteEdges.forEach(edge => {
-      const nrs = edge.trajecten ? edge.trajecten.map(t => t.pisteNr) : [edge.pisteNr];
-      if (!nrs.includes(r.piste) || seen.has(edge.from)) return;
-      seen.add(edge.from);
-      add(`${edge.from}>${edge.to}|${r.piste}`, edge.from, edge, r);
+  const everyWay = restaurants.length === 1;
+  const byPiste = new Map();
+  Object.values(dayGraph).flat().forEach(edge => {
+    if (edge.type !== 'piste' || edge.from === GPS_NODE || !dayAllowed(edge)) return;
+    const nrs = edge.trajecten ? edge.trajecten.map(t => t.pisteNr) : [edge.pisteNr];
+    new Set(nrs).forEach(nr => {
+      const list = byPiste.get(nr) || [];
+      if (everyWay) { if (!list.some(e => e.from === edge.from)) list.push(edge); }
+      else if (!list.length || (edge.tijd || 0) < (list[0].tijd || 0)) list[0] = edge;
+      byPiste.set(nr, list);
     });
   });
+  restaurants.forEach(r => {
+    if (r.station) { add(r.station, r.station, null, r); return; }
+    (byPiste.get(r.piste) || []).forEach(edge => add(`${edge.from}>${edge.to}|${r.piste}`, edge.from, edge, r));
+  });
   return [...stops.values()];
+}
+
+// Quickest time from `startId` to every node, for picking lunch stops.
+function costsFromStart(startId, pace) {
+  const cost = { [startId]: 0 };
+  const done = new Set();
+  const queue = new MinHeap();
+  queue.push(0, startId);
+  while (queue.size) {
+    const id = queue.pop();
+    if (done.has(id)) continue;
+    done.add(id);
+    (dayGraph[id] || []).forEach(edge => {
+      if (!dayAllowed(edge)) return;
+      const c = cost[id] + dayCost(edge, pace);
+      if (c < (cost[edge.to] ?? Infinity)) { cost[edge.to] = c; queue.push(c, edge.to); }
+    });
+  }
+  return cost;
+}
+
+// Without a chosen restaurant, a big area has far more lunch stops than can
+// be tried. Keep the ones you can reach by lunchtime and get home from, and
+// of those a fixed sample (same inputs, same sample), huts and stops with
+// several places first.
+function pickLunchStops(stops, ctx, random) {
+  if (stops.length <= DAY_LUNCH_STOPS) return stops;
+  const from = costsFromStart(ctx.startId, ctx.pace);
+  return stops
+    .filter(s => from[s.node] != null && ctx.t0 + from[s.node] <= ctx.lunchT + 30 && ctx.home.dist[s.piste ? s.piste.to : s.node] != null)
+    .map(s => ({ s, rank: random() + 0.3 * Math.min(2, s.restaurants.length - 1) + (s.restaurants.some(r => r.soort === 'hut') ? 0.3 : 0) }))
+    .sort((a, b) => b.rank - a.rank)
+    .slice(0, DAY_LUNCH_STOPS)
+    .map(x => x.s);
 }
 
 // Best few full days (morning + lunch + afternoon) through one lunch stop,
@@ -586,6 +701,7 @@ function planDay(options = {}) {
 
   const pace = DAY_PACES[dayPace];
   dayGraph = GRAPH;
+  prepareDayMoves(pace);
   const home = costsToEnd(end.id, pace);
   if (home.dist[start.id] == null) {
     return fail(dayBus
@@ -614,7 +730,7 @@ function planDay(options = {}) {
   if (withLunch) {
     const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
     const stops = lunchStops(restaurants);
-    const days = stops.flatMap(stop => daysVia(stop, dayCtx, random));
+    const days = pickLunchStops(stops, dayCtx, random).flatMap(stop => daysVia(stop, dayCtx, random));
     if (!days.length) {
       if (lunchAt && !stops.some(stop => costsToEnd(stop.node, pace).dist[start.id] != null && home.dist[stop.piste ? stop.piste.to : stop.node] != null)) {
         return fail('That restaurant cannot be reached from your start (and back) with these difficulties. Pick another one or "Best fit".');
@@ -765,7 +881,7 @@ function renderDayOption(index) {
   walk.steps.forEach((step, stepIndex) => {
     if (step.lunch) {
       const r = step.lunch;
-      const where = step.onPiste ? `halfway down piste ${r.piste}` : restaurantWhere(r);
+      const where = step.onPiste ? `halfway down ${pisteLabel(r.piste)}` : restaurantWhere(r);
       addWaypoint(stepsEl, `Lunch · ${r.naam}`, null, '🍽',
         `${formatClock(step.t)}–${formatClock(step.until)} · ${where}`, Math.min(number, 30) * 30);
       const el = stepsEl.lastElementChild;
