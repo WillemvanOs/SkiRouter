@@ -4,14 +4,20 @@
 # areas built at deploy time get the new restaurants. A commit made with
 # GITHUB_TOKEN does not start other workflows, hence the explicit deploy job.
 #
-# Runs by hand too (Actions → "Fetch mountain restaurants" → Run workflow);
-# on another branch it commits there, without a deploy.
+# Runs by hand too (Actions → "Fetch mountain restaurants" → Run workflow),
+# and on a push to another branch that changes the script or this workflow:
+# then it commits there, without a deploy.
 name: Fetch mountain restaurants
 
 on:
   schedule:
     - cron: '23 3 * * 1'   # Mondays 03:23 UTC
   workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - tools/fetch-pois.mjs
+      - .github/workflows/pois.yml
 
 permissions:
   contents: write
