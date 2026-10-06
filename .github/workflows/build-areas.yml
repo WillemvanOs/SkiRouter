@@ -1,0 +1,62 @@
+# Builds ski area datasets (format 2) from OpenSkiData with
+# tools/build-areas.mjs and commits them, with a validation report, to
+# data/build/ on the same branch for review.
+#
+# Runs by hand (Actions → "Build ski areas" → Run workflow), or on a push to a
+# branch other than main that changes the build script, its config or an
+# override.
+name: Build ski areas
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - tools/build-areas.mjs
+      - tools/build-areas.config.json
+      - tools/lib/**
+      - overrides/**
+      - .github/workflows/build-areas.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-areas-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The OpenSkiData downloads are large; keep them for a day.
+      - name: Date
+        id: date
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/openskidata
+          key: openskidata-${{ steps.date.outputs.day }}
+
+      - name: Build
+        run: node tools/build-areas.mjs --out data/build
+
+      - name: Commit result
+        run: |
+          if [ -z "$(git status --porcelain -- data/build)" ]; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add data/build
+          git commit -m "Build ski areas from OpenSkiData"
+          git pull --rebase
+          git push

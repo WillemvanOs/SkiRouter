@@ -1,0 +1,27 @@
+{
+  "kitzski": {
+    "lifts": 50,
+    "runs": 149,
+    "pistesKm": 184,
+    "descents": 843,
+    "connectedShare": 90,
+    "noWayDown": [],
+    "noWayIn": [
+      "G8"
+    ],
+    "outsideMainNetwork": [
+      "D10",
+      "E2",
+      "E3",
+      "H11",
+      "E1"
+    ],
+    "quality": "automatisch",
+    "osd": [
+      "1eeb56a80185ff1dff644357f9f747842d0f620c"
+    ],
+    "inputLifts": 63,
+    "inputRuns": 238,
+    "reviewed": false
+  }
+}
