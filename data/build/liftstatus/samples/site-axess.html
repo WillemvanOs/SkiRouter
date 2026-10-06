@@ -1,0 +1,1016 @@
+<!DOCTYPE html><html lang="de" role="main"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/js/lib/jquery-3.7.1.min.js"></script>
+<script src="/js/lib/htmx-1.9.10.min.js"></script>
+<link rel="stylesheet" href="/css/style.css?5.177">
+<link rel="stylesheet" href="https://use.typekit.net/vrs4cfu.css">
+
+
+<script src="/js/splide/js/splide.min.js" defer></script>
+<link rel="stylesheet" href="/js/splide/css/splide.min.css">
+<link rel="canonical" href="https://www.axamer-lizum.at/"><link rel="alternate" hreflang="de" href="https://www.axamer-lizum.at/"><link rel="alternate" hreflang="en" href="https://www.axamer-lizum.at/?lang=en"><link rel="alternate" hreflang="it" href="https://www.axamer-lizum.at/?lang=it"><link rel="alternate" hreflang="x-default" href="https://www.axamer-lizum.at/"><title>Axamer Lizum Bergbahnen</title><meta name="description" content="Sommer in der Axamer Lizum: Wanderungen und Trailrunning vor der Kulisse der Kalkkögel, Bergbahnen auf den Hoadl und Einkehr auf 2.340 Metern."><meta property="og:type" content="website"><meta property="og:site_name" content="Axamer Lizum"><meta property="og:url" content="https://www.axamer-lizum.at/"><meta property="og:title" content="Axamer Lizum Bergbahnen"><meta property="og:description" content="Sommer in der Axamer Lizum: Wanderungen und Trailrunning vor der Kulisse der Kalkkögel, Bergbahnen auf den Hoadl und Einkehr auf 2.340 Metern."><meta property="og:image" content="https://www.axamer-lizum.at/img/og/sommer.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Axamer Lizum Bergbahnen"><meta property="og:locale" content="de_AT"><meta property="og:locale:alternate" content="en_GB"><meta property="og:locale:alternate" content="it_IT"><meta name="twitter:card" content="summary_large_image"><script src="/js/lib/htmx-1.9.10.min.js"></script><script src="/js/header.js?v4" defer></script><script src="/js/index.js?v=5.177" defer></script><script src="/js/form.js" defer></script></head><body><style>
+    .lang-select{display:inline-flex;align-items:center;gap:6px;font-size:15px!important;font-weight:400!important;}
+    .lang-select a{cursor:pointer;text-decoration:none;color:inherit;opacity:.45;transition:opacity .15s;}
+    .lang-select a:hover{opacity:.8;}
+    .lang-select a.active{opacity:1;font-weight:700;}
+    .lang-select span{opacity:.4;}
+</style>
+<div id="header">
+    <div id="header-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="52" viewBox="0 0 14 52">
+            <g id="Gruppe_93" data-name="Gruppe 93" transform="translate(-11.25 -29.816)">
+                <line id="Linie_5" data-name="Linie 5" y2="52" transform="translate(12.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+                <line id="Linie_6" data-name="Linie 6" y2="52" transform="translate(18.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+                <line id="Linie_7" data-name="Linie 7" y2="37.684" transform="translate(24.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+            </g>
+        </svg>
+        <h1 class="lang-select"><a href="?lang=de" data-lang="de" class="active">DE</a><span>|</span><a href="?lang=en" data-lang="en">EN</a><span>|</span><a href="?lang=it" data-lang="it">IT</a></h1>
+        <label class="season-switch shows-winter" title="Saison wechseln (auf Winter)"><input type="checkbox" onchange="document.cookie='season='+(this.checked?'winter':'sommer')+';path=/;max-age=31536000';location.reload();"><span class="season-button"><span class="season-name">WINTER</span><span class="season-icon"><svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.6242 0.0346745C24.3773 0.29113 23.3718 1.00561 22.8676 1.99363C22.5014 2.71112 22.3331 3.69714 22.4746 4.29648C22.5092 4.44279 22.5266 4.56244 22.5134 4.56244C22.5002 4.56244 22.325 4.47833 22.1241 4.37558C21.559 4.08645 21.0285 3.97149 20.2697 3.97375C18.8674 3.97788 18.4195 4.21112 15.8329 6.28441C14.7377 7.16217 13.8222 7.87308 13.7985 7.86413C13.7748 7.85525 12.414 7.21711 10.7747 6.44612L7.79413 5.04425L7.94874 4.74286C8.03384 4.57709 8.10342 4.35474 8.10342 4.24879C8.10342 3.97832 7.85749 3.7489 7.56766 3.7489C7.30583 3.7489 7.15527 3.87568 6.95769 4.26262C6.88222 4.41031 6.81372 4.53898 6.80549 4.54849C6.79719 4.55806 6.35958 4.36575 5.83307 4.12125C4.81712 3.64939 4.72872 3.63481 4.44402 3.89214C4.34599 3.98076 4.30144 4.09246 4.30144 4.24954C4.30144 4.56401 4.43312 4.66695 5.42619 5.12911C5.88794 5.34401 6.2658 5.54471 6.2658 5.57512C6.2658 5.6056 6.19451 5.76943 6.10738 5.93922C5.89935 6.34461 5.9055 6.53173 6.13418 6.75758C6.47091 7.09014 6.82988 6.94288 7.13924 6.34536L7.31134 6.01294L10.0361 7.29396C11.5347 7.99856 12.7825 8.59614 12.8089 8.62192C12.8354 8.64777 12.5853 8.88745 12.2532 9.15461C11.5765 9.69887 11.2138 10.1404 11.0027 10.6767C10.8806 10.9867 10.8598 11.158 10.8598 11.8531C10.8598 12.5514 10.8804 12.7188 11.0047 13.0348C11.4399 14.1411 11.668 14.3382 14.8052 16.3192C16.2424 17.2267 17.4182 17.988 17.4182 18.0111C17.4182 18.0341 16.1708 18.5996 14.646 19.2678C11.8922 20.4746 11.8711 20.4853 11.484 20.8651C11.154 21.1888 11.0738 21.3126 10.9612 21.6728C10.888 21.9068 10.8282 22.1938 10.8282 22.3106C10.8282 22.4275 10.8111 22.5231 10.7901 22.5231C10.7693 22.5231 9.22519 21.6031 7.35886 20.4788C5.05886 19.0932 3.90895 18.4345 3.78995 18.4345C3.38454 18.4345 3.12461 18.8309 3.29886 19.1835C3.36248 19.3121 5.78916 20.8024 13.3945 25.3836C18.901 28.7005 23.5774 31.4973 23.7866 31.5986C24.4224 31.9068 24.9008 32.0045 25.7509 31.9998C26.5992 31.9951 26.9752 31.9113 27.727 31.5593C28.6172 31.1425 28.8771 30.6839 28.4324 30.3144C28.1842 30.1082 28.0339 30.1284 27.518 30.4373C26.5462 31.0194 25.3592 31.1029 24.3465 30.6605C23.8792 30.4563 13.8082 24.3745 13.8575 24.3262C13.8817 24.3026 15.6283 23.5249 17.7389 22.5979C19.8495 21.671 21.6907 20.8413 21.8304 20.7542C22.4483 20.369 22.9611 19.6642 23.1616 18.9247C23.406 18.0231 23.1152 16.9039 22.4559 16.2098C22.305 16.0509 21.21 15.245 20.0226 14.4189C18.8352 13.5928 17.8633 12.9022 17.8628 12.8843C17.8623 12.8663 18.1657 12.7024 18.5371 12.5199L19.2124 12.1883L19.3767 12.3061C20.0974 12.8232 22.8871 14.7109 23.0847 14.8153C23.7178 15.1498 24.4463 15.142 25.1233 14.7936L25.5303 14.584L26.4624 15.0224C26.9752 15.2634 27.4724 15.4628 27.5674 15.4655C27.8294 15.4728 28.0517 15.2971 28.0996 15.0449C28.1679 14.6852 28.0284 14.5581 27.0691 14.1057C26.5929 13.8812 26.1917 13.686 26.1775 13.672C26.1633 13.658 26.1847 13.4894 26.2251 13.2974C26.2812 13.0309 26.2807 12.863 26.2233 12.5884C26.0652 11.8317 25.7482 11.4502 24.6781 10.7283L23.9448 10.2336L24.2776 10.0734C24.673 9.88292 24.8928 9.5545 24.8944 9.15179C24.8953 8.92018 24.5467 7.23188 24.4733 7.1126C24.4308 7.04351 24.4756 7.05346 24.7793 7.18063C25.7046 7.568 26.8822 7.53746 27.85 7.10102C28.5863 6.76897 29.2833 6.07126 29.6482 5.30102C30.6449 3.19756 29.4346 0.697528 27.1389 0.117656C26.6913 0.0046358 25.964 -0.035228 25.6242 0.0346745ZM25.9093 1.09923C24.5161 1.31238 23.5579 2.36405 23.552 3.68631C23.5471 4.77641 24.1182 5.67682 25.1015 6.12959C26.4168 6.73524 27.966 6.1906 28.6146 4.89456C28.8249 4.47433 28.8531 4.36056 28.8737 3.85121C28.8922 3.39068 28.8709 3.20651 28.764 2.90406C28.4234 1.93963 27.6357 1.28153 26.6267 1.11832C26.2521 1.05774 26.191 1.05611 25.9093 1.09923ZM19.5753 5.10896C19.2955 5.16078 18.8039 5.37574 18.5041 5.57744C17.9113 5.97626 12.6124 10.2582 12.3568 10.5449C11.6477 11.3405 11.7833 12.7615 12.6466 13.5814C12.814 13.7403 14.1058 14.5966 15.5173 15.4843C16.9287 16.3719 18.1504 17.1571 18.2322 17.2291C18.4545 17.4251 18.5654 17.6782 18.5727 18.0056C18.5805 18.359 18.4414 18.6458 18.1629 18.8507C18.0496 18.934 16.7165 19.5468 15.2004 20.2125C12.2401 21.5124 12.1033 21.5916 11.9693 22.0831C11.7741 22.7991 12.3164 23.457 13.0413 23.3837C13.239 23.3637 14.5192 22.8323 17.0676 21.7126C19.1227 20.8096 20.9334 20.0055 21.0913 19.9256C21.4674 19.7355 21.8125 19.3761 21.9924 18.9873C22.1039 18.7463 22.1363 18.5665 22.1334 18.205C22.1293 17.6982 22.0352 17.4106 21.754 17.0465C21.6584 16.9228 20.5757 16.1242 19.277 15.2195C17.6426 14.0811 16.9296 13.5481 16.832 13.392C16.6431 13.0902 16.6449 12.6156 16.8362 12.31C16.9434 12.1385 17.1212 12.0106 17.5626 11.7872C17.884 11.6245 18.1576 11.4824 18.1707 11.4715C18.1837 11.4605 18.1182 11.3621 18.0251 11.2529C17.7593 10.941 17.6216 10.6263 17.4751 9.99625C17.2816 9.16418 17.2877 8.56729 17.4944 8.12153C17.7042 7.66882 18.0596 7.28338 18.4449 7.09057C18.7577 6.934 19.9474 6.6276 20.2424 6.6276C20.4491 6.6276 20.7767 6.94219 20.7767 7.14083C20.7767 7.31167 20.6308 7.53853 20.4643 7.62651C20.4007 7.66018 20.0671 7.74704 19.723 7.81951C18.4756 8.08241 18.2514 8.47123 18.5667 9.82391C18.6735 10.2819 18.7422 10.4435 18.8994 10.6056C19.1236 10.837 23.4218 13.7975 23.6671 13.8897C24.1516 14.0716 24.8073 13.8604 25.0353 13.4489C25.1968 13.1574 25.1669 12.611 24.9748 12.3445C24.8999 12.2408 24.3382 11.8118 23.7266 11.3914C23.0205 10.906 22.5797 10.5606 22.5194 10.4452C22.3881 10.1944 22.4007 9.88937 22.5526 9.64336C22.6946 9.41331 22.9116 9.30549 23.4539 9.19572C23.6543 9.15517 23.8182 9.11136 23.8182 9.09835C23.8182 9.08539 23.7194 8.64958 23.5985 8.12985C23.334 6.99163 23.127 6.56921 22.5522 5.99491C21.8928 5.33606 21.2043 5.05702 20.274 5.0716C19.9755 5.07629 19.661 5.09313 19.5753 5.10896ZM0.177761 11.3789C-0.0213356 11.5755 -0.051688 11.7663 0.0791633 11.9993C0.200003 12.2144 4.65813 14.9508 4.88777 14.9508C5.31644 14.9508 5.55692 14.317 5.2361 14.0328C5.10531 13.917 1.09093 11.4289 0.77296 11.2666C0.547946 11.1518 0.37464 11.1845 0.177761 11.3789ZM3.98949 11.358C3.76207 11.547 3.72557 11.8526 3.90541 12.0626C4.0815 12.2683 8.48368 14.9508 8.64513 14.9508C8.72523 14.9508 8.87845 14.8779 8.98566 14.7888C9.21309 14.5998 9.24958 14.2942 9.06975 14.0842C8.89366 13.8785 4.49148 11.196 4.33002 11.196C4.24993 11.196 4.09671 11.2689 3.98949 11.358Z" fill="currentColor"/></svg></span></span></label><script>document.documentElement.classList.toggle("winter", /(^|;\s*)season=winter/.test(document.cookie));</script>
+        <div class="menu">
+            <a href="/"><h1 class="axamer-lizum">Axamer Lizum<svg class="dropdown-arrow" onclick="event.preventDefault()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></h1></a>
+            <a href="/tarife"><h1 class="events">PREISE & WANDERBUS</h1></a>
+            <!-- <a href="/magazine"><h1 class="magazine">MAGAZINE</h1></a> -->
+            <!-- <a href="/gastronomie"><h1 class="gastronomie">GASTRONOMIE</h1></a> -->
+            <a href="https://axamerlizum.axess.shop/de/Products/Tickets/" target="_blank"><h1 class="online-shop">ONLINE-SHOP</h1></a>
+            <a href="/gutscheine"><h1 class="gastronomie">GUTSCHEINE</h1></a>
+            <!-- <a href="/pr"><h1 class="pr-bereich">PR BEREICH</h1></a> -->
+        </div>
+    </div>
+
+    </div>
+<div class="header axamer-lizum">
+    <div>
+        <!-- <a href="/tarife"><h2>Tarife</h2></a> -->
+        <a href="/trailrunning"><h2 class="events">Trailrunning</h2></a>
+        <a href="/wander-routen"><h2 class="events">Wandern</h2></a>
+        <a href="/events"><h2 class="events">Events</h2></a>
+        <!-- <a href="/anreise"><h2>Anreise</h2></a> -->
+        <!-- <a href="/"><h2>Skigebiet</h2></a> -->
+        <!-- <a href="/golden-roof-park"><h2>Golden-Roof-Park</h2></a> -->
+        <a href="/webcams"><h2>Webcams</h2></a>
+        <!-- <a href="/"><h2>Olympia</h2></a> -->
+        <!-- <a href="/"><h2>Nachhaltigkeit</h2></a> -->
+    </div>
+</div>
+
+<input id="burger-menu" type="checkbox" style="display: none;">
+<label for="burger-menu" class="burger-mobile">
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="14" height="52" viewBox="0 0 14 52">
+        <g id="Gruppe_93" data-name="Gruppe 93" transform="translate(-11.25 -29.816)">
+            <line id="Linie_5" data-name="Linie 5" y2="52" transform="translate(12.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+            <line id="Linie_6" data-name="Linie 6" y2="52" transform="translate(18.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+            <line id="Linie_7" data-name="Linie 7" y2="37.684" transform="translate(24.25 29.816)" fill="none" stroke="#a1b79f" stroke-width="2"/>
+        </g>
+    </svg>
+</label>
+<div id="header-mobile">
+    <label for="nothing">
+        <div id="header-content">
+            <div class="title">
+                <label for="burger-menu">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="14" height="52" viewBox="0 0 14 52">
+                        <g id="Gruppe_93" data-name="Gruppe 93" transform="translate(-11.25 -29.816)">
+                            <line id="Linie_5" data-name="Linie 5" y2="52" transform="translate(12.25 29.816)" fill="none" stroke="#000" stroke-width="2"/>
+                            <line id="Linie_6" data-name="Linie 6" y2="52" transform="translate(18.25 29.816)" fill="none" stroke="#000" stroke-width="2"/>
+                            <line id="Linie_7" data-name="Linie 7" y2="37.684" transform="translate(24.25 29.816)" fill="none" stroke="#000" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </label>
+                <h1 class="language lang-select"><a href="?lang=de" data-lang="de" class="active">DE</a><span>|</span><a href="?lang=en" data-lang="en">EN</a><span>|</span><a href="?lang=it" data-lang="it">IT</a></h1>
+                <label class="season-switch shows-winter" title="Saison wechseln (auf Winter)"><input type="checkbox" onchange="document.cookie='season='+(this.checked?'winter':'sommer')+';path=/;max-age=31536000';location.reload();"><span class="season-button"><span class="season-name">WINTER</span><span class="season-icon"><svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.6242 0.0346745C24.3773 0.29113 23.3718 1.00561 22.8676 1.99363C22.5014 2.71112 22.3331 3.69714 22.4746 4.29648C22.5092 4.44279 22.5266 4.56244 22.5134 4.56244C22.5002 4.56244 22.325 4.47833 22.1241 4.37558C21.559 4.08645 21.0285 3.97149 20.2697 3.97375C18.8674 3.97788 18.4195 4.21112 15.8329 6.28441C14.7377 7.16217 13.8222 7.87308 13.7985 7.86413C13.7748 7.85525 12.414 7.21711 10.7747 6.44612L7.79413 5.04425L7.94874 4.74286C8.03384 4.57709 8.10342 4.35474 8.10342 4.24879C8.10342 3.97832 7.85749 3.7489 7.56766 3.7489C7.30583 3.7489 7.15527 3.87568 6.95769 4.26262C6.88222 4.41031 6.81372 4.53898 6.80549 4.54849C6.79719 4.55806 6.35958 4.36575 5.83307 4.12125C4.81712 3.64939 4.72872 3.63481 4.44402 3.89214C4.34599 3.98076 4.30144 4.09246 4.30144 4.24954C4.30144 4.56401 4.43312 4.66695 5.42619 5.12911C5.88794 5.34401 6.2658 5.54471 6.2658 5.57512C6.2658 5.6056 6.19451 5.76943 6.10738 5.93922C5.89935 6.34461 5.9055 6.53173 6.13418 6.75758C6.47091 7.09014 6.82988 6.94288 7.13924 6.34536L7.31134 6.01294L10.0361 7.29396C11.5347 7.99856 12.7825 8.59614 12.8089 8.62192C12.8354 8.64777 12.5853 8.88745 12.2532 9.15461C11.5765 9.69887 11.2138 10.1404 11.0027 10.6767C10.8806 10.9867 10.8598 11.158 10.8598 11.8531C10.8598 12.5514 10.8804 12.7188 11.0047 13.0348C11.4399 14.1411 11.668 14.3382 14.8052 16.3192C16.2424 17.2267 17.4182 17.988 17.4182 18.0111C17.4182 18.0341 16.1708 18.5996 14.646 19.2678C11.8922 20.4746 11.8711 20.4853 11.484 20.8651C11.154 21.1888 11.0738 21.3126 10.9612 21.6728C10.888 21.9068 10.8282 22.1938 10.8282 22.3106C10.8282 22.4275 10.8111 22.5231 10.7901 22.5231C10.7693 22.5231 9.22519 21.6031 7.35886 20.4788C5.05886 19.0932 3.90895 18.4345 3.78995 18.4345C3.38454 18.4345 3.12461 18.8309 3.29886 19.1835C3.36248 19.3121 5.78916 20.8024 13.3945 25.3836C18.901 28.7005 23.5774 31.4973 23.7866 31.5986C24.4224 31.9068 24.9008 32.0045 25.7509 31.9998C26.5992 31.9951 26.9752 31.9113 27.727 31.5593C28.6172 31.1425 28.8771 30.6839 28.4324 30.3144C28.1842 30.1082 28.0339 30.1284 27.518 30.4373C26.5462 31.0194 25.3592 31.1029 24.3465 30.6605C23.8792 30.4563 13.8082 24.3745 13.8575 24.3262C13.8817 24.3026 15.6283 23.5249 17.7389 22.5979C19.8495 21.671 21.6907 20.8413 21.8304 20.7542C22.4483 20.369 22.9611 19.6642 23.1616 18.9247C23.406 18.0231 23.1152 16.9039 22.4559 16.2098C22.305 16.0509 21.21 15.245 20.0226 14.4189C18.8352 13.5928 17.8633 12.9022 17.8628 12.8843C17.8623 12.8663 18.1657 12.7024 18.5371 12.5199L19.2124 12.1883L19.3767 12.3061C20.0974 12.8232 22.8871 14.7109 23.0847 14.8153C23.7178 15.1498 24.4463 15.142 25.1233 14.7936L25.5303 14.584L26.4624 15.0224C26.9752 15.2634 27.4724 15.4628 27.5674 15.4655C27.8294 15.4728 28.0517 15.2971 28.0996 15.0449C28.1679 14.6852 28.0284 14.5581 27.0691 14.1057C26.5929 13.8812 26.1917 13.686 26.1775 13.672C26.1633 13.658 26.1847 13.4894 26.2251 13.2974C26.2812 13.0309 26.2807 12.863 26.2233 12.5884C26.0652 11.8317 25.7482 11.4502 24.6781 10.7283L23.9448 10.2336L24.2776 10.0734C24.673 9.88292 24.8928 9.5545 24.8944 9.15179C24.8953 8.92018 24.5467 7.23188 24.4733 7.1126C24.4308 7.04351 24.4756 7.05346 24.7793 7.18063C25.7046 7.568 26.8822 7.53746 27.85 7.10102C28.5863 6.76897 29.2833 6.07126 29.6482 5.30102C30.6449 3.19756 29.4346 0.697528 27.1389 0.117656C26.6913 0.0046358 25.964 -0.035228 25.6242 0.0346745ZM25.9093 1.09923C24.5161 1.31238 23.5579 2.36405 23.552 3.68631C23.5471 4.77641 24.1182 5.67682 25.1015 6.12959C26.4168 6.73524 27.966 6.1906 28.6146 4.89456C28.8249 4.47433 28.8531 4.36056 28.8737 3.85121C28.8922 3.39068 28.8709 3.20651 28.764 2.90406C28.4234 1.93963 27.6357 1.28153 26.6267 1.11832C26.2521 1.05774 26.191 1.05611 25.9093 1.09923ZM19.5753 5.10896C19.2955 5.16078 18.8039 5.37574 18.5041 5.57744C17.9113 5.97626 12.6124 10.2582 12.3568 10.5449C11.6477 11.3405 11.7833 12.7615 12.6466 13.5814C12.814 13.7403 14.1058 14.5966 15.5173 15.4843C16.9287 16.3719 18.1504 17.1571 18.2322 17.2291C18.4545 17.4251 18.5654 17.6782 18.5727 18.0056C18.5805 18.359 18.4414 18.6458 18.1629 18.8507C18.0496 18.934 16.7165 19.5468 15.2004 20.2125C12.2401 21.5124 12.1033 21.5916 11.9693 22.0831C11.7741 22.7991 12.3164 23.457 13.0413 23.3837C13.239 23.3637 14.5192 22.8323 17.0676 21.7126C19.1227 20.8096 20.9334 20.0055 21.0913 19.9256C21.4674 19.7355 21.8125 19.3761 21.9924 18.9873C22.1039 18.7463 22.1363 18.5665 22.1334 18.205C22.1293 17.6982 22.0352 17.4106 21.754 17.0465C21.6584 16.9228 20.5757 16.1242 19.277 15.2195C17.6426 14.0811 16.9296 13.5481 16.832 13.392C16.6431 13.0902 16.6449 12.6156 16.8362 12.31C16.9434 12.1385 17.1212 12.0106 17.5626 11.7872C17.884 11.6245 18.1576 11.4824 18.1707 11.4715C18.1837 11.4605 18.1182 11.3621 18.0251 11.2529C17.7593 10.941 17.6216 10.6263 17.4751 9.99625C17.2816 9.16418 17.2877 8.56729 17.4944 8.12153C17.7042 7.66882 18.0596 7.28338 18.4449 7.09057C18.7577 6.934 19.9474 6.6276 20.2424 6.6276C20.4491 6.6276 20.7767 6.94219 20.7767 7.14083C20.7767 7.31167 20.6308 7.53853 20.4643 7.62651C20.4007 7.66018 20.0671 7.74704 19.723 7.81951C18.4756 8.08241 18.2514 8.47123 18.5667 9.82391C18.6735 10.2819 18.7422 10.4435 18.8994 10.6056C19.1236 10.837 23.4218 13.7975 23.6671 13.8897C24.1516 14.0716 24.8073 13.8604 25.0353 13.4489C25.1968 13.1574 25.1669 12.611 24.9748 12.3445C24.8999 12.2408 24.3382 11.8118 23.7266 11.3914C23.0205 10.906 22.5797 10.5606 22.5194 10.4452C22.3881 10.1944 22.4007 9.88937 22.5526 9.64336C22.6946 9.41331 22.9116 9.30549 23.4539 9.19572C23.6543 9.15517 23.8182 9.11136 23.8182 9.09835C23.8182 9.08539 23.7194 8.64958 23.5985 8.12985C23.334 6.99163 23.127 6.56921 22.5522 5.99491C21.8928 5.33606 21.2043 5.05702 20.274 5.0716C19.9755 5.07629 19.661 5.09313 19.5753 5.10896ZM0.177761 11.3789C-0.0213356 11.5755 -0.051688 11.7663 0.0791633 11.9993C0.200003 12.2144 4.65813 14.9508 4.88777 14.9508C5.31644 14.9508 5.55692 14.317 5.2361 14.0328C5.10531 13.917 1.09093 11.4289 0.77296 11.2666C0.547946 11.1518 0.37464 11.1845 0.177761 11.3789ZM3.98949 11.358C3.76207 11.547 3.72557 11.8526 3.90541 12.0626C4.0815 12.2683 8.48368 14.9508 8.64513 14.9508C8.72523 14.9508 8.87845 14.8779 8.98566 14.7888C9.21309 14.5998 9.24958 14.2942 9.06975 14.0842C8.89366 13.8785 4.49148 11.196 4.33002 11.196C4.24993 11.196 4.09671 11.2689 3.98949 11.358Z" fill="currentColor"/></svg></span></span></label><script>document.documentElement.classList.toggle("winter", /(^|;\s*)season=winter/.test(document.cookie));</script>
+            </div>
+            <input class="deselect-button" id="nothing" type="radio" name="test" style="display: none;">
+            <div class="menu">
+                <a class="tickets" href="https://axamerlizum.axess.shop/de/Products/Tickets/" target="_blank">
+                    <h1>TICKETS</h1>
+                </a>
+                <h1 class="title axamer-lizum">
+                    <a href="/">Axamer Lizum</a>
+                    <label class="toggle" for="axamer-lizum"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></label>
+                    <label class="toggle nothing" for="nothing"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m12.37 8.165l6.43 6.63c.401.414.158 1.205-.37 1.205H5.57c-.528 0-.771-.79-.37-1.205l6.43-6.63a.5.5 0 0 1 .74 0"/></svg></label>
+                    <input class="toggle-button" type="radio" name="test" id="axamer-lizum">
+                </h1>
+                <div class="header-menu">
+                    <!-- <a href="/anreise"><h2>Anreise</h2></a> -->
+                    <!-- <h2>Skigebiet</h2> -->
+                    <!-- <a href="/golden-roof-park"><h2>Golden-Roof-Park</h2></a> -->
+                    <a href="/wander-routen"><h2>Wandern</h2></a>
+                    <a href="/trailrunning"><h2>Trailrunning</h2></a>
+                    <a href="/webcams"><h2>Webcams</h2></a>
+                    <!-- <h2>Olympia</h2> -->
+                    <!-- <h2>Nachhaltigkeit</h2> -->
+                </div>
+                <h1 class="title tarife"><a href="/tarife">PREISE & WANDERBUS</a></h1>
+                <h1 class="title events"><a href="/events">EVENTS</a>
+                    <!-- <label class="toggle" for="events"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></label>
+                    <label class="toggle nothing" for="nothing"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 8.165l6.43 6.63c.401.414.158 1.205-.37 1.205H5.57c-.528 0-.771-.79-.37-1.205l6.43-6.63a.5.5 0 0 1 .74 0"/></svg></label>
+                    <input class="toggle-button" type="radio" name="test" id="events"> -->
+                </h1>
+                <h1 class="title tarife"><a href="https://axamerlizum.axess.shop/de/Products/Tickets/" target="_blank">ONLINE-SHOP</a></h1>
+                <!-- <div class="header-menu">
+                    <a href="/events"><h2>Eventkalender</h2></a>
+                    <h2>Highlight Event 1</h2>
+                    <h2>Highlight Event 2</h2>
+                    <h2>Highlight Event 3</h2>
+                    <h2>Highlight Event 4</h2>
+                </div> -->
+                <!-- <h1 class="title magazine"><a href="/magazine">MAGAZINE</a>
+                    <label class="toggle" for="magazine"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></label>
+                    <label class="toggle nothing" for="nothing"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 8.165l6.43 6.63c.401.414.158 1.205-.37 1.205H5.57c-.528 0-.771-.79-.37-1.205l6.43-6.63a.5.5 0 0 1 .74 0"/></svg></label>
+                    <input class="toggle-button" type="radio" name="test" id="magazine">
+                </h1>
+                <div class="header-menu">
+                    <h2>Social Wall</h2>
+                </div> -->
+                <!-- <h1 class="title gastronomie"><a href="/gastronomie">GASTRONOMIE</a> -->
+                <h1 class="title gastronomie"><a href="/gutscheine">GUTSCHEINE</a>
+                    <!-- <label class="toggle" for="gastronomie"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></label>
+                    <label class="toggle nothing" for="nothing"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 8.165l6.43 6.63c.401.414.158 1.205-.37 1.205H5.57c-.528 0-.771-.79-.37-1.205l6.43-6.63a.5.5 0 0 1 .74 0"/></svg></label>
+                    <input class="toggle-button" type="radio" name="test" id="gastronomie"> -->
+                </h1>
+                <!-- <div class="header-menu">
+                    <h2>Hoadl Haus</h2>
+                    <h2>Birgitzköpfl</h2>
+                </div> -->
+                <!-- <h1 class="title online-shop">ONLINE-SHOP
+                    <label class="toggle" for="online-shop"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></label>
+                    <label class="toggle nothing" for="nothing"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12.37 8.165l6.43 6.63c.401.414.158 1.205-.37 1.205H5.57c-.528 0-.771-.79-.37-1.205l6.43-6.63a.5.5 0 0 1 .74 0"/></svg></label>
+                    <input class="toggle-button" type="radio" name="test" id="online-shop">
+                </h1>
+                <div class="header-menu">
+                    <h2>Skipass</h2>
+                    <h2>Lift Tickets</h2>
+                    <h2>Merch Shop</h2>
+                    <h2>Event Tickets</h2>
+                </div> -->
+                <!-- <h1 class="title pr-bereich">PR BEREICH</h1>
+                <h1 class="footer-links first">JOBS</h1> -->
+                <h1 class="footer-links first"><a href="/impressum">IMPRESSUM</a></h1>
+                <h1 class="footer-links"><a href="/kontakt">KONTAKT</a></h1>
+                <h1 class="footer-links"><a href="/datenschutz">DATENSCHUTZ</a></h1>
+                <h1 class="footer-links"><a href="https://karriere-beiuns.at/?filter%5Bclient_id%5D=34" target="_blank">JOBS</a></h1>
+            </div>
+            <a class="logo" href="/"></a>
+        </div>
+    </label>
+</div><div id="popup"></div><div id="index" class="sommer">
+    <div class="start">
+        <!-- <video muted autoplay playsinline loop preload="metadata" disablepictureinpicture>
+            <source src="/videos/202503_axamerlizum_carvingsocial.webm" type="video/webm">
+            <source src="/videos/202503_axamerlizum_carvingsocial.mp4" type="video/mp4">
+        </video> -->
+        <div class="logo"></div>
+        <h1 class="text">
+            THE<br>
+            WILD<br>
+            ONES<br>
+        </h1>
+        <!-- Both button styles ship on every page and the stylesheet picks one at
+             1100px, the same way the header does. Serving only the .ticket set here
+             left a narrow desktop window with the small desktop bars while a phone of
+             the same width got the large blocks. -->
+        <a class="ticket news not-mobile" onclick="$('#news-popup').get(0).showModal()">
+            <div class="symbol"></div>
+            <p>
+                NEWS
+            </p>
+        </a>
+        <a href="/pdf/Axamer-Lizum_Sommerpanorama-Legende_2026.pdf" target="_blank" class="ticket not-mobile">
+            <div class="symbol"></div>
+            <p>
+                WANDER<br>
+                KARTE
+            </p>
+        </a>
+        <a href="/pdf/Axamer-Lizum_Flyer-Sommer-Saison_2026.pdf" target="_blank" class="ticket two not-mobile">
+            <div class="symbol"></div>
+            <p>
+                FLYER<br>
+                DOWNLOAD
+            </p>
+        </a>
+        <a onclick="$('#news-popup').get(0).showModal()">
+            <div class="ski-ticket news show-mobile">
+                <h1>NEWS</h1>
+            </div>
+        </a>
+        <a href="/pdf/Axamer-Lizum_Sommerpanorama-Legende_2026.pdf" target="_blank" aria-label="ski ticket">
+            <div class="ski-ticket show-mobile">
+                <h1>WANDER<br>KARTE</h1>
+            </div>
+        </a>
+        <a href="/pdf/Axamer-Lizum_Flyer-Sommer-Saison_2026.pdf" target="_blank" aria-label="ski ticket">
+            <div class="ski-ticket second show-mobile">
+                <h1>FLYER<br>DOWNLOAD</h1>
+            </div>
+        </a>
+    </div>
+
+    
+
+    <style>
+    /* 2-row layout: row1 = Öffnungszeiten | WebCam | Events, row2 = (empty) | Wetter | Liftstatus (right-aligned) */
+    .data-container.sommer {
+        grid-template-columns: 38vw 1vw 13vw 25vw 1fr;
+        grid-template-areas:
+            "info blank1 webcam events events"
+            "blank blank1 wetter wetter lift";
+        row-gap: 0;
+    }
+
+    .data-container.sommer .data.info {
+        grid-area: info;
+    }
+
+    .data-container.sommer .data.webcam {
+        grid-area: webcam;
+        clip-path: polygon(2.68vw 0, 150% 0, 100% 150%, 0.68vw 100%);
+    }
+
+    .data-container.sommer .data.snow {
+        grid-area: events;
+    }
+
+    .data-container .data::before {
+        clip-path: polygon(2vw 0, calc(100% + 0vw) 0, calc(100% - 1.8vw) 100%, 0 100%);
+    }
+
+    .data-container .data.webcam .icon {
+        transform: translateX(1vw);
+    }
+
+    .data-container .data.info {
+        /* Grows with what is in it. A fixed height was fine while "geöffnete Bahnen"
+           listed three lifts; with a full winter open the list wraps to three lines and
+           the text used to run out through the bottom of the panel. min-height keeps
+           the tile the size it has always been when the lists are short. */
+        min-height: 15vw;
+        height: auto;
+        position: absolute;
+    }
+
+    .data-container .data.info .icon {
+        transform: translateX(1vw);
+    }
+
+    .data-container .data.info::before {
+        clip-path: polygon(0 0, 100% 0, calc(100% - 3.3vw) 100%, 0 100%);
+    }
+
+    .data-container.sommer .data.weather {
+        grid-area: wetter;
+        margin-top: -.5vw;
+
+        position: relative;
+        left: -1.3vw;
+        top: 0.4vw;
+        width: 27vw;
+        height: 10vw;
+    }
+
+    .data-container.sommer .data.weather .title {
+        margin-left: 4vw;
+    }
+
+    .data-container.sommer .data.shop {
+        grid-area: lift;
+        width: auto;
+        margin-top: -.5vw;
+        position: relative;
+        left: -11vw;
+        top: 0.3vw;
+        width: 15vw;
+        height: 10vw;
+    }
+
+    /* wider Öffnungszeiten tile with two side-by-side columns */
+    .data-container .data.info {
+        width: 37vw;
+        background-image: linear-gradient(110deg, #EEE9D7, var(--beige) 38vw, transparent 38vw);
+    }
+
+    /* One grid over both columns rather than two independent flex columns, so the four
+       label/value pairs share rows: "geöffnete Gasthäuser" used to start wherever the
+       lift list above it happened to end, which left it a long way below "Sommersaison"
+       once that list wrapped. Four rows filled column-first, which is the DOM order.
+       The labels column sizes to its content and cannot be squeezed; the values column
+       takes the rest and wraps inside it. */
+    .data-container .data.info .grid.open {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, auto);
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 1.6vw;
+        margin-top: .3vw;
+        align-items: start;
+    }
+
+    /* The two wrappers only exist to group the pairs in the markup; contents drops
+       their headings straight into the grid above. Scoped to the desktop tile - the
+       mobile banner keeps its own flex columns. */
+    .data-container .data.info .grid.open .col {
+        display: contents;
+    }
+
+    .data-container .data.info .grid.open .col h1 {
+        font-size: 1vw;
+        line-height: 1.2vw;
+        margin: .15vw;
+        font-weight: 600;
+        /* These carry the site's scaleY(.8). Scaled about the centre, a block of three
+           lines has its first line pushed down further than a block of one, so the
+           values looked a few pixels out of step even though the grid rows line up to
+           the pixel. Anchoring the scale at the top makes the first line sit where the
+           layout says it does. */
+        transform-origin: top;
+    }
+
+    .data-container .data .info-container {
+        padding-left: 4vw;
+    }
+
+    .data-container .data.info .grid.open .col .sub {
+        font-weight: 900;
+        margin-top: 2vw;
+    }
+</style>
+<div class="data-container not-mobile sommer">
+    <div class="data info">
+        <div class="icon-title">
+            <div aria-label="interactive map">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                    viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
+                    <path fill="#858585"
+                        d="M14.55 16.55L11 13V8h2v4.175l2.95 2.95zM11 6V4h2v2zm7 7v-2h2v2zm-7 7v-2h2v2zm-7-7v-2h2v2zm8 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
+                </svg>
+            </div>
+            <h1 class="title">WIR SIND AB 20.11. WIEDER DA!</h1>
+        </div>
+        <div class="grid open">
+            <div class="col">
+                <h1 class="sub">Montag - Sonntag</h1>
+                <h1>08:30 bis 16:00 Uhr</h1>
+                <h1 class="sub">Sommersaison</h1>
+                <h1>26.06.26 - 20.09.26</h1>
+            </div>
+            <div class="col">
+                <h1 class="sub">geöffnete Bahnen</h1>
+                <!-- openLifteNames() fills this with the names of the running lifts, or
+                     with keine when none are. That token is
+                     written out here rather than only in the source, because the Texte
+                     scanner reads html/ - a field only emitted from PHP never reaches the
+                     editor. Inside a comment it declares the id without printing twice. -->
+                <h1>keine</h1>
+                <h1 class="sub">geöffnete Gasthäuser</h1>
+                <h1>keine</h1>
+            </div>
+        </div>
+        <a href="/webcams" aria-label="webcams">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="1.985vw" height="1.985vw" viewBox="0 0 40 39">
+                <defs>
+                    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 512 512">
+                        <image width="512" height="512"
+                            xlink:href="data:image/png;base64,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" />
+                    </pattern>
+                </defs>
+                <rect id="web-cam" width="40" height="39" fill="url(#pattern)" />
+            </svg>
+        </a>
+        <div class="prev"><a>&lt;</a></div>
+    </div>
+    <div class="data webcam">
+        <div class="title">
+            <h1>WebCam</h1>
+        </div>
+        <div class="next"><a>&gt;</a></div>
+        <div class="entry active">
+            <a href="/webcams" aria-label="webcams">
+                <div class="title">
+                    <h1><br></h1>
+                </div>
+                <div class="info">
+                    <h1><br></h1>
+                    <h1>Birgitzköpflhaus</h1>
+                    <h1>2035m</h1>
+                    <h1>5.8°</h1>
+                </div>
+            </a>
+        </div>
+        <div class="entry">
+            <a href="/webcams" aria-label="webcams">
+                <div class="title">
+                    <h1><br></h1>
+                </div>
+                <div class="info">
+                    <h1><br></h1>
+                    <h1>Axamer Lizum</h1>
+                    <h1>2340m</h1>
+                    <h1>5.7°</h1>
+                </div>
+            </a>
+        </div>
+        <div class="entry">
+            <a href="/webcams" aria-label="webcams">
+                <div class="title">
+                    <h1><br></h1>
+                </div>
+                <div class="info">
+                    <h1><br></h1>
+                    <h1>Hoadl Haus</h1>
+                    <h1>2340m</h1>
+                    <h1>5.6°</h1>
+                </div>
+            </a>
+        </div>
+        <div class="entry">
+            <a href="/webcams" aria-label="webcams">
+                <div class="title">
+                    <h1><br></h1>
+                </div>
+                <div class="info">
+                    <h1><br></h1>
+                    <h1>Golden Roofpark</h1>
+                    <h1>2110m</h1>
+                    <h1>6.3°</h1>
+                </div>
+            </a>
+        </div>
+        <!-- title-icon:start - the winter homepage swaps this for the snow report icon, see SiteController::index() -->
+        <img src="/img/event.svg" class="icon" width="1.985vw" height="1.985vw" style="width:1.985vw; height:1.985vw;"
+            alt="Events">
+        <!-- title-icon:end -->
+    </div>
+    <div class="data weather" style="z-index: 1;">
+        <h1 class="title">Wetter</h1>
+        <div class="splide-container">
+            <section class="custom splide berichte weather" aria-label="HIER WURDE VON UNS BERICHTET"
+                data-splide='{"autoWidth": true, "pagination": false, "perPage": 1, "omitEnd": true}'>
+                <div class="splide__arrows">
+                    <button class="custom splide__arrow splide__arrow--prev">
+                        <span>&lt;</span>
+                    </button>
+                    <button class="custom splide__arrow splide__arrow--next">
+                        <span>&gt;</span>
+                    </button>
+                </div>
+                <div class="splide__track">
+                    <div class="splide__list">
+                        <li class="splide__slide"><h1 class="day">heute</h1><div class="entry-container"><div class="entry"><h1>08:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>4.3°C</h1></div><div class="entry"><h1>10:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>10.4°C</h1></div><div class="entry"><h1>12:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M11 7c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S16.714 16 15.128 16H6.872C5.286 16 4 14.763 4 13.237s1.286-2.763 2.872-2.763h.062C7.139 8.561 8.535 7 11 7m0 1c-1.65 0-3.087 1.27-3.087 3.025c0 .278-.254.496-.545.496h-.55C5.814 11.521 5 12.3 5 13.261C5 14.22 5.814 15 6.818 15h8.364C16.186 15 17 14.221 17 13.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C14.087 9.248 12.65 8 11 8M8.392 4c1.456 0 2.726.828 3.353 2.045a6 6 0 0 0-1.284-.022A2.65 2.65 0 0 0 8.375 5a2.67 2.67 0 0 0-2.62 2.225l-.037.21a1 1 0 0 1-.986.83h-.258C3.66 8.265 3 8.933 3 9.757c0 .57.315 1.065.778 1.316c-.214.272-.39.576-.52.902a2.622 2.622 0 0 1 1.2-4.856l.221-.005A3.77 3.77 0 0 1 8.392 4"/></svg><h1>12.1°C</h1></div><div class="entry"><h1>16:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>11.5°C</h1></div></></li><li class="splide__slide"><h1 class="day">morgen</h1><div class="entry-container"><div class="entry"><h1>08:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>4.4°C</h1></div><div class="entry"><h1>10:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>10.1°C</h1></div><div class="entry"><h1>12:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>11.7°C</h1></div><div class="entry"><h1>16:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>12.8°C</h1></div></></li><li class="splide__slide"><h1 class="day">übermorgen</h1><div class="entry-container"><div class="entry"><h1>08:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M11 7c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S16.714 16 15.128 16H6.872C5.286 16 4 14.763 4 13.237s1.286-2.763 2.872-2.763h.062C7.139 8.561 8.535 7 11 7m0 1c-1.65 0-3.087 1.27-3.087 3.025c0 .278-.254.496-.545.496h-.55C5.814 11.521 5 12.3 5 13.261C5 14.22 5.814 15 6.818 15h8.364C16.186 15 17 14.221 17 13.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C14.087 9.248 12.65 8 11 8M8.392 4c1.456 0 2.726.828 3.353 2.045a6 6 0 0 0-1.284-.022A2.65 2.65 0 0 0 8.375 5a2.67 2.67 0 0 0-2.62 2.225l-.037.21a1 1 0 0 1-.986.83h-.258C3.66 8.265 3 8.933 3 9.757c0 .57.315 1.065.778 1.316c-.214.272-.39.576-.52.902a2.622 2.622 0 0 1 1.2-4.856l.221-.005A3.77 3.77 0 0 1 8.392 4"/></svg><h1>6.9°C</h1></div><div class="entry"><h1>10:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M11 7c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S16.714 16 15.128 16H6.872C5.286 16 4 14.763 4 13.237s1.286-2.763 2.872-2.763h.062C7.139 8.561 8.535 7 11 7m0 1c-1.65 0-3.087 1.27-3.087 3.025c0 .278-.254.496-.545.496h-.55C5.814 11.521 5 12.3 5 13.261C5 14.22 5.814 15 6.818 15h8.364C16.186 15 17 14.221 17 13.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C14.087 9.248 12.65 8 11 8M8.392 4c1.456 0 2.726.828 3.353 2.045a6 6 0 0 0-1.284-.022A2.65 2.65 0 0 0 8.375 5a2.67 2.67 0 0 0-2.62 2.225l-.037.21a1 1 0 0 1-.986.83h-.258C3.66 8.265 3 8.933 3 9.757c0 .57.315 1.065.778 1.316c-.214.272-.39.576-.52.902a2.622 2.622 0 0 1 1.2-4.856l.221-.005A3.77 3.77 0 0 1 8.392 4"/></svg><h1>9.5°C</h1></div><div class="entry"><h1>12:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 4c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S15.714 13 14.128 13l-.703-.001l-.013.034l-1.483 2.704a.5.5 0 0 1-.914-.396l.036-.083L12.29 13h-1.853l-.014.034l-1.483 2.704a.5.5 0 0 1-.914-.396l.036-.083L9.301 13H7.432L5.94 15.737a.5.5 0 0 1-.595.235l-.083-.036a.5.5 0 0 1-.236-.595l.036-.083L6.293 13h-.421C4.286 13 3 11.763 3 10.237c0-1.47 1.192-2.671 2.697-2.758l.237-.005C6.139 5.561 7.535 4 10 4m0 1C8.35 5 6.913 6.27 6.913 8.025c0 .278-.254.496-.545.496h-.55C4.814 8.521 4 9.3 4 10.261C4 11.22 4.814 12 5.818 12h8.364C15.186 12 16 11.221 16 10.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C13.087 6.248 11.65 5 10 5"/></svg><h1>7.7°C</h1></div><div class="entry"><h1>16:00</h1><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 4c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S15.714 13 14.128 13l-.703-.001l-.013.034l-1.483 2.704a.5.5 0 0 1-.914-.396l.036-.083L12.29 13h-1.853l-.014.034l-1.483 2.704a.5.5 0 0 1-.914-.396l.036-.083L9.301 13H7.432L5.94 15.737a.5.5 0 0 1-.595.235l-.083-.036a.5.5 0 0 1-.236-.595l.036-.083L6.293 13h-.421C4.286 13 3 11.763 3 10.237c0-1.47 1.192-2.671 2.697-2.758l.237-.005C6.139 5.561 7.535 4 10 4m0 1C8.35 5 6.913 6.27 6.913 8.025c0 .278-.254.496-.545.496h-.55C4.814 8.521 4 9.3 4 10.261C4 11.22 4.814 12 5.818 12h8.364C15.186 12 16 11.221 16 10.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C13.087 6.248 11.65 5 10 5"/></svg><h1>7.2°C</h1></div></></li>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <img src="/img/sunny.png" class="icon" width="1.985vw" height="1.985vw" style="    width: 1.985vw;
+    height: 1.985vw;
+    left: 0.5vw;
+    transform: translateZ(40px);
+    right: auto;" alt="Wetter">
+    </div>
+    <!-- title-slot:start - the winter homepage swaps this block for the snow report, see SiteController::index() -->
+    <div class="data snow">
+        <h1 class="title">Events Vorankündigung</h1>
+        <div class="info-container">
+            <div class='info event'><h1>Hoadl House Winter Opening</h1><h1>20.11.2026</h1></div><div class='info event'><h1>SKI OPENING with David Puentez by Living Room x Hoadl House</h1><h1>27.11.2026</h1></div><div class='info event'><h1>Vor-Silvesterparty</h1><h1>30.12.2026</h1></div><a href='/events' class='info event'><h1><strong>Events&nbsp;&gt;&gt;</strong></h1></a>
+        </div>
+    </div>
+    <!-- title-slot:end -->
+    <div class="data shop">
+        <div class="icon-title" style="
+    transform: translateZ(30px);
+    z-index: 1000;
+">
+            <div style="z-index: 1;">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.985vw"
+                    height="1.985vw" viewBox="0 0 49 49">
+                    <image id="ski-lift" width="49" height="49"
+                        xlink:href="data:image/png;base64,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" />
+                </svg>
+            </div>
+            <h1 class="title">Liftstatus</h1>
+        </div>
+        <p style="font-size: 4vw;line-height: 3vw;margin: 0.5vw; margin-left: 4.5vw;">0<span
+                style="font-size: 2vw;">/9</span><span style=" font-size: 1vw; margin-left: 0.5vw;">
+                geöffnet
+            </span></p>
+        
+    </div>
+    <!-- The button for the generic Info-Popup, in the empty half of this row next to the
+         Liftstatus tile. It is a sibling of the tiles so it gets their skewed panel and
+         sits in their grid; <a class="data info-popup-button" onclick="document.getElementById('info-popup').showModal()"><div class="icon-title"><div class="symbol" style="--icon: url('/img/uploads/3c6e4f4e505dcaf7456b.webp');"></div><h1>FREIZEITTICKET<br>VORVERKAUF</h1></div></a> is blank whenever the popup is
+         hidden, and the whole thing is left out on the winter banner, where the lift
+         tile carries three more columns and fills the row. -->
+    <a class="data info-popup-button" onclick="document.getElementById('info-popup').showModal()"><div class="icon-title"><div class="symbol" style="--icon: url('/img/uploads/3c6e4f4e505dcaf7456b.webp');"></div><h1>FREIZEITTICKET<br>VORVERKAUF</h1></div></a>
+</div>
+
+<!-- events + weather + lift relocated to the bottom bar below -->
+<style>
+    /* mobile "WIR HABEN GEÖFFNET" tile — desktop look + reveal (inline: local style.css out of sync) */
+    .info-banner.geoeffnet-banner.show-mobile{height:auto!important;width:100%;position:relative;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet{display:block!important;position:relative!important;top:auto!important;left:14vw!important;right:auto!important;width:86vw!important;height:auto!important;padding:4vw 2vw 4vw 5vw!important;box-sizing:border-box;overflow:visible!important; margin-bottom: 4vw;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .icon-title{margin-bottom:1vw;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .icon-title{display:flex!important;align-items:center;gap:3vw;position:relative;z-index:1;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .clock-icon{background:#fff;border-radius:2vw;padding:2vw;box-shadow:1px 2px 5px rgba(0,0,0,.2);display:inline-flex;flex:none;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .clock-icon svg{width:7vw;height:7vw;display:block;}
+    /* collapsed: heading stacked to the right (multi-line); on .in-view it breaks to one line */
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .title.heading{position:relative!important;font-size:6vw;line-height:1.1;font-weight:700;top:auto!important;left:auto!important;white-space:normal;text-align:right;max-width:36vw;margin:0 0 0 auto;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet.in-view .title.heading{white-space:nowrap;text-align:left;max-width:none;margin-left:0;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .grid.open{position:relative!important;z-index:1;display:flex;gap:6vw;margin:0;opacity:0;transform:translateY(4vw);max-height:0;overflow:hidden;transition:opacity 1.1s ease-out, transform 1.1s ease-out, max-height 1.2s ease-out, margin-top 1.1s ease-out;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet.in-view .grid.open{opacity:1;transform:none;max-height:120vw;margin-top:3vw;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .grid.open .col{display:flex;flex-direction:column;gap:1vw;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .grid.open .col .sub{font-weight:900;}
+    .info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet .grid.open .col h1{margin:.2vw 0;}
+.info-banner .info-container-2.webcam {
+    top: 57%;
+    height: 68%;
+    width: 27vw;
+    transform: translateY(-50%) translateX(10px);
+}
+.info-banner .info-container-2.webcam img {
+    width: 8vw;
+    height: 8vw;
+    z-index: 1;
+    padding: 2vw;
+    background-color: #fff;
+    border-radius: 3vw;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, .2);
+}
+</style>
+<div class="info-banner geoeffnet-banner show-mobile">
+<div class="info-container-1 lifte geoeffnet" style="width:92vw">
+        <div class="background"></div>
+        <div class="icon-title"><div class="clock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                    viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
+                    <path fill="#858585"
+                        d="M14.55 16.55L11 13V8h2v4.175l2.95 2.95zM11 6V4h2v2zm7 7v-2h2v2zm-7 7v-2h2v2zm-7-7v-2h2v2zm8 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
+                </svg></div><h1 class="title heading">WIR SIND AB 20.11. WIEDER DA!</h1></div>
+        <div class="grid open">
+            <div class="col">
+                <h1 class="sub">Montag - Sonntag</h1>
+                <h1>08:30 bis 16:00 Uhr</h1>
+                <h1 class="sub">Sommersaison</h1>
+                <h1>26.06.26 - 20.09.26</h1>
+            </div>
+            <div class="col">
+                <h1 class="sub">geöffnete Bahnen</h1>
+                <h1>keine</h1>
+                <h1 class="sub">geöffnete Gasthäuser</h1>
+                <h1>keine</h1>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="info-banner show-mobile" style="z-index: 1;">
+    <div class="info-container-2" style="width: 55vw;">
+        <div class="background"></div>
+        <div class="slider__" style="width: 53vw; justify-items: center;">
+            <!-- title-slot-mobile:start -->
+            <div class='info event'><h1>Hoadl House Winter Opening</h1><h1>20.11.2026</h1></div><div class='info event'><h1>SKI OPENING with David Puentez by Living Room x Hoadl House</h1><h1>27.11.2026</h1></div><div class='info event'><h1>Vor-Silvesterparty</h1><h1>30.12.2026</h1></div><a href='/events' class='info event'><h1><strong>Events&nbsp;&gt;&gt;</strong></h1></a>
+            <!-- title-slot-mobile:end -->
+        </div>
+    </div>
+    <div class="info-container-1 weather" style="width: 37vw;">
+        <div class="background"></div>
+        <div class="slider__" style="width: 58vw;">
+            <div class='info'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>08:00</h1><h1>4.3&deg;</h1></div><div class='info'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>10:00</h1><h1>10.4&deg;</h1></div><div class='info'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M11 7c2.465 0 3.863 1.574 4.066 3.474h.062c1.586 0 2.872 1.237 2.872 2.763S16.714 16 15.128 16H6.872C5.286 16 4 14.763 4 13.237s1.286-2.763 2.872-2.763h.062C7.139 8.561 8.535 7 11 7m0 1c-1.65 0-3.087 1.27-3.087 3.025c0 .278-.254.496-.545.496h-.55C5.814 11.521 5 12.3 5 13.261C5 14.22 5.814 15 6.818 15h8.364C16.186 15 17 14.221 17 13.26c0-.96-.814-1.739-1.818-1.739h-.55c-.29 0-.545-.218-.545-.496C14.087 9.248 12.65 8 11 8M8.392 4c1.456 0 2.726.828 3.353 2.045a6 6 0 0 0-1.284-.022A2.65 2.65 0 0 0 8.375 5a2.67 2.67 0 0 0-2.62 2.225l-.037.21a1 1 0 0 1-.986.83h-.258C3.66 8.265 3 8.933 3 9.757c0 .57.315 1.065.778 1.316c-.214.272-.39.576-.52.902a2.622 2.622 0 0 1 1.2-4.856l.221-.005A3.77 3.77 0 0 1 8.392 4"/></svg><h1>12:00</h1><h1>12.1&deg;</h1></div><div class='info'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE --><path fill="currentColor" d="M10 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 2m0 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m7.5-2.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM10 16a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5m-6.5-5.5a.5.5 0 0 0 0-1H2.463a.5.5 0 0 0 0 1zm.646-6.354a.5.5 0 0 1 .708 0l1 1a.5.5 0 1 1-.708.708l-1-1a.5.5 0 0 1 0-.708m.708 11.708a.5.5 0 0 1-.708-.708l1-1a.5.5 0 0 1 .708.708zm11-11.708a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708m-.708 11.708a.5.5 0 0 0 .708-.708l-1-1a.5.5 0 0 0-.708.708z"/></svg><h1>16:00</h1><h1>11.5&deg;</h1></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="info-banner tall show-mobile">
+    <div class="info-container-1 lifte" style="left: -5vw;">
+        <div class="background"></div>
+        <div class="lift-info" style="position: absolute;right: 8vw;top: 0;padding-top: 3vw;">
+            <h1 class="title" style="width: 17vw;">Liftstatus</h1>
+            <p style="font-size: 10vw; line-height: 19vw; margin: 0;">0<span style="font-size: 6vw;">/9</span></p>
+        </div>
+        
+    </div>
+<div class="info-container-2 webcam">
+        <a href="/webcams" class="background" aria-label="webcams"></a>
+        <a href="/webcams" style="position: relative; right: 10vw; top: 2.4vw; width: 10vw; height: 10vw;" aria-label="webcams">
+            <img class="icon" src="/img/icon/webcam.svg" width="1.985vw" height="1.985vw">
+        </a>
+        <h1><a href="/webcams" aria-label="webcams">WEBCAM</a></h1>
+    </div>
+
+<!-- Summer's counterpart to the winter map button: the Info-Popup's tile, under the
+     webcam one. Blank in winter and whenever the popup is hidden. -->
+<div class="info-container-2 webcam popup"><a class="background" aria-label="info" onclick="document.getElementById('info-popup').showModal()"></a><a style="position: relative; right: 10vw; top: 2.4vw; width: 10vw; height: 10vw;" aria-label="info" onclick="document.getElementById('info-popup').showModal()"><img class="icon" src="/img/uploads/3c6e4f4e505dcaf7456b.webp" alt=""></a><h1><a aria-label="info" onclick="document.getElementById('info-popup').showModal()">FREIZEIT<br>TICKET</a></h1></div>
+</div>
+
+<script>
+(function () {
+    var tile = document.querySelector('.info-banner.geoeffnet-banner.show-mobile .info-container-1.lifte.geoeffnet');
+    if (!tile) return;
+    if (!('IntersectionObserver' in window)) { tile.classList.add('in-view'); return; }
+    var timer;
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.intersectionRatio >= 0.98) {
+                clearTimeout(timer);
+                timer = setTimeout(function () { tile.classList.add('in-view'); }, 500);
+            } else if (!e.isIntersecting) {
+                clearTimeout(timer);
+                tile.classList.remove('in-view');
+            }
+        });
+    }, { threshold: [0, 0.5, 0.98, 1] });
+    io.observe(tile);
+})();
+</script>
+
+<dialog id="news-popup" class="news-popup" closedby="any">
+    <svg class="close-dialog" onclick="$('#news-popup').get(0).close()"
+        style="position: relative; left: 100%; transform: translateX(-100%) rotate(45deg); cursor: pointer; background: #fff; border-radius: 100%; color: black;"
+        xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="7" r="6.5" />
+            <path d="M7 4v6M4 7h6" />
+        </g>
+    </svg>
+    <div class="container">
+        <content>
+            <h1>NEWS</h1>
+            <h1 class="small">AKTUELLES AUS DER AXAMER LIZUM</h1>
+        </content>
+        <div class="grid type-2">
+
+            <div class="box news-1">
+                <div class="img" style="--bg-preview: url('/img/uploads/620ed59af286bfb03ebc.webp');"></div>
+                <h1></h1>
+                <p></p>
+                
+            </div>
+            <div class="box news-2">
+                <h1>DANKE für eine wunderschöne Sommersaison!</h1>
+                <p>Ab sofort sind wir in der Pause. Save the date: am 20.11. starten wir in die Wintersaison!</p>
+            </div>
+            <div class="box news-3">
+                <h1></h1>
+                <p></p>
+            </div>
+        </div>
+        <label style="position: relative; top: 2vw; font-family: inter, arial, sans-serif; color: var(--grey);">
+            <input type="checkbox" name="show_on_start" value="on" checked hx-post="/save"
+                hx-trigger="change" hx-swap="none" style="accent-color: var(--red); outline: none;">
+            News-Popup beim nächsten Besuch anzeigen
+        </label>
+    </div>
+</dialog>
+
+    <div class="content">
+        <div class="title">
+            <h1>WILLKOMMEN IN DER AXAMER LIZUM</h1>
+            <h2>Dein Sommer inmitten der majestätischen Dolomiten Nordtirols</h2>
+        </div>
+        
+        <div class="title image">
+            <div class="image"></div>
+            <a href="/tarife" class="info">
+                <p>PREISE &<br>WANDERBUS</p>
+            </a>
+            <p class="text">
+                Nur wenige Minuten von Innsbruck entfernt wartet ein Ort, der sofort begeistert: die Axamer Lizum.
+                Zwischen den imposanten Kalkkögeln – den berühmten „Dolomiten Nordtirols“ – eröffnet sich eine
+                Bergwelt voller Freiheit, Ruhe und unvergesslicher Augenblicke.
+                <br><br>
+                Schon die Fahrt mit der modernen Hoadlbahn oder dem Birgitzköpfllift ist mehr als nur der Weg nach
+                oben – sie ist der erste Schritt hinaus aus dem Alltag. Oben angekommen erwarten dich traumhafte
+                Wanderwege, frische Bergluft und ein Panorama, das den Atem raubt. Hier wird jeder Schritt zum
+                Erlebnis und jeder Moment zur echten Auszeit.
+                <br><br>
+                Ob entspannte Familienwanderung, gemütliche Einkehr oder einfach die Sehnsucht nach Natur und
+                Weite – die Axamer Lizum ist ein Ort zum Ankommen, Loslassen und Genießen.
+                Im sonnigen Hoadl-Haus auf 2.340 Metern oder im charmanten Birgitzköpflhaus auf 2.035 Metern
+                genießt du nicht nur Tiroler Gastfreundschaft, sondern auch einen Ausblick, den man nicht vergisst:
+                über das Inntal, die Nordkette bis hin zu den Gipfeln der Stubaier Alpen.<br><br><span style="font-size: 19.12px; background-color: rgb(255, 255, 255);">Spüre die Berge. Erlebe den Sommer. Entdecke Tirol von seiner schönsten Seite.</span>
+            </p>
+        </div>
+
+        <div class="slider">
+            <section class="custom splide berichte long" aria-label="HIER WURDE VON UNS BERICHTET" data-splide='{"autoWidth": true, "pagination": false, "perPage": 3, "omitEnd": true}'>
+                <div class="splide__arrows">
+                    <button class="custom splide__arrow splide__arrow--prev">
+                        <i></i>
+                    </button>
+                    <button class="custom splide__arrow splide__arrow--next">
+                        <i></i>
+                    </button>
+                </div>
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <div class="slider-content">
+                                <a class="image" href="/wander-routen">
+
+                                </a>
+                                <h1>
+                                    WANDERUNGEN<br><br>
+                                </h1>
+                                <p>Entdecke traumhafte Wanderwege inmitten der beeindruckenden Bergwelt der Kalkkögel und erlebe die Axamer Lizum Schritt für Schritt von ihrer schönsten Seite.<br><br></p>
+                                <a aria-label="wanderung starten" href="/wander-routen"><button>Wanderung starten</button></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide">
+                            <div class="slider-content">
+                                <a class="image" href="/trailrunning">
+
+                                </a>
+                                <h1>
+                                    TRAILRUNNING<br><br>
+                                </h1>
+                                <p>Neu ab diesem Sommer: Gemeinsam mit dem TVB Innsbruck erweitert die Axamer Lizum ihr Angebot um spektakuläre Trailrunning-Strecken für alle die die Berge mit Tempo, Ausdauer und Adrenalin erleben möchten.</p>
+                                <a aria-label="trails entdecken" href="/trailrunning"><button>Trails entdecken</button></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide">
+                            <div class="slider-content">
+                                <a href="/events" class="image">
+
+                                </a>
+                                <h1>
+                                    EVENTKALENDER<br>
+                                    AUFSCHLAGEN
+                                </h1>
+                                <p>Freu dich auf einen abwechslungsreichen Sommer voller einzigartiger Events – die deinen Aufenthalt in der Axamer Lizum unvergesslich machen.<br><br><br></p>
+                                <a href="/events" aria-label="zu den events"><button>Dabei sein</button></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <div class="triplet-box">
+            <div class="background"></div>
+            <div class="box1">
+                <div class="image"></div>
+                <h1>
+                    GENUSS INMITTEN<br>
+                    EINES EINZIGARTIGEN<br>
+                    BERGPANORAMAS
+                </h1>
+
+                <a href="/hoadl-haus" class="href">
+                    <h2>Hoadl Haus &gt;&gt;</h2>
+                </a>
+
+                <a class="href" hx-get="/dialog?dialog=eventlocation&location=hoadl-haus" hx-target="#popup" style="">
+                    <h2>EVENTLOCATION ANFRAGEN</h2>
+                </a>
+            </div>
+            <a aria-label="ski tickets" href="/birgitzkoepfl-haus">
+                <div class="box2">
+                    <div class="text-box"></div>
+                    <span>Birgitzköpflhaus &gt;&gt;</span>
+                    <div class="image"></div>
+                </div>
+            </a>
+            <div aria-label="ski tarife">
+                <div class="box3">
+                    <div class="text-box"></div>
+                    <span>Schafalm</span>
+                    <div class="image"></div>
+                </div>
+            </div>
+            <div aria-label="ski tarife">
+                <div class="box4">
+                    <div class="text-box"></div>
+                    <span>Lizum Alm</span>
+                    <div class="image"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title small">
+            <h1>WANDERTOUREN</h1>
+        </div>
+
+        <div class="slider hotels">
+            <section class="custom splide berichte" aria-label="HIER WURDE VON UNS BERICHTET" data-splide='{"autoWidth": true, "pagination": false, "perPage": 3, "omitEnd": true}'>
+                <div class="splide__arrows">
+                    <button class="custom splide__arrow splide__arrow--prev">
+                        <i></i>
+                    </button>
+                    <button class="custom splide__arrow splide__arrow--next">
+                        <i></i>
+                    </button>
+                </div>
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <a class="slider-content" href="/wander-routen#hochtennboden-steig">
+                                <div class="image">
+
+                                </div>
+                                <h1>
+                                    HOCHTENNBODENSTEIG
+                                </h1>
+                                <!-- <a aria-label="zur tour"> <button>ZUR TOUR&nbsp;&nbsp;&nbsp;>></button></a> -->
+                            </a>
+                        </li>
+                        <li class="splide__slide">
+                            <a class="slider-content" href="/wander-routen#herzelteich-weg">
+                                <div class="image">
+
+                                </div>
+                                <h1>
+                                    HERZLTEICHWEG<br><br>
+                                </h1>
+                                <!-- <a aria-label="zur tour" href="/trailrunning#herzelteich"> <button>ZUR TOUR&nbsp;&nbsp;&nbsp;>></button></a> -->
+                            </a>
+                        </li>
+                        <li class="splide__slide">
+                            <a class="slider-content" href="/wander-routen#panorama-pleisen">
+                                <div class="image">
+
+                                </div>
+                                <h1>
+                                    PANORAMAWEG PLEISEN<br><br>
+                                </h1>
+                                <!-- <a aria-label="zur tour" href="/trailrunning#4-gipfeltour"> <button>ZUR TOUR&nbsp;&nbsp;&nbsp;>></button></a> -->
+                            </a>
+                        </li>
+                        <li class="splide__slide">
+                            <a class="slider-content" href="/wander-routen#4-gipfel-tour">
+                                <div class="image">
+
+                                </div>
+                                <h1>
+                                    4-GIPFEL-TOUR<br><br>
+                                </h1>
+                                <!-- <a aria-label="zur tour" href="/trailrunning#4-gipfeltour"> <button>ZUR TOUR&nbsp;&nbsp;&nbsp;>></button></a> -->
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <div class="green">
+            <div class="left">
+                <div class="image-container">
+                    <div class="image"></div>
+                </div>
+                <div class="title">THE NEW<br>GREEN<br>TICKET</div>
+            </div>
+            <div class="right">
+                <div class="table">
+                    <div class="row">
+                        <h1>3</h1>
+                        <span>GREEN - TICKETS</span>
+                    </div>
+                    <div class="row">
+                        <h1>232,-€</h1>
+                        <span>TICKETPFAND - SPENDEN</span>
+                    </div>
+                    <div class="row">
+                        <h1>3+</h1>
+                        <span>GEPLANTE PROJEKTE</span>
+                    </div>
+                    <div class="row">
+                        <h1>20.12.25</h1>
+                        <span>START GREEN - TICKET</span>
+                    </div>
+                </div>
+                <p>
+                    Unter dem Motto „Join the movement – achieve more together“ führt
+                    die Axamer Lizum als erstes Skigebiet das Green Ticket ein: Skifahrer
+                    können sich aktiv für den Naturschutz entscheiden.
+                    Für jedes gekaufte Green Ticket oder jede gespendete Pfandkarte
+                    unterstützen wir die Projekte unseres Partners itreebute, sodass jeder
+                    Euro direkt in nachhaltige Projekte in Tirol fließt und für alle auf der
+                    Blockchain nachverfolgbar ist.
+                    <br><br>
+                    Zusammen möchten wir ein Zeichen setzen: Durch gemeinsames
+                    Handeln können Wintersport und Naturschutz Hand in Hand gehen.
+                </p>
+                <svg class="green-logo" data-name="Gruppe 251" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="224.209" height="129.112" viewBox="0 0 224.209 129.112"><defs><clipPath id="clip-path"><rect id="Rechteck_510" data-name="Rechteck 510" width="224.209" height="129.112" fill="#373738"/></clipPath></defs><g id="Gruppe_250" data-name="Gruppe 250" clip-path="url(#clip-path)"><path id="Pfad_849" data-name="Pfad 849" d="M7.48,293.407c.637,0,1.14,0,1.715.036h.076a1.176,1.176,0,0,0,1.262-1.123,1.234,1.234,0,0,0-.35-.834,1.327,1.327,0,0,0-.991-.325c-1.053.031-2.63.071-4.151.071-.965,0-2.011-.024-3.2-.071H1.763A1.177,1.177,0,0,0,.5,292.288a1.21,1.21,0,0,0,1.337,1.155c.213,0,.468-.008.741-.016.312-.009.649-.02.974-.02a.585.585,0,0,1,.644.6c.076,2.511.076,5.145.076,7.932,0,4.22-.04,8.516-.115,12.425,0,.406-.18.565-.644.565-.326,0-.651-.01-.953-.02-.264-.008-.51-.016-.724-.016H1.8a1.189,1.189,0,0,0-1.261,1.2,1.129,1.129,0,0,0,.333.849,1.269,1.269,0,0,0,.872.314c.033,0,.066,0,.1,0,.948-.031,2.387-.072,3.922-.072,1.17,0,2.32.035,3.392.072h.076a1.172,1.172,0,0,0,1.261-1.16,1.286,1.286,0,0,0-.381-.865,1.263,1.263,0,0,0-.964-.33c-.568.035-1.071.035-1.708.035a.513.513,0,0,1-.568-.566c-.038-3.482-.038-7.042-.038-10.484,0-3.509,0-6.822.038-9.875a.553.553,0,0,1,.606-.6" transform="translate(-0.325 -188.817)" fill="#373738"/><path id="Pfad_850" data-name="Pfad 850" d="M7.48,293.407c.637,0,1.14,0,1.715.036h.076a1.176,1.176,0,0,0,1.262-1.123,1.234,1.234,0,0,0-.35-.834,1.327,1.327,0,0,0-.991-.325c-1.053.031-2.63.071-4.151.071-.965,0-2.011-.024-3.2-.071H1.763A1.177,1.177,0,0,0,.5,292.288a1.21,1.21,0,0,0,1.337,1.155c.213,0,.468-.008.741-.016.312-.009.649-.02.974-.02a.585.585,0,0,1,.644.6c.076,2.511.076,5.145.076,7.932,0,4.22-.04,8.516-.115,12.425,0,.406-.18.565-.644.565-.326,0-.651-.01-.953-.02-.264-.008-.51-.016-.724-.016H1.8a1.189,1.189,0,0,0-1.261,1.2,1.129,1.129,0,0,0,.333.849,1.269,1.269,0,0,0,.872.314c.033,0,.066,0,.1,0,.948-.031,2.387-.072,3.922-.072,1.17,0,2.32.035,3.392.072h.076a1.172,1.172,0,0,0,1.261-1.16,1.286,1.286,0,0,0-.381-.865,1.263,1.263,0,0,0-.964-.33c-.568.035-1.071.035-1.708.035a.513.513,0,0,1-.568-.566c-.038-3.482-.038-7.042-.038-10.484,0-3.509,0-6.822.038-9.875A.553.553,0,0,1,7.48,293.407Z" transform="translate(-0.325 -188.817)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_851" data-name="Pfad 851" d="M63.792,296.276c-1.128-3.628-1.98-5.218-5.411-5.218h-.307c-2.462.047-4.692.071-6.63.071-1.961,0-4.128-.024-6.441-.071h-.267c-2.107,0-3.488.8-4.224,2.44a19.036,19.036,0,0,0-1.192,3.352,1.271,1.271,0,0,0,1.3,1.2,1.225,1.225,0,0,0,1.219-.911c1.034-3.552,1.772-3.83,2.863-3.865,1.272-.036,2.6-.072,3.618-.072,1.94,0,1.94.07,1.94.533.076,2.045.076,5.1.076,8.326,0,4.58-.039,9.328-.076,12.245a.6.6,0,0,1-.644.6c-.316,0-.58-.019-.834-.038-.232-.018-.451-.034-.691-.034h-.038a1.189,1.189,0,0,0-1.262,1.2,1.14,1.14,0,0,0,.344.838,1.257,1.257,0,0,0,.88.324l.08,0c.916-.031,2.306-.072,3.807-.072,1.124,0,2.279.037,3.278.072h.076a1.159,1.159,0,0,0,1.261-1.16,1.189,1.189,0,0,0-1.337-1.2c-.286,0-.52.018-.746.036s-.473.037-.779.037a.556.556,0,0,1-.606-.6c-.072-2.762-.114-7.056-.114-11.488,0-3.755.041-7.065.114-9.085,0-.406,0-.528,2.55-.528,4.617,0,4.617,0,5.778,3.92l.015.052a1.142,1.142,0,0,0,1.143.84,1.278,1.278,0,0,0,1.337-1.231,1.855,1.855,0,0,0-.059-.4Z" transform="translate(-25.5 -188.751)" fill="#373738"/><path id="Pfad_852" data-name="Pfad 852" d="M63.792,296.276c-1.128-3.628-1.98-5.218-5.411-5.218h-.307c-2.462.047-4.692.071-6.63.071-1.961,0-4.128-.024-6.441-.071h-.267c-2.107,0-3.488.8-4.224,2.44a19.036,19.036,0,0,0-1.192,3.352,1.271,1.271,0,0,0,1.3,1.2,1.225,1.225,0,0,0,1.219-.911c1.034-3.552,1.772-3.83,2.863-3.865,1.272-.036,2.6-.072,3.618-.072,1.94,0,1.94.07,1.94.533.076,2.045.076,5.1.076,8.326,0,4.58-.039,9.328-.076,12.245a.6.6,0,0,1-.644.6c-.316,0-.58-.019-.834-.038-.232-.018-.451-.034-.691-.034h-.038a1.189,1.189,0,0,0-1.262,1.2,1.14,1.14,0,0,0,.344.838,1.257,1.257,0,0,0,.88.324l.08,0c.916-.031,2.306-.072,3.807-.072,1.124,0,2.279.037,3.278.072h.076a1.159,1.159,0,0,0,1.261-1.16,1.189,1.189,0,0,0-1.337-1.2c-.286,0-.52.018-.746.036s-.473.037-.779.037a.556.556,0,0,1-.606-.6c-.072-2.762-.114-7.056-.114-11.488,0-3.755.041-7.065.114-9.085,0-.406,0-.528,2.55-.528,4.617,0,4.617,0,5.778,3.92l.015.052a1.142,1.142,0,0,0,1.143.84,1.278,1.278,0,0,0,1.337-1.231,1.855,1.855,0,0,0-.059-.4Z" transform="translate(-25.5 -188.751)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_853" data-name="Pfad 853" d="M142.556,314.851c-1.293,0-1.776-.183-2.343-.884-.863-1.219-2.489-3.705-3.275-4.951a32.5,32.5,0,0,0-3.592-4.645l-.077-.089c-.083-.1-.161-.185-.161-.229s.092-.068.313-.1a7.366,7.366,0,0,0,4.743-2.25,6.241,6.241,0,0,0,1.728-4.259c0-4.314-4.33-6.125-8.039-6.366-1.356-.079-3.027-.034-4.863,0-1.078.019-2.193.038-3.3.038-.925,0-1.823-.032-2.82-.071h-.115a1.105,1.105,0,0,0-1.185,1.123,1.215,1.215,0,0,0,.343.806,1.283,1.283,0,0,0,.957.318h1.486a.538.538,0,0,1,.53.6c.037,2.4.076,6.36.076,10.3,0,3.971-.039,7.833-.076,10.127a.622.622,0,0,1-.606.636c-.323,0-.6-.02-.864-.039-.228-.016-.444-.032-.661-.032h-.038a1.159,1.159,0,0,0-1.262,1.159c0,.714.474,1.124,1.3,1.124.834-.033,2.111-.072,3.464-.072,1.089,0,2.241.037,3.24.072h.076a1.111,1.111,0,0,0,1.185-1.16,1.131,1.131,0,0,0-1.262-1.123,6.61,6.61,0,0,0-.673.036,6.932,6.932,0,0,1-.7.036c-.217,0-.721-.059-.721-.6,0-1.41-.011-3.426-.021-5.319-.009-1.676-.017-3.255-.017-4.233,0-.292.187-.421,1.978-.421.654,0,1.331,0,1.982.036.949,0,2.345.672,5.5,5.654.193.311.478.742.8,1.224a34.438,34.438,0,0,1,2.021,3.294.149.149,0,0,1,.024.088c0,.16-.5.241-1.483.241a1.082,1.082,0,0,0-1.109,1.124,1.105,1.105,0,0,0,1.185,1.124l.183,0c.964-.035,1.875-.068,2.866-.068s2.008.033,3.083.068l.194,0a1.14,1.14,0,0,0,1.223-1.16,1.128,1.128,0,0,0-1.223-1.159m-5.263-17.334c0,2.867-2.811,4.614-5.452,4.8-.72.036-1.952.072-3.081.072-2.8,0-3.389-.019-3.389-.564v-6.859c0-1.555.03-1.754.8-1.785.585-.034,2.031-.072,3.347-.072.527,0,1.027.013,1.424.024.264.006.491.019.628.012,4.222.225,5.72,2.495,5.72,4.371" transform="translate(-77.467 -188.736)" fill="#373738"/><path id="Pfad_854" data-name="Pfad 854" d="M142.556,314.851c-1.293,0-1.776-.183-2.343-.884-.863-1.219-2.489-3.705-3.275-4.951a32.5,32.5,0,0,0-3.592-4.645l-.077-.089c-.083-.1-.161-.185-.161-.229s.092-.068.313-.1a7.366,7.366,0,0,0,4.743-2.25,6.241,6.241,0,0,0,1.728-4.259c0-4.314-4.33-6.125-8.039-6.366-1.356-.079-3.027-.034-4.863,0-1.078.019-2.193.038-3.3.038-.925,0-1.823-.032-2.82-.071h-.115a1.105,1.105,0,0,0-1.185,1.123,1.215,1.215,0,0,0,.343.806,1.283,1.283,0,0,0,.957.318h1.486a.538.538,0,0,1,.53.6c.037,2.4.076,6.36.076,10.3,0,3.971-.039,7.833-.076,10.127a.622.622,0,0,1-.606.636c-.323,0-.6-.02-.864-.039-.228-.016-.444-.032-.661-.032h-.038a1.159,1.159,0,0,0-1.262,1.159c0,.714.474,1.124,1.3,1.124.834-.033,2.111-.072,3.464-.072,1.089,0,2.241.037,3.24.072h.076a1.111,1.111,0,0,0,1.185-1.16,1.131,1.131,0,0,0-1.262-1.123,6.61,6.61,0,0,0-.673.036,6.932,6.932,0,0,1-.7.036c-.217,0-.721-.059-.721-.6,0-1.41-.011-3.426-.021-5.319-.009-1.676-.017-3.255-.017-4.233,0-.292.187-.421,1.978-.421.654,0,1.331,0,1.982.036.949,0,2.345.672,5.5,5.654.193.311.478.742.8,1.224a34.438,34.438,0,0,1,2.021,3.294.149.149,0,0,1,.024.088c0,.16-.5.241-1.483.241a1.082,1.082,0,0,0-1.109,1.124,1.105,1.105,0,0,0,1.185,1.124l.183,0c.964-.035,1.875-.068,2.866-.068s2.008.033,3.083.068l.194,0a1.14,1.14,0,0,0,1.223-1.16A1.128,1.128,0,0,0,142.556,314.851Zm-5.263-17.334c0,2.867-2.811,4.614-5.452,4.8-.72.036-1.952.072-3.081.072-2.8,0-3.389-.019-3.389-.564v-6.859c0-1.555.03-1.754.8-1.785.585-.034,2.031-.072,3.347-.072.527,0,1.027.013,1.424.024.264.006.491.019.628.012C135.794,293.371,137.293,295.641,137.293,297.517Z" transform="translate(-77.467 -188.736)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_855" data-name="Pfad 855" d="M216.954,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.922,3.143-3.435,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.616,0-4.07-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.421-.349.721-.036,1.59-.036,2.51-.036,1.236,0,2.513,0,3.392.036a.633.633,0,0,1,.644.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.288,1.288,0,0,0,.905-.34,1.127,1.127,0,0,0,.28-.86c-.04-1.175-.076-2.324-.076-3.443,0-.954.038-1.886.076-2.765v-.072A1.078,1.078,0,0,0,212,299.492a1.26,1.26,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.008.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.045.672-1.385,0-2.817,0-3.468-.036-.407,0-.454-.22-.454-.383.018-1.047.027-2.682.037-4.264.01-1.76.02-3.424.04-4a.628.628,0,0,1,.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.052.14.1.274.155.4a7.365,7.365,0,0,1,.411,1.264,1.19,1.19,0,0,0,1.183.957,1.25,1.25,0,0,0,1.338-1.2,11.258,11.258,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.736.071-1.625,0-3.161,0-4.726-.071h-.038a1.33,1.33,0,0,0-1,.39.968.968,0,0,0-.265.733,1.156,1.156,0,0,0,1.261,1.123h.038c.237,0,.447-.008.669-.017.243-.009.5-.019.818-.019a.539.539,0,0,1,.606.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.319,0-.6-.01-.859-.019-.24-.008-.467-.017-.7-.017h-.076a1.206,1.206,0,0,0-1.262,1.159,1.33,1.33,0,0,0,.391.864,1.231,1.231,0,0,0,.889.332h.066c1.1-.071,2.566-.071,4.261-.071,2.707,0,5.889.035,8.919.071h.153c3.523,0,4.548-1.368,5.642-4.652a1.794,1.794,0,0,0,.079-.457,1.241,1.241,0,0,0-1.3-1.2" transform="translate(-128.309 -188.818)" fill="#373738"/><path id="Pfad_856" data-name="Pfad 856" d="M216.954,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.922,3.143-3.435,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.616,0-4.07-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.421-.349.721-.036,1.59-.036,2.51-.036,1.236,0,2.513,0,3.392.036a.633.633,0,0,1,.644.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.288,1.288,0,0,0,.905-.34,1.127,1.127,0,0,0,.28-.86c-.04-1.175-.076-2.324-.076-3.443,0-.954.038-1.886.076-2.765v-.072A1.078,1.078,0,0,0,212,299.492a1.26,1.26,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.008.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.045.672-1.385,0-2.817,0-3.468-.036-.407,0-.454-.22-.454-.383.018-1.047.027-2.682.037-4.264.01-1.76.02-3.424.04-4a.628.628,0,0,1,.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.052.14.1.274.155.4a7.365,7.365,0,0,1,.411,1.264,1.19,1.19,0,0,0,1.183.957,1.25,1.25,0,0,0,1.338-1.2,11.258,11.258,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.736.071-1.625,0-3.161,0-4.726-.071h-.038a1.33,1.33,0,0,0-1,.39.968.968,0,0,0-.265.733,1.156,1.156,0,0,0,1.261,1.123h.038c.237,0,.447-.008.669-.017.243-.009.5-.019.818-.019a.539.539,0,0,1,.606.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.319,0-.6-.01-.859-.019-.24-.008-.467-.017-.7-.017h-.076a1.206,1.206,0,0,0-1.262,1.159,1.33,1.33,0,0,0,.391.864,1.231,1.231,0,0,0,.889.332h.066c1.1-.071,2.566-.071,4.261-.071,2.707,0,5.889.035,8.919.071h.153c3.523,0,4.548-1.368,5.642-4.652a1.794,1.794,0,0,0,.079-.457A1.241,1.241,0,0,0,216.954,310.982Z" transform="translate(-128.309 -188.818)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_857" data-name="Pfad 857" d="M285.377,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.921,3.143-3.434,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.617,0-4.07-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.421-.349.721-.036,1.59-.036,2.51-.036,1.236,0,2.513,0,3.392.036a.634.634,0,0,1,.645.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.285,1.285,0,0,0,.905-.34,1.125,1.125,0,0,0,.28-.859c-.038-1.119-.076-2.306-.076-3.443,0-.968.038-1.894.076-2.765v-.072a1.078,1.078,0,0,0-1.147-1.124,1.259,1.259,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.009.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.046.672-1.385,0-2.817,0-3.469-.036-.406,0-.453-.22-.453-.383.018-1.045.027-2.676.036-4.254.01-1.766.02-3.433.04-4.007a.628.628,0,0,1,.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.052.139.1.273.155.4a7.4,7.4,0,0,1,.411,1.266,1.19,1.19,0,0,0,1.183.957,1.25,1.25,0,0,0,1.338-1.2,11.253,11.253,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.735.071-1.625,0-3.16,0-4.726-.071h-.038a1.331,1.331,0,0,0-1,.389.971.971,0,0,0-.266.734,1.156,1.156,0,0,0,1.262,1.123h.038c.236,0,.447-.008.669-.017.243-.009.5-.019.818-.019a.539.539,0,0,1,.606.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.32,0-.6-.01-.86-.019-.239-.008-.467-.017-.7-.017h-.077a1.205,1.205,0,0,0-1.261,1.159,1.329,1.329,0,0,0,.391.864,1.23,1.23,0,0,0,.889.332h.066c1.1-.071,2.566-.071,4.261-.071,2.707,0,5.89.035,8.919.071h.152c3.523,0,4.548-1.368,5.642-4.652a1.793,1.793,0,0,0,.079-.457,1.241,1.241,0,0,0-1.3-1.2" transform="translate(-172.682 -188.818)" fill="#373738"/><path id="Pfad_858" data-name="Pfad 858" d="M285.377,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.921,3.143-3.434,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.617,0-4.07-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.421-.349.721-.036,1.59-.036,2.51-.036,1.236,0,2.513,0,3.392.036a.634.634,0,0,1,.645.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.285,1.285,0,0,0,.905-.34,1.125,1.125,0,0,0,.28-.859c-.038-1.119-.076-2.306-.076-3.443,0-.968.038-1.894.076-2.765v-.072a1.078,1.078,0,0,0-1.147-1.124,1.259,1.259,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.009.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.046.672-1.385,0-2.817,0-3.469-.036-.406,0-.453-.22-.453-.383.018-1.045.027-2.676.036-4.254.01-1.766.02-3.433.04-4.007a.628.628,0,0,1,.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.052.139.1.273.155.4a7.4,7.4,0,0,1,.411,1.266,1.19,1.19,0,0,0,1.183.957,1.25,1.25,0,0,0,1.338-1.2,11.253,11.253,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.735.071-1.625,0-3.16,0-4.726-.071h-.038a1.331,1.331,0,0,0-1,.389.971.971,0,0,0-.266.734,1.156,1.156,0,0,0,1.262,1.123h.038c.236,0,.447-.008.669-.017.243-.009.5-.019.818-.019a.539.539,0,0,1,.606.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.32,0-.6-.01-.86-.019-.239-.008-.467-.017-.7-.017h-.077a1.205,1.205,0,0,0-1.261,1.159,1.329,1.329,0,0,0,.391.864,1.23,1.23,0,0,0,.889.332h.066c1.1-.071,2.566-.071,4.261-.071,2.707,0,5.89.035,8.919.071h.152c3.523,0,4.548-1.368,5.642-4.652a1.793,1.793,0,0,0,.079-.457A1.241,1.241,0,0,0,285.377,310.982Z" transform="translate(-172.682 -188.818)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_859" data-name="Pfad 859" d="M350.658,302.8l-.065-.008.073-.01a5.712,5.712,0,0,0,4.6-5.646c0-3.425-3.156-5.8-8.04-6.043-.727-.036-1.417-.036-2.026-.036-.92,0-1.785.025-2.7.051-.977.028-1.987.057-3.131.057-.737,0-1.545-.027-2.481-.059l-.454-.012a1.157,1.157,0,0,0-1.261,1.13,1.264,1.264,0,0,0,1.337,1.116c.237,0,.431-.008.634-.017.223-.009.458-.019.776-.019a.568.568,0,0,1,.606.638c.038,2.046.038,6.116.038,10.053,0,3.954,0,8.042-.076,10.234a.663.663,0,0,1-.606.708c-.319,0-.565-.01-.8-.019-.213-.009-.415-.016-.651-.016h-.038a1.312,1.312,0,0,0-.98.393,1.02,1.02,0,0,0-.282.759,1.044,1.044,0,0,0,.3.807,1.294,1.294,0,0,0,.921.361l.083,0c1.178-.072,2.2-.072,3.194-.072,1.072,0,2.07.019,3.034.037.94.018,1.828.035,2.76.035.859,0,1.833,0,2.828-.072,6.5-.426,8.8-4.334,8.8-7.551a6.862,6.862,0,0,0-6.394-6.8m-5.044,12.316c-4.491,0-4.5-.135-4.571-.787-.036-.555-.076-1.868-.076-3.439,0-1.113.011-2.328.021-3.46.009-.986.017-1.909.017-2.645,0-.471.215-.672.724-.672.981-.031,2.463-.072,4-.072.879,0,1.709.033,2.624.072,3.659.174,6.024,2.284,6.024,5.376,0,2.495-1.945,5.3-6.216,5.555-.823.035-1.673.072-2.547.072m-.8-13.143c-1.16,0-2.36,0-3.049-.036-.759,0-.759-.425-.759-.56.038-1.079.038-2.74.038-4.205v-3.226c.032-.7.393-.749,2.626-.749,1.066,0,2.111.036,3.124.072,4.358.038,5.9,2.184,5.9,4.011,0,2.1-1.964,4.442-5.606,4.658-.606.036-1.457.036-2.28.036" transform="translate(-217.329 -188.751)" fill="#373738"/><path id="Pfad_860" data-name="Pfad 860" d="M350.658,302.8l-.065-.008.073-.01a5.712,5.712,0,0,0,4.6-5.646c0-3.425-3.156-5.8-8.04-6.043-.727-.036-1.417-.036-2.026-.036-.92,0-1.785.025-2.7.051-.977.028-1.987.057-3.131.057-.737,0-1.545-.027-2.481-.059l-.454-.012a1.157,1.157,0,0,0-1.261,1.13,1.264,1.264,0,0,0,1.337,1.116c.237,0,.431-.008.634-.017.223-.009.458-.019.776-.019a.568.568,0,0,1,.606.638c.038,2.046.038,6.116.038,10.053,0,3.954,0,8.042-.076,10.234a.663.663,0,0,1-.606.708c-.319,0-.565-.01-.8-.019-.213-.009-.415-.016-.651-.016h-.038a1.312,1.312,0,0,0-.98.393,1.02,1.02,0,0,0-.282.759,1.044,1.044,0,0,0,.3.807,1.294,1.294,0,0,0,.921.361l.083,0c1.178-.072,2.2-.072,3.194-.072,1.072,0,2.07.019,3.034.037.94.018,1.828.035,2.76.035.859,0,1.833,0,2.828-.072,6.5-.426,8.8-4.334,8.8-7.551A6.862,6.862,0,0,0,350.658,302.8Zm-5.044,12.316c-4.491,0-4.5-.135-4.571-.787-.036-.555-.076-1.868-.076-3.439,0-1.113.011-2.328.021-3.46.009-.986.017-1.909.017-2.645,0-.471.215-.672.724-.672.981-.031,2.463-.072,4-.072.879,0,1.709.033,2.624.072,3.659.174,6.024,2.284,6.024,5.376,0,2.495-1.945,5.3-6.216,5.555C347.338,315.081,346.487,315.117,345.614,315.117Zm-.8-13.143c-1.16,0-2.36,0-3.049-.036-.759,0-.759-.425-.759-.56.038-1.079.038-2.74.038-4.205v-3.226c.032-.7.393-.749,2.626-.749,1.066,0,2.111.036,3.124.072,4.358.038,5.9,2.184,5.9,4.011,0,2.1-1.964,4.442-5.606,4.658C346.486,301.975,345.635,301.975,344.813,301.975Z" transform="translate(-217.329 -188.751)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_861" data-name="Pfad 861" d="M436.314,291.16c-1.241.036-2.561.071-3.846.071-1.062,0-2.1-.036-2.973-.071h-.076a1.112,1.112,0,0,0-1.224,1.123,1.192,1.192,0,0,0,1.3,1.159c.213,0,.435-.008.673-.016.272-.01.564-.02.89-.02.4,0,.568.169.568.565v2.586c0,1.728-.01,3.474-.019,5.215s-.019,3.461-.019,5.162c0,5.791-4.226,8.428-8.153,8.428-5.391,0-7.847-4.276-7.847-8.249V305.1c0-1.544-.01-3.08-.019-4.615s-.019-3.07-.019-4.613v-1.9c0-.4.176-.565.606-.565.573,0,.987,0,1.525.036h.076a1.156,1.156,0,0,0,1.262-1.123,1.236,1.236,0,0,0-.35-.834,1.33,1.33,0,0,0-.991-.326c-1.242.036-2.561.071-3.847.071-1.063,0-2.1-.036-2.973-.071h-.077a1.177,1.177,0,0,0-1.261,1.128,1.211,1.211,0,0,0,1.338,1.155c.213,0,.427-.008.656-.016.262-.01.543-.02.868-.02a.555.555,0,0,1,.568.567c.038,1.794.038,3.674.038,5.492,0,2.471,0,5.026-.038,7.469v.143c0,7.335,5.475,10.676,10.562,10.676a11.023,11.023,0,0,0,7.853-3.131,10.622,10.622,0,0,0,2.9-7.834c-.038-2.3-.038-4.251-.038-6.318,0-2.03,0-4.129.038-6.536,0-.366.176-.529.568-.529.607,0,.911,0,1.486.036h.076a1.156,1.156,0,0,0,1.262-1.123,1.235,1.235,0,0,0-.35-.834,1.343,1.343,0,0,0-.992-.326" transform="translate(-265.574 -188.817)" fill="#373738"/><path id="Pfad_862" data-name="Pfad 862" d="M436.314,291.16c-1.241.036-2.561.071-3.846.071-1.062,0-2.1-.036-2.973-.071h-.076a1.112,1.112,0,0,0-1.224,1.123,1.192,1.192,0,0,0,1.3,1.159c.213,0,.435-.008.673-.016.272-.01.564-.02.89-.02.4,0,.568.169.568.565v2.586c0,1.728-.01,3.474-.019,5.215s-.019,3.461-.019,5.162c0,5.791-4.226,8.428-8.153,8.428-5.391,0-7.847-4.276-7.847-8.249V305.1c0-1.544-.01-3.08-.019-4.615s-.019-3.07-.019-4.613v-1.9c0-.4.176-.565.606-.565.573,0,.987,0,1.525.036h.076a1.156,1.156,0,0,0,1.262-1.123,1.236,1.236,0,0,0-.35-.834,1.33,1.33,0,0,0-.991-.326c-1.242.036-2.561.071-3.847.071-1.063,0-2.1-.036-2.973-.071h-.077a1.177,1.177,0,0,0-1.261,1.128,1.211,1.211,0,0,0,1.338,1.155c.213,0,.427-.008.656-.016.262-.01.543-.02.868-.02a.555.555,0,0,1,.568.567c.038,1.794.038,3.674.038,5.492,0,2.471,0,5.026-.038,7.469v.143c0,7.335,5.475,10.676,10.562,10.676a11.023,11.023,0,0,0,7.853-3.131,10.622,10.622,0,0,0,2.9-7.834c-.038-2.3-.038-4.251-.038-6.318,0-2.03,0-4.129.038-6.536,0-.366.176-.529.568-.529.607,0,.911,0,1.486.036h.076a1.156,1.156,0,0,0,1.262-1.123,1.235,1.235,0,0,0-.35-.834A1.343,1.343,0,0,0,436.314,291.16Z" transform="translate(-265.574 -188.817)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_863" data-name="Pfad 863" d="M523.993,296.276c-1.128-3.628-1.98-5.218-5.41-5.218h-.307c-2.462.047-4.692.071-6.629.071-1.962,0-4.128-.024-6.441-.071h-.267c-2.107,0-3.488.8-4.224,2.44a19.013,19.013,0,0,0-1.192,3.352,1.271,1.271,0,0,0,1.3,1.2,1.225,1.225,0,0,0,1.219-.911c1.035-3.552,1.773-3.83,2.863-3.865,1.272-.036,2.6-.072,3.617-.072,1.94,0,1.94.07,1.94.533.077,2.045.077,5.1.077,8.326,0,4.58-.04,9.328-.077,12.245a.605.605,0,0,1-.644.6c-.316,0-.579-.019-.833-.038-.232-.018-.452-.034-.691-.034h-.038a1.188,1.188,0,0,0-1.261,1.2,1.14,1.14,0,0,0,.344.838,1.257,1.257,0,0,0,.879.324l.08,0c.915-.031,2.305-.072,3.807-.072,1.123,0,2.278.037,3.278.072h.076a1.16,1.16,0,0,0,1.262-1.16,1.189,1.189,0,0,0-1.338-1.2c-.286,0-.52.018-.746.036s-.473.037-.778.037a.556.556,0,0,1-.606-.6c-.072-2.77-.115-7.064-.115-11.488,0-3.749.041-7.059.115-9.085,0-.406,0-.528,2.55-.528,4.617,0,4.617,0,5.779,3.92l.016.052a1.142,1.142,0,0,0,1.143.84,1.278,1.278,0,0,0,1.338-1.231,1.857,1.857,0,0,0-.06-.4Z" transform="translate(-323.94 -188.751)" fill="#373738"/><path id="Pfad_864" data-name="Pfad 864" d="M523.993,296.276c-1.128-3.628-1.98-5.218-5.41-5.218h-.307c-2.462.047-4.692.071-6.629.071-1.962,0-4.128-.024-6.441-.071h-.267c-2.107,0-3.488.8-4.224,2.44a19.013,19.013,0,0,0-1.192,3.352,1.271,1.271,0,0,0,1.3,1.2,1.225,1.225,0,0,0,1.219-.911c1.035-3.552,1.773-3.83,2.863-3.865,1.272-.036,2.6-.072,3.617-.072,1.94,0,1.94.07,1.94.533.077,2.045.077,5.1.077,8.326,0,4.58-.04,9.328-.077,12.245a.605.605,0,0,1-.644.6c-.316,0-.579-.019-.833-.038-.232-.018-.452-.034-.691-.034h-.038a1.188,1.188,0,0,0-1.261,1.2,1.14,1.14,0,0,0,.344.838,1.257,1.257,0,0,0,.879.324l.08,0c.915-.031,2.305-.072,3.807-.072,1.123,0,2.278.037,3.278.072h.076a1.16,1.16,0,0,0,1.262-1.16,1.189,1.189,0,0,0-1.338-1.2c-.286,0-.52.018-.746.036s-.473.037-.778.037a.556.556,0,0,1-.606-.6c-.072-2.77-.115-7.064-.115-11.488,0-3.749.041-7.059.115-9.085,0-.406,0-.528,2.55-.528,4.617,0,4.617,0,5.779,3.92l.016.052a1.142,1.142,0,0,0,1.143.84,1.278,1.278,0,0,0,1.338-1.231,1.857,1.857,0,0,0-.06-.4Z" transform="translate(-323.94 -188.751)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_865" data-name="Pfad 865" d="M598.431,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.921,3.143-3.434,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.617,0-4.069-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.422-.349.721-.036,1.589-.036,2.509-.036,1.236,0,2.513,0,3.392.036a.634.634,0,0,1,.645.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.285,1.285,0,0,0,.905-.34,1.125,1.125,0,0,0,.28-.859c-.039-1.119-.076-2.306-.076-3.443,0-.968.038-1.894.076-2.765v-.072a1.078,1.078,0,0,0-1.147-1.124,1.261,1.261,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.009.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.046.672-1.385,0-2.817,0-3.468-.036-.406,0-.453-.22-.453-.383.018-1.045.027-2.676.036-4.254.01-1.766.02-3.433.04-4.007,0-.555.391-.672.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.053.14.105.274.156.4a7.4,7.4,0,0,1,.411,1.264,1.189,1.189,0,0,0,1.182.957,1.25,1.25,0,0,0,1.338-1.2,11.257,11.257,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.735.071-1.626,0-3.161,0-4.726-.071h-.038a1.331,1.331,0,0,0-1,.389.971.971,0,0,0-.266.734,1.156,1.156,0,0,0,1.262,1.123h.038c.237,0,.447-.008.669-.017.242-.009.5-.019.817-.019a.539.539,0,0,1,.607.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.319,0-.6-.01-.859-.019-.239-.008-.467-.017-.7-.017h-.077a1.206,1.206,0,0,0-1.261,1.159,1.331,1.331,0,0,0,.391.864,1.23,1.23,0,0,0,.888.332h.066c1.1-.071,2.565-.071,4.261-.071,2.707,0,5.89.035,8.919.071h.152c3.523,0,4.548-1.368,5.642-4.652a1.792,1.792,0,0,0,.079-.457,1.241,1.241,0,0,0-1.3-1.2" transform="translate(-375.697 -188.818)" fill="#373738"/><path id="Pfad_866" data-name="Pfad 866" d="M598.431,310.982a1.2,1.2,0,0,0-1.182.88c-.71,2.887-1.921,3.143-3.434,3.178-.875.036-2.268.036-3.616.036-1.778,0-3.617,0-4.069-.035s-.729-.285-.729-.674c-.038-2.262-.038-6.793-.038-9.227,0-.264.1-.349.422-.349.721-.036,1.589-.036,2.509-.036,1.236,0,2.513,0,3.392.036a.634.634,0,0,1,.645.636c0,.619,0,.929-.038,1.472v.072a1.1,1.1,0,0,0,1.147,1.123,1.285,1.285,0,0,0,.905-.34,1.125,1.125,0,0,0,.28-.859c-.039-1.119-.076-2.306-.076-3.443,0-.968.038-1.894.076-2.765v-.072a1.078,1.078,0,0,0-1.147-1.124,1.261,1.261,0,0,0-.9.354,1.1,1.1,0,0,0-.282.841c0,.223.009.406.018.6.01.209.02.431.02.73,0,.647-.345.672-3.046.672-1.385,0-2.817,0-3.468-.036-.406,0-.453-.22-.453-.383.018-1.045.027-2.676.036-4.254.01-1.766.02-3.433.04-4.007,0-.555.391-.672.72-.672h1.563c6.793,0,7.5,0,8.008,1.324.053.14.105.274.156.4a7.4,7.4,0,0,1,.411,1.264,1.189,1.189,0,0,0,1.182.957,1.25,1.25,0,0,0,1.338-1.2,11.257,11.257,0,0,0-.732-2.306c-.723-1.839-2.169-2.624-4.838-2.624-2.527.035-5.14.071-7.735.071-1.626,0-3.161,0-4.726-.071h-.038a1.331,1.331,0,0,0-1,.389.971.971,0,0,0-.266.734,1.156,1.156,0,0,0,1.262,1.123h.038c.237,0,.447-.008.669-.017.242-.009.5-.019.817-.019a.539.539,0,0,1,.607.6c0,16.775,0,18.528-.038,20.432a.563.563,0,0,1-.606.565c-.319,0-.6-.01-.859-.019-.239-.008-.467-.017-.7-.017h-.077a1.206,1.206,0,0,0-1.261,1.159,1.331,1.331,0,0,0,.391.864,1.23,1.23,0,0,0,.888.332h.066c1.1-.071,2.565-.071,4.261-.071,2.707,0,5.89.035,8.919.071h.152c3.523,0,4.548-1.368,5.642-4.652a1.792,1.792,0,0,0,.079-.457A1.241,1.241,0,0,0,598.431,310.982Z" transform="translate(-375.697 -188.818)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/><path id="Pfad_867" data-name="Pfad 867" d="M260.421,71.422,240.059,46.092a3.309,3.309,0,0,0-5.311-.128L229.2,52.359,220.868,41.94l3.342-4.158a8.385,8.385,0,0,0,.023-10L202.956,1.018A1.212,1.212,0,0,0,201.42.633a1.41,1.41,0,0,0-.486.4L179.656,27.8a8.386,8.386,0,0,0,.022,10l3.342,4.158-8.327,10.419-5.553-6.394a3.308,3.308,0,0,0-5.311.128L143.469,71.432a9.176,9.176,0,0,0,0,10.987l6.824,8.489a5.775,5.775,0,0,0,4.5,2.32h22.846a7.318,7.318,0,0,0,5.776-3.112L201.949,65.54l18.523,24.565a7.318,7.318,0,0,0,5.776,3.112h22.846a5.774,5.774,0,0,0,4.5-2.32l6.824-8.489a9.165,9.165,0,0,0,0-10.987m-15.528,5.54a.583.583,0,0,1,.09.571.412.412,0,0,1-.389.323H229.351L220.623,67l8.492-9.779ZM181.667,35.319a4.248,4.248,0,0,1-.011-5.063l20.293-25.53,20.285,25.52a4.247,4.247,0,0,1-.012,5.063l-3.336,4.15L202.953,19.523a1.213,1.213,0,0,0-1.534-.382,1.412,1.412,0,0,0-.483.393L185,39.47Zm-6.892,21.91,8.492,9.779-8.728,10.857H159.3a.411.411,0,0,1-.389-.323.582.582,0,0,1,.09-.571Zm6.591,30.494a4.719,4.719,0,0,1-3.725,2.007H154.8a3.225,3.225,0,0,1-2.514-1.3l-6.824-8.489a5.044,5.044,0,0,1,0-6.039l20.362-25.33a.927.927,0,0,1,.72-.373.917.917,0,0,1,.692.339l5.479,6.309L157,74.505a4.752,4.752,0,0,0-.692,4.381,3.3,3.3,0,0,0,2.986,2.478H175.7l11.618-14.453L176.759,54.747l8.25-10.323,14.967,18.619Zm20.574-27.184-4.5-5.6.046-.058-1.968-2.5-.066.084-8.456-10.519,14.957-18.715,14.949,18.7-8.456,10.52-.062-.079-1.97,2.5.044.054Zm56.492,19.4-6.824,8.489a3.225,3.225,0,0,1-2.514,1.3H226.248a4.721,4.721,0,0,1-3.726-2.007l-18.609-24.68L218.88,44.414l8.25,10.323L216.568,66.9l11.618,14.453h16.408a3.3,3.3,0,0,0,2.986-2.478,4.752,4.752,0,0,0-.692-4.381L231.18,54.841l5.479-6.309a.88.88,0,0,1,1.413.034L258.433,73.9a5.04,5.04,0,0,1,0,6.04" transform="translate(-91.855 -0.324)" fill="#373738"/><path id="Pfad_868" data-name="Pfad 868" d="M260.421,71.422,240.059,46.092a3.309,3.309,0,0,0-5.311-.128L229.2,52.359,220.868,41.94l3.342-4.158a8.385,8.385,0,0,0,.023-10L202.956,1.018A1.212,1.212,0,0,0,201.42.633a1.41,1.41,0,0,0-.486.4L179.656,27.8a8.386,8.386,0,0,0,.022,10l3.342,4.158-8.327,10.419-5.553-6.394a3.308,3.308,0,0,0-5.311.128L143.469,71.432a9.176,9.176,0,0,0,0,10.987l6.824,8.489a5.775,5.775,0,0,0,4.5,2.32h22.846a7.318,7.318,0,0,0,5.776-3.112L201.949,65.54l18.523,24.565a7.318,7.318,0,0,0,5.776,3.112h22.846a5.774,5.774,0,0,0,4.5-2.32l6.824-8.489a9.165,9.165,0,0,0,0-10.987Zm-15.528,5.54a.583.583,0,0,1,.09.571.412.412,0,0,1-.389.323H229.351L220.623,67l8.492-9.779ZM181.667,35.319a4.248,4.248,0,0,1-.011-5.063l20.293-25.53,20.285,25.52a4.247,4.247,0,0,1-.012,5.063l-3.336,4.15L202.953,19.523a1.213,1.213,0,0,0-1.534-.382,1.412,1.412,0,0,0-.483.393L185,39.47Zm-6.892,21.91,8.492,9.779-8.728,10.857H159.3a.411.411,0,0,1-.389-.323.582.582,0,0,1,.09-.571Zm6.591,30.494a4.719,4.719,0,0,1-3.725,2.007H154.8a3.225,3.225,0,0,1-2.514-1.3l-6.824-8.489a5.044,5.044,0,0,1,0-6.039l20.362-25.33a.927.927,0,0,1,.72-.373.917.917,0,0,1,.692.339l5.479,6.309L157,74.505a4.752,4.752,0,0,0-.692,4.381,3.3,3.3,0,0,0,2.986,2.478H175.7l11.618-14.453L176.759,54.747l8.25-10.323,14.967,18.619Zm20.574-27.184-4.5-5.6.046-.058-1.968-2.5-.066.084-8.456-10.519,14.957-18.715,14.949,18.7-8.456,10.52-.062-.079-1.97,2.5.044.054Zm56.492,19.4-6.824,8.489a3.225,3.225,0,0,1-2.514,1.3H226.248a4.721,4.721,0,0,1-3.726-2.007l-18.609-24.68L218.88,44.414l8.25,10.323L216.568,66.9l11.618,14.453h16.408a3.3,3.3,0,0,0,2.986-2.478,4.752,4.752,0,0,0-.692-4.381L231.18,54.841l5.479-6.309a.88.88,0,0,1,1.413.034L258.433,73.9a5.04,5.04,0,0,1,0,6.04Z" transform="translate(-91.855 -0.324)" fill="#373738" stroke="#161615" stroke-miterlimit="10" stroke-width="1"/></g></svg>
+
+            </div>
+            <a href="/green-ticket" class="link" aria-label="green ticket"></a>
+        </div>
+
+        <div class="triplet-box-2">
+            <div class="left">
+            </div>
+            <div class="right">
+                <div class="upper">
+                    <div class="multi">
+                        <h1>20.11</h1>
+                        <h2>Hoadl House Winter Opening</h2>
+                    </div>
+                    <div class="multi">
+                        <h1>27.11</h1>
+                        <h2>SKI OPENING with David Puentez by Living Room x Hoadl House</h2>
+                    </div>
+                    <div class="multi">
+                        <h1>30.12</h1>
+                        <h2>Vor-Silvesterparty</h2>
+                    </div>
+                </div>
+                <div class="lower">
+                    <div class="multi">
+                        <h1>EVENTKALENDER<br>AUFSCHLAGEN</h1>
+                        <h2>Unser Eventkalender sorgt den ganzen Sommer über für besondere Erlebnisse in den Bergen. Freu dich auf Highlights wie die stimmungsvollen Sundowner, das legendäre höchste Oktoberfest der Alpen und neu ab diesem Sommer die beliebte Ski-Gaudi – jetzt auch im Sommer mit bester Stimmung und alpinem Flair.</h2>
+                    </div>
+                    <a href="/events" class="button" aria-label="kalender aufschlagen">Kalender aufschlagen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            var elms = document.getElementsByClassName( 'splide' );
+
+            for ( var i = 0; i < elms.length; i++ ) {
+            new Splide( elms[ i ] ).mount();
+            }
+        });
+    </script>
+    
+    <!-- <img src="/img/temp.jpg" width="100%"> -->
+
+        <div class="faq">
+            <h1 class="faq-title">FAQ</h1>
+            <div class="faq-item"><input type="checkbox" id="s-faq-1" class="faq-toggle"><label class="faq-head" for="s-faq-1"><span class="faq-no">01</span><span class="faq-frage">Wann läuft der Skibetrieb?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Die Wintersaison startet abhängig von Schneelage Ende November und läuft bis Anfang April. Die Bahnen fahren täglich von 08:30 bis 16:00 Uhr, der Nachtbetrieb am Übungshang ist mittwochs bis 21:00 Uhr geöffnet.</p></div></div><div class="faq-item"><input type="checkbox" id="s-faq-2" class="faq-toggle"><label class="faq-head" for="s-faq-2"><span class="faq-no">02</span><span class="faq-frage">Wie viele Pisten und Lifte sind geöffnet?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Die Axamer Lizum bietet 40 Pistenkilometer von blau bis schwarz, erschlossen von neun Anlagen. Der aktuelle Lift- und Pistenstatus wird täglich morgens auf der Startseite aktualisiert.</p><a class="faq-link" href="/interactive-map#lifte">LIFTSTATUS ANSEHEN</a></div></div><div class="faq-item"><input type="checkbox" id="s-faq-3" class="faq-toggle"><label class="faq-head" for="s-faq-3"><span class="faq-no">03</span><span class="faq-frage">Was kostet die Tageskarte?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Tages-, Halbtages- und Mehrtageskarten gibt es an der Kassa oder vorab im Onlineshop. Kinder bis 6 Jahre fahren in Begleitung eines Erwachsenen kostenlos, für Familien und Jugendliche gibt es eigene Tarife.</p><a class="faq-link" href="/tarife">PREISE &amp; TICKETS</a></div></div><div class="faq-item"><input type="checkbox" id="s-faq-4" class="faq-toggle"><label class="faq-head" for="s-faq-4"><span class="faq-no">04</span><span class="faq-frage">Wie komme ich ohne Auto in die Lizum?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Der Skibus verbindet Innsbruck über Axams mehrmals täglich mit der Talstation. Die Fahrt dauert rund 40 Minuten, mit der Ski plus City Karte ist die Anreise inklusive.</p><a class="faq-link" href="/anreise">ANREISE</a></div></div><div class="faq-item"><input type="checkbox" id="s-faq-5" class="faq-toggle"><label class="faq-head" for="s-faq-5"><span class="faq-no">05</span><span class="faq-frage">Gibt es Skiverleih und Skischule vor Ort?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Direkt an der Talstation findest du Verleih, Depot und Werkstatt. Die Skischule bietet Gruppen- und Privatkurse für alle Level, Kinderkurse starten täglich um 10:00 Uhr am Übungsgelände.</p></div></div><div class="faq-item"><input type="checkbox" id="s-faq-6" class="faq-toggle"><label class="faq-head" for="s-faq-6"><span class="faq-no">06</span><span class="faq-frage">Wo kann ich Ski und Schuhe über Nacht lassen?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Beheizte Skidepots stehen an der Talstation und am Hoadl Haus zur Verfügung. Buchbar tages- oder saisonweise, inklusive Schuhtrocknung.</p></div></div><div class="faq-item"><input type="checkbox" id="s-faq-7" class="faq-toggle"><label class="faq-head" for="s-faq-7"><span class="faq-no">07</span><span class="faq-frage">Wo kann ich einkehren?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Das Hoadl Haus auf 2.340 m, das Birgitzköpflhaus und die Hütten entlang der Abfahrten sind während der Saison täglich geöffnet – mit großen Sonnenterrassen direkt an der Piste.</p></div></div><div class="faq-item"><input type="checkbox" id="s-faq-8" class="faq-toggle"><label class="faq-head" for="s-faq-8"><span class="faq-no">08</span><span class="faq-frage">Was gilt bei Lawinengefahr oder Sturm?</span><span class="faq-arrow"><svg class="faq-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0"/></svg></span></label><div class="faq-body"><p>Sicherheit hat Vorrang: Bei Sturm oder erhöhter Lawinengefahr können einzelne Anlagen und Pisten kurzfristig geschlossen werden. Freeride-Routen sind nur bei entsprechender Ausrüstung und Erfahrung zu befahren.</p></div></div>
+            <div class="faq-kontakt">
+                <span class="faq-kontakt-box">Frage nicht dabei? Schreib uns</span>
+                <span class="faq-kontakt-daten">office@axamer-lizum.at &middot; +43 (0) 5234-68240</span>
+            </div>
+        </div>
+        <script>
+            // One open at a time, but still closeable - a radio gives the first
+            // and takes away the second, so the exclusivity is done here instead.
+            document.querySelectorAll(".faq .faq-toggle").forEach(function (t) {
+                t.addEventListener("change", function () {
+                    if (!t.checked) { return; }
+                    document.querySelectorAll(".faq .faq-toggle").forEach(function (o) {
+                        if (o !== t) { o.checked = false; }
+                    });
+                });
+            });
+        </script>
+    </div><script>$(document).ready(() => {$("#news-popup").get(0).showModal();});</script><!-- The generic popup: whatever is current and does not belong to the start page news
+     or the hiking routes notice. Same three layouts and the same three languages as the
+     other two - what differs is that it has no page of its own, so the button that
+     opens it is part of the content (see "Button auf der Startseite" in the editor).
+
+     Its own dialog id, because this one shares the home page with #news-popup and two
+     dialogs cannot answer to the same id. The look is the news popup's; style.css
+     repeats the two id rules for #info-popup. -->
+<dialog id="info-popup" class="news-popup" closedby="any">
+    <svg class="close-dialog" onclick="$('#info-popup').get(0).close()"
+        style="position: relative; left: 100%; transform: translateX(-100%) rotate(45deg); cursor: pointer; background: #fff; border-radius: 100%; color: black;"
+        xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="7" r="6.5" />
+            <path d="M7 4v6M4 7h6" />
+        </g>
+    </svg>
+    <div class="container">
+        <content>
+            <h1>FREIZEITTICKET TIROL</h1>
+            <h1 class="small">UNSERE VORVERKAUFSSTELLEN</h1>
+        </content>
+        <div class="grid type-2">
+
+            <div class="box news-1">
+                <div class="img" style="--bg-preview: url('');"></div>
+                <h1></h1>
+                <p></p>
+                
+            </div>
+            <div class="box news-2">
+                <h1>Am 01.10. startet der Vorverkauf</h1>
+                <p>Hole dir dein Freizeitticket im vergünstigten Vorverkauf! Komme in einer unserer Verkaufsstellen in Tirol vorbei.</p>
+            </div>
+            <div class="box news-3">
+                <h1>Wir sind hier: </h1>
+                <p>Hotel Cafe Central Innsbruck, Innsbruck Information, Tourismus-Information in Axams, Sportler Innsbruck (ehem. Leiner Gebäude), Alois Mayr Bauwaren GmbH in Hall (ehem. Canal und Co.)</p>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div id="footer">
+    <div class="links">
+        <a href="/impressum" style="width: max-content;">IMPRESSUM</a>
+        <a href="/datenschutz" style="width: max-content;">DATENSCHUTZ</a>
+        <a href="/agb" style="width: max-content;">AGB</a>
+        <a href="/kontakt" style="width: max-content;">KONTAKT</a>
+        <a href="https://karriere-beiuns.at/?filter%5Bclient_id%5D=34" target="_blank" style="width: max-content;">JOBS</a>
+    </div>
+    <div class="social-links">
+        <a href="https://www.youtube.com/@axamerlizum" target="_blank" aria-label="youtube"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14"><!-- Icon from Streamline by Streamline - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="13" height="10" x=".5" y="2" rx="2"/><path d="M5.31 9.32v-4.2a.39.39 0 0 1 .6-.34l3.6 2.1a.4.4 0 0 1 0 .69l-3.6 2.1a.4.4 0 0 1-.6-.35Z"/></g></svg></a>
+        <a href="https://www.facebook.com/axamerlizum" target="_blank" aria-label="facebook"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14"><!-- Icon from Streamline by Streamline - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M.5 12.5v-11a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-3V8.76h.71a.61.61 0 0 0 .61-.61v-.77a.61.61 0 0 0-.61-.61h-.67v-.94c0-.84.38-.84.76-.84h.49a.55.55 0 0 0 .43-.18a.58.58 0 0 0 .18-.43v-.74a.62.62 0 0 0-.6-.64H9.65a2.32 2.32 0 0 0-2.39 2.6v1.17h-.64a.61.61 0 0 0-.62.61v.77a.61.61 0 0 0 .62.61h.64v4.74H1.5a1 1 0 0 1-1-1"/></svg></a>
+        <a style="cursor: default;">#thewildones</a>
+        <a href="https://www.instagram.com/axamer_lizum_official" target="_blank" aria-label="instagram"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14"><!-- Icon from Streamline by Streamline - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.333 3.644a.25.25 0 1 1 0-.5m0 .5a.25.25 0 1 0 0-.5"/><path d="M.858 3.431A2.573 2.573 0 0 1 3.431.858h6.862a2.573 2.573 0 0 1 2.573 2.573v6.862a2.573 2.573 0 0 1-2.573 2.573H3.43a2.573 2.573 0 0 1-2.573-2.573z"/><path d="M4.312 6.862a2.55 2.55 0 1 0 5.1 0a2.55 2.55 0 1 0-5.1 0"/></g></svg></a>
+        <a href="https://www.tiktok.com/@axamer_lizum" target="_blank" aria-label="tiktok"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="28" viewBox="0 0 14 16"><!-- Icon from Streamline by Streamline - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M7.748 10.473V.625m0 9.851a2.896 2.896 0 0 1-2.893 2.899a2.896 2.896 0 0 1-2.892-2.899c0-1.6 1.295-2.898 2.892-2.898m7.181-1.901a4.29 4.29 0 0 1-4.288-4.288"/></svg></a>
+    </div>
+    <img src="/img/footer-sommer.webp" width="100%" alt="hintergrund">
+</div></body></html>

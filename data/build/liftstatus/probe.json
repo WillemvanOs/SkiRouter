@@ -1,0 +1,9266 @@
+{
+ "summary": {
+  "date": "2026-10-06T14:28:48.690Z",
+  "areas": 579,
+  "withWebsite": 506,
+  "websiteProviders": {
+   "axess": 37,
+   "intermaps": 66,
+   "feratel": 49,
+   "bergfex": 10,
+   "micado": 11,
+   "skidata": 5,
+   "infosnow": 22,
+   "digitalsnow": 19,
+   "lumiplan": 29,
+   "skiplan": 3,
+   "dolomiti": 13,
+   "skiresort": 8
+  },
+  "sources": {
+   "infosnow": 0,
+   "lumiplan": 12,
+   "micado": 2
+  },
+  "areasWithSource": 9,
+  "byShare": {
+   "<50 %": 4,
+   "≥75 %": 5
+  },
+  "byCountry": {
+   "FR": 7,
+   "AT": 2
+  },
+  "minutes": 9
+ },
+ "sites": [
+  {
+   "id": "grandvalira-ad",
+   "websites": [
+    "https://www.grandvalira.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ordino-arcalis-ad",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "pal-arinsal-ad",
+   "websites": [
+    "https://www.vallnord.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "tsaghkadzor-ski-resort-am",
+   "websites": [
+    "https://ropeway.am/online/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "aflenzer-burgeralm-at",
+   "websites": [
+    "https://www.aflenzer-buergeralm.at/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "ankogel-mallnitz-at",
+   "websites": [
+    "https://www.ankogel-ski.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "annaberg-at",
+   "websites": [
+    "https://www.annaberg.info/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "axamer-lizum-muttereralm-at",
+   "websites": [
+    "https://www.muttereralm.at/",
+    "https://www.axamer-lizum.at/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.axamer-lizum.at/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.muttereralm.at/en/info/open-lifts-map/26-0.html"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/muttereralm?lang=en"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "bad-kleinkirchheim-at-2",
+   "websites": [
+    "https://www.badkleinkirchheim.com/bergbahnen-skigebiet/skigebiet/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.badkleinkirchheim.com/skigebiet/pisten-anlagen/",
+      "https://www.badkleinkirchheim.com/wanderberge/geoeffnete-anlagen/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/bad_kleinkirchheim?show=lifts,slopes,2807,2809,2810,3001,3201,3202,3206,3207,3401,3402,3417,3461&amp;lang=de&amp;ctrlZoom=true&amp;zoomCalculationMode=fitHeight&amp;logos=",
+      "https://summer.intermaps.com/bad_kleinkirchheim_hike?show=lifts,2807,2809,2810,3001,3003,728,701,3475,3201,3202,3221,717,3423,3421,3419,3454,3455,3483&lang=de&ctrlZoom=true&zoomCalculationMode=fitHeig"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.badkleinkirchheim.com/skigebiet/pisten-anlagen/",
+      "https://www.badkleinkirchheim.com/wanderberge/geoeffnete-anlagen/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "bergbahnen-werfenweng-at",
+   "websites": [
+    "https://www.bergbahnen-werfenweng.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.bergbahnen-werfenweng.com/",
+      "https://www.bergbahnen-werfenweng.com/winter/lifte-pisten",
+      "https://www.bergbahnen-werfenweng.com/winter/preise-zeiten/zaglau-arena-5-tallifte",
+      "https://www.bergbahnen-werfenweng.com/sommer/zeiten-preise/highlights-im-sommer",
+      "https://www.bergbahnen-werfenweng.com/sommer"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "bergeralm-at",
+   "websites": [
+    "https://www.bergeralm.net/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "berwang-at",
+   "websites": [
+    "https://www.berwang.tirol"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.berwang.tirol/",
+      "https://www.berwang.tirol/geoeffnete-anlagen",
+      "https://www.berwang.tirol/geoeffnete-anlagen-sommer",
+      "https://www.berwang.tirol/schneehoehen"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.berwang.tirol/",
+      "https://www.berwang.tirol/geoeffnete-anlagen",
+      "https://www.berwang.tirol/geoeffnete-anlagen-sommer",
+      "https://www.berwang.tirol/schneehoehen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "biberwier-marienberg-at",
+   "websites": [
+    "https://www.bergbahnen-langes.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.bergbahnen-langes.at/sommer/anlagen-bahnen/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/zugspitz_arena_hike"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "bodele-at",
+   "websites": [
+    "https://www.boedele.info/"
+   ],
+   "providers": {
+    "bergfex": {
+     "pages": [
+      "https://www.boedele.info/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "brandnertal-brand-burserberg-at",
+   "websites": [
+    "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-diversity/active/skiing"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-diversity/active/skiing",
+      "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-cable-cars/bergbahnen-brandnertal",
+      "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-cable-cars/bergbahnen-brandnertal/operating-hours",
+      "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-cable-cars/bergbahnen-brandnertal/tickets-prices",
+      "https://www.vorarlberg-alpenregion.at/brandnertal/en/our-cable-cars/bergbahnen-brandnertal/career"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/brandnertal_hike",
+      "https://winter.intermaps.com/brandnertal?lang=en",
+      "https://winter.intermaps.com/brandnertal?lang=de",
+      "https://summer.intermaps.com/brandnertal_hike?lang=en",
+      "https://summer.intermaps.com/brandnertal_hike?lang&#61;en",
+      "https://winter.intermaps.com/brandnertal?lang&#61;en",
+      "https://winter.intermaps.com/montafon?lang&#61;en"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "brunnalm-st-jakob-at",
+   "websites": [
+    "https://www.stjakob-ski.at/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "buchensteinwand-pillersee-at",
+   "websites": [
+    "https://www.bergbahn-pillersee.com/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.bergbahn-pillersee.com/",
+      "https://www.bergbahn-pillersee.com/de/ticketbestellung.html",
+      "https://www.bergbahn-pillersee.com/de/oeffnungszeiten-bergbahn-pillersee.html",
+      "https://www.bergbahn-pillersee.com/de/tiroler-sommer-bergbahnen.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "christlum-at",
+   "websites": [
+    "https://www.christlum.at/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.christlum.at/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "damuls-at",
+   "websites": [
+    "https://www.damuels-mellau.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.damuels-mellau.at/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/damuels_mellau_faschina?lang=de"
+     ]
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "dreilandereck-arnoldstein-at",
+   "websites": [
+    "https://www.3laendereck.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.3laendereck.at/de/winter/ski-und-wintererlebnis"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/dreilaendereck"
+     ]
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "ehrwalder-alm-at",
+   "websites": [
+    "https://www.almbahn.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "fageralm-at",
+   "websites": [
+    "https://www.reiteralm.at/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "fanningberg-at",
+   "websites": [
+    "https://www.fanningberg.info/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.fanningberg.info/das-skigebiet-fanningberg.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "fendels-at",
+   "websites": [
+    "https://www.kaunertaler-gletscher.at/en/fendels-mountains/winter-mountain/fendels-ski-area.html"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "feuerkogel-at",
+   "websites": [
+    "https://feuerkogel.info/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.feuerkogel.info/de"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "filzmoos-neuberg-at",
+   "websites": [
+    "https://www.filzmoos.at/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.filzmoos.at/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.filzmoos.at/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/salzburger_sportwelt_hike?pos=1400_2800_20.0",
+      "https://winter.intermaps.com/salzburger_sportwelt/radstadt_filzmoos?pos=0_980_18.3",
+      "https://mapsaas.intermaps.com/salzburger_sportwelt/%%SEASON%%?inViewFilter=true&pos=47.43461124499509_13.521269151614927_15&lang="
+     ]
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "flachau-at",
+   "websites": [
+    "https://www.snow-space.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "freesports-arena-dachstein-krippenstein-at",
+   "websites": [
+    "https://dachstein-salzkammergut.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.dachstein-salzkammergut.com/de",
+      "https://www.dachstein-salzkammergut.com/de/sommer/geoeffnete-anlagen",
+      "https://www.dachstein-salzkammergut.com/de/sommer/betriebszeiten-sommer",
+      "https://www.dachstein-salzkammergut.com/de/aktuelles/neuigkeiten/auszeichnung-beste-oesterreichische-sommer-bergbahnen",
+      "https://www.dachstein-salzkammergut.com/de/aktuelles/neuigkeiten/auszeichnung-sommer-seilbahnentest"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "galtur-at",
+   "websites": [
+    "https://www.galtuer.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.galtuer.com/en/winter/silvapark-ski-resort/open-lifts-facilities",
+      "https://www.galtuer.com/en/winter/silvapark-ski-resort/open-lifts-facilities?type=slope"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;show=all",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28811_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28822_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28812_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28820_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28814_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28815_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28828_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_28821_group",
+      "https://winter.intermaps.com/galtuer?zoomCalculationMode=fill&amp;amp;show=all&amp;lang=en&amp;focus=R_51616_group"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "gargellen-at",
+   "websites": [
+    "https://www.montafon.at/bergbahnen-gargellen"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "gerlitzen-alpe-at",
+   "websites": [
+    "https://www.gerlitzen.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.gerlitzen.com/de",
+      "https://www.gerlitzen.com/de/lifte"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/gerlitzen_hike\\\\\\",
+      "https://winter.intermaps.com/gerlitzen?show=slopes,lifts,3201,720\\",
+      "https://winter.intermaps.com/gerlitzen?show=slopes,lifts,3201,720\\\\\\"
+     ]
+    },
+    "bergfex": {
+     "pages": [
+      "https://www.gerlitzen.com/de",
+      "https://www.gerlitzen.com/de/lifte"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "glungezer-at",
+   "websites": [
+    "https://www.glungezerbahn.at/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.glungezerbahn.at/",
+      "https://www.glungezerbahn.at/sommer/oeffnungszeiten/",
+      "https://glungezerbahn.axess.shop/de/Products/Tickets/"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.glungezerbahn.at/sommer/oeffnungszeiten/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "goldeck-at",
+   "websites": [
+    "https://sportberg-goldeck.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "golm-at",
+   "websites": [
+    "https://www.golm.at"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.golm.at/de/aktuelles"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/golm_luenersee?show=all"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "golzentipp-obertilliach-at",
+   "websites": [
+    "https://obertilliacher-bergbahnen.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "grebenzen-at",
+   "websites": [
+    "https://www.grebenzen.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "grossarltal-dorfgastein-at",
+   "websites": [
+    "https://www.grossarltal.info/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.grossarltal.info/",
+      "https://www.grossarltal.info/de/sommer/wandern/bergbahnen.html",
+      "https://www.grossarltal.info/de/sommer/tal-der-almen/mit-der-seilbahn.html",
+      "https://www.grossarltal.info/de/erlebnisse-buchen.html",
+      "https://www.grossarltal.info/de/sommer/pauschalen/almrosenwochen.html"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.grossarltal.info/de/sommer/wandern/bergbahnen.html",
+      "https://www.grossarltal.info/de/sommer/pauschalen/almrosenwochen.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "grosseck-speiereck-at",
+   "websites": [
+    "https://www.grosseck-speiereck.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "grossglockner-heiligenblut-at",
+   "websites": [
+    "https://www.heiligenblut.at/"
+   ],
+   "providers": {
+    "bergfex": {
+     "pages": [
+      "https://heiligenblut.at/",
+      "https://heiligenblut.at/bergbahnen/",
+      "https://heiligenblut.at/winter/skigebiet-grossglockner-heiligenblut/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://heiligenblut.at/bergbahnen/",
+      "https://heiligenblut.at/winter/skigebiet-grossglockner-heiligenblut/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/heiligenblut",
+      "https://winter.intermaps.com/heiligenblut?lang=de"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "hauser-kaibling-at",
+   "websites": [
+    "https://www.hauser-kaibling.at"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.hauser-kaibling.at/en"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.hauser-kaibling.at/en/info-service/mountain-report"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/schladming_dachstein?pos=2050_600_18.1"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "hinterstoder-at",
+   "websites": [
+    "https://www.hiwu.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hintertuxer-gletscher-at",
+   "websites": [
+    "https://www.hintertuxergletscher.at"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hochkar-at",
+   "websites": [
+    "https://www.hochkar.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.hochkar.com/liftstatus"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "hochkeil-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "hochkonig-at",
+   "websites": [
+    "https://www.hochkoenig.at"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.hochkoenig.at/",
+      "https://www.hochkoenig.at/de/sommer/sommerbahnen/sommerbergbahnen-der-region-hochkoenig.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "hochkossen-unterberghorn-at",
+   "websites": [
+    "https://skisport.com/Hochkoessen"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://skisport.com/hochkoessen/de/live-info/lifte-pisten"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/koessen"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "hochoetz-at",
+   "websites": [
+    "https://www.oetz.com/winter/ski-area-hochoetz/ski-area-information.html"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.oetztal.com/en/activities/summer/hiking-mountaineering/mountain-lifts-uphill-facilities",
+      "https://www.oetztal.com/en/activities/summer/biking-cycling/bike-lifts-bike-bus"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "hochrindl-at",
+   "websites": [
+    "https://www.hochrindl.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.hochrindl.at/",
+      "https://www.hochrindl.at/hochrindl-winter/skifahren/geoeffnete-anlagen/",
+      "https://www.hochrindl.at/hochrindl-winter/schneeschuhwandern/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/hochrindl/wettercom"
+     ]
+    },
+    "bergfex": {
+     "pages": [
+      "https://www.hochrindl.at/",
+      "https://www.hochrindl.at/hochrindl-winter/skifahren/geoeffnete-anlagen/",
+      "https://www.hochrindl.at/hochrindl-winter/schneeschuhwandern/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "hochzeiger-at",
+   "websites": [
+    "https://www.hochzeiger.com"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.hochzeiger.com/",
+      "https://www.hochzeiger.com/de/liftstatus-hochzeiger.html",
+      "https://www.hochzeiger.com/de/oeffnungszeiten-hochzeiger-sommer.html",
+      "https://www.hochzeiger.com/de/hochzeiger-preise-im-sommer.html",
+      "https://www.hochzeiger.com/de/wanderkarte-hochzeiger.html"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.hochzeiger.com/de/liftstatus-hochzeiger.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "hochzillertal-hochfugen-at",
+   "websites": [
+    "https://www.hochzillertal.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.hochzillertal.com/skiregion/lifte-und-pisten",
+      "https://www.hochzillertal.com/skiregion/schneebericht"
+     ],
+     "ids": [
+      "https://sdds4.intermaps.com/best_of_zillertal/best_of_zillertal.aspx?lang=de"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "innerkrems-at",
+   "websites": [
+    "https://www.innerkrems.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "kals-matrei-at",
+   "websites": [
+    "https://www.gg-resort.at/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "kappl-at",
+   "websites": [
+    "https://www.kappl.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.kappl-see.com/en/winter/ski-area/open-facilities",
+      "https://www.kappl-see.com/en/winter/ski-area/open-facilities?type=slope",
+      "https://www.kappl-see.com/en/winter/ski-area/open-facilities?type=restaurant"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=L_8281_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91988_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91993_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91994_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=L_8283_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91992_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91995_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_91996_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=en&amp;focus=R_92002_group"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "kaprun-kitzsteinhorn-maiskogel-at",
+   "websites": [
+    "https://www.kitzsteinhorn.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.kitzsteinhorn.at/de",
+      "https://www.kitzsteinhorn.at/de/sommer/informationen/geoeffnete-anlagen",
+      "https://www.kitzsteinhorn.at/de/winter/informationen/pistenplan-oeffnungszeiten",
+      "https://www.kitzsteinhorn.at/de/service/informationen/betriebs-oeffnungszeiten",
+      "https://winter.intermaps.com/kitzsteinhorn_hike?show=717,lifts,3217&zoomCalculationMode=fit&lang=de"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/kitzsteinhorn_hike?show=717,lifts,3217&amp;zoomCalculationMode=fit&amp;lang=de",
+      "https://winter.intermaps.com/alpin_card_hike?show=all&lang=de&ctrlZoom=true",
+      "https://winter.intermaps.com/kitzsteinhorn_hike?zoomCalculationMode=fit&ctrlZoom=true&lang=de",
+      "https://winter.intermaps.com/alpin_card_hike?zoomCalculationMode=fitHeight&lang=de",
+      "https://winter.intermaps.com/kitzsteinhorn?show=lifts,slopes&amp;zoomCalculationMode=fit&amp;lang=de",
+      "https://winter.intermaps.com/alpin_card?show=all&lang=de&ctrlZoom=true",
+      "https://winter.intermaps.com/kitzsteinhorn?zoomCalculationMode=fit&ctrlZoom=true&lang=de",
+      "https://winter.intermaps.com/alpin_card?zoomCalculationMode=fitHeight&lang=de",
+      "https://winter.intermaps.com/kitzsteinhorn_hike?show=all&lang=de&ctrlZoom=true&show=709_9988008,lifts,2807,2809,2810,9988001",
+      "https://intermaps-lynx.s3-eu-west-1.amazonaws.com/css/kitzsteinhorn_hike_srm/menu.css"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "kasberg-grunau-almtal-at",
+   "websites": [
+    "https://www.kasberg.at/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://kasberg.at/"
+     ],
+     "ids": []
+    },
+    "skidata": {
+     "pages": [
+      "https://kasberg.at/news/offene-stellen-kasberg"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "katschberg-aineck-at",
+   "websites": [
+    "https://www.katschi.at/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.katschi.at/",
+      "https://www.katschi.at/geoeffnete-pisten-liftanlagen.html",
+      "https://www.katschi.at/befoerderungsanlagen.html",
+      "https://www.katschi.at/sommerbergbahn.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "klippitztorl-at",
+   "websites": [
+    "https://www.klippitz.at/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.klippitz.at/sommer/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "kreischberg-at",
+   "websites": [
+    "https://www.kreischberg.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.kreischberg.at/pisten/pistenplan/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/kreischberg?show=lifts:status,slopes:nostatus,707,708&amp;zoomCalculationMode=fitHeight&amp;ctrlZoom=true&amp;lang=de"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "kuhtai-at",
+   "websites": [
+    "https://www.kuehtai.info/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.kuehtai.info/",
+      "https://www.kuehtai.info/winter/skigebiet/bahnen-lifte/",
+      "https://www.kuehtai.info/winter/abseits-der-pisten/veranstaltungen/kuehtai-freeride-open-by-innsbruck-tourismus/",
+      "https://www.kuehtai.info/winter/skigebiet/schneebericht/",
+      "https://www.kuehtai.info/winter/abseits-der-pisten/freeride-tiefschnee/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "lachtal-at",
+   "websites": [
+    "https://www.lachtal.at/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "lackenhof-otscher-at",
+   "websites": [
+    "https://www.lackenhof.at/skifahren"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "laterns-gapfohl-at",
+   "websites": [
+    "https://www.laterns.net/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.laterns.net/winter",
+      "https://www.laterns.net/winter/angebot/winterwandern"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "lech-zurs-at",
+   "websites": [
+    "https://www.skiarlberg.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.skiarlberg.at/en/live-info/cable-cars-lifts",
+      "https://www.skiarlberg.at/en/live-info/ski-runs"
+     ],
+     "ids": [
+      "https://skiarlberg.intermaps.com/skiarlberg?show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41809&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41269&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41249&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41128&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41129&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41110&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41491&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41375&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41376&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "lermoos-grubigstein-at",
+   "websites": [
+    "https://www.bergbahnen-langes.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.bergbahnen-langes.at/sommer/anlagen-bahnen/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/zugspitz_arena_hike"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "lienz-zettersfeld-at",
+   "websites": [
+    "https://www.lienzer-bergbahnen.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.lienzer-bergbahnen.at/liftstatus-betriebszeiten/"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/lienz_zettersfeld_hike?show=lifts&zoomCalculationMode=fitWidth&ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "loser-altaussee-at",
+   "websites": [
+    "https://www.loser.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.loser.at/de/loser-altaussee/winter/lifte-pisten/",
+      "https://www.loser.at/de/loser-altaussee/winter/schneebericht/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/loser?show=slopes,lifts,2809,2810,2807",
+      "https://winter.intermaps.com/loser",
+      "https://sdds4.intermaps.com/loser/report_loser.aspx"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "mayrhofen-hippach-at",
+   "websites": [
+    "https://www.zillertal.at/en/winter/holidays/ski-areas/ski-und-gletscherwelt-3000.html"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.zillertal.at/en/winter/holidays/interactive-lift-panorama.html"
+     ],
+     "ids": [
+      "https://zillertal.intermaps.com/zillertal_uebersicht"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "mellau-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "molltaler-gletscher-at",
+   "websites": [
+    "https://www.moelltaler-gletscher.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.moelltaler-gletscher.at/gletscher/geoeffnete-anlagen-pisten"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/moelltaler_gletscher?lang=de"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "nassfeld-mokrine-at",
+   "websites": [
+    "https://www.nassfeld.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "nauders-bergkastel-at",
+   "websites": [
+    "https://www.nauders.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.nauders.com/en/Your-Nauders/Summer--winter-mountain-lifts/Winter-Panorama"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/reschenpass?zoomCalculationMode=fitWidth&amp;pos=0_500&amp;de"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "niederau-wildschonau-at",
+   "websites": [
+    "https://www.wildschoenau.com/en/villages/niederau"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "obergurgl-hochgurgl-at",
+   "websites": [
+    "https://www.obergurgl.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.gurgl.com/en/activities/summer/hiking-mountaineering/mountain-lifts-uphill-facilities",
+      "https://www.gurgl.com/en/activities/summer/biking-cycling/bike-lift-bus"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "obertauern-at",
+   "websites": [
+    "https://www.obertauern.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.obertauern.com/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/obertauern?zoomCalculationMode=fill"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "patscherkofel-ski-at",
+   "websites": [
+    "https://www.patscherkofelbahnen.at/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.patscherkofelbahn.at/",
+      "https://www.patscherkofelbahn.at/live-status/",
+      "https://www.patscherkofelbahn.at/schneeschuh-winterwandern/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "pitztaler-gletscher-at",
+   "websites": [
+    "https://www.pitztaler-gletscher.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.pitztaler-gletscher.at/pistenplan-und-liftstatus"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/pitztaler_gletscher?ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "planai-hochwurzen-at",
+   "websites": [
+    "https://www.planai.at"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.planai.at/de",
+      "https://www.planai.at/de/info-service/bergbericht"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "planneralm-at",
+   "websites": [
+    "https://www.planneralm.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "prabichl-at",
+   "websites": [
+    "https://www.praebichl.at/"
+   ],
+   "providers": {
+    "bergfex": {
+     "pages": [
+      "https://www.praebichl.at/sommer/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "radstadt-altenmarkt-at",
+   "websites": [
+    "https://www.altenmarkt-zauchensee.at/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.altenmarkt-zauchensee.at/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.altenmarkt-zauchensee.at/"
+     ],
+     "ids": [
+      "https://mapsaas.intermaps.com/salzburger_sportwelt/%%SEASON%%?inViewFilter=true&pos=47.3751433_13.420085_15&lang=",
+      "https://mapsaas.intermaps.com/salzburger_sportwelt/%%SEASON%%?inViewFilter=true&pos=47.293134246872576_13.45788378381556_15&lang="
+     ]
+    },
+    "bergfex": {
+     "pages": [
+      "https://www.altenmarkt-zauchensee.at/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "ramsau-am-dachstein-at",
+   "websites": [
+    "https://www.ramsau.com"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.schladming-dachstein.at/de/schladming-dachstein-entdecken/erlebniszentren/ramsau-am-dachstein"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/ramsau_dachstein?zoomCalculationMode=fitHeight&amp;ctrlZoom=true&amp;pos=200_300_17.55",
+      "https://winter.intermaps.com/ramsau_dachstein?zoomCalculationMode=fitHeight&amp;ctrlZoom=true&amp;pos=180_300_15.5"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.schladming-dachstein.at/de/schladming-dachstein-entdecken/erlebniszentren/ramsau-am-dachstein",
+      "https://www.schladming-dachstein.at/de/info-und-service/betriebszeiten-bergbahnen-sommer"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "raurisertal-at",
+   "websites": [
+    "https://www.hochalmbahnen.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "reiteralm-at",
+   "websites": [
+    "https://www.reiteralm.at/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "rifflsee-at",
+   "websites": [
+    "https://www.pitztaler-gletscher.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.pitztaler-gletscher.at/pistenplan-und-liftstatus"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/pitztaler_gletscher?ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "salzstiegl-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "schladming-dachstein-at",
+   "websites": [
+    "https://www.schladming-dachstein.at/",
+    "https://www.reiteralm.at/en/winter/fageralm"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.schladming-dachstein.at/en",
+      "https://www.schladming-dachstein.at/en/info-and-service/about-us/opening-hours-contact"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "schlick-2000-at",
+   "websites": [
+    "http://www.schlick2000.at/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.stubai.at/skigebiete/schlick2000/",
+      "https://www.stubai.at/skigebiete/schlick2000/schlick-live/geoeffnete-anlagen/",
+      "https://www.stubai.at/skigebiete/schlick2000/schlick-live/geoeffnete-anlagen/?anchor=lift&cHash=909cec8f98f24cc63fd4dc5b2eb40292",
+      "https://www.stubai.at/skigebiete/schlick2000/sommer/veranstaltungen/seilbahnfuehrung/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "schmittenhohe-zell-am-see-at",
+   "websites": [
+    "https://www.schmitten.at"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.schmitten.at/de",
+      "https://www.schmitten.at/de/Sommer-Bergerlebnis/Geoeffnete-Anlagen-und-Highlights"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/zell_am_see_hike"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "see-at",
+   "websites": [
+    "https://www.bergbahn.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.kappl-see.com/de/bergbahnen-ks/bb-see",
+      "https://www.kappl-see.com/de/winter/skigebiet/geoeffnete-anlagen",
+      "https://www.kappl-see.com/de/winter/skigebiet/geoeffnete-anlagen?type=slope",
+      "https://www.kappl-see.com/de/winter/skigebiet/geoeffnete-anlagen?type=restaurant"
+     ],
+     "ids": [
+      "https://www.intermaps.com/de/",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=L_8281_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91988_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91993_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91994_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=L_8283_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91992_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91995_group",
+      "https://winter.intermaps.com/kappl_see?pos=2000_325_17.7&amp;lang=de&amp;focus=R_91996_group"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "seefeld-rosshutte-at",
+   "websites": [
+    "https://www.seefeld.com/en/rosshuette-winter.html"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.seefeld.com/en/rosshuette-winter.html",
+      "https://www.seefeld.com/en/rosshuette-ski-area-status.html",
+      "https://www.seefeld.com/en/infrastructures/parking-facilities-of-the-mountain-railways-rosshuette.html",
+      "https://www.seefeld.com/en/contact.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "serfaus-fiss-ladis-at",
+   "websites": [
+    "https://www.serfaus-fiss-ladis.at/de/winter"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "shuttleberg-flachauwinkl-kleinarl-at",
+   "websites": [
+    "https://www.shuttleberg.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "sillian-hochpustertal-at",
+   "websites": [
+    "https://www.hochpustertal-ski.at/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "silvretta-arena-ischgl-samnaun-at",
+   "websites": [
+    "https://www.ischgl.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.ischgl.com/en/winter/silvretta-arena/open-facilities",
+      "https://www.ischgl.com/en/winter/silvretta-arena/open-facilities?type=slope",
+      "https://www.ischgl.com/en/winter/silvretta-arena/open-facilities?type=restaurant"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;lang=de",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=L_34464_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=L_32800_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32726_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32713_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32714_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=L_32801_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32750_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32761_group",
+      "https://winter.intermaps.com/silvretta_arena?zoomCalculationMode=fill&amp;amp;lang=de&amp;focus=R_32762_group"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "silvretta-montafon-at",
+   "websites": [
+    "https://www.silvretta-montafon.at"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.silvretta-montafon.at/en",
+      "https://www.silvretta-montafon.at/en/info-service/lift-info",
+      "https://www.silvretta-montafon.at/en/info-service/opening-times",
+      "https://www.silvretta-montafon.at/en/events-experiences/all-events/ski-opening-montafon_e_21605",
+      "https://www.silvretta-montafon.at/en/info-service/about-us/cable-cars-lifts"
+     ],
+     "ids": []
+    },
+    "axess": {
+     "pages": [
+      "https://www.silvretta-montafon.at/en",
+      "https://www.silvretta-montafon.at/en/info-service/lift-info",
+      "https://www.silvretta-montafon.at/en/info-service/opening-times",
+      "https://www.silvretta-montafon.at/en/events-experiences/all-events/ski-opening-montafon_e_21605",
+      "https://www.silvretta-montafon.at/en/info-service/about-us/cable-cars-lifts"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "ski-arlberg-at-2",
+   "websites": [
+    "https://www.skiarlberg.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.skiarlberg.at/en/live-info/cable-cars-lifts",
+      "https://www.skiarlberg.at/en/live-info/ski-runs"
+     ],
+     "ids": [
+      "https://skiarlberg.intermaps.com/skiarlberg?show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41809&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41269&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41249&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41128&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41129&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41110&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41491&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41375&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit",
+      "https://skiarlberg.intermaps.com/skiarlberg?focus=L_41376&amp;show=lifts&amp;lang=en&amp;ctrlZoom=true&amp;zoomCalculationMode=fit"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "ski-gastein-schlossalm-angertal-stubnerk-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "ski-juwel-alpbachtal-wildschonau-at",
+   "websites": [
+    "https://skijuwel.com"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "skicircus-saalbach-hinterglemm-leogang-f-at",
+   "websites": [
+    "https://www.saalbach.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "skigebiet-almenwelt-lofer-at",
+   "websites": [
+    "https://www.skialm-lofer.com/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "skigebiet-damuls-mellau-at",
+   "websites": [
+    "https://www.damuels-mellau.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.damuels-mellau.at/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/damuels_mellau_faschina?lang=de"
+     ]
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "skigebiet-damuls-mellau-faschina-at",
+   "websites": [
+    "https://www.damuels-mellau.at/",
+    "https://www.fontanella.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.damuels-mellau.at/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/damuels_mellau_faschina?lang=de"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "skigebiet-diedamskopf-at",
+   "websites": [
+    "https://www.diedamskopf.at/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.diedamskopf.at/",
+      "https://www.diedamskopf.at/de/beste-oesterreichische-sommerbergbahn.html",
+      "https://www.diedamskopf.at/de/winterbahnen.html"
+     ],
+     "ids": []
+    },
+    "axess": {
+     "pages": [
+      "https://www.diedamskopf.at/",
+      "https://www.diedamskopf.at/de/beste-oesterreichische-sommerbergbahn.html",
+      "https://www.diedamskopf.at/de/winterbahnen.html"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.diedamskopf.at/de/winterbahnen.html"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/diedamskopf?zoomCalculationMode=fill&amp;ctrlZoom=true&amp;show=lifts,slopes,2807,2809,2810&amp;lang=de"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.diedamskopf.at/de/winterbahnen.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "skigebiet-heuberg-arena-walmendingerhorn-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "skigebiet-petzen-at",
+   "websites": [
+    "https://www.petzen.net/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.petzen.net/",
+      "https://www.petzen.net/winterbetrieb/pisten-lifte",
+      "https://www.petzen.net/winterbetrieb/schneeschuhwandern",
+      "https://www.petzen.net/winterbetrieb/skipass",
+      "https://www.petzen.net/sommerbetrieb/betrieb-bergbahn"
+     ],
+     "ids": []
+    },
+    "bergfex": {
+     "pages": [
+      "https://www.petzen.net/",
+      "https://www.petzen.net/winterbetrieb/pisten-lifte",
+      "https://www.petzen.net/winterbetrieb/schneeschuhwandern",
+      "https://www.petzen.net/winterbetrieb/skipass",
+      "https://www.petzen.net/sommerbetrieb/betrieb-bergbahn"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.petzen.net/winterbetrieb/pisten-lifte"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/petzen?menu=true"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "skiregion-dachstein-west-at",
+   "websites": [
+    "https://www.dachstein.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.dachstein.at/de",
+      "https://www.dachstein.at/de/sommer/geoeffnete-sommerbergbahnen",
+      "https://winter.intermaps.com/dachstein_west?show=lifts,slopes,2807,2809,2810",
+      "https://www.dachstein.at/de/sommer/bergbahnen/gosaukammbahn",
+      "https://www.dachstein.at/de/sommer/bergbahnen/hornbahn"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/dachstein_west?show=lifts,slopes,2807,2809,2810",
+      "https://winter.intermaps.com/dachstein_west?show=lifts,slopes,2807,2809,2810\\",
+      "https://sdds4.intermaps.com/dachstein_west/snowreport_dachstein_west.aspx?lang={{lang}}",
+      "https://intermaps-lynx.s3-eu-west-1.amazonaws.com/css/dachstein_west/menu.css"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.dachstein.at/de",
+      "https://www.dachstein.at/de/sommer/geoeffnete-sommerbergbahnen",
+      "https://www.dachstein.at/de/sommer/bergbahnen/gosaukammbahn",
+      "https://www.dachstein.at/de/sommer/bergbahnen/hornbahn"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "skiwelt-wilder-kaiser-brixental-at",
+   "websites": [
+    "https://www.skiwelt.at/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.skiwelt.at/",
+      "https://www.skiwelt.at/de/sommerbergbahnen-tarife.html",
+      "https://www.skiwelt.at/de/bergbahn-erlebniscard.html",
+      "https://www.skiwelt.at/de/einzeltickets-sommer.html",
+      "https://www.skiwelt.at/de/winterwanderwege.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "solden-at",
+   "websites": [
+    "https://www.soelden.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "sonnenkopf-at",
+   "websites": [
+    "https://www.sonnenkopf.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://sonnenkopf.com/de/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/sonnenkopf?zoomCalculationMode=fill"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://sonnenkopf.com/de/"
+     ],
+     "ids": []
+    },
+    "axess": {
+     "pages": [
+      "https://sonnenkopf.com/de/"
+     ],
+     "ids": []
+    },
+    "bergfex": {
+     "pages": [
+      "https://sonnenkopf.com/de/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "spieljoch-fugen-at",
+   "websites": [
+    "https://www.spieljochbahn.at/"
+   ],
+   "providers": {
+    "skidata": {
+     "pages": [
+      "https://www.spieljochbahn.at/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.spieljochbahn.at/winter/schneebericht-anlagen/"
+     ],
+     "ids": [
+      "https://sdds4.intermaps.com/best_of_zillertal/best_of_zillertal.aspx?lang=de"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "st-johann-in-tirol-at",
+   "websites": [
+    "https://www.bergbahnen-stjohann.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "st-anton-st-christoph-stuben-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "steinplatte-waidring-tirol-at",
+   "websites": [
+    "https://www.steinplatte.tirol/",
+    "https://www.reitimwinkl.de/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.steinplatte.tirol/de/liftstatus.html"
+     ],
+     "ids": []
+    },
+    "micado": {
+     "pages": [
+      "https://www.steinplatte.tirol/de/stellenanzeigen-bergbahnen-steinplatte.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "stubaier-gletscher-at",
+   "websites": [
+    "https://www.stubaier-gletscher.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.stubaier-gletscher.com/",
+      "https://www.stubaier-gletscher.com/stubai-live/geoeffnete-anlagen/",
+      "https://www.stubaier-gletscher.com/stubai-live/geoeffnete-anlagen/?anchor=lift&cHash=c13bd7c5eb4d8c48fb0a9e3a50ff2b46",
+      "https://www.stubaier-gletscher.com/winter/snowpark/stubai-zoo-opening/",
+      "https://www.stubaier-gletscher.com/stubai-live/schneebericht/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.stubaier-gletscher.com/stubai-live/geoeffnete-anlagen/",
+      "https://www.stubaier-gletscher.com/stubai-live/geoeffnete-anlagen/?anchor=lift&cHash=c13bd7c5eb4d8c48fb0a9e3a50ff2b46"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/stubaier_gletscher?show=slopes:open,lifts:close"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "stuhleck-semmering-at",
+   "websites": [
+    "https://www.stuhleck.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.stuhleck.at/en"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "tauplitz-bad-mitterndorf-at",
+   "websites": [
+    "https://www.dietauplitz.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.dietauplitz.com/",
+      "https://www.dietauplitz.com/de/ski/geoeffnete-pisten-und-lifte.php",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205",
+      "https://www.dietauplitz.com/de/preise/schneebaerencard.php"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205",
+      "https://winter.intermaps.com/tauplitz",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532388",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532397",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532392",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532403",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532395",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532387",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532391",
+      "https://winter.intermaps.com/tauplitz?show=lifts,slopes,3001,3002,2807,3205#9532394"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "turracher-hohe-at",
+   "websites": [
+    "https://www.turracherhoehe.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.turracherhoehe.at/de",
+      "https://www.turracherhoehe.at/de/sommer/bergbahnen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "venet-at",
+   "websites": [
+    "https://www.venet.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "wagrain-at",
+   "websites": [
+    "http://www.bergbahnen-wagrain.at/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "warth-schrocken-at",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "weinebene-at",
+   "websites": [
+    "https://www.weinebene.at/"
+   ],
+   "providers": {
+    "bergfex": {
+     "pages": [
+      "https://www.weinebene.at/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "weisssee-gletscherwelt-at",
+   "websites": [
+    "https://www.gletscherwelt-weissee.at/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.gletscherwelt-weissee.at/de/winter/liftstatus-winter/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/weißsee_gletscherwelt?ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "wildkogel-at",
+   "websites": [
+    "https://www.wildkogel-arena.at/de/bergbahnen-wildkogel/oeffnungszeiten-tarife-sommer.html"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "wurzeralm-at",
+   "websites": [
+    "https://www.hiwu.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "zauchensee-flachauwinkl-at",
+   "websites": [
+    "https://www.zauchensee.at/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "zillertal-arena-at",
+   "websites": [
+    "https://www.zillertalarena.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.zillertalarena.com/sommer/",
+      "https://www.zillertalarena.com/winter/skigebiet/lifte-pisten/",
+      "https://www.zillertalarena.com/gerlos/der-ort/veranstaltungen/ski-opening-gerlos/",
+      "https://www.zillertalarena.com/krimml/der-ort/veranstaltungen/ski-opening/",
+      "https://www.zillertalarena.com/sommer/bergbahnen/"
+     ],
+     "ids": [
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603120_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603121_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603122_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603123_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603124_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603125_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603126_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603127_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603128_group",
+      "https://zillertal.intermaps.com/zillertalarena?focus=L_603129_group"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.zillertalarena.com/sommer/",
+      "https://www.zillertalarena.com/winter/skigebiet/lifte-pisten/",
+      "https://www.zillertalarena.com/gerlos/der-ort/veranstaltungen/ski-opening-gerlos/",
+      "https://www.zillertalarena.com/krimml/der-ort/veranstaltungen/ski-opening/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "sahdag-xiz-k-kompleksi-shahdag-mountain--az",
+   "websites": [
+    "https://www.shahdag.az/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "tufandag-mountain-az",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "jahorina-olimpijski-centar-olympic-cente-ba",
+   "websites": [
+    "https://www.oc-jahorina.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "oc-bjelasnica-zoi-84-ba",
+   "websites": [
+    "https://ocbjelasnica.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "bansko-bg",
+   "websites": [
+    "http://www.banskoski.com"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "borovets-bg",
+   "websites": [
+    "https://www.borovets-bg.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "pamporovo-bg",
+   "websites": [
+    "https://pamporovo.me/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch",
+   "websites": [
+    "http://www.4vallees.ch/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "adelboden-lenk-ch",
+   "websites": [
+    "https://www.adelboden-lenk.ch/de/Erlebnis/Skiregion/Adelboden-Lenk"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.adelboden-lenk.ch/de/Erlebnis/Skiregion/Adelboden-Lenk"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "airolo-pescium-ch",
+   "websites": [
+    "https://airolo.ch/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "aletsch-arena-ch",
+   "websites": [
+    "https://www.aletscharena.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "anzere-ch",
+   "websites": [
+    "https://www.anzere.ch"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.anzere.ch/fr",
+      "https://www.anzere.ch/fr/remontees-mecaniques/info-snow--ouvertures-en-direct-342"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "arolla-ch",
+   "websites": [
+    "https://www.arolla.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "arosa-lenzerheide-ch",
+   "websites": [
+    "http://arosalenzerheide.ch"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://arosalenzerheide.swiss/de",
+      "https://arosalenzerheide.swiss/de/Skigebiet/Bergbahnen/Sommersportbericht",
+      "https://arosalenzerheide.swiss/de/Skigebiet/Bergbahnen",
+      "https://arosalenzerheide.swiss/de/Skigebiet/Bergbahnen/Tickets-Tarife-Sommer",
+      "https://arosalenzerheide.swiss/de/Skigebiet/Bergbahnen/Tickets-Tarife-Winter"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "avoriaz-ch",
+   "websites": [
+    "https://www.avoriaz.com/en/discover/discover/ski-area-and-maps/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.avoriaz.com/en/discover/discover/ski-area-and-maps/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "belalp-ch",
+   "websites": [
+    "https://www.belalp.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.belalp.ch/de",
+      "https://www.belalp.ch/de/wanderbericht-status",
+      "https://www.belalp.ch/de/schneeschuhlaufen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "braunwald-ch",
+   "websites": [
+    "https://www.braunwald.ch/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "brigels-waltensburg-andiast-brigels-walt-ch",
+   "websites": [
+    "https://www.brigels-bergbahnen.ch"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "brunni-holzegg-rotenflue-ch",
+   "websites": [
+    "https://www.brunnialpthal.ch/",
+    "https://www.hoch-ybrig.ch"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "bugnenets-savagnieres-ch",
+   "websites": [
+    "https://www.chasseral-snow.ch/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "burchen-torbel-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "chaserrugg-alt-st-johann-ch",
+   "websites": [
+    "https://www.chaeserrugg.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "confin-san-bernardino-ch",
+   "websites": [
+    "https://sanbernardino-swissalps.com/sportarena"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://sanbernardino-swissalps.com/impianti"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/san_bernardino?show=all"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "corvatsch-furtschellas-ch",
+   "websites": [
+    "https://www.engadin.ch/de/langlauf",
+    "https://www.corvatsch-diavolezza.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.corvatsch-diavolezza.ch/"
+     ],
+     "ids": [
+      "1"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "corviglia-ch",
+   "websites": [
+    "https://www.mountains.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.mountains.ch/de",
+      "https://www.mountains.ch/de/anlagen",
+      "https://www.mountains.ch/de/tickets",
+      "https://www.mountains.ch/de/offene-stellen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "crans-montana-ch",
+   "websites": [
+    "https://www.crans-montana.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "disentis-muster-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "ebenalp-horn-ch",
+   "websites": [
+    "https://www.ebenalp.ch/de/winter-info"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "elm-ch",
+   "websites": [
+    "https://www.elm.ch/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "elsigenalp-ch",
+   "websites": [
+    "https://elsigen-metsch.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://elsigen-metsch.ch/",
+      "https://elsigen-metsch.ch/openair-kino/",
+      "https://elsigen-metsch.ch/wanderlustbericht/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "engstligenalp-ch",
+   "websites": [
+    "https://engstligenalp.ch"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://engstligenalp.ch/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "flumserberg-ch",
+   "websites": [
+    "https://www.flumserberg.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.flumserberg.ch/en/information/Open-facilities/Summer",
+      "https://www.flumserberg.ch/en/information/Open-facilities/Winter"
+     ],
+     "ids": [
+      "37"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "glacier-3000-ch",
+   "websites": [
+    "https://www.glacier3000.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.glacier3000.ch/en/access-and-hours/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "grachen-ch",
+   "websites": [
+    "https://www.graechen.ch/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "grindelwald-wengen-kleine-scheidegg-mann-ch",
+   "websites": [
+    "https://www.jungfrau.ch/de-ch/jungfrau-ski-region/grindelwald-wengen/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "grindelwald-first-ch",
+   "websites": [
+    "https://www.jungfrau.ch/de-ch/grindelwaldfirst/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "grusch-danusa-ch",
+   "websites": [
+    "https://www.gruesch-danusa.ch/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "gstaad-saanen-rougemont-ch",
+   "websites": [
+    "https://www.gstaad.ch/bergbahnen/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://bergbahnen-gstaad.ch/sommer",
+      "https://bergbahnen-gstaad.ch/dc/detail/Strukturierter-Artikel/bergbahnen-gstaad-erreichen-swisstainable-level-iii-leading",
+      "https://bergbahnen-gstaad.ch/projekt-hornberg-horneggli"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "hoch-ybrig-ch",
+   "websites": [
+    "https://www.hoch-ybrig.ch"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.hoch-ybrig.ch/sommer/gebiet/geoeffnete-anlagen/",
+      "https://www.hoch-ybrig.ch/winter/gebiet/schnee-pistenbericht/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "ibergeregg-handgruobi-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "jakobshorn-ch",
+   "websites": [
+    "https://www.davosklosters.ch/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "kandersteg-ch",
+   "websites": [
+    "https://www.kandersteg.ch/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://adelboden-lenk-kandersteg.ch/orte/kandersteg",
+      "https://adelboden-lenk-kandersteg.ch/aktivitaeten/winter/schneeschuhwandern",
+      "https://adelboden-lenk-kandersteg.ch/buchen/angebote/bergbahnen-inklusive"
+     ],
+     "ids": []
+    },
+    "infosnow": {
+     "pages": [
+      "https://adelboden-lenk-kandersteg.ch/aktivitaeten/winter/schneeschuhwandern"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "klewenalp-stockhutte-ch",
+   "websites": [
+    "https://www.klewenalp.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.klewenalp.ch/",
+      "https://www.infosnow.ch/~apgmontagne/?tab=web2&xid=64&saison=2&lang=de",
+      "https://www.klewenalp.ch/informationen/bergbahnen",
+      "https://www.klewenalp.ch/erleben/gruppen/schneeschuhlaufen-gruppen",
+      "https://www.klewenalp.ch/erleben/winter/winterwandern-schneeschuhlaufen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "laax-ch",
+   "websites": [
+    "https://www.laax.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.laax.com/",
+      "https://www.laax.com/de/map"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "lauchernalp-ch",
+   "websites": [
+    "https://www.loetschental.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "lenk-wallegg-ch",
+   "websites": [
+    "https://betelberg.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://betelberg.ch/bergsommer/sommerpanorama/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "les-mosses-ch",
+   "websites": [
+    "https://www.leysin.ch/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "les-rousses-ch",
+   "websites": [
+    "https://www.lesrousses.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "leukerbad-torrent-ch",
+   "websites": [
+    "https://www.leukerbad.ch/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "leysin-ch",
+   "websites": [
+    "https://leysin.ch/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "madrisa-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "meiringen-hasliberg-ch",
+   "websites": [
+    "https://www.meiringen-hasliberg.ch/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "melchsee-frutt-ch",
+   "websites": [
+    "https://www.melchsee-frutt.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://frutt.ch/sommer",
+      "https://frutt.ch/sommer/anlagen-und-karte"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "murren-schilthorn-ch",
+   "websites": [
+    "https://schilthorn.ch/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "nara-ch",
+   "websites": [
+    "https://www.nara.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "nax-mont-noble-ch",
+   "websites": [
+    "https://www.mont-noble-tourisme.ch/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "obersaxen-ch",
+   "websites": [
+    "https://www.obersaxen-mundaun.ch"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.obersaxen-mundaun.ch/de"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "ovronnaz-ch",
+   "websites": [
+    "https://www.ovronnaz.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.ovronnaz.ch/bulletin-du-jour/"
+     ],
+     "ids": [
+      "180"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "parsenn-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "pizol-ch",
+   "websites": [
+    "https://pizol.com/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://pizol.com/",
+      "https://pizol.com/winter/winterwandern-schneeschuhe/"
+     ],
+     "ids": []
+    },
+    "axess": {
+     "pages": [
+      "https://pizol.com/",
+      "https://pizol.com/winter/winterwandern-schneeschuhe/"
+     ],
+     "ids": []
+    },
+    "skidata": {
+     "pages": [
+      "https://pizol.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "rinerhorn-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "saas-fee-ch",
+   "websites": [
+    "https://www.saas-fee.ch/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.saas-fee.ch/de/",
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-fee",
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-almagell",
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-grund-saas-balen",
+      "https://www.saas-fee.ch/de/services-informationen/tarife-fahrplaene-bergbahnen/fahrplaene-bergbahnen/offene-anlagen"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-fee",
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-almagell",
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-grund-saas-balen"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/saastal_hike?ctrlZoom=true&zoomCalculationMode=fill&lang=de&amp;"
+     ]
+    },
+    "infosnow": {
+     "pages": [
+      "https://www.saas-fee.ch/de/offene-anlagen/saas-grund-saas-balen"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "saas-grund-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "saint-luc-chandolin-ch",
+   "websites": [
+    "https://www.anniviers.ch/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "sainte-croix-les-rasses-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "savognin-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "schonried-saanenmoser-zweisimmen-st-step-ch",
+   "websites": [
+    "https://www.gstaad.ch/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.gstaad.ch/sommer",
+      "https://www.gstaad.ch/sommer/erleben-geniessen/bergbahnen",
+      "https://www.gstaad.ch/sommer/planen-buchen/buchen/bergbahnen-tickets"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "schwarzsee-ch",
+   "websites": [
+    "https://www.kaisereggbahnen-schwarzsee.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://kaisereggbahnen-schwarzsee.ch/",
+      "https://kaisereggbahnen-schwarzsee.ch/anlagen-und-attraktionen/",
+      "https://kaisereggbahnen-schwarzsee.ch/uber-uns/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "scuol-motta-naluns-ch",
+   "websites": [
+    "https://www.scuol.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "skipisten-titlis-bergbahnen-ch",
+   "websites": [
+    "https://www.engelberg.ch/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.engelberg.ch/",
+      "https://www.engelberg.ch/offene-anlagen/",
+      "https://www.engelberg.ch/bergbahnen/titlis/",
+      "https://www.engelberg.ch/winter/ski-snowboard/",
+      "https://www.engelberg.ch/winter/wander-schneeschuhtouren/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "sorenberg-ch",
+   "websites": [
+    "https://www.soerenberg.ch"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "splugen-tambo-ch",
+   "websites": [
+    "http://www.tambo.ch"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "stoos-ch",
+   "websites": [
+    "http://www.morschach-stoos.ch"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "tschiertschen-ch",
+   "websites": [
+    "https://www.bbtschiertschen.ch/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "unterbach-eischoll-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "vercorin-ch",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "villars-gryon-les-diablerets-ch",
+   "websites": [
+    "https://www.tvgd.ch/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "wildhaus-ch",
+   "websites": [
+    "https://www.wildhaus.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://wildhaus.ch/de/live/schnee-und-pistenbericht.html",
+      "https://wildhaus.ch/de/bergwinter/schneeschuhlaufen.html",
+      "https://wildhaus.ch/de/bergwinter/schneeschuhlaufen/oberdorf-aelpli-oberdorf.html",
+      "https://wildhaus.ch/de/bergwinter/schneeschuhlaufen/aelpli-oelberg-gamperfin-aelpli.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "wiriehorn-ch",
+   "websites": [
+    "https://www.wiriehorn.ch/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://www.wiriehorn.ch/info/offen-oder-zu/sommerbericht",
+      "https://www.wiriehorn.ch/info/offen-oder-zu/winterbericht"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "zermatt-breuil-cervinia-breuil-cervinia--ch",
+   "websites": [
+    "https://www.matterhornparadise.ch"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "zinal-grimentz-ch",
+   "websites": [
+    "https://www.valdanniviers.ch/fr/grimentz-zinal-134.html"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "zuoz-ch",
+   "websites": [
+    "https://www.engadin.ch/en/ski-snowboard/zuoz/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "herlikovice-cz",
+   "websites": [
+    "https://www.herlikovice.cz/en/zima/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hochficht-bohmerwald-cz",
+   "websites": [
+    "https://www.hochficht.at/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "janske-lazne-cerna-hora-cz",
+   "websites": [
+    "https://skiresort.cz/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "pec-pod-snezkou-cz-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "skiareal-klinovec-cz",
+   "websites": [
+    "https://klinovec.cz/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "skiareal-spindleruv-mlyn-medvedin-cz",
+   "websites": [
+    "https://www.skiareal.cz/en/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "svaty-petr-plan-cz",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "balderschwang-hochschelpen-riedberger-ho-de",
+   "websites": [
+    "https://www.skigebiet-balderschwang.de/",
+    "https://www.balderschwang.de/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "brauneck-de",
+   "websites": [
+    "https://www.brauneck-bergbahn.de/",
+    "https://www.lenggries.de/"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.brauneck-bergbahn.de/",
+      "https://www.brauneck-bergbahn.de/de/lift-pistenstatus.html",
+      "https://www.brauneck-bergbahn.de/de/geschichte-60-jahre-brauneck-bergbahn.html",
+      "https://www.brauneck-bergbahn.de/de/tickets-angebote.html"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.lenggries.de/",
+      "https://www.brauneck-bergbahn.de/de/lift-pistenstatus.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "feldberg-de",
+   "websites": [
+    "https://www.liftverbund-feldberg.de/"
+   ],
+   "providers": {
+    "skidata": {
+     "pages": [
+      "https://www.feldberg-erlebnis.de/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.feldberg-erlebnis.de/aktuelles/schneebericht"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/feldberg&quot;",
+      "https://winter.intermaps.com/feldberg"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "gletscher-skigebiet-zugspitze-ski-resort-de",
+   "websites": [
+    "https://zugspitze.de/de/winter/skigebiet/zugspitze"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://zugspitze.de/de/Unsere-Bergwelten/Winter/Skigebiet-Zugspitze",
+      "https://zugspitze.de/anlagen"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/zugspitzplatt?show=lifts,slopes",
+      "https://summer.intermaps.com/garmisch_hike?show&#61;lifts,701,2807,2809,2810,399,369",
+      "https://summer.intermaps.com/garmisch_hike?show=lifts,701,2807,2809,2810,399,369"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "grosser-arber-velky-javor-de",
+   "websites": [
+    "https://www.arber.de/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.arber.de/aktuell/schneebericht/"
+     ],
+     "ids": [
+      "https://sdds4.intermaps.com/arber/v3/skireport_arber.aspx?website_usage=1",
+      "https://sdds4.intermaps.com/arber/v2/subscription.aspx?id=2F7234099CCD07F9C0939ACCC13D7F7F6E95DBAD&#038;lang=de",
+      "https://sdds4.intermaps.com/arber/v2/subscription.aspx?id=2F7234099CCD07F9C0939ACCC13D7F7F6E95DBAD&lang=de"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "hindelang-oberjoch-de",
+   "websites": [
+    "https://www.bergbahnen-hindelang-oberjoch.de/"
+   ],
+   "providers": {
+    "bergfex": {
+     "pages": [
+      "https://www.bergbahnen-hindelang-oberjoch.de/sommer/wanderwege/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "hinterstaufen-de",
+   "websites": [
+    "http://huendle.eu/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "munstertal-wieden-de",
+   "websites": [
+    "https://www.skilifte-muenstertal-wieden.de"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "ofterschwang-gunzesried-de",
+   "websites": [
+    "https://go-ofterschwang.de/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "skiarena-steibis-de",
+   "websites": [
+    "http://www.imbergbahn.de/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "skigebiet-fellhorn-kanzelwand-de",
+   "websites": [
+    "https://www.das-hoechste.de/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "skigebiet-garmisch-classic-de",
+   "websites": [
+    "https://zugspitze.de/en/winter/skiarea/garmisch-classic"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://zugspitze.de/en/Our-mountain-worlds/Winter/Garmisch-Classic-ski-area"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/zugspitzbahn_garmisch?show=lifts,slopes"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "skigebiet-nebelhorn-de",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "skigebiet-oberwiesenthal-de",
+   "websites": [
+    "https://www.fichtelberg-ski.de/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.fichtelberg-ski.de/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/fichtelberg?zoomCalculationMode=fit"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.fichtelberg-ski.de/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "skigebiet-sollereck-de",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "skigebiet-spitzingsee-tegernsee-de",
+   "websites": [
+    "https://www.alpenbahnen-spitzingsee.de/de/skifahren-snowboarden.html"
+   ],
+   "providers": {
+    "micado": {
+     "pages": [
+      "https://www.alpenbahnen-spitzingsee.de/de/skifahren-snowboarden.html",
+      "https://www.alpenbahnen-spitzingsee.de/de/liftstatus.html"
+     ],
+     "ids": []
+    },
+    "feratel": {
+     "pages": [
+      "https://www.alpenbahnen-spitzingsee.de/de/liftstatus.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "skiliftkarussell-winterberg-de-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "sudelfeld-bayrischzell-de",
+   "websites": [
+    "https://www.sudelfeld.de/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.sudelfeld.de/",
+      "https://www.sudelfeld.de/schneebericht/",
+      "https://www.sudelfeld.de/deutsche-seilbahnen-zahlen-daten-fakten/"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.sudelfeld.de/schneebericht/"
+     ],
+     "ids": [
+      "https://sdds4.intermaps.com/alpenplus/detail_sudelfeld.aspx"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "todtnauberg-de-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "willingen-de-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "wintersportgebiet-wurmberg-de",
+   "websites": [
+    "https://www.wurmberg-seilbahn.de/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "aramon-cerler-es",
+   "websites": [
+    "https://www.cerler.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.cerler.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "astun-es",
+   "websites": [
+    "https://www.astun.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "boi-taull-es",
+   "websites": [
+    "https://www.boitaullresort.es/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "candanchu-es",
+   "websites": [
+    "https://www.candanchu.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "estacio-d-esqui-baqueira-beret-es",
+   "websites": [
+    "http://www.baqueira.cat"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "estacio-d-esqui-de-port-aine-es",
+   "websites": [
+    "https://www.portaine.cat/"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://pirineu365.cat/portaine/inici/",
+      "https://pirineu365.cat/portaine/estacio/planol-pistes/",
+      "https://pirineu365.cat/es/portaine/estacion/mapa-de-pistas/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "estacio-d-esqui-i-muntanya-vallter-2000-es",
+   "websites": [
+    "http://www.vallter2000.com"
+   ],
+   "providers": {
+    "infosnow": {
+     "pages": [
+      "https://pirineu365.cat/vallter/inici/",
+      "https://pirineu365.cat/estiu/vallter/estacio/planol-de-pistes/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "estacio-d-esqui-port-del-comte-es",
+   "websites": [
+    "https://www.portdelcomte.net/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "estacion-de-esqui-de-manzaneda-es",
+   "websites": [
+    "https://www.manzaneda.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "estacion-de-esqui-de-valdesqui-es",
+   "websites": [
+    "https://www.valdesqui.es/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "estacion-de-esqui-de-valdezcaray-es",
+   "websites": [
+    "https://www.valdezcaray.es/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.valdezcaray.es/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "estacion-de-esqui-y-montana-alto-campoo-es",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "estacion-de-esqui-y-montana-de-sierra-ne-es",
+   "websites": [
+    "https://sierranevada.es"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "estacion-invernal-y-de-montana-san-isidr-es-3",
+   "websites": [
+    "https://www.san-isidro.net/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "estacion-invernal-y-de-montana-valgrande-es",
+   "websites": [
+    "https://www.valgrande-pajares.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "formigal-es",
+   "websites": [
+    "https://www.formigal-panticosa.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "la-molina-es",
+   "websites": [
+    "https://www.masella.com/en/paginas/alp-2500-trail"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "la-pinilla-es",
+   "websites": [
+    "https://www.lapinilla.es/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "masella-es",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "panticosa-es",
+   "websites": [
+    "https://www.formigal-panticosa.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hiihtokeskus-ukkohalla-fi",
+   "websites": [
+    "https://ukkohalla.fi/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "levin-hiihtokeskus-levi-ski-resort-fi",
+   "websites": [
+    "https://www.levi.fi/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "rukatunturi-ruka-fi",
+   "websites": [
+    "https://www.ruka.fi"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "tahko-fi",
+   "websites": [
+    "https://www.tahko.com/en/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "vuokatinrinteet-fi",
+   "websites": [
+    "https://vuokatti.fi/palvelut/vuokatinrinteet/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "abondance-fr",
+   "websites": [
+    "https://www.portesdusoleil.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.portesdusoleil.com/en-hiver/pistes-et-remontees-mecaniques/",
+      "https://www.portesdusoleil.com/en-ete/plan-des-pistes-vtt/",
+      "https://www.portesdusoleil.com/en-hiver/plan-des-pistes/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/portes_du_soleil"
+     ]
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://www.portesdusoleil.com/en-hiver/plan-des-pistes/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "aillon-margeriaz-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "albiez-montrond-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "alpe-d-huez-grand-domaine-fr",
+   "websites": [
+    "https://www.alpedhuez.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "ancelle-fr",
+   "websites": [
+    "https://www.ancelle.fr/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "areches-beaufort-fr",
+   "websites": [
+    "https://www.areches-beaufort.com"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "ascou-fr",
+   "websites": [
+    "https://www.ascou.ski/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "auron-fr",
+   "websites": [
+    "http://www.auron.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "aussois-fr",
+   "websites": [
+    "https://www.aussois.com"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "autrans-grand-domaine-la-sure-fr",
+   "websites": [
+    "https://autrans-meaudre.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ax-3-domaines-fr-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "balme-vallorcine-fr",
+   "websites": [
+    "https://en.chamonix.com/activities/winter/skiing-in-chamonix-mont-blanc-valley/list-of-ski-areas/ski-area-balme-vallorcine"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://en.chamonix.com/informations-remontees-mecaniques-en-temps-reel"
+     ],
+     "ids": [
+      "chamonix"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "bernex-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "bonneval-sur-arc-fr",
+   "websites": [
+    "https://www.bonneval-sur-arc.com/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "brevent-flegere-chamonix-fr",
+   "websites": [
+    "https://en.chamonix.com/activities/winter/skiing-in-chamonix-mont-blanc-valley/list-of-ski-areas/domaine-skiable-brevent-flegere"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://en.chamonix.com/informations-remontees-mecaniques-en-temps-reel"
+     ],
+     "ids": [
+      "chamonix"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "cauterets-cirque-du-lys-fr",
+   "websites": [
+    "https://www.cauterets.com/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "chabanon-fr",
+   "websites": [
+    "https://www.chabanon-selonnet.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "chaillol-chalhol-fr",
+   "websites": [
+    "https://www.champsaur-valgaudemar.com/decouvrir/les-stations/chaillol/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.champsaur-valgaudemar.com/decouvrir/les-stations/chaillol/bulletin-complet/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "chamrousse-fr",
+   "websites": [
+    "https://www.chamrousse.com/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.chamrousse.com/prevision-meteo.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "chastreix-sancy-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "claviere-fr",
+   "websites": [
+    "https://www.vialattea.it"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "courchevel-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "crevoux-fr",
+   "websites": [
+    "https://www.crevoux.fr/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.serreponcon.com/crevoux/crevoux-en-hiver/plan-des-pistes-crevoux/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "devoluy-fr",
+   "websites": [
+    "https://www.ledevoluy.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.ledevoluy.com/ete/en-live-2/info-live-2/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "domaine-skiable-chamrousse-fr",
+   "websites": [
+    "https://www.chamrousse.com/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.chamrousse.com/prevision-meteo.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "domaine-skiable-saint-leger-les-melezes-fr",
+   "websites": [
+    "https://www.champsaur-valgaudemar.com/hiver/ski-et-neige/les-stations/saint-leger-les-melezes"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.champsaur-valgaudemar.com/decouvrir/les-stations/saint-leger-les-melezes/bulletin-complet/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "domaine-skiable-valberg-fr",
+   "websites": [
+    "https://www.valberg.com"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "espace-cambre-d-aze-fr",
+   "websites": [
+    "https://www.cambre-d-aze.com/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "espace-diamant-fr",
+   "websites": [
+    "https://www.espacediamant.com"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.espacediamant.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "espace-liberte-fr",
+   "websites": [
+    "https://en.chatel.com/chatel-and-portes-du-soleil-ski-areas.html"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "espace-lumiere-fr",
+   "websites": [
+    "https://www.praloup.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.praloup.com/100-neige/ouvertures-pistes-remontees/"
+     ],
+     "ids": [
+      "praloup"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "font-d-urle-chaud-clapier-fr",
+   "websites": [
+    "https://www.lesstationsdeladrome.fr/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.lesstationsdeladrome.fr/ouverture/"
+     ],
+     "ids": [
+      "col-de-rousset",
+      "col_de_rousset",
+      "font-d-urle",
+      "font_durle",
+      "herbouilly",
+      "grand-echaillon",
+      "le_grand_echaillon",
+      "lus-la-jarjatte",
+      "lus_la_jarjatte",
+      "espace_poiree"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "font-romeu-pyrenees-2000-font-romeu-fr",
+   "websites": [
+    "https://font-romeu.fr/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "foret-blanche-vars-risoul-fr",
+   "websites": [
+    "https://www.vars.com/hiver/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.vars.com/hiver/a-faire-sur-place/ski-et-glisse/la-station-le-domaine-skiable/plan-des-pistes/",
+      "https://www.vars.com/hiver/a-faire-sur-place/ski-et-glisse/la-station-le-domaine-skiable/bulletin-neige/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "formigueres-fr",
+   "websites": [
+    "https://www.formigueres.fr/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "galibier-thabor-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "gavarnie-gedre-fr",
+   "websites": [
+    "http://hiver.gavarnie.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "gerardmer-fr",
+   "websites": [
+    "https://www.gerardmer-ski.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "gourette-fr",
+   "websites": [
+    "https://www.gourette.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.gourette.com/la-station-en-hiver/le-ski/plan-des-pistes-et-enneigement/"
+     ],
+     "ids": [
+      "gourette"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "grand-tourmalet-fr",
+   "websites": [
+    "https://www.n-py.com/fr/grand-tourmalet"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.n-py.com/fr/cauterets/plan-des-pistes"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "greolieres-les-neiges-fr",
+   "websites": [
+    "https://www.stations-greolieres-audibergue.com"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "gresse-en-vercors-fr",
+   "websites": [
+    "https://www.gresse-en-vercors.fr"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "hautacam-fr",
+   "websites": [
+    "https://www.hautacam.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "hirmentaz-les-haberes-fr",
+   "websites": [
+    "https://hirmentaz-bellevaux.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://hirmentaz-bellevaux.com/",
+      "https://hirmentaz-bellevaux.com/ouverture-pistes-et-remontees-mecaniques/contenu_5164.html",
+      "https://hirmentaz-bellevaux.com/infos-pistes-et-remontees-mecaniques/contenu_5164.html",
+      "https://hirmentaz-bellevaux.com/avantages-forfaits-saison-et-ski-decouverte/contenu_12468.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "isola-2000-fr",
+   "websites": [
+    "https://www.isola2000.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "l-alpe-du-grand-serre-fr",
+   "websites": [
+    "https://www.alpedugrandserre.info/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "l-audibergue-fr",
+   "websites": [
+    "https://www.stations-greolieres-audibergue.com"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "la-bresse-hohneck-fr",
+   "websites": [
+    "https://labresse.labellemontagne.com"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://labresse.labellemontagne.com/fr/",
+      "https://labresse.labellemontagne.com/fr/cgv-remontees-mecaniques/",
+      "https://labresse.labellemontagne.com/fr/hiver/infos-station/pistes/",
+      "https://labresse.labellemontagne.com/fr/hiver/infos-station/plan-des-pistes-pdf/",
+      "https://labresse.labellemontagne.com/fr/hiver/tous-nos-forfaits/espace-debutant/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "la-clusaz-fr",
+   "websites": [
+    "https://www.laclusaz.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.laclusaz.com/"
+     ],
+     "ids": [
+      "la-clusaz"
+     ]
+    },
+    "feratel": {
+     "pages": [
+      "https://www.laclusaz.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "la-colmiane-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "la-norma-fr",
+   "websites": [
+    "https://www.la-norma.ski/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.la-norma.ski/meteo-et-etat-des-pistes/",
+      "https://www.la-norma.ski/plan-des-pistes/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "la-pierre-saint-martin-san-martingo-harr-fr",
+   "websites": [
+    "https://www.lapierrestmartin.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.lapierrestmartin.com/en-live/bulletin-neige/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "la-plagne-fr",
+   "websites": [
+    "https://paradiski.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://paradiski.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "la-rosiere-fr",
+   "websites": [
+    "https://www.espacesanbernardo.ski/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "lac-blanc-fr",
+   "websites": [
+    "https://www.lac-blanc.com"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "le-collet-d-allevard-fr",
+   "websites": [
+    "https://www.lecollet.com"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "le-grand-domaine-fr",
+   "websites": [
+    "https://www.legranddomaine.fr/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "le-grand-massif-fr",
+   "websites": [
+    "https://www.grand-massif.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.grand-massif.com/infos-ouverture-pistes/"
+     ],
+     "ids": [
+      "flaine",
+      "les-carroz",
+      "morillon",
+      "samoens",
+      "sixt"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "le-grand-bornand-fr",
+   "websites": [
+    "https://www.legrandbornand.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "le-lioran-fr",
+   "websites": [
+    "https://skipass.lelioran.com"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.lelioran.com/hiver/bulletin-meteo-douverture-du-domaine/",
+      "https://www.lelioran.com/ete/bulletin-meteo-douverture-du-domaine/"
+     ],
+     "ids": [
+      "le-lioran"
+     ]
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "le-mourtis-fr",
+   "websites": [
+    "https://www.haute-garonne-montagne.com/stations/le-mourtis-hiver/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.haute-garonne-montagne.com/le-mourtis-hiver/",
+      "https://www.haute-garonne-montagne.com/le-mourtis-hiver/plan-des-pistes-luchon-superbagneres/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "le-sauze-1400-le-super-sauze-1700-fr",
+   "websites": [
+    "https://www.sauze.com"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "le-semnoz-fr",
+   "websites": [
+    "https://www.semnoz.fr/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "les-7-laux-fr",
+   "websites": [
+    "http://www.les7laux.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.les7laux.com/ete/",
+      "https://www.les7laux.com/ete/la-station/vtt-randonnees/vtt/les-pistes-vtt/le-vtt-de-descente/"
+     ],
+     "ids": [
+      "sept-laux"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "les-angles-els-angles-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "les-arcs-fr",
+   "websites": [
+    "https://paradiski.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://paradiski.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "les-contamines-fr",
+   "websites": [
+    "https://www.lescontamines.net/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.lescontamines.net/ouverture.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "les-deux-alpes-fr",
+   "websites": [
+    "https://www.les2alpes.com"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "les-gets-morzine-fr",
+   "websites": [
+    "https://pass.lesgets.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://pass.lesgets.com/plan-des-pistes-hiver/"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/portes_du_soleil?pos=4000_0_16.8"
+     ]
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://pass.lesgets.com/plan-des-pistes-hiver/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "les-grands-montets-fr",
+   "websites": [
+    "https://www.chamonix.com/grands-montets-ski-area,285,en.html"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://en.chamonix.com/informations-remontees-mecaniques-en-temps-reel"
+     ],
+     "ids": [
+      "chamonix"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "les-houches-saint-gervais-fr",
+   "websites": [
+    "https://www.leshouches.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.chamonix.com/informations-remontees-mecaniques-en-temps-reel"
+     ],
+     "ids": [
+      "chamonix"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "les-karellis-fr",
+   "websites": [
+    "https://www.karellis.com/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.karellis.com/plan-des-pistes/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "les-menuires-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "les-monts-d-olmes-fr",
+   "websites": [
+    "https://www.montsdolmes.ski/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.montsdolmes.ski/fr/ouverture-pistes"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "les-orres-fr",
+   "websites": [
+    "https://www.lesorres.com"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "les-portes-du-soleil-fr",
+   "websites": [
+    "https://www.portesdusoleil.com/",
+    "https://www.rocdenfer.com/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.portesdusoleil.com/en-hiver/pistes-et-remontees-mecaniques/",
+      "https://www.portesdusoleil.com/en-ete/plan-des-pistes-vtt/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "les-sybelles-fr",
+   "websites": [
+    "https://www.sybelles.ski/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "les-trois-vallees-fr",
+   "websites": [
+    "https://www.les3vallees.com/"
+   ],
+   "providers": {
+    "skiplan": {
+     "pages": [
+      "https://www.les3vallees.com/fr",
+      "https://www.les3vallees.com/fr/live/ouverture-des-pistes-et-remontees",
+      "https://www.les3vallees.com/fr/guide/contacts-remontees-mecaniques",
+      "https://www.les3vallees.com/fr/guide/moniteurs-et-guides/cours-de-ski-adulte-et-hors-pistes",
+      "https://www.les3vallees.com/fr/experiences/10-pistes-mythiques"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "luz-ardiden-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "massif-des-brasses-fr",
+   "websites": [
+    "https://lesbrasses.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://lesbrasses.com/",
+      "https://lesbrasses.com/infos-pistes-massif-des-brasses/",
+      "https://lesbrasses.com/ski-alpins-massif-des-brasses/",
+      "https://lesbrasses.com/ski-nordique-massif-des-brasses/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "megeve-fr",
+   "websites": [
+    "https://www.megeve.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "meribel-fr",
+   "websites": [
+    "https://www.les3vallees.com/"
+   ],
+   "providers": {
+    "skiplan": {
+     "pages": [
+      "https://www.les3vallees.com/fr",
+      "https://www.les3vallees.com/fr/live/ouverture-des-pistes-et-remontees",
+      "https://www.les3vallees.com/fr/guide/contacts-remontees-mecaniques",
+      "https://www.les3vallees.com/fr/guide/moniteurs-et-guides/cours-de-ski-adulte-et-hors-pistes",
+      "https://www.les3vallees.com/fr/experiences/10-pistes-mythiques"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "metabief-mont-d-or-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "mijanes-donezan-fr",
+   "websites": [
+    "https://www.ski-mijanes.fr/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "mijoux-la-faucille-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "mont-serein-fr",
+   "websites": [
+    "https://www.stationdumontserein.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "montagnes-de-lans-fr",
+   "websites": [
+    "https://www.lansenvercors.com"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "montclar-fr",
+   "websites": [
+    "https://www.montclar.com"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.montclar.com/",
+      "https://www.montclar.com/vtt/plan-des-pistes-vtt/",
+      "https://www.montclar.com/ouverture-de-la-station/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "montgenevre-fr",
+   "websites": [
+    "https://www.montgenevre.com"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "monts-jura-fr",
+   "websites": [
+    "https://www.monts-jura.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.paysdegex-montsjura.com/activites/randonnees-trails/ascension-en-telecabines/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "orcieres-merlette-fr",
+   "websites": [
+    "https://orcieres.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.orcieres.com/"
+     ],
+     "ids": []
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://www.orcieres.com/",
+      "https://www.orcieres.com/activites/hiver/ski/domaine-skiable/plan-des-pistes/",
+      "https://www.orcieres.com/live/meteo/",
+      "https://www.orcieres.com/live/ouvertures-station/",
+      "https://www.orcieres.com/activites/decouverte/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "orelle-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "paradiski-fr",
+   "websites": [
+    "https://paradiski.com"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://paradiski.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "pelvoux-vallouise-fr",
+   "websites": [
+    "https://www.ski-pelvoux.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.ski-pelvoux.com/"
+     ],
+     "ids": []
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://www.ski-pelvoux.com/bulletin-meteo/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "peyragudes-fr",
+   "websites": [
+    "https://www.n-py.com/fr/peyragudes"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.n-py.com/fr/cauterets/plan-des-pistes"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "piau-engaly-fr",
+   "websites": [
+    "https://www.n-py.com/fr/piau"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "porte-puymorens-fr",
+   "websites": [
+    "https://www.trio-pyrenees.com/porte-puymorens/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "pra-loup-1600-fr",
+   "websites": [
+    "https://www.praloup.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.praloup.com/100-neige/ouvertures-pistes-remontees/"
+     ],
+     "ids": [
+      "praloup"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "pralognan-la-vanoise-fr",
+   "websites": [
+    "https://www.pralognan.com"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.pralognan.com/remontees-mecaniques/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "praz-de-lys-sommand-fr",
+   "websites": [
+    "https://www.prazdelys-sommand.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.prazdelys-sommand.com/explorer/la-station/le-domaine-skiable/infos-pistes/"
+     ],
+     "ids": [
+      "praz-lys-sommand"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "puy-saint-vincent-fr",
+   "websites": [
+    "https://www.puysaintvincent.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "queyras-arvieux-fr",
+   "websites": [
+    "https://lequeyras.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "queyras-ceillac-fr",
+   "websites": [
+    "https://www.ceillac.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "queyras-haut-guil-abries-fr",
+   "websites": [
+    "https://www.abries-ristolas.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "queyras-molines-saint-veran-fr",
+   "websites": [
+    "https://www.queyras.ski/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "reallon-fr",
+   "websites": [
+    "https://www.reallon-ski.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.serreponcon.com/reallon/",
+      "https://www.serreponcon.com/reallon/hiver-a-reallon/domaine-skiable-de-reallon/plan-des-pistes-de-reallon/"
+     ],
+     "ids": []
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://www.serreponcon.com/reallon/hiver-a-reallon/domaine-skiable-de-reallon/plan-des-pistes-de-reallon/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "roubion-les-buisses-fr",
+   "websites": [
+    "https://www.roubion.com"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "saint-lary-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "sainte-anne-la-condamine-fr",
+   "websites": [
+    "https://www.sainte-anne.com"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "serre-chevalier-fr",
+   "websites": [
+    "https://www.serre-chevalier.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.serre-chevalier.com/fr/domaine-skiable/plan-pistes-interactif"
+     ],
+     "ids": []
+    },
+    "digitalsnow": {
+     "pages": [
+      "https://www.serre-chevalier.com/fr/domaine-skiable/plan-pistes-interactif"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "station-du-col-de-rousset-fr",
+   "websites": [
+    "https://www.lesstationsdeladrome.fr/stations/col-du-rousset/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.lesstationsdeladrome.fr/ouverture/",
+      "https://www.lesstationsdeladrome.fr/ouverture/?station=col_de_rousset"
+     ],
+     "ids": [
+      "col-de-rousset",
+      "col_de_rousset",
+      "font-d-urle",
+      "font_durle",
+      "herbouilly",
+      "grand-echaillon",
+      "le_grand_echaillon",
+      "lus-la-jarjatte",
+      "lus_la_jarjatte",
+      "espace_poiree"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "super-besse-fr",
+   "websites": [
+    "https://lemontdore.fr",
+    "https://www.sancy.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://lemontdore.fr/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "superbagneres-fr",
+   "websites": [
+    "http://www.luchon-superbagneres.com/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.haute-garonne-montagne.com/luchon-superbagneres/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "thollon-les-memises-fr-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "tignes-val-d-isere-fr",
+   "websites": [
+    "https://www.espacekilly.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "torgon-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-cenis-fr",
+   "websites": [
+    "https://www.valcenis.com"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-d-allos-la-foux-fr",
+   "websites": [
+    "https://www.valdallos.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "val-d-allos-le-seignus-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-thorens-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-thorens-orelle-fr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-louron-fr",
+   "websites": [
+    "http://www.val-louron-ski.com/"
+   ],
+   "providers": {
+    "lumiplan": {
+     "pages": [
+      "https://www.station-vallouron.fr/",
+      "https://www.station-vallouron.fr/fr/plan-des-pistes",
+      "https://www.station-vallouron.fr/fr/hebergements/hebergements-pied-de-pistes",
+      "https://www.station-vallouron.fr/fr/actualites/generale,1/ouverture-et-fermeture-de-la-station-saison-2026-2027,30"
+     ],
+     "ids": [
+      "val-louron"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "valfrejus-fr",
+   "websites": [
+    "https://www.valfrejus.ski/"
+   ],
+   "providers": {
+    "digitalsnow": {
+     "pages": [
+      "https://www.valfrejus.ski/meteo-etat-des-pistes/",
+      "https://www.valfrejus.ski/plan-des-pistes/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "valmorel-fr",
+   "websites": [
+    "https://www.valmorel.com/"
+   ],
+   "providers": {
+    "skiplan": {
+     "pages": [
+      "https://www.valmorel.com/pistes-et-remontees-mecaniques/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "villard-de-lans-correncon-fr",
+   "websites": [
+    "https://www.villarddelans-correnconenvercors.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "glencoe-mountain-resort-gb",
+   "websites": [
+    "http://www.glencoemountain.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.glencoemountain.co.uk/",
+      "https://www.glencoemountain.co.uk/chairlift-rides/",
+      "https://www.glencoemountain.co.uk/snow-report/",
+      "https://www.glencoemountain.co.uk/snow-report/?iframe=true&width=100%&height=90%"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "glenshee-ski-center-gb",
+   "websites": [
+    "https://www.ski-glenshee.co.uk/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "nevis-range-gb",
+   "websites": [
+    "https://www.nevisrange.co.uk/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "the-lecht-gb",
+   "websites": [
+    "https://www.lecht.co.uk/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "didveli-ge",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kokhta-mitarbi-ge",
+   "websites": [
+    "https://mta.ski/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "tetnuldi-ge",
+   "websites": [
+    "http://tetnuldi.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "gudauri-ge",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "seli-gr",
+   "websites": [
+    "https://seli-ski.gr/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "area-gr",
+   "websites": [
+    "https://vasilitsa.com/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "kalavrita-ski-resort-gr",
+   "websites": [
+    "https://www.kalavrita-ski.gr/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "blafjoll-is",
+   "websites": [
+    "https://skidasvaedi.is/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hli-arfjall-is",
+   "websites": [
+    "https://www.hlidarfjall.is/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "3-zinnen-dolomites-dobbiaco-san-candido--it",
+   "websites": [
+    "https://www.dreizinnen.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.dreizinnen.com/en/the-cable-cars"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "alpe-cermis-it",
+   "websites": [
+    "https://www.alpecermis.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "alpe-del-nevegal-it",
+   "websites": [
+    "https://dolomitiskiline.com/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "alta-badia-it",
+   "websites": [
+    "https://www.altabadia.org/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://www.altabadia.org/it/",
+      "https://www.altabadia.org/it/dolomites/muoversi-in-estate/impianti-di-risalita",
+      "https://www.altabadia.org/it/mappa-piste-alta-badia/impianti-alta-badia"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "aprica-it",
+   "websites": [
+    "https://www.apricaonline.com/index.php"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "arabba-it",
+   "websites": [
+    "http://www.arabba.it"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.arabba.it/en/arabba-fodom-turismo/1-0.html",
+      "https://www.arabba.it/en/activities-experiences/sport-and-leisure/summer-lift-pass/148-0.html",
+      "https://www.arabba.it/en/information/lifts/45-0.html"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.arabba.it/en/arabba-fodom-turismo/1-0.html",
+      "https://www.arabba.it/en/activities-experiences/sport-and-leisure/summer-lift-pass/148-0.html",
+      "https://www.arabba.it/en/information/lifts/45-0.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "area-sciistica-abetone-it",
+   "websites": [
+    "https://multipassabetone.it/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://multipassabetone.it/multipass-skipass-shop"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "artesina-it",
+   "websites": [
+    "https://www.artesina.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "bardonecchia-it",
+   "websites": [
+    "https://www.bardonecchiaski.com"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "belvedere-col-rodella-passo-pordoi-it",
+   "websites": [
+    "https://www.valdifassalift.it/",
+    "http://www.canazei.org/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://www.valdifassalift.it/",
+      "https://www.valdifassalift.it/it/estate/impianti-di-risalita-dolomiti",
+      "https://www.valdifassalift.it/it/estate/prezzi-impianti-di-risalita",
+      "https://www.valdifassalift.it/it/estate/trek-tour-panorama"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "bielmonte-it",
+   "websites": [
+    "https://www.bielmonteneve.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "bormio-ski-it",
+   "websites": [
+    "https://www.bormioski.eu/"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.bormioski.eu/",
+      "https://www.bormioski.eu/info-impianti-e-piste/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "brentonico-it",
+   "websites": [
+    "https://www.brentonicoski.com"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.brentonicoski.com/",
+      "https://www.brentonicoski.com/it/facilities/index",
+      "https://www.brentonicoski.com/it/snowreport/details/1"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "brixen-plose-plose-di-bressanone-brixen--it",
+   "websites": [
+    "https://www.plose.org/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.plose.org/",
+      "https://www.plose.org/winter-plose/offene-pisten-und-lifte.html",
+      "https://www.plose.org/sommer-plose/oeffnungszeiten-preise.html",
+      "https://www.plose.org/sommer-plose/mountainbike/brixen-bikepark.html",
+      "https://www.plose.org/plosebob-sommer/"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.plose.org/",
+      "https://www.plose.org/winter-plose/offene-pisten-und-lifte.html",
+      "https://www.plose.org/sommer-plose/oeffnungszeiten-preise.html",
+      "https://www.plose.org/sommer-plose/mountainbike/brixen-bikepark.html",
+      "https://www.plose.org/plosebob-sommer/"
+     ],
+     "ids": []
+    },
+    "skiresort": {
+     "pages": [
+      "https://www.plose.org/winter-plose/offene-pisten-und-lifte.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "buffaure-ciampac-it",
+   "websites": [
+    "https://www.fassa.it/",
+    "https://www.fassa.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.fassa.com/it"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.fassa.com/it"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "campiglio-dolomiti-di-brenta-it",
+   "websites": [
+    "https://www.funiviecampiglio.it/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.ski.it/it",
+      "https://www.ski.it/it/live/impianti-aperti",
+      "https://www.ski.it/it/live/impianti-e-orari-estivi"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "campitello-matese-it",
+   "websites": [
+    "https://matese.ski/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "campo-felice-it",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "carezza-it",
+   "websites": [
+    "https://carezza.it/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://carezza.it/en",
+      "https://carezza.it/en/lift-systems/lift-systems/tickets-prices",
+      "https://carezza.it/en/lift-systems/lift-systems/the-cabrio-cable-car-in-tiers",
+      "https://carezza.it/en/lift-systems/lift-systems/lift-systems-on%20the-rosengarten-massif",
+      "https://carezza.it/en/lift-systems/sustainability"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "champorcher-it",
+   "websites": [
+    "http://www.monterosa-ski.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "cima-piazzi-san-colombano-it",
+   "websites": [
+    "https://www.cimapiazzi.eu/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "cortina-tofane-it",
+   "websites": [
+    "https://www.impianticortina.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "courmayeur-it",
+   "websites": [
+    "https://www.courmayeur-montblanc.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "cristallo-faloria-it",
+   "websites": [
+    "https://faloriacristallo.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "domobianca-it",
+   "websites": [
+    "http://www.domobianca.it/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "drei-zinnen-tre-cime-drei-zinnen-tre-cim-it",
+   "websites": [
+    "https://www.dreizinnen.com/de",
+    "https://www.dreizinnen.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.dreizinnen.com/de/die-bergbahnen/info-service/betriebszeiten-aufstiegsanlagen",
+      "https://www.dreizinnen.com/de/die-bergbahnen/die-bergbahnen/erlebnisberge",
+      "https://www.dreizinnen.com/de/die-bergbahnen/die-bergbahnen/familienparks"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "folgaria-area-sciistica-folgaria-it",
+   "websites": [
+    "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/lavarone-folgaria-skigebiet/46-0.html"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/lavarone-folgaria-skigebiet/46-0.html",
+      "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/skigebiet-alpe-cimbra/liftanlagen/163-0.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/sportanlagen/99-0.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/eishalle/100-798.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/langlaufzentren/100-1550.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "folgarida-marilleva-it",
+   "websites": [
+    "https://www.visittrentino.info/en/trentino/ski-areas/alpine-skiing/folgarida-marilleva-skiarea-campiglio-dolomiti-di-brenta-val-di-sole-val-rendena_md_2211"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "foppolo-carona-it",
+   "websites": [
+    "https://www.foppolo.ski/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "forni-di-sopra-it",
+   "websites": [
+    "https://www.turismofvg.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "frabosa-soprana-it",
+   "websites": [
+    "https://www.pratonevoso.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "gitschberg-jochtal-rio-pusteria-it",
+   "websites": [
+    "https://www.gitschberg-jochtal.com"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.gitschberg-jochtal.com/",
+      "https://www.gitschberg-jochtal.com/ferienorte/terenten/dorflift",
+      "https://www.gitschberg-jochtal.com/sommer/bergbahnpreise",
+      "https://gitschbergjochtal.axess.shop/de/Products/Tickets"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.gitschberg-jochtal.com/",
+      "https://www.gitschberg-jochtal.com/ferienorte/terenten/dorflift",
+      "https://www.gitschberg-jochtal.com/sommer/bergbahnpreise"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "kaunertaler-gletscher-it",
+   "websites": [
+    "https://www.kaunertaler-gletscher.at"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "klausberg-monte-chiusetta-klausberg-mont-it",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kronplatz-plan-de-corones-kronplatz-plan-it",
+   "websites": [
+    "https://www.kronplatz.com/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://www.kronplatz.com/en",
+      "https://www.kronplatz.com/en/the-kronplatz/skilifts-slopes"
+     ],
+     "ids": []
+    },
+    "intermaps": {
+     "pages": [
+      "https://www.kronplatz.com/en/the-kronplatz/skilifts-slopes"
+     ],
+     "ids": [
+      "https://summer.intermaps.com/kronplatz_hike?ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "la-thuile-ski-it",
+   "websites": [
+    "https://www.espacesanbernardo.ski/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "lagazuoi-5-torri-it",
+   "websites": [
+    "https://cortinadelicious.it/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://cortinadelicious.it/IT/p66-Gli-impianti-di-risalita-prezzi-e-calendario"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://cortinadelicious.it/IT/p66-Gli-impianti-di-risalita-prezzi-e-calendario"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "latemar-dolomites-it",
+   "websites": [
+    "https://www.latemar.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "lemelette-it",
+   "websites": [
+    "https://www.lemelette.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "maniva-it",
+   "websites": [
+    "https://www.manivaski.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "marmolada-it",
+   "websites": [
+    "https://www.visitmarmolada.com/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.visitmarmolada.com/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "meran-2000-it",
+   "websites": [
+    "https://www.meran2000.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "monte-pora-it",
+   "websites": [
+    "https://www.montepora.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.montepora.com/",
+      "https://www.montepora.com/impianti/",
+      "https://www.montepora.com/skipass/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "monterosa-ski-it",
+   "websites": [
+    "https://monterosaski.eu/en"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "mottarone-it",
+   "websites": [
+    "http://www.mottaroneski.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ovindoli-it",
+   "websites": [
+    "https://www.ovindolimagnola.it/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.ovindolimagnola.it/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "paganella-area-sciistica-andalo-fai-dell-it",
+   "websites": [
+    "https://www.paganella.net/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.paganella.net/it",
+      "https://www.paganella.net/it/live/impianti-orari-5",
+      "https://www.paganella.net/it/paganella-open-pass-1",
+      "https://www.paganella.net/pagine/dettaglio/info_e_contatti,8/accessi_agli_impianti_sciistici_da_valle,66.html",
+      "https://www.paganella.net/it/live/bike-trails-status"
+     ],
+     "ids": []
+    },
+    "axess": {
+     "pages": [
+      "https://www.paganella.net/it",
+      "https://www.paganella.net/it/live/impianti-orari-5",
+      "https://www.paganella.net/it/paganella-open-pass-1",
+      "https://www.paganella.net/pagine/dettaglio/info_e_contatti,8/accessi_agli_impianti_sciistici_da_valle,66.html",
+      "https://www.paganella.net/it/live/bike-trails-status"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "passo-rolle-it",
+   "websites": [
+    "https://www.sanmartino.com"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.sanmartino.com/it",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/impianti-aperti",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/meteo",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/webcams"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "passo-stelvio-stilfserjoch-it",
+   "websites": [
+    "http://www.passostelvio.com/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "pejo-3000-it",
+   "websites": [
+    "https://www.skipejo.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "pescasseroli-it",
+   "websites": [
+    "https://www.sciareapescasseroli.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "piancavallo-it",
+   "websites": [
+    "https://www.piancavallodolomitifriulane.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "piani-di-bobbio-valtorta-skiarea-it",
+   "websites": [
+    "https://www.pianidibobbio.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "pila-ski-it",
+   "websites": [
+    "https://www.pila.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "pinzolo-it",
+   "websites": [
+    "https://www.pinzolo.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ponte-di-legno-passo-tonale-it",
+   "websites": [
+    "https://www.pontedilegnotonale.com/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "ratschings-jaufen-it",
+   "websites": [
+    "https://www.ratschings-jaufen.it/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.ratschings-jaufen.it/de/bergbahnen/live/pisten-liftanlagen.html"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/ratschings_jaufen?zoomCalculationMode=fit&ctrlZoom=true"
+     ]
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "riserva-bianca-it",
+   "websites": [
+    "https://www.riservabianca.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "roccaraso-rivisondoli-it",
+   "websites": [
+    "https://roccaraso.net/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "san-martino-di-castrozza-it",
+   "websites": [
+    "https://www.sanmartino.com"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.sanmartino.com/it",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/impianti-aperti",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/meteo",
+      "https://www.sanmartino.com/it/piste-impianti-live-info/webcams"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "sansicario-it",
+   "websites": [
+    "https://www.vialattea.it"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "santa-caterina-it",
+   "websites": [
+    "https://www.santacaterinaimpianti.it/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "sauze-d-oulx-it",
+   "websites": [
+    "https://www.vialattea.it"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "schnalstal-it",
+   "websites": [
+    "https://www.schnalstal.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "schoneben-belpiano-schoneben-it",
+   "websites": [
+    "https://www.schoeneben.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "schwemmalm-it",
+   "websites": [
+    "https://www.merano-suedtirol.it/de/schwemmalm.html"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "scopello-alpe-di-mera-it",
+   "websites": [
+    "https://alpedimera.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "seiser-alm-mont-de-seuc-alpe-di-siusi-se-it",
+   "websites": [
+    "https://www.seiseralm.it/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://www.seiseralm.it/de/sommerurlaub-suedtirol.html",
+      "https://www.seiseralm.it/de/aktiv/sommer/aufstiegsanlagen-im-sommer.html",
+      "https://www.seiseralm.it/de/aktiv/winter/aufstiegsanlagen-im-winter.html",
+      "https://www.seiseralm.it/de/aktiv/winter/schneeschuhwandern.html",
+      "https://www.seiseralm.it/de/aktiv/winter/skifahren/skipisten.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "sestriere-it",
+   "websites": [
+    "https://www.vialattea.it"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "ski-area-alpe-lusia-it",
+   "websites": [
+    "http://www.skiareaalpelusia.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "ski-area-san-pellegrino-falcade-it",
+   "websites": [
+    "https://www.skiareasanpellegrino.it/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "ski-center-lavarone-it",
+   "websites": [
+    "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/lavarone-folgaria-skigebiet/46-0.html"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/lavarone-folgaria-skigebiet/46-0.html",
+      "https://www.alpecimbra.it/de/skigebiet-alpe-cimbra/skigebiet-alpe-cimbra/liftanlagen/163-0.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/sportanlagen/99-0.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/eishalle/100-798.html",
+      "https://www.alpecimbra.it/de/outdoor/sportanlagen/langlaufzentren/100-1550.html"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "ski-civetta-it",
+   "websites": [
+    "https://www.skicivetta.com/"
+   ],
+   "providers": {
+    "dolomiti": {
+     "pages": [
+      "https://skicivetta.com/",
+      "https://skicivetta.com/impianti"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "skiarea-san-domenico-it",
+   "websites": [
+    "https://www.san-domenico.com/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "skiarea-valchiavenna-madesimo-campodolci-it",
+   "websites": [
+    "https://www.skiareavalchiavenna.it/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "speikboden-it",
+   "websites": [
+    "https://www.skiworldahrntal.it/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "sulden-it",
+   "websites": [
+    "https://www.ortlerskiarena.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "tarvisio-tarvis-it",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "val-di-fassa-it",
+   "websites": [
+    "https://www.fassa.com/",
+    "http://www.canazei.org/"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.fassa.com/it",
+      "https://www.fassa.com/it/piste-e-impianti/impianti-autunno",
+      "https://www.fassa.com/it/hotel-ristoranti-aperti-autunno",
+      "https://www.fassa.com/it/cosa-fare/mangiare-e-bere/rifugi-aperti-in-autunno"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.fassa.com/it",
+      "https://www.fassa.com/it/piste-e-impianti/impianti-autunno",
+      "https://www.fassa.com/it/hotel-ristoranti-aperti-autunno",
+      "https://www.fassa.com/it/cosa-fare/mangiare-e-bere/rifugi-aperti-in-autunno"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "valmalenco-bernina-it",
+   "websites": [
+    "https://www.sondrioevalmalenco.it/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "valtournenche-it",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "vigo-di-fassa-ciampedie-it",
+   "websites": [
+    "https://www.fassa.com/de/lifte-und-pisten/skigebiete/catinaccio"
+   ],
+   "providers": {
+    "feratel": {
+     "pages": [
+      "https://www.fassa.com/de/lifte-und-pisten/skigebiete/catinaccio",
+      "https://www.fassa.com/en/ski-lifts-slopes/ski-areas/catinaccio",
+      "https://www.fassa.com/it/piste-e-impianti/skiarea/catinaccio",
+      "https://www.fassa.com/de/lifte-und-pisten/im-herbst-geoeffnete-liftanlagen",
+      "https://www.fassa.com/de/lifte-und-pisten/skigebiete"
+     ],
+     "ids": []
+    },
+    "dolomiti": {
+     "pages": [
+      "https://www.fassa.com/de/lifte-und-pisten/skigebiete/catinaccio",
+      "https://www.fassa.com/en/ski-lifts-slopes/ski-areas/catinaccio",
+      "https://www.fassa.com/it/piste-e-impianti/skiarea/catinaccio",
+      "https://www.fassa.com/de/lifte-und-pisten/im-herbst-geoeffnete-liftanlagen",
+      "https://www.fassa.com/de/lifte-und-pisten/skigebiete"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "zoncolan-concolan-it",
+   "websites": [
+    "https://www.turismofvg.it/en/mountain365/ski-area-ravascletto-zoncolan"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "malbun-li",
+   "websites": [
+    "https://www.bergbahnen.li/"
+   ],
+   "providers": {
+    "intermaps": {
+     "pages": [
+      "https://www.bergbahnen.li/",
+      "https://www.bergbahnen.li/meta/webcams",
+      "https://www.bergbahnen.li/sommer/tickets-preise",
+      "https://www.bergbahnen.li/sommer/offnungszeiten"
+     ],
+     "ids": [
+      "https://winter.intermaps.com/malbun"
+     ]
+    }
+   },
+   "pages": 4
+  },
+  {
+   "id": "kolasin-1450-ski-resort-1450-me",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "mavrovo-mk",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "area-mk",
+   "websites": [
+    "https://skimacedonia.mk/ski-regions/popova-sapka/?lang=en"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "al-skisenter-no",
+   "websites": [
+    "https://aalski.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "beitost-len-skisenter-no",
+   "websites": [
+    "https://www.beitostolen.com/Ski/Alpint/Beitost-len-skisenter/beitost-len-skisenter-7516.page"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "bjorli-skisenter-no",
+   "websites": [
+    "https://www.bjorliskisenter.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "eikedalen-skisenter-no",
+   "websites": [
+    "https://www.eikedalen.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "gaustablikk-skisenter-no",
+   "websites": [
+    "https://www.gausta.com/en-US/gausta-skisenter/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "geilo-no",
+   "websites": [
+    "https://www.geilo.no/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "hafjell-no",
+   "websites": [
+    "https://www.hafjell.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "hemsedal-skisenter-no",
+   "websites": [
+    "http://www.skistar.com/hemsedal"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/no/vare-skisteder/hemsedal/vinter-i-hemsedal/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "hovden-alpinsenter-no",
+   "websites": [
+    "https://hovden.com/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "kvitfjell-no",
+   "websites": [
+    "https://www.kvitfjell.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "myrkdalen-no",
+   "websites": [
+    "https://www.myrkdalen.no/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "narvikfjellet-ski-resort-no",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "nesfjellet-alpinsenter-no",
+   "websites": [
+    "https://www.nesfjelletalpin.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "oppdal-skisenter-no",
+   "websites": [
+    "https://www.oppdalskisenter.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "rauland-no",
+   "websites": [
+    "https://visitrauland.com/rauland-skisenter/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "riksgransen-no",
+   "websites": [
+    "https://riksgransen.se/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://riksgransen.se/",
+      "https://riksgransen.se/fjallstatus-snorapport/",
+      "https://laplandresorts.axess.shop/sv/Products/Tickets/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 3
+  },
+  {
+   "id": "r-ldal-skisenter-no",
+   "websites": [
+    "https://www.roldal.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "skeikampen-alpinsenter-no",
+   "websites": [
+    "https://skeikampen.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "strandafjellet-no",
+   "websites": [
+    "https://strandafjellet.no/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "trysil-no",
+   "websites": [
+    "https://www.skistar.com/no/vare-skisteder/trysil/vinter-i-trysil/"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/no/vare-skisteder/trysil/vinter-i-trysil/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "vassfjellet-skisenter-no",
+   "websites": [
+    "https://vassfjellet.no"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "voss-resort-fjellheisar-no",
+   "websites": [
+    "https://vossresort.no/no/vinter/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "cos-szczyrk-pl",
+   "websites": [
+    "http://kaimowka.pl/",
+    "http://www.skrzyczne.cos.pl/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "czarna-gora-pl",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kasprowy-wierch-pl",
+   "websites": [
+    "https://www.pkl.pl/kasprowy-wierch/kasprowy.html"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "kompleks-pilsko-jontek-pl",
+   "websites": [
+    "https://pilsko.org/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "osrodek-narciarski-kotelnica-bia-czanska-pl",
+   "websites": [
+    "https://bialkatatrzanska.pl"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "stacja-narciarska-kotelnica-bia-czanska--pl",
+   "websites": [
+    "https://bialkatatrzanska.pl/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "szczyrk-mountain-resort-pl",
+   "websites": [
+    "https://www.szczyrkowski.pl/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "zieleniec-pl-3",
+   "websites": [
+    "https://zieleniec.pl/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "muntele-mic-ro",
+   "websites": [
+    "https://weski.ro/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://weski.ro/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "poiana-brasov-ro",
+   "websites": [
+    "https://www.schipoianabrasov.ro/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "sinaia-ro",
+   "websites": [
+    "https://sinaiago.ro/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://sinaiago.ro/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 1
+  },
+  {
+   "id": "kopaonik-rs",
+   "websites": [
+    "https://www.skijalistasrbije.rs/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ski-center-stara-planina-rs",
+   "websites": [
+    "https://www.skijalistasrbije.rs/en/lifts-and-slopes-stara-planina"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "abzakovo-ru",
+   "websites": [
+    "https://abzakovo.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "adzhigardak-ru",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "arhyz-ru",
+   "websites": [
+    "https://resort-arkhyz.ru/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "area-ru-40",
+   "websites": [
+    "https://bigwood.ru/",
+    "https://ski-kolasport.narod.ru/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "gazprom-ru",
+   "websites": [
+    "https://polyanaski.ru/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "sobolinaya-ru",
+   "websites": [
+    "https://baikalski.net/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "gorny-vozdukh-mountain-air-ru",
+   "websites": [
+    "https://ski-gv.ru/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "dombay-ru",
+   "websites": [
+    "https://www.dombai.info/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "krasnaya-polyana-resort-ru",
+   "websites": [
+    "https://krasnayapolyanaresort.ru/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "manzherok-ru",
+   "websites": [
+    "https://xn--80akcrghjp.xn--p1ai/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "rosa-khutor-ru",
+   "websites": [
+    "https://rosaski.com"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "fanpark-bobrovy-log-ru",
+   "websites": [
+    "https://bobrovylog.ru/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "sheregesh-ru",
+   "websites": [
+    "https://www.sheregesh.su/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "elbrus-ru-2",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "bjorkliden-se",
+   "websites": [
+    "https://bjorkliden.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "bjornrike-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "branas-se",
+   "websites": [
+    "https://www.branas.se/?nr=1"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "bydalsfjallen-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "dundret-gallivare-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "edsasdalen-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "funasdalen-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "hassela-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "hemavan-se",
+   "websites": [
+    "https://hemavan.nu"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "hogfjallet-se",
+   "websites": [
+    "https://www.skistar.com/en/ski-destinations/salen"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/en/ski-destinations/salen/winter-in-salen/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "hundfjallet-se",
+   "websites": [
+    "https://www.skistar.com/en/ski-destinations/salen"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/en/ski-destinations/salen/winter-in-salen/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "idre-fjall-se",
+   "websites": [
+    "https://www.idrefjall.se/en/skiing/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "idre-himmelfjall-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "jarvsobacken-se",
+   "websites": [
+    "https://www.jarvsobacken.se/"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "kittelfjall-se",
+   "websites": [
+    "https://kittelfjall.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://kittelfjall.com/",
+      "https://kittelfjall.com/webbkamera/hotelliften",
+      "https://kittelfjall.axess.shop/sv/Products/Tickets/",
+      "https://kittelfjall.com/om-vara-skipass",
+      "https://kittelfjall.com/skidakning/kittelfjallsliftarna"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "klappen-se",
+   "websites": [
+    "https://www.klappen.se/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "klovsjo-storhogna-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kungsberget-se",
+   "websites": [
+    "https://www.kungsberget.se/en/?nr=1"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "lindvallen-se",
+   "websites": [
+    "https://www.skistar.com/en/ski-destinations/salen"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/en/ski-destinations/salen/winter-in-salen/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "lofsdalen-se",
+   "websites": [
+    "https://www.lofsdalen.com/de"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "ramundberget-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "romme-alpin-se",
+   "websites": [
+    "https://www.rommealpin.se"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "stoten-i-salen-se",
+   "websites": [
+    "https://www.stoten.se/"
+   ],
+   "providers": {},
+   "pages": 4
+  },
+  {
+   "id": "tandadalen-se",
+   "websites": [
+    "https://www.skistar.com/en/ski-destinations/salen"
+   ],
+   "providers": {
+    "skiresort": {
+     "pages": [
+      "https://www.skistar.com/en/ski-destinations/salen/winter-in-salen/"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "tanndalen-se",
+   "websites": [
+    "https://www.tanndalen.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.tanndalen.com/skidaakning/liftkort",
+      "https://www.tanndalen.com/cykling/liftkort-sommar"
+     ],
+     "ids": []
+    },
+    "skidata": {
+     "pages": [
+      "https://www.tanndalen.com/skidaakning/liftkort"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "trillevallen-se",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "vemdalsskalet-se",
+   "websites": [
+    "https://www.skistar.com/"
+   ],
+   "providers": {},
+   "pages": 5
+  },
+  {
+   "id": "golte-si",
+   "websites": [
+    "https://www.golte.si/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kranjska-gora-si",
+   "websites": [
+    "https://ski-kranjska-gora.com",
+    "https://www.kranjska-gora.si/en"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.ski-kranjska-gora.com/sl/poletje"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 2
+  },
+  {
+   "id": "krvavec-si",
+   "websites": [
+    "https://www.rtc-krvavec.si/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "rogla-si",
+   "websites": [
+    "https://www.rogla.eu/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "smucisca-mariborsko-pohorje-si",
+   "websites": [
+    "https://www.mariborskopohorje.si/"
+   ],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "vogel-si",
+   "websites": [
+    "https://vogel.si/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "jasna-low-tatras-sk",
+   "websites": [
+    "https://www.jasna.sk/"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "malino-brdo-sk",
+   "websites": [
+    "https://www.bikepark.sk/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "ski-lysa-sk",
+   "websites": [
+    "https://www.skilysa.sk/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "velka-raca-sk",
+   "websites": [
+    "http://www.velkaraca.sk/snowparadise/sk/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "vysoke-tatry-tatranska-lomnica-sk",
+   "websites": [
+    "https://www.vt.sk/en/resort/resort-info"
+   ],
+   "providers": {},
+   "pages": 3
+  },
+  {
+   "id": "davraz-dag-tr",
+   "websites": [
+    "https://davrazkayakmerkezi.org"
+   ],
+   "providers": {},
+   "pages": 2
+  },
+  {
+   "id": "egitim-pisti-tr",
+   "websites": [
+    "https://www.uludaginfo.com/"
+   ],
+   "providers": {
+    "axess": {
+     "pages": [
+      "https://www.uludaginfo.com/tr",
+      "https://www.uludaginfo.com/tr/liftler",
+      "https://www.uludaginfo.com/tr/harita",
+      "https://www.uludaginfo.com/tr/pistrotalari"
+     ],
+     "ids": []
+    }
+   },
+   "pages": 5
+  },
+  {
+   "id": "kartalkaya-tr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "kayseri-erciyes-tr",
+   "websites": [
+    "https://www.kayserierciyes.com.tr/"
+   ],
+   "providers": {},
+   "pages": 1
+  },
+  {
+   "id": "palandoken-kayak-merkezi-tr",
+   "websites": [],
+   "providers": {},
+   "pages": 0
+  },
+  {
+   "id": "bukowina-ua",
+   "websites": [
+    "https://bukovel.com/"
+   ],
+   "providers": {},
+   "pages": 1
+  }
+ ],
+ "sources": [
+  {
+   "provider": "lumiplan",
+   "source": "chamonix",
+   "title": "Bulletin d'ouvertures Chamonix Domaine de Balme",
+   "match": {
+    "area": "brevent-flegere-chamonix-fr",
+    "name": "Brévent/Flégère (Chamonix)",
+    "country": "FR",
+    "ourLifts": 17,
+    "sourceLifts": 14,
+    "matched": 3,
+    "share": 18,
+    "unmatchedSource": [
+     "TPH AIGUILLE DU MIDI08:20 AM",
+     "TPH PLAN DE L'AIGUILLE08:10 AM",
+     "ASCENSEUR08:30 AM",
+     "TRAIN MONTENVERS MER DE GLACE08:30 AM",
+     "TC MER DE GLACEClosed: reopening from 17 october to 1 november",
+     "FUNI 2000Closed: reopening on 12 December",
+     "TC CHARAMILLONClosed: reopening on 12 December",
+     "TC VALLORCINEClosed: reopening on 12 December"
+    ],
+    "unmatchedOurs": [
+     "Liaison Brévent - Flégère",
+     "Altitude 2000",
+     "Parsa",
+     "Index",
+     "Sources",
+     "Floria",
+     "Floria",
+     "Évettes"
+    ]
+   },
+   "liftCount": 14,
+   "lifts": [
+    {
+     "name": "TPH AIGUILLE DU MIDI08:20 AM",
+     "status": "scheduled"
+    },
+    {
+     "name": "TPH PLAN DE L'AIGUILLE08:10 AM",
+     "status": "scheduled"
+    },
+    {
+     "name": "ASCENSEUR08:30 AM",
+     "status": "scheduled"
+    },
+    {
+     "name": "TRAIN MONTENVERS MER DE GLACE08:30 AM",
+     "status": "scheduled"
+    },
+    {
+     "name": "TC MER DE GLACEClosed: reopening from 17 october to 1 november",
+     "status": "closed"
+    },
+    {
+     "name": "FUNI 2000Closed: reopening on 12 December",
+     "status": "closed"
+    },
+    {
+     "name": "TPH BREVENTClosed: reopening on 12 December",
+     "status": "closed"
+    },
+    {
+     "name": "TC PLANPRAZClosed: reopening from 17 october to 1 november",
+     "status": "closed"
+    },
+    {
+     "name": "TC FLEGEREClosed: Partial reopening on 28 November – subject to snow conditions",
+     "status": "closed"
+    },
+    {
+     "name": "TC CHARAMILLONClosed: reopening on 12 December",
+     "status": "closed"
+    },
+    {
+     "name": "TC VALLORCINEClosed: reopening on 12 December",
+     "status": "closed"
+    },
+    {
+     "name": "TPH BELLEVUEClosed: reopening on 19 December",
+     "status": "closed"
+    },
+    {
+     "name": "TC PRARIONClosed: reopening on 19 December",
+     "status": "closed"
+    },
+    {
+     "name": "TC PLAN JORANClosed: reopening on 5 December",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "risoul",
+   "title": "Bulletin neige Risoul",
+   "match": {
+    "area": "foret-blanche-vars-risoul-fr",
+    "name": "Forêt Blanche : Vars/Risoul",
+    "country": "FR",
+    "ourLifts": 33,
+    "sourceLifts": 16,
+    "matched": 4,
+    "share": 12,
+    "unmatchedSource": [
+     "R1 Télépulsé09:00 AM",
+     "R2 Clos du Vallon09:00 AM",
+     "R6 Peyrefolle09:10 AM",
+     "R8 Pré du Bois09:00 AM",
+     "R15 Combals09:20 AM",
+     "R18 Accueil Bas09:10 AM",
+     "R4 Mélézet09:00 AM",
+     "R5 Plate09:10 AM"
+    ],
+    "unmatchedOurs": [
+     "Pré du Bois R8",
+     "Platte de la Nonne R5",
+     "Baby G2 V7",
+     "Bergerie R16",
+     "Escondus V15",
+     "Razis R7",
+     "Écrins V6",
+     "Mélézet R4"
+    ]
+   },
+   "liftCount": 16,
+   "lifts": [
+    {
+     "name": "R1 Télépulsé09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R2 Clos du Vallon09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R3 Homme de Pierre09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R6 Peyrefolle09:10 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R8 Pré du Bois09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R14 Pelinche08:45 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R15 Combals09:20 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R17 Exercice09:10 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R18 Accueil Bas09:10 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R4 Mélézet09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R5 Plate09:10 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R7 Razis09:20 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R9 Clos Chardon09:20 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R12 Mélézet09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R13 Orée du Bois08:45 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "R16 Bergerie09:20 AM",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "col-de-rousset",
+   "title": "Bulletin Neige COL DE ROUSSET",
+   "match": {
+    "area": "station-du-col-de-rousset-fr",
+    "name": "Station du Col de Rousset",
+    "country": "FR",
+    "ourLifts": 8,
+    "sourceLifts": 11,
+    "matched": 7,
+    "share": 88,
+    "unmatchedSource": [
+     "Télésiège panoramique",
+     "Ourson",
+     "Petits Skieurs",
+     "Bambi"
+    ],
+    "unmatchedOurs": [
+     "Rousset Express"
+    ]
+   },
+   "liftCount": 11,
+   "lifts": [
+    {
+     "name": "Télésiège panoramique",
+     "status": "closed"
+    },
+    {
+     "name": "Abreuvoir",
+     "status": "out_period"
+    },
+    {
+     "name": "Berger",
+     "status": "out_period"
+    },
+    {
+     "name": "Bergerie",
+     "status": "out_period"
+    },
+    {
+     "name": "Echelette",
+     "status": "out_period"
+    },
+    {
+     "name": "Econdus",
+     "status": "out_period"
+    },
+    {
+     "name": "Ourson",
+     "status": "out_period"
+    },
+    {
+     "name": "Vallon",
+     "status": "out_period"
+    },
+    {
+     "name": "Petits Skieurs",
+     "status": "out_period"
+    },
+    {
+     "name": "Bambi",
+     "status": "out_period"
+    },
+    {
+     "name": "Jardin Enfant",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "font-d-urle",
+   "title": "Bulletin Neige FONT D URLE",
+   "match": {
+    "area": "font-d-urle-chaud-clapier-fr",
+    "name": "Font d'Urle Chaud Clapier",
+    "country": "FR",
+    "ourLifts": 9,
+    "sourceLifts": 11,
+    "matched": 8,
+    "share": 89,
+    "unmatchedSource": [
+     "Lutin (débutant)",
+     "Ecureuil (débutant et luge)",
+     "Eterlou, tapis ESF"
+    ],
+    "unmatchedOurs": [
+     "Lutins"
+    ]
+   },
+   "liftCount": 11,
+   "lifts": [
+    {
+     "name": "Cairn",
+     "status": "out_period"
+    },
+    {
+     "name": "Chaud Clapier (débutant)",
+     "status": "out_period"
+    },
+    {
+     "name": "Combe",
+     "status": "out_period"
+    },
+    {
+     "name": "Ecole (débutant)",
+     "status": "out_period"
+    },
+    {
+     "name": "Forêt",
+     "status": "out_period"
+    },
+    {
+     "name": "Lapiaz (débutant)",
+     "status": "out_period"
+    },
+    {
+     "name": "Lutin (débutant)",
+     "status": "out_period"
+    },
+    {
+     "name": "Parking (débutant)",
+     "status": "out_period"
+    },
+    {
+     "name": "Ecureuil (débutant et luge)",
+     "status": "out_period"
+    },
+    {
+     "name": "Eterlou, tapis ESF",
+     "status": "out_period"
+    },
+    {
+     "name": "Dahu (débutant)",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "lus-la-jarjatte",
+   "title": "Bulletin Neige LUS LA JARJATTE",
+   "match": null,
+   "liftCount": 1,
+   "lifts": [
+    {
+     "name": "Marmotins (débutant)09:30 AM",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "cauterets",
+   "title": "Bulletin d'ouvertures Cauterets",
+   "match": null,
+   "liftCount": 4,
+   "lifts": [
+    {
+     "name": "Lys09:30 AM",
+     "status": "closed"
+    },
+    {
+     "name": "Grand-Barbat",
+     "status": "closed"
+    },
+    {
+     "name": "Puntas09:30 AM",
+     "status": "closed"
+    },
+    {
+     "name": "Gaube09:45 AM",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "gavarnie",
+   "title": "Bulletin de la station GAVARNIE",
+   "match": {
+    "area": "gavarnie-gedre-fr",
+    "name": "Gavarnie-Gèdre",
+    "country": "FR",
+    "ourLifts": 7,
+    "sourceLifts": 8,
+    "matched": 7,
+    "share": 100,
+    "unmatchedSource": [
+     "Tapis des Eterlous09:00 AM"
+    ],
+    "unmatchedOurs": []
+   },
+   "liftCount": 8,
+   "lifts": [
+    {
+     "name": "TS Labas blanc09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "TS Pic des tentes09:30 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Belvédère",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Mourgat09:30 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Pahule09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Saint André09:30 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Soutoulet09:00 AM",
+     "status": "out_period"
+    },
+    {
+     "name": "Tapis des Eterlous09:00 AM",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "grand-tourmalet",
+   "title": "Bulletin du Domaine de GRAND TOURMALET",
+   "match": null,
+   "liftCount": 2,
+   "lifts": [
+    {
+     "name": "TPH Pic du Midi02:00 PM",
+     "status": "opened"
+    },
+    {
+     "name": "TPH Taoulet09:30 AM",
+     "status": "opened"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "la-norma",
+   "title": "Bulletin de la station de LA NORMA",
+   "match": {
+    "area": "la-norma-fr",
+    "name": "La Norma",
+    "country": "FR",
+    "ourLifts": 13,
+    "sourceLifts": 13,
+    "matched": 11,
+    "share": 85,
+    "unmatchedSource": [
+     "TS Norma 2",
+     "TK St Joseph"
+    ],
+    "unmatchedOurs": [
+     "Norma II",
+     "Saint-Joseph"
+    ]
+   },
+   "liftCount": 13,
+   "lifts": [
+    {
+     "name": "TC Le Mélezet",
+     "status": "out_period"
+    },
+    {
+     "name": "TS Le Carrelet",
+     "status": "out_period"
+    },
+    {
+     "name": "TS Norma 2",
+     "status": "out_period"
+    },
+    {
+     "name": "TK La Combe",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Fontaine aux oiseaux",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Les Avenières",
+     "status": "out_period"
+    },
+    {
+     "name": "TSD La Repose",
+     "status": "out_period"
+    },
+    {
+     "name": "TS L'Arlette",
+     "status": "out_period"
+    },
+    {
+     "name": "TS Le Clot",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Les Granges",
+     "status": "out_period"
+    },
+    {
+     "name": "TK Les Mélèzes",
+     "status": "out_period"
+    },
+    {
+     "name": "TK St Joseph",
+     "status": "out_period"
+    },
+    {
+     "name": "TLC Pré Pinet",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "la-plagne",
+   "title": "Bulletin d'ouvertures La Plagne",
+   "match": null,
+   "liftCount": 1,
+   "lifts": [
+    {
+     "name": "CHAMPAGNY09:00 AM",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "les-arcs",
+   "title": "Bulletin d'ouvertures Les Arcs",
+   "match": {
+    "area": "paradiski-fr",
+    "name": "Paradiski",
+    "country": "FR",
+    "ourLifts": 134,
+    "sourceLifts": 52,
+    "matched": 44,
+    "share": 33,
+    "unmatchedSource": [
+     "TELEVILLAGE",
+     "1ERE GLISSE",
+     "FUNICULAIREEvery 30 min",
+     "SNOWPARK",
+     "TRANSARC 1",
+     "TRANSARC 2",
+     "ST JACQUES.",
+     "ELDORADOR."
+    ],
+    "unmatchedOurs": [
+     "Colorado",
+     "Verdons Sud",
+     "Mélèzes",
+     "Plan Bois",
+     "Aiglon",
+     "Solu",
+     "Inversens",
+     "Stade"
+    ]
+   },
+   "liftCount": 52,
+   "lifts": [
+    {
+     "name": "TELEVILLAGE",
+     "status": "out_period"
+    },
+    {
+     "name": "VALLANDRY",
+     "status": "out_period"
+    },
+    {
+     "name": "DERBY",
+     "status": "out_period"
+    },
+    {
+     "name": "GRIZZLY",
+     "status": "out_period"
+    },
+    {
+     "name": "PEISEY",
+     "status": "out_period"
+    },
+    {
+     "name": "2300",
+     "status": "out_period"
+    },
+    {
+     "name": "PARCHEY",
+     "status": "out_period"
+    },
+    {
+     "name": "1ER VIRAGES",
+     "status": "out_period"
+    },
+    {
+     "name": "CABRI.",
+     "status": "out_period"
+    },
+    {
+     "name": "1ERE GLISSE",
+     "status": "out_period"
+    },
+    {
+     "name": "FUNICULAIREEvery 30 min",
+     "status": "out_period"
+    },
+    {
+     "name": "ARPETTE.",
+     "status": "out_period"
+    },
+    {
+     "name": "CACHETTE.",
+     "status": "out_period"
+    },
+    {
+     "name": "MONT BLANC.",
+     "status": "out_period"
+    },
+    {
+     "name": "CLOCHERET.",
+     "status": "out_period"
+    },
+    {
+     "name": "COMBETTES.",
+     "status": "out_period"
+    },
+    {
+     "name": "MILLERETTE",
+     "status": "out_period"
+    },
+    {
+     "name": "SNOWPARK",
+     "status": "out_period"
+    },
+    {
+     "name": "TOMMELET",
+     "status": "out_period"
+    },
+    {
+     "name": "VEZAILLE",
+     "status": "out_period"
+    },
+    {
+     "name": "DAHU",
+     "status": "out_period"
+    },
+    {
+     "name": "TRANSARC 1",
+     "status": "out_period"
+    },
+    {
+     "name": "TRANSARC 2",
+     "status": "out_period"
+    },
+    {
+     "name": "VILLARDS",
+     "status": "out_period"
+    },
+    {
+     "name": "CARRELEY.",
+     "status": "out_period"
+    },
+    {
+     "name": "VAGERE.",
+     "status": "out_period"
+    },
+    {
+     "name": "CHARMETTOGER.",
+     "status": "out_period"
+    },
+    {
+     "name": "JARDIN ALPIN",
+     "status": "out_period"
+    },
+    {
+     "name": "1ere GLISSE 1800",
+     "status": "out_period"
+    },
+    {
+     "name": "1ers VIRAGES 1800",
+     "status": "out_period"
+    },
+    {
+     "name": "AIGUILLE ROUGE..",
+     "status": "out_period"
+    },
+    {
+     "name": "VARET",
+     "status": "out_period"
+    },
+    {
+     "name": "ARCABULLE",
+     "status": "out_period"
+    },
+    {
+     "name": "PRE ST ESPRIT",
+     "status": "out_period"
+    },
+    {
+     "name": "BOIS DE L'OURS.",
+     "status": "out_period"
+    },
+    {
+     "name": "COMBORCIERE.",
+     "status": "out_period"
+    },
+    {
+     "name": "MARMOTTES.",
+     "status": "out_period"
+    },
+    {
+     "name": "PLAGNETTES.",
+     "status": "out_period"
+    },
+    {
+     "name": "GRAND COL.",
+     "status": "out_period"
+    },
+    {
+     "name": "LANCHETTES",
+     "status": "out_period"
+    },
+    {
+     "name": "ST JACQUES.",
+     "status": "out_period"
+    },
+    {
+     "name": "LAC DES COMBES",
+     "status": "out_period"
+    },
+    {
+     "name": "RHODOSschedulded at",
+     "status": "out_period"
+    },
+    {
+     "name": "ELDORADOR.",
+     "status": "out_period"
+    },
+    {
+     "name": "ETERLOU",
+     "status": "out_period"
+    },
+    {
+     "name": "FLAMME OLYMPIQUE",
+     "status": "out_period"
+    },
+    {
+     "name": "PLAN VERT.",
+     "status": "out_period"
+    },
+    {
+     "name": "CABRIOLET",
+     "status": "out_period"
+    },
+    {
+     "name": "VILLAROGER.",
+     "status": "out_period"
+    },
+    {
+     "name": "DROSET.",
+     "status": "out_period"
+    },
+    {
+     "name": "RHONAZ.Access back to Villaroger only",
+     "status": "out_period"
+    },
+    {
+     "name": "AZURE",
+     "status": "out_period"
+    }
+   ]
+  },
+  {
+   "provider": "lumiplan",
+   "source": "metabief",
+   "title": "Bulletin de la station de Métabief",
+   "match": null,
+   "liftCount": 1,
+   "lifts": [
+    {
+     "name": "TSD Morond09:30 AM",
+     "status": "closed"
+    }
+   ]
+  },
+  {
+   "provider": "micado",
+   "source": "https://www.kitzski.at kitzski",
+   "title": "kitzski",
+   "match": {
+    "area": "schladming-dachstein-at",
+    "name": "Schladming Dachstein",
+    "country": "AT",
+    "ourLifts": 65,
+    "sourceLifts": 59,
+    "matched": 3,
+    "share": 5,
+    "unmatchedSource": [
+     "A1 Hahnenkammbahn",
+     "A2 Mocking",
+     "A3 Rasmusleiten",
+     "A4 Ministreif",
+     "A5 Ganslern",
+     "A6 Starthaus",
+     "A7 Märchenwald",
+     "A8 Walde"
+    ],
+    "unmatchedOurs": [
+     "Schoberbahn",
+     "Obertalbahn",
+     "Rohrmoos II",
+     "WM Shuttle",
+     "Hasecklift I",
+     "Preunegg Jet",
+     "Höfi-Express I",
+     "Fastenberg 6er"
+    ]
+   },
+   "liftCount": 59,
+   "lifts": [
+    {
+     "name": "A1 Hahnenkammbahn",
+     "id": "A1",
+     "status": 1
+    },
+    {
+     "name": "A2 Mocking",
+     "id": "A2",
+     "status": 2
+    },
+    {
+     "name": "A3 Rasmusleiten",
+     "id": "A3",
+     "status": 2
+    },
+    {
+     "name": "A4 Ministreif",
+     "id": "A4",
+     "status": 2
+    },
+    {
+     "name": "A5 Ganslern",
+     "id": "A5",
+     "status": 2
+    },
+    {
+     "name": "A6 Starthaus",
+     "id": "A6",
+     "status": 2
+    },
+    {
+     "name": "A7 Märchenwald",
+     "id": "A7",
+     "status": 2
+    },
+    {
+     "name": "A8 Walde",
+     "id": "A8",
+     "status": 2
+    },
+    {
+     "name": "B1 Fleckalmbahn",
+     "id": "B1",
+     "status": 1
+    },
+    {
+     "name": "B2 Maierlbahn",
+     "id": "B2",
+     "status": 2
+    },
+    {
+     "name": "B3 Ochsalm",
+     "id": "B3",
+     "status": 2
+    },
+    {
+     "name": "B4 Sonnenrast",
+     "id": "B4",
+     "status": 1
+    },
+    {
+     "name": "B5 Ehrenbachhöhe",
+     "id": "B5",
+     "status": 2
+    },
+    {
+     "name": "B6 Streiteckmulde",
+     "id": "B6",
+     "status": 1
+    },
+    {
+     "name": "C1 Steinbergkogel",
+     "id": "C1",
+     "status": 2
+    },
+    {
+     "name": "C2 Jufen",
+     "id": "C2",
+     "status": 2
+    },
+    {
+     "name": "D1 Pengelstein I",
+     "id": "D1",
+     "status": 2
+    },
+    {
+     "name": "D2 Pengelstein II",
+     "id": "D2",
+     "status": 2
+    },
+    {
+     "name": "D3 Brunn",
+     "id": "D3",
+     "status": 2
+    },
+    {
+     "name": "D4 Silberstube",
+     "id": "D4",
+     "status": 2
+    },
+    {
+     "name": "D5 Kasereck",
+     "id": "D5",
+     "status": 2
+    },
+    {
+     "name": "D6 Hieslegg",
+     "id": "D6",
+     "status": 2
+    },
+    {
+     "name": "D7 Usterkar",
+     "id": "D7",
+     "status": 2
+    },
+    {
+     "name": "D8 Hochsaukaser",
+     "id": "D8",
+     "status": 2
+    },
+    {
+     "name": "D9 3S-Bahn",
+     "id": "D9",
+     "status": 2
+    },
+    {
+     "name": "D10 Übungslift Aschau",
+     "id": "D10",
+     "status": 2
+    },
+    {
+     "name": "D11 Sun Kid Aschau",
+     "id": "D11",
+     "status": 2
+    },
+    {
+     "name": "E1 Gaisberg",
+     "id": "E1",
+     "status": 1
+    },
+    {
+     "name": "E2 Schatzerlift (Übungslift)",
+     "id": "E2",
+     "status": 2
+    },
+    {
+     "name": "E3 Übungslift Reith",
+     "id": "E3",
+     "status": 2
+    },
+    {
+     "name": "E4 Sun Cord Reith",
+     "id": "E4",
+     "status": 2
+    },
+    {
+     "name": "F1 Wagstättbahn",
+     "id": "F1",
+     "status": 2
+    },
+    {
+     "name": "F2 Hausleiten",
+     "id": "F2",
+     "status": 2
+    },
+    {
+     "name": "F3 Talsen",
+     "id": "F3",
+     "status": 2
+    },
+    {
+     "name": "F4 Bärenbadkogel I",
+     "id": "F4",
+     "status": 2
+    },
+    {
+     "name": "F5 Bärenbadkogel II",
+     "id": "F5",
+     "status": 2
+    },
+    {
+     "name": "F6 Gauxjoch",
+     "id": "F6",
+     "status": 2
+    },
+    {
+     "name": "F7 Trattenbach",
+     "id": "F7",
+     "status": 2
+    },
+    {
+     "name": "G1 Resterhöhe",
+     "id": "G1",
+     "status": 2
+    },
+    {
+     "name": "G2 Pass Thurn",
+     "id": "G2",
+     "status": 2
+    },
+    {
+     "name": "G3 Sun Kid Resterhöhe",
+     "id": "G3",
+     "status": 2
+    },
+    {
+     "name": "G4 Resterkogel",
+     "id": "G4",
+     "status": 2
+    },
+    {
+     "name": "G5 Hanglalm",
+     "id": "G5",
+     "status": 2
+    },
+    {
+     "name": "G6 Hartkaser",
+     "id": "G6",
+     "status": 2
+    },
+    {
+     "name": "G7 Zweitausender",
+     "id": "G7",
+     "status": 2
+    },
+    {
+     "name": "G8 Panoramabahn I",
+     "id": "G8",
+     "status": 1
+    },
+    {
+     "name": "G9 Panoramabahn II",
+     "id": "G9",
+     "status": 1
+    },
+    {
+     "name": "H1 Hornbahn I",
+     "id": "H1",
+     "status": 1
+    },
+    {
+     "name": "H2 Hornbahn II",
+     "id": "H2",
+     "status": 1
+    },
+    {
+     "name": "H3 Horngipfelbahn",
+     "id": "H3",
+     "status": 1
+    },
+    {
+     "name": "H4 Raintal",
+     "id": "H4",
+     "status": 2
+    },
+    {
+     "name": "H5 Brunelle",
+     "id": "H5",
+     "status": 2
+    },
+    {
+     "name": "H6 Alpenhaus",
+     "id": "H6",
+     "status": 2
+    },
+    {
+     "name": "H7 Hornköpfl",
+     "id": "H7",
+     "status": 2
+    },
+    {
+     "name": "H8 Eggl",
+     "id": "H8",
+     "status": 2
+    },
+    {
+     "name": "H9 Sun Kid Horn",
+     "id": "H9",
+     "status": 2
+    },
+    {
+     "name": "H10 Trattalmmulde",
+     "id": "H10",
+     "status": 2
+    },
+    {
+     "name": "H11 Bichlalm",
+     "id": "H11",
+     "status": 2
+    },
+    {
+     "name": "Schneekatze",
+     "id": "H12",
+     "status": 2
+    }
+   ]
+  },
+  {
+   "provider": "micado",
+   "source": "https://www.skiwelt.at skiwelt",
+   "title": "skiwelt",
+   "match": {
+    "area": "skiwelt-wilder-kaiser-brixental-at",
+    "name": "SkiWelt Wilder Kaiser - Brixental",
+    "country": "AT",
+    "ourLifts": 72,
+    "sourceLifts": 83,
+    "matched": 67,
+    "share": 93,
+    "unmatchedSource": [
+     "Würstlexpress",
+     "Sonnenband",
+     "Zauberteppich Bodenschmied",
+     "Zauberteppich Högerfeld",
+     "Tellerschlepplift Salvista",
+     "Pfaringlift",
+     "Förderband Kelchsau",
+     "Hexenteppich 1"
+    ],
+    "unmatchedOurs": [
+     "Sternfeld Übungslift",
+     "Wagnerfeld",
+     "Tellerlift Salvista",
+     "Würstelexpress",
+     "Bärenlift"
+    ]
+   },
+   "liftCount": 83,
+   "lifts": [
+    {
+     "name": "6er Gondelbahn Hochbrixen",
+     "id": "1",
+     "status": 1
+    },
+    {
+     "name": "Kälbersalvenbahn",
+     "id": "2",
+     "status": 2
+    },
+    {
+     "name": "Zinsbergbahn",
+     "id": "3",
+     "status": 1
+    },
+    {
+     "name": "Poldangerlift",
+     "id": "4",
+     "status": 2
+    },
+    {
+     "name": "Jochbahn",
+     "id": "6",
+     "status": 2
+    },
+    {
+     "name": "Filzbodenbahn",
+     "id": "7",
+     "status": 2
+    },
+    {
+     "name": "Würstlexpress",
+     "id": "8",
+     "status": 2
+    },
+    {
+     "name": "Übungslift Hochbrixen",
+     "id": "9",
+     "status": 2
+    },
+    {
+     "name": "Skischullift Hochbrixen",
+     "id": "10",
+     "status": 2
+    },
+    {
+     "name": "8er- SkiWeltbahn",
+     "id": "11",
+     "status": 2
+    },
+    {
+     "name": "Sonnenlift",
+     "id": "12",
+     "status": 2
+    },
+    {
+     "name": "Schusterbühellift",
+     "id": "17",
+     "status": 2
+    },
+    {
+     "name": "Sonnenband",
+     "id": "18",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn Salvenbahn I",
+     "id": "20",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Salvenbahn II",
+     "id": "22",
+     "status": 1
+    },
+    {
+     "name": "10er Gondelbahn Salvistabahn",
+     "id": "30",
+     "status": 2
+    },
+    {
+     "name": "Hohe Salve I",
+     "id": "21",
+     "status": 2
+    },
+    {
+     "name": "Rigibahn",
+     "id": "23",
+     "status": 2
+    },
+    {
+     "name": "Schernthannbahn",
+     "id": "24",
+     "status": 2
+    },
+    {
+     "name": "Foischingbahn",
+     "id": "25",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Bodenschmied",
+     "id": "27b",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Högerfeld",
+     "id": "27a",
+     "status": 2
+    },
+    {
+     "name": "Kasbichlbahn",
+     "id": "31",
+     "status": 2
+    },
+    {
+     "name": "Tellerschlepplift Salvista",
+     "id": "33",
+     "status": 2
+    },
+    {
+     "name": "Pfaringlift",
+     "id": "39",
+     "status": 2
+    },
+    {
+     "name": "Förderband Kelchsau",
+     "id": "36",
+     "status": 2
+    },
+    {
+     "name": "10er Gondelbahn Hexenwasser",
+     "id": "40",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Hohe Salve",
+     "id": "42",
+     "status": 1
+    },
+    {
+     "name": "4er Sesselbahn Keat",
+     "id": "43",
+     "status": 2
+    },
+    {
+     "name": "Stöckl",
+     "id": "44",
+     "status": 2
+    },
+    {
+     "name": "Hexen6er",
+     "id": "45",
+     "status": 2
+    },
+    {
+     "name": "Rinner",
+     "id": "46",
+     "status": 2
+    },
+    {
+     "name": "Hans im Glück",
+     "id": "47",
+     "status": 2
+    },
+    {
+     "name": "Siller-Keat",
+     "id": "51",
+     "status": 2
+    },
+    {
+     "name": "Knolln",
+     "id": "57",
+     "status": 2
+    },
+    {
+     "name": "Hexenteppich 1",
+     "id": "58",
+     "status": 2
+    },
+    {
+     "name": "Hexenteppich 2",
+     "id": "58a",
+     "status": 2
+    },
+    {
+     "name": "Mühlbichl (Übungsbereich im Dorf)",
+     "id": "59",
+     "status": 2
+    },
+    {
+     "name": "10er Gondelbahn Hartkaiserbahn",
+     "id": "80",
+     "status": 1
+    },
+    {
+     "name": "Marcher",
+     "id": "81",
+     "status": 2
+    },
+    {
+     "name": "Vetterstätt Zauberteppich",
+     "id": "82",
+     "status": 2
+    },
+    {
+     "name": "Vetterstätt",
+     "id": "84",
+     "status": 2
+    },
+    {
+     "name": "Kirchbichl",
+     "id": "86",
+     "status": 2
+    },
+    {
+     "name": "Schmiedalm",
+     "id": "88",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's Zauberteppich I",
+     "id": "89a",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's Zauberteppich II",
+     "id": "89b",
+     "status": 2
+    },
+    {
+     "name": "Hausberg",
+     "id": "90",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's 6er",
+     "id": "91",
+     "status": 2
+    },
+    {
+     "name": "Kaiserexpress",
+     "id": "96",
+     "status": 2
+    },
+    {
+     "name": "Köglbahn",
+     "id": "97",
+     "status": 2
+    },
+    {
+     "name": "Almbahn",
+     "id": "98",
+     "status": 2
+    },
+    {
+     "name": "Tanzbodenbahn",
+     "id": "99",
+     "status": 2
+    },
+    {
+     "name": "Astbergbahn",
+     "id": "100",
+     "status": 2
+    },
+    {
+     "name": "Sonnenlift",
+     "id": "102",
+     "status": 2
+    },
+    {
+     "name": "Maxilift",
+     "id": "107",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Astberg",
+     "id": "108",
+     "status": 2
+    },
+    {
+     "name": "Ellmi´s Zauberteppich III",
+     "id": "89c",
+     "status": 2
+    },
+    {
+     "name": "4EUB Brandstadl",
+     "id": "60",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn Brandstadl I",
+     "id": "61",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Brandstadl II",
+     "id": "62",
+     "status": 1
+    },
+    {
+     "name": "Osthang",
+     "id": "64",
+     "status": 2
+    },
+    {
+     "name": "Ostlift",
+     "id": "65",
+     "status": 2
+    },
+    {
+     "name": "Südhang",
+     "id": "66",
+     "status": 2
+    },
+    {
+     "name": "Eiberg",
+     "id": "67",
+     "status": 2
+    },
+    {
+     "name": "Kummereralm-Lift",
+     "id": "69",
+     "status": 2
+    },
+    {
+     "name": "Muldenbahn",
+     "id": "70",
+     "status": 2
+    },
+    {
+     "name": "Aualm",
+     "id": "71",
+     "status": 2
+    },
+    {
+     "name": "Hochfeldlift-Schwoich",
+     "id": "73",
+     "status": 2
+    },
+    {
+     "name": "Babylift Schwoich",
+     "id": "74",
+     "status": 2
+    },
+    {
+     "name": "Babylift",
+     "id": "77",
+     "status": 2
+    },
+    {
+     "name": "Übungslift - Berg",
+     "id": "78",
+     "status": 2
+    },
+    {
+     "name": "Übungslift - Dorf",
+     "id": "79",
+     "status": 2
+    },
+    {
+     "name": "6er Gondelbahn Alpenrosenbahn I",
+     "id": "110",
+     "status": 1
+    },
+    {
+     "name": "6er Gondelbahn Alpenrosenbahn II",
+     "id": "111",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Choralmbahn",
+     "id": "112",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn KiWest",
+     "id": "120",
+     "status": 2
+    },
+    {
+     "name": "Talkaser",
+     "id": "114",
+     "status": 2
+    },
+    {
+     "name": "Laubkogel",
+     "id": "115",
+     "status": 2
+    },
+    {
+     "name": "Fleiding",
+     "id": "117",
+     "status": 2
+    },
+    {
+     "name": "Windauberg",
+     "id": "118",
+     "status": 2
+    }
+   ]
+  }
+ ],
+ "micado": [
+  {
+   "base": "https://www.kitzski.at",
+   "client": "https://sgm.kitzski.at",
+   "region": "kitzski",
+   "url": "https://www.kitzski.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.kitzski.at&lang=de&region=kitzski&season=winter&type=lift",
+   "lifts": [
+    {
+     "name": "A1 Hahnenkammbahn",
+     "id": "A1",
+     "status": 1
+    },
+    {
+     "name": "A2 Mocking",
+     "id": "A2",
+     "status": 2
+    },
+    {
+     "name": "A3 Rasmusleiten",
+     "id": "A3",
+     "status": 2
+    },
+    {
+     "name": "A4 Ministreif",
+     "id": "A4",
+     "status": 2
+    },
+    {
+     "name": "A5 Ganslern",
+     "id": "A5",
+     "status": 2
+    },
+    {
+     "name": "A6 Starthaus",
+     "id": "A6",
+     "status": 2
+    },
+    {
+     "name": "A7 Märchenwald",
+     "id": "A7",
+     "status": 2
+    },
+    {
+     "name": "A8 Walde",
+     "id": "A8",
+     "status": 2
+    },
+    {
+     "name": "B1 Fleckalmbahn",
+     "id": "B1",
+     "status": 1
+    },
+    {
+     "name": "B2 Maierlbahn",
+     "id": "B2",
+     "status": 2
+    },
+    {
+     "name": "B3 Ochsalm",
+     "id": "B3",
+     "status": 2
+    },
+    {
+     "name": "B4 Sonnenrast",
+     "id": "B4",
+     "status": 1
+    },
+    {
+     "name": "B5 Ehrenbachhöhe",
+     "id": "B5",
+     "status": 2
+    },
+    {
+     "name": "B6 Streiteckmulde",
+     "id": "B6",
+     "status": 1
+    },
+    {
+     "name": "C1 Steinbergkogel",
+     "id": "C1",
+     "status": 2
+    },
+    {
+     "name": "C2 Jufen",
+     "id": "C2",
+     "status": 2
+    },
+    {
+     "name": "D1 Pengelstein I",
+     "id": "D1",
+     "status": 2
+    },
+    {
+     "name": "D2 Pengelstein II",
+     "id": "D2",
+     "status": 2
+    },
+    {
+     "name": "D3 Brunn",
+     "id": "D3",
+     "status": 2
+    },
+    {
+     "name": "D4 Silberstube",
+     "id": "D4",
+     "status": 2
+    },
+    {
+     "name": "D5 Kasereck",
+     "id": "D5",
+     "status": 2
+    },
+    {
+     "name": "D6 Hieslegg",
+     "id": "D6",
+     "status": 2
+    },
+    {
+     "name": "D7 Usterkar",
+     "id": "D7",
+     "status": 2
+    },
+    {
+     "name": "D8 Hochsaukaser",
+     "id": "D8",
+     "status": 2
+    },
+    {
+     "name": "D9 3S-Bahn",
+     "id": "D9",
+     "status": 2
+    },
+    {
+     "name": "D10 Übungslift Aschau",
+     "id": "D10",
+     "status": 2
+    },
+    {
+     "name": "D11 Sun Kid Aschau",
+     "id": "D11",
+     "status": 2
+    },
+    {
+     "name": "E1 Gaisberg",
+     "id": "E1",
+     "status": 1
+    },
+    {
+     "name": "E2 Schatzerlift (Übungslift)",
+     "id": "E2",
+     "status": 2
+    },
+    {
+     "name": "E3 Übungslift Reith",
+     "id": "E3",
+     "status": 2
+    },
+    {
+     "name": "E4 Sun Cord Reith",
+     "id": "E4",
+     "status": 2
+    },
+    {
+     "name": "F1 Wagstättbahn",
+     "id": "F1",
+     "status": 2
+    },
+    {
+     "name": "F2 Hausleiten",
+     "id": "F2",
+     "status": 2
+    },
+    {
+     "name": "F3 Talsen",
+     "id": "F3",
+     "status": 2
+    },
+    {
+     "name": "F4 Bärenbadkogel I",
+     "id": "F4",
+     "status": 2
+    },
+    {
+     "name": "F5 Bärenbadkogel II",
+     "id": "F5",
+     "status": 2
+    },
+    {
+     "name": "F6 Gauxjoch",
+     "id": "F6",
+     "status": 2
+    },
+    {
+     "name": "F7 Trattenbach",
+     "id": "F7",
+     "status": 2
+    },
+    {
+     "name": "G1 Resterhöhe",
+     "id": "G1",
+     "status": 2
+    },
+    {
+     "name": "G2 Pass Thurn",
+     "id": "G2",
+     "status": 2
+    },
+    {
+     "name": "G3 Sun Kid Resterhöhe",
+     "id": "G3",
+     "status": 2
+    },
+    {
+     "name": "G4 Resterkogel",
+     "id": "G4",
+     "status": 2
+    },
+    {
+     "name": "G5 Hanglalm",
+     "id": "G5",
+     "status": 2
+    },
+    {
+     "name": "G6 Hartkaser",
+     "id": "G6",
+     "status": 2
+    },
+    {
+     "name": "G7 Zweitausender",
+     "id": "G7",
+     "status": 2
+    },
+    {
+     "name": "G8 Panoramabahn I",
+     "id": "G8",
+     "status": 1
+    },
+    {
+     "name": "G9 Panoramabahn II",
+     "id": "G9",
+     "status": 1
+    },
+    {
+     "name": "H1 Hornbahn I",
+     "id": "H1",
+     "status": 1
+    },
+    {
+     "name": "H2 Hornbahn II",
+     "id": "H2",
+     "status": 1
+    },
+    {
+     "name": "H3 Horngipfelbahn",
+     "id": "H3",
+     "status": 1
+    },
+    {
+     "name": "H4 Raintal",
+     "id": "H4",
+     "status": 2
+    },
+    {
+     "name": "H5 Brunelle",
+     "id": "H5",
+     "status": 2
+    },
+    {
+     "name": "H6 Alpenhaus",
+     "id": "H6",
+     "status": 2
+    },
+    {
+     "name": "H7 Hornköpfl",
+     "id": "H7",
+     "status": 2
+    },
+    {
+     "name": "H8 Eggl",
+     "id": "H8",
+     "status": 2
+    },
+    {
+     "name": "H9 Sun Kid Horn",
+     "id": "H9",
+     "status": 2
+    },
+    {
+     "name": "H10 Trattalmmulde",
+     "id": "H10",
+     "status": 2
+    },
+    {
+     "name": "H11 Bichlalm",
+     "id": "H11",
+     "status": 2
+    },
+    {
+     "name": "Schneekatze",
+     "id": "H12",
+     "status": 2
+    }
+   ]
+  },
+  {
+   "base": "https://www.skiwelt.at",
+   "client": "https://sgm.skiwelt.at",
+   "region": "skiwelt",
+   "url": "https://www.skiwelt.at/webapi/micadoweb?api=SkigebieteManager%2FMicado.SkigebieteManager.Plugin.FacilityApi%2FListFacilities.api&client=https%3A%2F%2Fsgm.skiwelt.at&lang=de&region=skiwelt&season=winter&type=lift",
+   "lifts": [
+    {
+     "name": "6er Gondelbahn Hochbrixen",
+     "id": "1",
+     "status": 1
+    },
+    {
+     "name": "Kälbersalvenbahn",
+     "id": "2",
+     "status": 2
+    },
+    {
+     "name": "Zinsbergbahn",
+     "id": "3",
+     "status": 1
+    },
+    {
+     "name": "Poldangerlift",
+     "id": "4",
+     "status": 2
+    },
+    {
+     "name": "Jochbahn",
+     "id": "6",
+     "status": 2
+    },
+    {
+     "name": "Filzbodenbahn",
+     "id": "7",
+     "status": 2
+    },
+    {
+     "name": "Würstlexpress",
+     "id": "8",
+     "status": 2
+    },
+    {
+     "name": "Übungslift Hochbrixen",
+     "id": "9",
+     "status": 2
+    },
+    {
+     "name": "Skischullift Hochbrixen",
+     "id": "10",
+     "status": 2
+    },
+    {
+     "name": "8er- SkiWeltbahn",
+     "id": "11",
+     "status": 2
+    },
+    {
+     "name": "Sonnenlift",
+     "id": "12",
+     "status": 2
+    },
+    {
+     "name": "Schusterbühellift",
+     "id": "17",
+     "status": 2
+    },
+    {
+     "name": "Sonnenband",
+     "id": "18",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn Salvenbahn I",
+     "id": "20",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Salvenbahn II",
+     "id": "22",
+     "status": 1
+    },
+    {
+     "name": "10er Gondelbahn Salvistabahn",
+     "id": "30",
+     "status": 2
+    },
+    {
+     "name": "Hohe Salve I",
+     "id": "21",
+     "status": 2
+    },
+    {
+     "name": "Rigibahn",
+     "id": "23",
+     "status": 2
+    },
+    {
+     "name": "Schernthannbahn",
+     "id": "24",
+     "status": 2
+    },
+    {
+     "name": "Foischingbahn",
+     "id": "25",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Bodenschmied",
+     "id": "27b",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Högerfeld",
+     "id": "27a",
+     "status": 2
+    },
+    {
+     "name": "Kasbichlbahn",
+     "id": "31",
+     "status": 2
+    },
+    {
+     "name": "Tellerschlepplift Salvista",
+     "id": "33",
+     "status": 2
+    },
+    {
+     "name": "Pfaringlift",
+     "id": "39",
+     "status": 2
+    },
+    {
+     "name": "Förderband Kelchsau",
+     "id": "36",
+     "status": 2
+    },
+    {
+     "name": "10er Gondelbahn Hexenwasser",
+     "id": "40",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Hohe Salve",
+     "id": "42",
+     "status": 1
+    },
+    {
+     "name": "4er Sesselbahn Keat",
+     "id": "43",
+     "status": 2
+    },
+    {
+     "name": "Stöckl",
+     "id": "44",
+     "status": 2
+    },
+    {
+     "name": "Hexen6er",
+     "id": "45",
+     "status": 2
+    },
+    {
+     "name": "Rinner",
+     "id": "46",
+     "status": 2
+    },
+    {
+     "name": "Hans im Glück",
+     "id": "47",
+     "status": 2
+    },
+    {
+     "name": "Siller-Keat",
+     "id": "51",
+     "status": 2
+    },
+    {
+     "name": "Knolln",
+     "id": "57",
+     "status": 2
+    },
+    {
+     "name": "Hexenteppich 1",
+     "id": "58",
+     "status": 2
+    },
+    {
+     "name": "Hexenteppich 2",
+     "id": "58a",
+     "status": 2
+    },
+    {
+     "name": "Mühlbichl (Übungsbereich im Dorf)",
+     "id": "59",
+     "status": 2
+    },
+    {
+     "name": "10er Gondelbahn Hartkaiserbahn",
+     "id": "80",
+     "status": 1
+    },
+    {
+     "name": "Marcher",
+     "id": "81",
+     "status": 2
+    },
+    {
+     "name": "Vetterstätt Zauberteppich",
+     "id": "82",
+     "status": 2
+    },
+    {
+     "name": "Vetterstätt",
+     "id": "84",
+     "status": 2
+    },
+    {
+     "name": "Kirchbichl",
+     "id": "86",
+     "status": 2
+    },
+    {
+     "name": "Schmiedalm",
+     "id": "88",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's Zauberteppich I",
+     "id": "89a",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's Zauberteppich II",
+     "id": "89b",
+     "status": 2
+    },
+    {
+     "name": "Hausberg",
+     "id": "90",
+     "status": 2
+    },
+    {
+     "name": "Ellmi's 6er",
+     "id": "91",
+     "status": 2
+    },
+    {
+     "name": "Kaiserexpress",
+     "id": "96",
+     "status": 2
+    },
+    {
+     "name": "Köglbahn",
+     "id": "97",
+     "status": 2
+    },
+    {
+     "name": "Almbahn",
+     "id": "98",
+     "status": 2
+    },
+    {
+     "name": "Tanzbodenbahn",
+     "id": "99",
+     "status": 2
+    },
+    {
+     "name": "Astbergbahn",
+     "id": "100",
+     "status": 2
+    },
+    {
+     "name": "Sonnenlift",
+     "id": "102",
+     "status": 2
+    },
+    {
+     "name": "Maxilift",
+     "id": "107",
+     "status": 2
+    },
+    {
+     "name": "Zauberteppich Astberg",
+     "id": "108",
+     "status": 2
+    },
+    {
+     "name": "Ellmi´s Zauberteppich III",
+     "id": "89c",
+     "status": 2
+    },
+    {
+     "name": "4EUB Brandstadl",
+     "id": "60",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn Brandstadl I",
+     "id": "61",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Brandstadl II",
+     "id": "62",
+     "status": 1
+    },
+    {
+     "name": "Osthang",
+     "id": "64",
+     "status": 2
+    },
+    {
+     "name": "Ostlift",
+     "id": "65",
+     "status": 2
+    },
+    {
+     "name": "Südhang",
+     "id": "66",
+     "status": 2
+    },
+    {
+     "name": "Eiberg",
+     "id": "67",
+     "status": 2
+    },
+    {
+     "name": "Kummereralm-Lift",
+     "id": "69",
+     "status": 2
+    },
+    {
+     "name": "Muldenbahn",
+     "id": "70",
+     "status": 2
+    },
+    {
+     "name": "Aualm",
+     "id": "71",
+     "status": 2
+    },
+    {
+     "name": "Hochfeldlift-Schwoich",
+     "id": "73",
+     "status": 2
+    },
+    {
+     "name": "Babylift Schwoich",
+     "id": "74",
+     "status": 2
+    },
+    {
+     "name": "Babylift",
+     "id": "77",
+     "status": 2
+    },
+    {
+     "name": "Übungslift - Berg",
+     "id": "78",
+     "status": 2
+    },
+    {
+     "name": "Übungslift - Dorf",
+     "id": "79",
+     "status": 2
+    },
+    {
+     "name": "6er Gondelbahn Alpenrosenbahn I",
+     "id": "110",
+     "status": 1
+    },
+    {
+     "name": "6er Gondelbahn Alpenrosenbahn II",
+     "id": "111",
+     "status": 1
+    },
+    {
+     "name": "8er Gondelbahn Choralmbahn",
+     "id": "112",
+     "status": 2
+    },
+    {
+     "name": "8er Gondelbahn KiWest",
+     "id": "120",
+     "status": 2
+    },
+    {
+     "name": "Talkaser",
+     "id": "114",
+     "status": 2
+    },
+    {
+     "name": "Laubkogel",
+     "id": "115",
+     "status": 2
+    },
+    {
+     "name": "Fleiding",
+     "id": "117",
+     "status": 2
+    },
+    {
+     "name": "Windauberg",
+     "id": "118",
+     "status": 2
+    },
+    {
+     "name": "Gampenkogel",
+     "id": "119",
+     "status": 2
+    },
+    {
+     "name": "Sammer",
+     "id": "125",
+     "status": 2
+    },
+    {
+     "name": "Schneeberg",
+     "id": "126",
+     "status": 2
+    }
+   ]
+  }
+ ]
+}
