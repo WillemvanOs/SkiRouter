@@ -1446,7 +1446,7 @@ function placeMe(side, here, accuracy) {
   }
 
   const label = onPiste
-    ? `My location · on piste ${onPiste}`
+    ? `My location · on ${pisteLabel(onPiste)}`
     : `My location · near ${STATIONS[near[0].id].name}`;
   STATIONS[GPS_NODE] = { name: label, alt: null };
   GRAPH[GPS_NODE] = edges;
@@ -1456,7 +1456,7 @@ function placeMe(side, here, accuracy) {
   document.getElementById(`${side}-chosen`).style.display = 'flex';
   document.getElementById(`${side}-icon`).innerHTML       = GPS_ICON;
   document.getElementById(`${side}-nr`).textContent       = 'GPS';
-  document.getElementById(`${side}-liftname`).textContent = onPiste ? `On piste ${onPiste}` : `Near ${STATIONS[near[0].id].name}`;
+  document.getElementById(`${side}-liftname`).textContent = onPiste ? `On ${pisteLabel(onPiste)}` : `Near ${STATIONS[near[0].id].name}`;
   document.getElementById(`${side}-side`).textContent     = `±${Math.round(accuracy)} m${accuracyNote ? ' ⚠' : ''}`;
 }
 

@@ -276,6 +276,8 @@ export function compileArea(input, meta = {}) {
     (pisteLijnen[runKeys[r]] = pisteLijnen[runKeys[r]] || []).push(pts.map(([lon, lat]) => [+lat.toFixed(5), +lon.toFixed(5)]));
   });
 
+  const restaurants = linkRestaurants(input.pois || [], { proj, V, grid, runs, runKeys, stations });
+
   const eles = [...lifts.flatMap(l => [l.bottom.e, l.top.e])].filter(e => e != null);
   const realLifts = liften.filter(l => l.echteLift).length;
   const pistesKm = Math.round([...pisteInfo.values()].reduce((s, p) => s + p.lengteM, 0) / 1000);
@@ -296,11 +298,68 @@ export function compileArea(input, meta = {}) {
     afdalingen,
     overstappen,
     verbindingen: lopen,
-    restaurants: [],
+    restaurants,
     pisteLijnen,
   };
   cleanText(area);
   return { area, report: validate(area), diagnostics };
+}
+
+// ── Restaurants ──────────────────────────────────────────────────────────────
+
+// Mountain restaurants and huts (from tools/fetch-pois.mjs), kept when they
+// are on the piste: close to a run's course, or at a top station. Linked to a
+// lift station when right next to one, otherwise to the nearest run — the
+// day planner plans lunch stops on those. Same rules as tools/osm-enrich.mjs.
+const FOOD_PISTE_M   = 80;  // this close to a run's course
+const HUT_PISTE_M    = 100; // a mountain hut may sit a little further off
+const FOOD_TOP_M     = 130; // …or this close to a top station
+const FOOD_STATION_M = 130; // this close to a station: lunch is "at" that station
+
+export function foodKind(poi) {
+  if (poi.tourism === 'alpine_hut' || /h(ü|u|ue)tte|\balm\b|alm$|berg-?gasth|refuge|rifugio|baita|malga|koca|chata/i.test(poi.name || '')) return 'hut';
+  return poi.amenity || 'restaurant';
+}
+
+function linkRestaurants(pois, { proj, V, grid, runs, runKeys, stations }) {
+  const out = [];
+  const seen = new Set();
+  for (const poi of pois) {
+    const p = proj([poi.lon, poi.lat]);
+    let run = null;
+    for (const id of grid.near(p.x, p.y, HUT_PISTE_M)) {
+      const d = dist(V[id], p);
+      if (d <= HUT_PISTE_M && (!run || d < run.d)) run = { d, key: runKeys[V[id].run] };
+    }
+    let station = null;
+    for (const s of stations) {
+      const d = dist(s, p);
+      if (d <= FOOD_TOP_M && (!station || d < station.d)) station = { d, s };
+    }
+    const kind = foodKind(poi);
+    const onPiste = run && run.d <= (kind === 'hut' ? HUT_PISTE_M : FOOD_PISTE_M);
+    const atTop = station && station.s.side === 'boven';
+    if (!onPiste && !atTop) continue;
+    const at = station && station.d <= FOOD_STATION_M ? { station: station.s.id, d: station.d } : { piste: run.key, d: run.d };
+    const key = `${(poi.name || '').toLowerCase()}|${at.station || at.piste}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const r = {
+      id: poi.id,
+      naam: poi.name,
+      soort: kind,
+      ...(at.station ? { station: at.station } : { piste: at.piste }),
+      afstandM: Math.round(at.d),
+      lat: +poi.lat.toFixed(5),
+      lon: +poi.lon.toFixed(5),
+    };
+    if (poi.opening_hours) r.openingstijden = poi.opening_hours;
+    if (poi.website) r.website = poi.website;
+    if (poi.phone) r.telefoon = poi.phone;
+    if (poi.ele) r.hoogte = Math.round(poi.ele);
+    out.push(r);
+  }
+  return out.sort((a, b) => a.naam.localeCompare(b.naam));
 }
 
 // Names come from map data and end up on screen: no markup characters.
@@ -310,6 +369,12 @@ function cleanText(area) {
   area.subtitle = clean(area.subtitle);
   area.liften.forEach(l => { l.naam = clean(l.naam); l.vertrektBij = clean(l.vertrektBij); l.komtAanBij = clean(l.komtAanBij); });
   area.pistes.forEach(p => { p.naam = clean(p.naam); });
+  area.restaurants.forEach(r => {
+    r.naam = clean(r.naam);
+    if (r.openingstijden) r.openingstijden = clean(r.openingstijden);
+    if (r.website && !/^https?:\/\//i.test(r.website)) delete r.website; // only plain web links
+    if (r.website) r.website = r.website.replace(/["<>\s]/g, '');
+  });
 }
 
 // ── Shortest descents ────────────────────────────────────────────────────────

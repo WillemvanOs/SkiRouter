@@ -205,10 +205,18 @@ function mountainRestaurants() {
 }
 
 function restaurantWhere(r) {
-  if (r.piste) return `on piste ${r.piste}`;
+  if (r.piste) return `on ${pisteLabel(r.piste)}`;
   const lift = LIFTS.find(l => l.dal === r.station || l.berg === r.station);
   if (!lift) return STATIONS[r.station]?.name || '';
-  return `${lift.berg === r.station ? 'top' : 'bottom'} of ${lift.nr} ${lift.name}`;
+  return `${lift.berg === r.station ? 'top' : 'bottom'} of ${[liftCode(lift.nr), lift.name].filter(Boolean).join(' ')}`;
+}
+
+// "piste 21", or the run's name when it has no number of its own (areas
+// built from map data use the name, or a generated "~n", as its key).
+function pisteLabel(nr) {
+  const piste = (currentArea?.pistes || []).find(p => p.pisteNr === nr);
+  if (nr && !nr.startsWith('~') && nr.length <= 4) return `piste ${nr}`;
+  return piste?.naam ? `the ${piste.naam} piste` : 'the piste';
 }
 
 // ── Cost model ───────────────────────────────────────────────────────────────
@@ -765,7 +773,7 @@ function renderDayOption(index) {
   walk.steps.forEach((step, stepIndex) => {
     if (step.lunch) {
       const r = step.lunch;
-      const where = step.onPiste ? `halfway down piste ${r.piste}` : restaurantWhere(r);
+      const where = step.onPiste ? `halfway down ${pisteLabel(r.piste)}` : restaurantWhere(r);
       addWaypoint(stepsEl, `Lunch · ${r.naam}`, null, '🍽',
         `${formatClock(step.t)}–${formatClock(step.until)} · ${where}`, Math.min(number, 30) * 30);
       const el = stepsEl.lastElementChild;

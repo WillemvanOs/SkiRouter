@@ -1,0 +1,74 @@
+# Weekly: fetch mountain restaurants and huts for every European ski area
+# from OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and
+# commit it when it changed. On main the site is then redeployed, so the
+# areas built at deploy time get the new restaurants. A commit made with
+# GITHUB_TOKEN does not start other workflows, hence the explicit deploy job.
+#
+# Runs by hand too (Actions → "Fetch mountain restaurants" → Run workflow);
+# on another branch it commits there, without a deploy.
+name: Fetch mountain restaurants
+
+on:
+  schedule:
+    - cron: '23 3 * * 1'   # Mondays 03:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pois-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Date
+        id: date
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/openskidata
+          key: openskidata-${{ steps.date.outputs.day }}
+
+      - name: Build the areas (for their runs and stations)
+        run: node tools/build-areas.mjs --europe --out build/europe
+
+      - name: Fetch restaurants and huts
+        run: node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+
+      - name: Commit when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/pois)" ]; then
+            echo "No changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add data/pois
+          git commit -m "Update mountain restaurants"
+          git pull --rebase
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: fetch
+    if: needs.fetch.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
