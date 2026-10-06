@@ -76,7 +76,30 @@ without a way down, and lifts you cannot ski to, from which an area gets the lab
 
 The build runs in GitHub Actions (`.github/workflows/build-areas.yml`, by hand or on a
 push to a branch that changes the build) and commits the result to `data/build/` on that
-branch for review.
+branch for review. With scope `europe` it builds every European ski area and commits only
+the index and the report.
+
+### Every European ski area in the app
+
+Each deploy (`.github/workflows/pages.yml`) builds every European ski area into
+`data/europe/` on the site: `index.json` for the area picker and one file per area under
+`areas/`. These files are not in the repository. The OpenSkiData download is cached for a
+day; if the Europe build fails, the site still goes out with the curated areas only.
+
+Which areas are listed: at least 5 lifts and 10 km of pistes, and at least half of the
+lifts in one connected network. Areas with 50–75 % connected are shown with "Not all lifts
+are connected". Ski passes made of several separate domains (Dolomiti Superski, Ski
+amadé, …) are left out; their parts (Alta Badia, Kronplatz, …) are listed on their own.
+Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not listed twice.
+
+The area picker searches names, villages, regions and countries (with a few local names:
+Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your recent areas on top and
+lists the rest per country. An area is downloaded when you open it and then stays
+available offline. Areas without known mountain restaurants plan a day without the lunch
+box. Lifts without a number in the map data show their name only.
+
+Map data © OpenStreetMap contributors (ODbL), via OpenSkiMap / OpenSkiData; the picker
+says so.
 
 ## Picking a lift station
 
