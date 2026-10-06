@@ -1,6 +1,12 @@
 # Publishes the route planner to GitHub Pages on every push to main.
 # Only the static planner is published (no server.js, admin page or node_modules):
 # the planner fetches data/areas.json and plans routes entirely in the browser.
+#
+# Every European ski area is built here from OpenSkiData (tools/build-areas.mjs
+# --europe) into data/europe/ on the site: index.json for the area picker and
+# one file per area. Those files are not kept in the repository. The download
+# is cached for a day; if the build fails the site still goes out, without
+# the Europe list.
 name: Deploy to GitHub Pages
 
 on:
@@ -37,6 +43,27 @@ jobs:
           cp index.html dayplan.js app.js styles.css sw.js manifest.webmanifest _site/
           cp -r icons data _site/
           touch _site/.nojekyll
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Date
+        id: date
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/openskidata
+          key: openskidata-${{ steps.date.outputs.day }}
+
+      - name: Build every European ski area
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          node tools/build-areas.mjs --europe --out _site/data/europe
+          rm -f _site/data/europe/report.json _site/data/europe/report.md
+          du -sh _site/data/europe
 
       - uses: actions/configure-pages@v5
 

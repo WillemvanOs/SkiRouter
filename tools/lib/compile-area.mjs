@@ -299,7 +299,17 @@ export function compileArea(input, meta = {}) {
     restaurants: [],
     pisteLijnen,
   };
+  cleanText(area);
   return { area, report: validate(area), diagnostics };
+}
+
+// Names come from map data and end up on screen: no markup characters.
+function cleanText(area) {
+  const clean = t => typeof t === 'string' ? t.replace(/[<>"`]/g, '').replace(/\s+/g, ' ').trim() : t;
+  area.name = clean(area.name);
+  area.subtitle = clean(area.subtitle);
+  area.liften.forEach(l => { l.naam = clean(l.naam); l.vertrektBij = clean(l.vertrektBij); l.komtAanBij = clean(l.komtAanBij); });
+  area.pistes.forEach(p => { p.naam = clean(p.naam); });
 }
 
 // ── Shortest descents ────────────────────────────────────────────────────────

@@ -221,47 +221,166 @@ function addDescents(area, liftByNr, addEdge) {
 // an area fetches data/<area>.json, builds the routing graph from its
 // liften/pistes, and only then reveals the route planner UI.
 
-const AREA_REGISTRY_URL = 'data/areas.json';
+const AREA_REGISTRY_URL = 'data/areas.json';         // hand-curated areas (KitzSki)
+const EUROPE_INDEX_URL  = 'data/europe/index.json';  // every European area, built at deploy
 const LAST_AREA_KEY      = 'skiplanner:lastArea';
+const RECENT_AREAS_KEY   = 'skiplanner:recentAreas';
 
 let currentArea = null;
+let AREAS = [];          // every area the picker can show: { id, name, file, country, region, places, … }
+let areaHere = null;     // [lat, lon] once "near me" has found the user
+
+const COUNTRY_NAMES = {
+  AD: 'Andorra', AM: 'Armenia', AT: 'Austria', AZ: 'Azerbaijan', BA: 'Bosnia and Herzegovina', BG: 'Bulgaria',
+  CH: 'Switzerland', CZ: 'Czechia', DE: 'Germany', ES: 'Spain', FI: 'Finland', FR: 'France', GB: 'United Kingdom',
+  GE: 'Georgia', GR: 'Greece', IS: 'Iceland', IT: 'Italy', LI: 'Liechtenstein', ME: 'Montenegro', MK: 'North Macedonia',
+  NO: 'Norway', PL: 'Poland', RO: 'Romania', RS: 'Serbia', RU: 'Russia', SE: 'Sweden', SI: 'Slovenia', SK: 'Slovakia',
+  TR: 'Turkey', UA: 'Ukraine',
+};
+const countryName = code => COUNTRY_NAMES[code] || code || '';
 
 async function initApp() {
   const listEl = document.getElementById('area-list');
-  try {
-    const response = await fetch(AREA_REGISTRY_URL);
-    if (!response.ok) throw new Error(`${response.status}`);
-    const areas = await response.json();
-    renderAreaList(areas);
-
-    const lastAreaId = localStorage.getItem(LAST_AREA_KEY);
-    const lastArea    = areas.find(a => a.id === lastAreaId);
-    if (lastArea) await selectArea(lastArea);
-  } catch (err) {
-    console.error('Could not load the ski area list:', err);
+  // The curated list is needed; the Europe index is a bonus (offline, or a
+  // deploy whose Europe build failed, still leaves the curated areas).
+  const [curated, europe] = await Promise.all([
+    fetch(AREA_REGISTRY_URL).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status))).catch(err => { console.error(err); return null; }),
+    fetch(EUROPE_INDEX_URL).then(r => r.ok ? r.json() : []).catch(() => []),
+  ]);
+  if (!curated && !europe.length) {
     listEl.innerHTML = '<div class="area-error">⚠ The ski area list could not be loaded.</div>';
+    return;
   }
+  AREAS = [
+    ...(curated || []).map(a => ({ ...a, curated: true })),
+    ...europe.filter(e => !(curated || []).some(c => c.id === e.id)),
+  ];
+  renderAreaList();
+
+  const lastAreaId = localStorage.getItem(LAST_AREA_KEY);
+  const lastArea   = AREAS.find(a => a.id === lastAreaId);
+  if (lastArea) await selectArea(lastArea);
 }
 
-function renderAreaList(areas) {
-  const listEl = document.getElementById('area-list');
-  listEl.innerHTML = '';
+function recentAreaIds() {
+  try { return JSON.parse(localStorage.getItem(RECENT_AREAS_KEY)) || []; } catch { return []; }
+}
 
-  if (!areas.length) {
+function rememberArea(id) {
+  const ids = [id, ...recentAreaIds().filter(x => x !== id)].slice(0, 5);
+  try { localStorage.setItem(RECENT_AREAS_KEY, JSON.stringify(ids)); } catch {}
+}
+
+const fold = text => (text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+// How well an area matches the search: 3 name starts with it, 2 a word in
+// the name does, 1 the name, region, village or country contains it.
+function areaMatch(area, query) {
+  const name = fold(area.name);
+  if (name.startsWith(query)) return 3;
+  if (name.split(/[^a-z0-9]+/).some(w => w.startsWith(query))) return 2;
+  const rest = [area.region, ...(area.places || []), countryName(area.country), area.subtitle].map(fold);
+  return name.includes(query) || rest.some(t => t.includes(query)) ? 1 : 0;
+}
+
+function renderAreaList() {
+  const listEl = document.getElementById('area-list');
+  const query = fold(document.getElementById('area-search')?.value.trim());
+  listEl.innerHTML = '';
+  if (!AREAS.length) {
     listEl.innerHTML = '<div class="area-error">No ski areas available yet.</div>';
     return;
   }
+  const section = (title, areas) => {
+    if (!areas.length) return;
+    const label = document.createElement('div');
+    label.className = 'area-group';
+    label.textContent = title;
+    listEl.appendChild(label);
+    areas.forEach(a => listEl.appendChild(areaButton(a)));
+  };
 
-  areas.forEach(area => {
-    const btn = document.createElement('button');
-    btn.className = 'area-btn';
-    btn.innerHTML = `
-      <span class="area-btn-name">🏔 ${area.name}</span>
-      <span class="area-btn-sub">${area.subtitle || ''}</span>
-    `;
-    btn.addEventListener('click', () => selectArea(area));
-    listEl.appendChild(btn);
+  if (query) {
+    const hits = AREAS.map(a => ({ a, m: areaMatch(a, query) })).filter(h => h.m)
+      .sort((x, y) => y.m - x.m || (y.a.pistesKm || 0) - (x.a.pistesKm || 0)).slice(0, 40).map(h => h.a);
+    if (!hits.length) listEl.innerHTML = '<div class="area-loading">No ski area found. Try a village or region.</div>';
+    else section(`${hits.length === 40 ? 'First 40 matches' : `${hits.length} found`}`, hits);
+    return;
+  }
+
+  const recent = recentAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean);
+  section('Recently used', recent);
+  if (areaHere) {
+    const near = AREAS.filter(a => a.centre).map(a => ({ a, d: distanceM(areaHere, a.centre) }))
+      .sort((x, y) => x.d - y.d).slice(0, 8).filter(n => n.d < 300000);
+    section('Near you', near.map(n => ({ ...n.a, distance: n.d })));
+  }
+  const curated = AREAS.filter(a => a.curated && !recent.includes(a));
+  section('With lift status and restaurants', curated);
+
+  // Everything else by country, folded away: tap a country to open it.
+  const byCountry = new Map();
+  AREAS.filter(a => !a.curated).forEach(a => {
+    if (!byCountry.has(a.country)) byCountry.set(a.country, []);
+    byCountry.get(a.country).push(a);
   });
+  if (!byCountry.size) return;
+  const label = document.createElement('div');
+  label.className = 'area-group';
+  label.textContent = 'All ski areas';
+  listEl.appendChild(label);
+  [...byCountry].sort((x, y) => y[1].length - x[1].length).forEach(([code, areas]) => {
+    const box = document.createElement('details');
+    box.className = 'area-country';
+    box.innerHTML = `<summary><span>${countryName(code)}</span><span class="area-count">${areas.length}</span></summary>`;
+    box.addEventListener('toggle', () => {
+      if (!box.open || box.dataset.filled) return;
+      box.dataset.filled = '1';
+      [...areas].sort((x, y) => x.name.localeCompare(y.name)).forEach(a => box.appendChild(areaButton(a)));
+    });
+    listEl.appendChild(box);
+  });
+}
+
+// Text from map data goes into the page as text, never as HTML.
+function escapeHtml(text) {
+  return String(text ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function areaButton(area) {
+  const btn = document.createElement('button');
+  btn.className = 'area-btn';
+  const where = area.curated ? (area.subtitle || '') : [area.region, countryName(area.country)].filter(Boolean).join(', ');
+  const facts = [
+    area.pistesKm ? `${area.pistesKm} km` : '',
+    area.liften ? `${area.liften} lifts` : '',
+    area.distance != null ? `${Math.round(area.distance / 1000)} km away` : '',
+  ].filter(Boolean).join(' · ');
+  btn.innerHTML = `
+    <span class="area-btn-name">🏔 ${escapeHtml(area.name)}</span>
+    <span class="area-btn-sub">${escapeHtml(where)}</span>
+    ${facts ? `<span class="area-btn-facts">${facts}</span>` : ''}
+    ${area.status === 'deels' ? '<span class="area-btn-warn">⚠ Not all lifts are connected</span>' : ''}
+  `;
+  btn.addEventListener('click', () => selectArea(area));
+  return btn;
+}
+
+// "Ski areas near me": sort by distance from where the user is.
+function findAreasNearMe() {
+  const btn = document.getElementById('area-near-btn');
+  if (!navigator.geolocation) { btn.textContent = '📍 Location is not available on this device'; return; }
+  btn.textContent = '📍 Finding you…';
+  navigator.geolocation.getCurrentPosition(pos => {
+    areaHere = [pos.coords.latitude, pos.coords.longitude];
+    btn.textContent = '📍 Ski areas near me';
+    document.getElementById('area-search').value = '';
+    renderAreaList();
+  }, err => {
+    btn.textContent = err.code === err.PERMISSION_DENIED
+      ? '📍 Location access is off — allow it in your settings'
+      : '📍 Could not find your location — try again';
+  }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 });
 }
 
 async function selectArea(areaMeta) {
@@ -275,7 +394,8 @@ async function selectArea(areaMeta) {
     currentArea = area;
     await loadLiftStatus(areaMeta);
 
-    localStorage.setItem(LAST_AREA_KEY, area.id);
+    localStorage.setItem(LAST_AREA_KEY, areaMeta.id);
+    rememberArea(areaMeta.id);
     applyAreaToHeader(area);
     resetPlanner();
 
@@ -283,7 +403,10 @@ async function selectArea(areaMeta) {
     document.getElementById('planner-cards').style.display = 'block';
   } catch (err) {
     console.error(`Could not load area "${areaMeta.id}":`, err);
-    listEl.innerHTML = `<div class="area-error">⚠ "${areaMeta.name}" could not be loaded.</div>` + listEl.innerHTML;
+    const note = document.createElement('div');
+    note.className = 'area-error';
+    note.textContent = `⚠ "${areaMeta.name}" could not be loaded${navigator.onLine ? '' : ' — you are offline and it was not opened before'}.`;
+    listEl.prepend(note);
   }
 }
 

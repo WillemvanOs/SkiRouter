@@ -68,8 +68,13 @@ for await (const f of readFeatures(areaFile)) {
     id = uniqueId(`${slug(p.name)}-${country.toLowerCase()}`);
   } else continue;
   osdToArea.set(p.id, id);
-  if (!areas.has(id)) areas.set(id, { id, name: cfg?.name || p.name, country, region: place.localized?.en?.region || null, osd: [] });
+  if (!areas.has(id)) areas.set(id, { id, name: cfg?.name || p.name, country, region: place.localized?.en?.region || null, osd: [], places: new Set(), listed: cfg?.listed !== false });
   areas.get(id).osd.push(p.id);
+  // Villages and regions, so the area picker also finds "Selva" or "Davos".
+  for (const pl of p.places || []) {
+    const en = pl.localized?.en || {};
+    for (const name of [en.locality, en.region]) if (name) areas.get(id).places.add(name);
+  }
 }
 console.log(`- ${areas.size} ski areas to build${EUROPE_MODE ? ` (${unnamed} unnamed skipped)` : ''}`);
 
@@ -125,15 +130,26 @@ for (const meta of areas.values()) {
     continue;
   }
   const quality = overrides.reviewed ? 'gecontroleerd' : report.quality;
+  // In the app's area list? Not ski passes made of several separate domains
+  // (a second part at least a quarter the size of the first), nor areas where
+  // under half the lifts connect; 50–75 % connected is shown with a warning.
+  const [first = 0, second = 0] = report.domains;
+  const listing = !meta.listed ? 'curated elsewhere'
+    : (second >= 3 && second >= first / 4) ? 'hidden: several separate domains'
+    : report.connectedShare < 50 ? 'hidden: under half the lifts connected'
+    : report.connectedShare < 75 && !overrides.reviewed ? 'deels' : 'ok';
   const why = Object.fromEntries(report.outsideMainNetwork.map(nr =>
     [nr, [diagnostics[`${nr}-onder`], diagnostics[`${nr}-boven`]].filter(Boolean).join('; ') || 'runs attached, but no way into or out of the main network']));
-  reports[meta.id] = { name: area.name, country: meta.country, region: meta.region, ...report, quality,
+  reports[meta.id] = { name: area.name, country: meta.country, region: meta.region, ...report, quality, listing,
     why, osd: meta.osd, inputLifts: input.lifts.length, inputRuns: input.runs.length };
   if (SAMPLE.has(meta.id)) { mkdirSync(`${OUT}/sample`, { recursive: true }); writeFileSync(`${OUT}/sample/${meta.id}.json`, JSON.stringify(area) + '\n'); }
+  if (EUROPE_MODE && listing !== 'ok' && listing !== 'deels') continue;
   writeFileSync(`${AREA_DIR}/${meta.id}.json`, JSON.stringify(area) + '\n');
   const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
-  index.push({ id: meta.id, name: area.name, country: meta.country, region: meta.region, centre,
-    liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte, quality });
+  index.push({ id: meta.id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
+    places: [...meta.places].filter(n => n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 8), centre,
+    liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte,
+    status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${meta.id}.json` });
   if (!EUROPE_MODE) console.log(`- ${meta.id}: ${JSON.stringify(reports[meta.id])}`);
 }
 rmSync(SPILL, { recursive: true, force: true });
@@ -141,7 +157,7 @@ index.sort((a, b) => a.country.localeCompare(b.country) || a.name.localeCompare(
 writeFileSync(`${OUT}/index.json`, JSON.stringify(index) + '\n');
 writeFileSync(`${OUT}/report.json`, JSON.stringify(reports, null, 1) + '\n');
 writeFileSync(`${OUT}/report.md`, summary(reports, skipped));
-console.log(`Built ${index.length} areas, skipped ${skipped} (too small or empty).`);
+console.log(`Built ${Object.keys(reports).length} areas (${index.length} listed), skipped ${skipped} (too small or empty).`);
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -204,6 +220,8 @@ function summary(reports, skipped) {
     `Why lifts fall outside their area's main network: ${Object.entries(causes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}: ${v}`).join(' · ')}`,
     '',
     `Areas made of several separate parts (ski passes covering several domains): ${rows.filter(r => r.domains.length > 1).length}`,
+    '',
+    `In the app: ${Object.entries(by('listing')).map(([k, v]) => `**${k}** ${v}`).join(' · ')}`,
     '',
     '## The 40 biggest areas',
     '',
