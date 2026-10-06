@@ -1,14 +1,15 @@
 // Service worker: keeps the planner and every ski area's data on the device,
 // so routes can be planned on the mountain without a signal.
 //
-// - Install: cache the app shell, the area registry and every area file it lists.
+// - Install: cache the app shell, the area registry and every area file it
+//   lists, and the Europe index. A Europe area is cached when first opened.
 // - Same-origin requests: network first (so updates arrive when there is a
 //   connection), falling back to the cache after a short timeout or when offline.
 // - Google Fonts: cache first — they never change.
 //
 // Bump CACHE_VERSION when the list of shell files changes.
 
-const CACHE_VERSION = 'skirouter-v28';
+const CACHE_VERSION = 'skirouter-v30';
 const SHELL = [
   './',
   'index.html',
@@ -35,6 +36,9 @@ self.addEventListener('install', event => {
       const areas = await (await fetch('data/areas.json', { cache: 'no-store' })).json();
       // One by one: a missing file (e.g. no lift status yet) must not stop the rest.
       await Promise.allSettled(areas.flatMap(a => [a.file, a.liftstatus?.file]).filter(Boolean).map(f => cache.add(f)));
+      // The Europe list too, so the picker works offline. The areas in it are
+      // cached one by one as they are opened (network first, below).
+      await cache.add('data/europe/index.json').catch(() => {});
     } catch (err) {
       console.warn('Could not pre-cache area data:', err);
     }

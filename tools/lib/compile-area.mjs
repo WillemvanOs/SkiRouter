@@ -299,7 +299,17 @@ export function compileArea(input, meta = {}) {
     restaurants: [],
     pisteLijnen,
   };
+  cleanText(area);
   return { area, report: validate(area), diagnostics };
+}
+
+// Names come from map data and end up on screen: no markup characters.
+function cleanText(area) {
+  const clean = t => typeof t === 'string' ? t.replace(/[<>"`]/g, '').replace(/\s+/g, ' ').trim() : t;
+  area.name = clean(area.name);
+  area.subtitle = clean(area.subtitle);
+  area.liften.forEach(l => { l.naam = clean(l.naam); l.vertrektBij = clean(l.vertrektBij); l.komtAanBij = clean(l.komtAanBij); });
+  area.pistes.forEach(p => { p.naam = clean(p.naam); });
 }
 
 // ── Shortest descents ────────────────────────────────────────────────────────
@@ -475,7 +485,7 @@ function largestMutualGroup(stations, adj) {
 // sections of one lift) becomes F1a, F1b, …; lifts without a ref get OEF-1…
 // (practice lifts) or L1…, so every station id is unique.
 function assignLiftNumbers(lifts) {
-  const refOf = l => (l.ref || '').trim().replace(/\s+/g, '');
+  const refOf = l => (l.ref || '').trim().replace(/[^\p{L}\p{N}._\/-]/gu, '').slice(0, 8);
   const count = new Map();
   lifts.forEach(l => { const r = refOf(l); if (r) count.set(r, (count.get(r) || 0) + 1); });
   const seen = new Map();
@@ -490,7 +500,7 @@ function assignLiftNumbers(lifts) {
       seen.set(ref, i + 1);
       nr = ref + String.fromCharCode(97 + i); // a, b, c…
     } else nr = ref;
-    while (taken.has(nr)) nr += "'";
+    for (let n = 2; taken.has(nr); n++) nr = `${nr.replace(/-\d+$/, '')}-${n}`;
     taken.add(nr);
     return { ...l, liftNr: nr };
   });

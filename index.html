@@ -40,9 +40,16 @@
   <!-- Area picker: shown first, hidden once a gebied is chosen -->
   <div class="card" id="area-picker">
     <div class="card-title">🏔 Choose a ski area</div>
+    <form class="area-search-form" action="#" onsubmit="event.preventDefault(); document.getElementById('area-search').blur()">
+      <input class="area-search" id="area-search" type="search" enterkeyhint="search"
+        placeholder="Search ski area, village or region…" autocomplete="off" oninput="renderAreaList()">
+    </form>
+    <button class="area-near-btn" id="area-near-btn" type="button" onclick="findAreasNearMe()">📍 Ski areas near me</button>
     <div class="area-list" id="area-list">
       <div class="area-loading">Loading areas…</div>
     </div>
+    <p class="area-credit">Ski area data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>
+      (ODbL), via <a href="https://openskimap.org" target="_blank" rel="noopener">OpenSkiMap</a>.</p>
   </div>
 
   <!-- Planner: hidden until an area is chosen -->
@@ -235,7 +242,7 @@
       </label>
     </div>
 
-    <div class="setting">
+    <div class="setting" id="lunch-setting">
       <div class="setting-switch">
         <span class="setting-name">🍽 Lunch</span>
         <label class="switch"><input type="checkbox" id="day-lunch" checked aria-label="Lunch" onchange="toggleLunch()"><span class="switch-track"></span></label>

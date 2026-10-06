@@ -81,7 +81,11 @@ function resetDayPlan() {
   if (dayInProgress()) restoreStation('dend', saved.end);
 
   document.getElementById('day-bus').checked         = saved.bus !== false;
-  document.getElementById('day-lunch').checked       = saved.lunch !== false;
+  // Areas without known mountain restaurants (most built from OpenSkiData
+  // so far) plan without lunch: the lunch box is not shown at all.
+  const hasFood = mountainRestaurants().length > 0;
+  document.getElementById('lunch-setting').style.display = hasFood ? '' : 'none';
+  document.getElementById('day-lunch').checked       = hasFood && saved.lunch !== false;
   document.getElementById('day-lunch-t').value       = saved.lunchT || '13:00';
   document.getElementById('day-lunch-min').value     = saved.lunchMin || 60;
   renderLunchChoices(saved.lunchAt);

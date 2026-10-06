@@ -15,6 +15,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "004cfeaad6d9556d2da48cc7871ebd68b9029eba"
@@ -55,6 +56,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L2": "top: nearest run 363 m",
    "L3": "runs attached, but no way into or out of the main network",
@@ -88,6 +90,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "17": "runs attached, but no way into or out of the main network"
   },
@@ -113,6 +116,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0151c3df57b1338fb2c88a3361e589d06e928437"
@@ -161,6 +165,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "1": "runs attached, but no way into or out of the main network",
    "51": "bottom: no run within 500 m",
@@ -203,6 +208,7 @@
    25
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0295b1657f53d93d0eb1fd692993c0d2909d6d73"
@@ -244,6 +250,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "J": "runs attached, but no way into or out of the main network",
    "K": "bottom: nearest run 312 m",
@@ -274,6 +281,7 @@
    76
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0345d73f7a4bf0f49815ccb16306a3ec6371544b"
@@ -301,6 +309,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "bottom: no run within 500 m"
   },
@@ -335,6 +344,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "Ma": "runs attached, but no way into or out of the main network",
    "N": "runs attached, but no way into or out of the main network",
@@ -366,6 +376,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "03fcc0299c9030bf81bf077f9a94ee0b327040d9"
@@ -397,6 +408,7 @@
    52
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "42": "top: nearest run 302 m",
    "60": "runs attached, but no way into or out of the main network",
@@ -426,6 +438,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "05da072f8aa4be470ecc66e34e63b4a8153e0bdd"
@@ -449,6 +462,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "05daf7a62f901c8633e382b459c284b89ec9b4c1"
@@ -472,6 +486,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "05ec7627488328fb30e0d502b021045a348af622"
@@ -498,6 +513,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L5": "runs attached, but no way into or out of the main network",
    "L6": "runs attached, but no way into or out of the main network"
@@ -524,6 +540,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "064c258440982ec02bbffeb24ad3acffc7fa5ef0"
@@ -547,6 +564,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0667f93bbb7fc069d342b415f7301aefdcb55036"
@@ -570,6 +588,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "066c4b2d821452980329ab1a2fd4aee2d6251231"
@@ -595,6 +614,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "06b6a1bf1760e0705bf964f0a5d4e410de20f279"
@@ -618,6 +638,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "06cb9ef9adb612dff70c48ef69264b86c993ce64"
@@ -644,6 +665,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "105": "runs attached, but no way into or out of the main network",
    "107": "runs attached, but no way into or out of the main network"
@@ -672,6 +694,7 @@
    24
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "075db540453d13b0e660135085f40523940b95ba"
@@ -695,6 +718,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "076ac97cbe83353dbe1443b863343a1c5baf1f2b"
@@ -725,6 +749,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network",
@@ -753,6 +778,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "08650e89ade84b0c03450304c440234f8b24461f"
@@ -776,6 +802,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "08c17237e63893cd6cda8ad038a3cd30c0796ea0"
@@ -799,6 +826,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "097fee0cf52b5c5a295f4a2ca1af6e8b261e5da9"
@@ -822,6 +850,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0ae05d0db0046278c433fc2f19c026e1431d613e"
@@ -853,6 +882,7 @@
    10
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "H": "runs attached, but no way into or out of the main network",
    "G": "runs attached, but no way into or out of the main network",
@@ -881,6 +911,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0bc0af67288ed7c592e1f3364a400234763eb023"
@@ -913,6 +944,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: nearest run 492 m",
    "D": "top: no run within 500 m"
@@ -939,6 +971,7 @@
    30
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0c1ee22aff92dce160be7b206226d0e3b73328b2"
@@ -964,6 +997,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L12": "runs attached, but no way into or out of the main network"
   },
@@ -991,6 +1025,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "K": "runs attached, but no way into or out of the main network"
   },
@@ -1016,6 +1051,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0deab147ab696b0b1ce9609c62c39e7e2d3ca11c"
@@ -1042,6 +1078,7 @@
    12
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network"
@@ -1068,6 +1105,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0e32d9bd72195acaa33ba6c2d18ba4ad1562a055"
@@ -1095,6 +1133,7 @@
    38
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0e55d2b69d63decf2eb4c82a579c7663cf63e78f"
@@ -1123,6 +1162,7 @@
    45
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0e7ba1fd10a2afbc6e188d1f9936f843cc665583"
@@ -1148,6 +1188,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0ed67f04f2e5d0f8e1b8be3507c577fcfcb60215"
@@ -1171,6 +1212,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0f17e89de28821511c59e184dd520b7d6aea6a51"
@@ -1194,6 +1236,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0f46917975b8dab5e541edf6469105c3c091ec22"
@@ -1217,6 +1260,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0f8835a2f4fdcb5d19a63c665a77e9e99f8aa42a"
@@ -1240,6 +1284,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "0f9d49269959637649d002886894f53ca5f9e711"
@@ -1268,6 +1313,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "A6": "runs attached, but no way into or out of the main network",
    "L1": "runs attached, but no way into or out of the main network"
@@ -1296,6 +1342,7 @@
    52
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "10811e37c10a12d51810c68dc7022f23ca4f9970"
@@ -1319,6 +1366,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "10910febf541a61995670d5fad5890d7aad48b14"
@@ -1342,6 +1390,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "10cf7ca601424f355854c95816104d6ef904aad1"
@@ -1372,6 +1421,7 @@
    23
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L5": "runs attached, but no way into or out of the main network",
    "L15": "runs attached, but no way into or out of the main network",
@@ -1410,6 +1460,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "D": "runs attached, but no way into or out of the main network",
    "E": "runs attached, but no way into or out of the main network",
@@ -1445,6 +1496,7 @@
    67
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L54": "runs attached, but no way into or out of the main network"
   },
@@ -1483,6 +1535,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "6": "runs attached, but no way into or out of the main network",
    "7": "runs attached, but no way into or out of the main network",
@@ -1527,6 +1580,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L6": "bottom: nearest run 472 m; top: nearest run 230 m"
@@ -1555,6 +1609,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1215669125c5549bd831eb34bca2741e86721ba1"
@@ -1580,6 +1635,7 @@
    29
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "125d02338620dc079d5d635595a099370161bf83"
@@ -1605,6 +1661,7 @@
    25
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network"
   },
@@ -1630,6 +1687,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "13756027a3c85c2f3e1b8742865baa4f2469a277"
@@ -1655,6 +1713,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "13ba869607d22e177654c6366ae9dc746b8db0f2"
@@ -1684,6 +1743,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L7": "bottom: nearest run 370 m; top: nearest run 288 m"
   },
@@ -1709,6 +1769,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "143bc287b54d322b788c8099bfb0b664cfa2678a"
@@ -1732,6 +1793,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1586f10a5ae9a8f4707455ef38cb72a1bee343e6"
@@ -1755,6 +1817,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "15e9705d5eb24444f170c8d1d9c9073b5f04afb1"
@@ -1778,6 +1841,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "16766c0a18951eaee26a3bb22c6494ceb9d198de"
@@ -1804,6 +1868,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network"
@@ -1830,6 +1895,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "16e97c560e05b0379860572fa6d6ca330978ec9a"
@@ -1853,6 +1919,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "170c8c0d276b50ceeb50658829c7dcd487fcd18c"
@@ -1881,6 +1948,7 @@
    40
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1771e68c0cb96ffc4c834d53f8e60f77fe5ed05e"
@@ -1909,6 +1977,7 @@
    37
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "17756f8437ab9269dabffdd3f26a4fd045a4ae74"
@@ -1932,6 +2001,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "17a2aed27cfa6b593c5df9770900555623db6adf"
@@ -1976,6 +2046,7 @@
    75
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "61": "runs attached, but no way into or out of the main network",
    "F3": "runs attached, but no way into or out of the main network",
@@ -2016,6 +2087,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1871bd97633b45248e93e03d11f44d94caae83fc"
@@ -2039,6 +2111,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "190ac40e5a28ff14ac6492e3f59d2a1a31535bd8"
@@ -2062,6 +2135,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "19b6e308caa6766b21cb00e4fb40a82c4ee1f95b"
@@ -2085,6 +2159,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1a0088907c983cf22ebde01fbc7d28fed495f34d"
@@ -2113,6 +2188,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1a132aee8f40c3ea1e676d4c270d212e1f991dc4"
@@ -2136,6 +2212,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1a45c9dbb61e41655ad73588902f20ec217d9e80"
@@ -2161,6 +2238,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1b306639a276ae1103bb8f7f682db30d717d65be"
@@ -2184,6 +2262,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1bba0722fca7212bd8f83bb2be93a17087299287"
@@ -2207,6 +2286,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1c1abde459fbe60df53c294743c5f396f75598a2"
@@ -2232,6 +2312,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1c25cf660c84f21364c1905e7eb788e3789ccfbd"
@@ -2255,6 +2336,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1c5028787ae841b7a205c7331328ad0851b40fd3"
@@ -2278,6 +2360,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1d111e0379650f6a9186eaa3d21dadf973340c88"
@@ -2301,6 +2384,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1d32483b96030504eb0bf4c6b538fbb2c907685a"
@@ -2335,6 +2419,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m",
    "L2": "bottom: no run within 500 m; top: nearest run 251 m",
@@ -2371,6 +2456,7 @@
    46
   ],
   "quality": "automatisch",
+  "listing": "curated elsewhere",
   "why": {
    "D10": "runs attached, but no way into or out of the main network",
    "E2": "runs attached, but no way into or out of the main network",
@@ -2402,6 +2488,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "1f9b6a3906948d322f4c3334ce7ff06574eff479"
@@ -2453,6 +2540,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "Da": "runs attached, but no way into or out of the main network",
    "L7": "runs attached, but no way into or out of the main network",
@@ -2497,6 +2585,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "200e81bafbdce8658d2c0e80dcc4db3ad3aeac87"
@@ -2520,6 +2609,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "204b0b30c69127aabe86a1f94f5ea98bfcb08485"
@@ -2543,6 +2633,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "218fbd02e2f62294262958d800bb9638ddb4ceaf"
@@ -2566,6 +2657,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "21def33c68a75c001d3342fc3e711e0f1e997637"
@@ -2589,6 +2681,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "222578468bd24884d04bf5d8d29f7e2fe76a5198"
@@ -2616,6 +2709,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network",
@@ -2643,6 +2737,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "22c54e1e92de27ad2b47090f9b33564d0cbe8edc"
@@ -2668,6 +2763,7 @@
    49
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "23365b5cea5dad5b58d9ffc5506ff573f96cb70b"
@@ -2691,6 +2787,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "23c1a9b146ff58421d4b6432b5378d29cbebc621"
@@ -2714,6 +2811,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2443e6d5755d0c52af63db1476e83f4f6dee52ac"
@@ -2744,6 +2842,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "246c066d501b55857937068a8ddc67866edd0aa8"
@@ -2769,6 +2868,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "248c5c7186038ee9f23d8d8d34c602a14694a337"
@@ -2795,6 +2895,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "249b71bbd0b0e12a38288b69152091243ea65f00"
@@ -2820,6 +2921,7 @@
    32
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "24ab41e1438aff639aa8ef5ad91c3e187e2f8585"
@@ -2848,6 +2950,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L4": "runs attached, but no way into or out of the main network",
    "L7": "runs attached, but no way into or out of the main network",
@@ -2875,6 +2978,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2774ee9df926487819e252679b539a79fd2024a0"
@@ -2898,6 +3002,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "27974b3c3770f09f93b4ec92ed0637fa721f388d"
@@ -2926,6 +3031,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network",
@@ -2954,6 +3060,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "27f2c6dbd0199f926ea00068458bc85e82c7a1de"
@@ -2977,6 +3084,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2826e74d5f33a0bd943b7353dcda7e1419c36ace"
@@ -3000,6 +3108,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "28bc6b32b26b2c57edacb1c31e4ebdc1ec6e518f"
@@ -3023,6 +3132,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "29248afecbb89253d31145bb08025956c1bfb71a"
@@ -3051,6 +3161,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L15": "bottom: nearest run 325 m; top: nearest run 305 m",
    "L17": "bottom: nearest run 361 m"
@@ -3082,6 +3193,7 @@
    24
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "29b30f99e12f6399919a7bbd34ab3ad948bf6ede"
@@ -3115,6 +3227,7 @@
    11
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "N": "runs attached, but no way into or out of the main network",
    "L1": "bottom: nearest run 230 m; top: nearest run 279 m",
@@ -3142,6 +3255,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2a7a0bf0fc7192137a2b2ffabd5f73a63618006c"
@@ -3165,6 +3279,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2b9aee56a8afa944ff7f834ed515a1c2769ea733"
@@ -3188,6 +3303,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2b9e73a8db4a49d721aa13bbb7af97e04c5bc30c"
@@ -3213,6 +3329,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2c18b6812e9d8dc10b1d843bbf1b23f68ed30ff4"
@@ -3236,6 +3353,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2cbe407409b5340a8a35266314043918b4f7526f"
@@ -3259,6 +3377,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2d73aefe73288de3bb47f15bdc7475846d7dfa98"
@@ -3282,6 +3401,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2db723cabb351f174a1553f78349bd048eef5841"
@@ -3333,6 +3453,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L4": "bottom: nearest run 421 m",
@@ -3376,6 +3497,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "2fede7b59c44a1e3b56e9de3001562b9da83b757"
@@ -3399,6 +3521,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "304d72fa57c50cd759b4ebeff3e48dbee4789b17"
@@ -3422,6 +3545,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3150d08706183824af7f70226eaa2222400b8a64"
@@ -3445,6 +3569,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3185aba25eb1b4d8d9c544cf00a8fe4d7a91aa24"
@@ -3472,6 +3597,7 @@
    27
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "20": "runs attached, but no way into or out of the main network",
    "19a": "runs attached, but no way into or out of the main network",
@@ -3503,6 +3629,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L4": "bottom: no run within 500 m"
   },
@@ -3536,6 +3663,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L12": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -3585,6 +3713,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "P1": "runs attached, but no way into or out of the main network",
@@ -3623,6 +3752,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "351a0b3233b50602a3740734c2941c9f23dadc6d"
@@ -3650,6 +3780,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "bottom: no run within 500 m"
   },
@@ -3677,6 +3808,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "359fe484adda3faa6e97dabffe5c7aa90364e48e"
@@ -3706,6 +3838,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "bottom: nearest run 391 m; top: nearest run 311 m"
   },
@@ -3731,6 +3864,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "35a6ed0e1f5424feddcbc15b62e84b1b97f07624"
@@ -3756,6 +3890,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "H": "runs attached, but no way into or out of the main network"
   },
@@ -3783,6 +3918,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L6": "runs attached, but no way into or out of the main network"
   },
@@ -3810,6 +3946,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "36ad81f41071f89cb8f2dda631b35cf5bcd71bc5"
@@ -3833,6 +3970,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "36caeeb99dd1cc8a496f145ee01dbaeb1635545b"
@@ -3869,6 +4007,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network",
@@ -3916,6 +4055,7 @@
    71
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "79": "runs attached, but no way into or out of the main network",
    "81": "runs attached, but no way into or out of the main network",
@@ -3951,6 +4091,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "38b6ee8843fc22a5b81e90354754e0a7f8312db9"
@@ -3978,6 +4119,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network",
@@ -4005,6 +4147,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "39d7d65463d79bff2f3267daa678c3cce9a0e1d7"
@@ -4035,6 +4178,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -4066,6 +4210,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L1": "bottom: nearest run 203 m; top: nearest run 333 m"
   },
@@ -4093,6 +4238,7 @@
    27
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3ab7375c4734163405f0f77a7c5a6afdfd600b73"
@@ -4120,6 +4266,7 @@
    12
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L8": "runs attached, but no way into or out of the main network",
    "L11": "runs attached, but no way into or out of the main network",
@@ -4147,6 +4294,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3b83b24cb810ad7699ad3a62b183cf3617da125e"
@@ -4170,6 +4318,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3bfbf3fc95f82938cf30b2e4dcb3ffa5e5c0287c"
@@ -4195,6 +4344,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3c30eddac708122c98a1ad904d7a67fc8499b342"
@@ -4222,6 +4372,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "3": "runs attached, but no way into or out of the main network"
   },
@@ -4247,6 +4398,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3c7aff30ecd34ecc068d5816808660fac8e2331e"
@@ -4275,6 +4427,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "106": "runs attached, but no way into or out of the main network",
    "107": "runs attached, but no way into or out of the main network",
@@ -4306,6 +4459,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network"
   },
@@ -4333,6 +4487,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3eb5b182edb85657752ccb4f91dcfd07bff2b122"
@@ -4356,6 +4511,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3f17bde187966cb8ca14255520bda39eb25e5baa"
@@ -4379,6 +4535,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3f45916e91247d3c6deee00253747d1dc8ebc699"
@@ -4402,6 +4559,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "3fe9a6b2c3b2fddc054259af7b561d7d91f7b9f0"
@@ -4434,6 +4592,7 @@
    35
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "E1g": "bottom: nearest run 248 m; top: nearest run 256 m",
@@ -4463,6 +4622,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4061fa811727fdb41a320ed9b89bc1516574fbcd"
@@ -4486,6 +4646,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "40c749774f4d6927ff84663843fbd19da9a5b4b7"
@@ -4509,6 +4670,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "418052ffcdb5dda87451bb321708d559d4953e99"
@@ -4532,6 +4694,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4236aff4e09a8a34af56ec12b7c0085e579204db"
@@ -4555,6 +4718,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4243519f890596507243ce624d660bfddd378b16"
@@ -4589,6 +4753,7 @@
    19
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: nearest run 489 m; top: no run within 500 m",
    "L5": "bottom: nearest run 383 m; top: nearest run 440 m"
@@ -4615,6 +4780,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4350507db443268608a64164f59fe67ae6542e1e"
@@ -4638,6 +4804,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "43be2b7a7a7fc12ba084871981485ccd34a5424f"
@@ -4661,6 +4828,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "43d4d2c436cf3eab266ca84e8f9f66be811c0e02"
@@ -4684,6 +4852,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "43f7d8df941a946e395669e6f8873afa581c9851"
@@ -4707,6 +4876,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "44e5bfbfe3e11ad75d642cc4225aaab79a936d91"
@@ -4730,6 +4900,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "451134c6cbbe578b3234e79827871ecd81ddf3c3"
@@ -4753,6 +4924,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "45625a91e8f6714ebecb456492ca9e39b1bc677b"
@@ -4778,6 +4950,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L5": "runs attached, but no way into or out of the main network"
   },
@@ -4831,6 +5004,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L3": "bottom: no run within 500 m",
    "L4": "runs attached, but no way into or out of the main network",
@@ -4878,6 +5052,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "45d0f9aea9eb43a1fa74bbeb6b57c613b09a8f82"
@@ -4908,6 +5083,7 @@
    12
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m",
    "L2": "runs attached, but no way into or out of the main network",
@@ -4939,6 +5115,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "46e449b1b9a7bcdaf078066b4aee6b3fabd1fb32"
@@ -4962,6 +5139,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "473f6943d73d61b3d611a49b3004279be7cf4a8b"
@@ -4985,6 +5163,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "494122163c8aa3f93f43ccee9fd0ee83a3a03d62"
@@ -5012,6 +5191,7 @@
    13
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L8": "runs attached, but no way into or out of the main network",
    "L10": "runs attached, but no way into or out of the main network",
@@ -5041,6 +5221,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4962137f680dfe1ca23f2daecde5b1de8883f32e"
@@ -5064,6 +5245,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4984dcad2a0d405ed69fa07204fa4e4398f3bdaa"
@@ -5089,6 +5271,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4a30e21219abb7c297eea39860578ad22572d0eb"
@@ -5114,6 +5297,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "D1": "runs attached, but no way into or out of the main network"
   },
@@ -5159,6 +5343,7 @@
    45
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -5202,6 +5387,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4bdf7ecb1d31b6554368ec7cf97e62a072fbf4bd"
@@ -5225,6 +5411,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4c50c0aa6c2c2dbdbb9c8c2f2fecbe5814cecc06"
@@ -5248,6 +5435,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4c70c3b5d8568a6c58b2bc41f33a0c60084d60be"
@@ -5294,6 +5482,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "1": "runs attached, but no way into or out of the main network",
    "3": "runs attached, but no way into or out of the main network",
@@ -5343,6 +5532,7 @@
    15
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L4": "runs attached, but no way into or out of the main network",
    "L11": "runs attached, but no way into or out of the main network",
@@ -5371,6 +5561,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4d81480cbbccb41b552f19f6fd0156ba0985d7e8"
@@ -5396,6 +5587,7 @@
    26
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4d9c0191491227da58bc418ee8633c62485f29c8"
@@ -5421,6 +5613,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4f28d329e3135d4beda7482aac1820ad0f7cad63"
@@ -5444,6 +5637,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "4f8cc7c822ff08fe15a457cfd10dacbe603a16cf"
@@ -5469,6 +5663,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "504eff3fdb5510cb38a4f75324fa846fba9728f3"
@@ -5492,6 +5687,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "516bab490035b2ec5b8cf843a4c2929e4028642d"
@@ -5519,6 +5715,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network"
   },
@@ -5544,6 +5741,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "525c3d6dae6550a31a8fc5d3e576493153863b4e"
@@ -5567,6 +5765,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "529fcab6ce37f59505fcbd53b7904688bc4b635f"
@@ -5590,6 +5789,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "52c9c35a9f63939f43b957b39196aa77ec0013c7"
@@ -5617,6 +5817,7 @@
    86
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "53410fc611922a26e32535c74bb1d9364cef4ecd"
@@ -5642,6 +5843,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network"
   },
@@ -5849,6 +6051,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "5": "runs attached, but no way into or out of the main network",
    "12": "runs attached, but no way into or out of the main network",
@@ -6042,6 +6245,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "54b7a2ec9a61d19cd3a9431ddc23cc9ad5fc306e"
@@ -6067,6 +6271,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "2414": "runs attached, but no way into or out of the main network"
   },
@@ -6092,6 +6297,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "56e0ec7dcc0d6d29f5fc11779075ee1132b8b009"
@@ -6115,6 +6321,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5715439988a962bab375e89d7fcaa86583215933"
@@ -6140,6 +6347,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "574e913d4431f7197222ae1ebd90f878f1a334e0"
@@ -6168,6 +6376,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -6195,6 +6404,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "57d884ff853a45cecd05215c028bf19d70440c13"
@@ -6276,6 +6486,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "A12": "runs attached, but no way into or out of the main network",
    "F2": "bottom: no run within 500 m; top: no run within 500 m",
@@ -6337,6 +6548,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "58c88c13884c54c2d81a7d45f8afd901a66cace0"
@@ -6362,6 +6574,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "590814dd5c1d0c57144f91838ab5b8ebcc71b42e"
@@ -6385,6 +6598,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "59d4e1dfdffd83d31578d19a47f3af38fb7f1e3e"
@@ -6410,6 +6624,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "59daf3cc15cc3c231203bce41e59f1258093568a"
@@ -6433,6 +6648,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5a058d2077ba71a805a496eca8a375c154ed3863"
@@ -6456,6 +6672,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5acf200fa4f977dfc7d0433901ebe4d7db367aaf"
@@ -6479,6 +6696,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5b5c1cacf245a69d2908edeb92952dbf7fd28bd8"
@@ -6502,6 +6720,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5b89c3ba88e8c1263685a34ee3ddeea390a37874"
@@ -6538,6 +6757,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m",
    "L2": "bottom: no run within 500 m",
@@ -6575,6 +6795,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -6610,6 +6831,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "40": "bottom: no run within 500 m"
   },
@@ -6635,6 +6857,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5d982c5ba126dcd1a357cb1ab735ebcca8f708ee"
@@ -6658,6 +6881,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5dc251b4f21c4dba246f745b3d00859d183d5d06"
@@ -6683,6 +6907,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L6": "runs attached, but no way into or out of the main network"
   },
@@ -6708,6 +6933,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5de76e63f17d805e0408c795d97d0eb510223c49"
@@ -6746,6 +6972,7 @@
    10
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "1": "runs attached, but no way into or out of the main network",
    "2": "runs attached, but no way into or out of the main network",
@@ -6784,6 +7011,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5ecb06388006e4740e7ce8234e26d036ce85edb7"
@@ -6807,6 +7035,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5ee4bbf3ab3be8e91b05b56e05180dd4ee735335"
@@ -6830,6 +7059,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "5f7de23fab06265e451f0b12f9336071f2f5fbec"
@@ -6858,6 +7088,7 @@
    28
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L10": "runs attached, but no way into or out of the main network",
    "L21": "runs attached, but no way into or out of the main network"
@@ -6890,6 +7121,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L2": "bottom: nearest run 285 m; top: nearest run 352 m"
   },
@@ -6936,6 +7168,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network",
@@ -6983,6 +7216,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L5": "runs attached, but no way into or out of the main network"
   },
@@ -7008,6 +7242,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6188b040922df2ed99ef3762659adf5cb67149b0"
@@ -7031,6 +7266,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "63a16704ef88cc64ec56bf3c96af61911ababfff"
@@ -7054,6 +7290,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "63e66bf524950d5f4cfa76d22d15b209004520bb"
@@ -7077,6 +7314,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "64a4879a2a2c802d498419c7f97401156810641a"
@@ -7100,6 +7338,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "64aee63c9ac051c8e37df33f4bc3e5549876880d"
@@ -7125,6 +7364,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L5": "runs attached, but no way into or out of the main network"
   },
@@ -7150,6 +7390,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6698c89c2806a980983573e5c336bb90c49143a2"
@@ -7173,6 +7414,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "66c1a2f66dd0732eaccf0b8d6bde7495c28900e0"
@@ -7202,6 +7444,7 @@
    12
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "bottom: nearest run 491 m; top: nearest run 498 m",
@@ -7229,6 +7472,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "66e1d0ae483a9bd09595416815d2a6cecfede47f"
@@ -7255,6 +7499,7 @@
    39
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "66e672470add74c3e6a2bd8d4c1bb07cc4721728"
@@ -7278,6 +7523,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6706227f52c321acb67f28aea019d52a65fdbeb0"
@@ -7301,6 +7547,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "67a84872331001ee2d7615a03eb9d424c66e6006"
@@ -7329,6 +7576,7 @@
    139
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "68b126bc3175516c9263aed7635d14e37ff360dc"
@@ -7352,6 +7600,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "696bb1ffa7c5cbea2123abdb0821791dfaaad100"
@@ -7375,6 +7624,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "698235de3f3ccef651f8bd22e09d50fdadd21922"
@@ -7398,6 +7648,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "69931ad5166c6a605bdbc8cb48fde87b78117576"
@@ -7423,6 +7674,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6a9f3afdd5d590a14770fdb7a8e90c6285b18035"
@@ -7446,6 +7698,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6b69576c74554f22116c450bb75f6f261c0c8a67"
@@ -7473,6 +7726,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6bce0c5b4378d80172a8f1e44252244e65530be2"
@@ -7498,6 +7752,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6cec3bb37625a310c1c7cc1982a122a334049469"
@@ -7521,6 +7776,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6d58238a76b2a28a28d118662d07a86af9233e69"
@@ -7544,6 +7800,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6d73101c0c82f1695199dfb0d9f3a2aa16b8b133"
@@ -7567,6 +7824,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6d993fe595f830217b5c7abac769ea432a6cc300"
@@ -7590,6 +7848,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6e135ea2a7e28e5194c76ef6acba0c49302a02e1"
@@ -7613,6 +7872,7 @@
    25
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6ecf3eac97891cee8e38aa2e836e878db6ebe5a3"
@@ -7638,6 +7898,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L12": "runs attached, but no way into or out of the main network"
   },
@@ -7663,6 +7924,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6f191d7d668cc5585e972733711d6b72ca99b5db"
@@ -7686,6 +7948,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6f516f756c4a8d4ceadd144016afc9e528a38b5f"
@@ -7709,6 +7972,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6f5988576051c04f6bbee8194b819b004a478a7e"
@@ -7736,6 +8000,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network"
   },
@@ -7761,6 +8026,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "6ff3d800655f463f2ea8d24980630b01000c8c49"
@@ -7788,6 +8054,7 @@
    14
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network",
@@ -7815,6 +8082,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "701abcf5a82c654d69e2984d3f65003e3aff6230"
@@ -7838,6 +8106,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "701e152d6726aac55c24541d9d4648c6c55c3a80"
@@ -7943,6 +8212,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L4": "runs attached, but no way into or out of the main network",
    "L13": "runs attached, but no way into or out of the main network",
@@ -8042,6 +8312,7 @@
    23
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "19": "runs attached, but no way into or out of the main network",
    "20": "runs attached, but no way into or out of the main network",
@@ -8070,6 +8341,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "715c1aff70ef02d1fa240ac06ba41da891cf93b4"
@@ -8093,6 +8365,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "715cbf095f34c993796845811d2d0195fa8a6756"
@@ -8116,6 +8389,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "71adb82590d35e6b256c14d2cb266024f2723c27"
@@ -8139,6 +8413,7 @@
    24
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "71c073dc36516a01f114c98708db04e208feafd1"
@@ -8162,6 +8437,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "723611e5c6bd7d52526c22a4eb1040eb82a0b759"
@@ -8187,6 +8463,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "72438266ce73580af0c90e93ee73d74e2f9363da"
@@ -8210,6 +8487,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "73278e0d711effeb45409da2202be6389040f9c6"
@@ -8233,6 +8511,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7346bb5d22b8259e978183dc0a4b375a3351ac90"
@@ -8260,6 +8539,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "1": "runs attached, but no way into or out of the main network"
   },
@@ -8287,6 +8567,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network"
   },
@@ -8314,6 +8595,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "73a929fdb6f99344480b7fc4e7f2e457e444b217"
@@ -8339,6 +8621,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "748fee00e468b5d11016d8f9dab6e2e214ea78f5"
@@ -8367,6 +8650,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "bottom: no run within 500 m",
    "E06": "runs attached, but no way into or out of the main network",
@@ -8395,6 +8679,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "75013e890fb113df12278e9402b86cb3d0d8dd84"
@@ -8418,6 +8703,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7512fc8f0f012bbc88e7e68cb48fdf60b8053429"
@@ -8443,6 +8729,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7563abecd5cc2164f89cd67a02eac49bf45e2365"
@@ -8466,6 +8753,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "756e0502aecee6a9d48efb3419be7efaac92341d"
@@ -8489,6 +8777,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7671147d78933eab52cb426f7b13a3246ac334b2"
@@ -8512,6 +8801,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7686f25c840b61a1cb5cdd5771c0adcb51fe309e"
@@ -8535,6 +8825,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "76d441ab94356152a7e13a3a67001259a0d3d3c5"
@@ -8560,6 +8851,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "76e5db0a55e75e1f58a92d40cb42e34c7ed596d9"
@@ -8585,6 +8877,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "76fbc6ed10135d6683a91a5b89dbf01fa757b80b"
@@ -8608,6 +8901,7 @@
    53
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "775634f8f5f5b0724ecd27d82909b2008d58f7d5"
@@ -8638,6 +8932,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L3": "bottom: no run within 500 m; top: no run within 500 m",
    "L7": "bottom: no run within 500 m; top: no run within 500 m"
@@ -8664,6 +8959,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "77c586f2f94b9428e4f35c9357e43173612b043f"
@@ -8689,6 +8985,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L5": "runs attached, but no way into or out of the main network"
   },
@@ -8716,6 +9013,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network"
   },
@@ -8741,6 +9039,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "78a60d6906d5dc7ce4a2b000f5d90a54e7391b00"
@@ -8769,6 +9068,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -8797,6 +9097,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "78c523bfc8c41db99cb070416332fef8a2fe777e"
@@ -8824,6 +9125,7 @@
    34
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "E64": "bottom: nearest run 315 m"
   },
@@ -8855,6 +9157,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "G": "runs attached, but no way into or out of the main network",
    "E": "runs attached, but no way into or out of the main network",
@@ -8882,6 +9185,7 @@
    35
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7aaa7a1a1f99dd3ab893afe08fff80c73f987cb9"
@@ -8905,6 +9209,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7ac48fc0dbac27e15b38832f1f0df58bfe60e84e"
@@ -8928,6 +9233,7 @@
    24
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7b9ebd11b0f34b0ff27595dacf4573ef0e1dfec4"
@@ -8955,6 +9261,7 @@
    10
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "O3": "runs attached, but no way into or out of the main network",
@@ -8982,6 +9289,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7c0343b552c368d10df254c683c56feeba8f108e"
@@ -9007,6 +9315,7 @@
    42
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "G1": "runs attached, but no way into or out of the main network"
   },
@@ -9034,6 +9343,7 @@
    24
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7c478a9b3d9ba0858ac132f6ba5582c32f64b2c4"
@@ -9060,6 +9370,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network"
@@ -9086,6 +9397,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7c9b92923d15730930f62c097152088ae43aae3f"
@@ -9111,6 +9423,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7cfe42a40302da186f52d064cb0ea1dd256ae061"
@@ -9134,6 +9447,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7de1bcf43b60126cd7ec928effe87c5257cfca30"
@@ -9159,6 +9473,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7e1c3bbe5dc96f84472363c502e595691f2862c0"
@@ -9182,6 +9497,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "7e2b2e2ae39a8764945229ed9d6314ee6d0aae47"
@@ -9214,6 +9530,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L3": "bottom: no run within 500 m; top: nearest run 399 m",
    "L20": "bottom: no run within 500 m; top: no run within 500 m"
@@ -9240,6 +9557,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "80d2dac29be01f073bfc3882ff3b2acc4b4602f6"
@@ -9263,6 +9581,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "80d2fcf669a623c95125a81ccaa82ebe067846a5"
@@ -9286,6 +9605,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "80df521c68af114484e505e0c55efbf832f64b41"
@@ -9311,6 +9631,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "80f1b9fb69d6d58d8c0211a019de956673e86a18"
@@ -9341,6 +9662,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network",
@@ -9378,6 +9700,7 @@
    14
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network",
@@ -9408,6 +9731,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "820953ac48627bbe78de964924e399c43fe4d754"
@@ -9435,6 +9759,7 @@
    12
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network",
@@ -9462,6 +9787,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "82115168a1f3e2e458c9b6d977a077cc91fe868d"
@@ -9487,6 +9813,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network"
   },
@@ -9512,6 +9839,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "82faebb76e68b9d8589b9cb4f305e739d959c261"
@@ -9535,6 +9863,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "832501429324467c9e75359846177def5f5208e5"
@@ -9562,6 +9891,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8442e0780976e5416791e4d7fff01ca279bc71eb"
@@ -9587,6 +9917,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "847660cdf79b8eabb8b04b21d61950e1e1606032"
@@ -9612,6 +9943,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "851128bb56a54648e73d41ecdaca409350648f33"
@@ -9635,6 +9967,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8556f7c962b73f8cca10ac4ef41b9e40a5d5ae23"
@@ -9658,6 +9991,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "85720b1495a8fdf4dd29a0e6d7eacb42fb241c29"
@@ -9681,6 +10015,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "86bcf2b373dc8f9f43326bebbcb4b5207eaaead4"
@@ -9704,6 +10039,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "870ba2799629a9b757d90966aa64908a3ce22f70"
@@ -9727,6 +10063,7 @@
    31
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "870daba91bf45e41f76102b45565876b61861a50"
@@ -9750,6 +10087,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "87ac1b90bf35c1cd881dce0db26cad761aa90d13"
@@ -9775,6 +10113,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network"
   },
@@ -9800,6 +10139,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8a5063e32476ab3ab529dd524a0debe563e08f28"
@@ -9823,6 +10163,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8a63343a3b61d2fd5cafa8525e017c62d3bfdece"
@@ -9848,6 +10189,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8a9e6fcb235049131ba0691e922882db19db12c0"
@@ -9879,6 +10221,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "bottom: no run within 500 m",
@@ -9907,6 +10250,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8af93a64c41b59fca4705d30c106ef29fb24e042"
@@ -9930,6 +10274,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8ba91e97233bc526702e679b13a0ce110bad3f6a"
@@ -9953,6 +10298,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8bc747789f707f0342b2f046100b2a3b15b99d9a"
@@ -9976,6 +10322,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8c13d3886c729401b1a84c98ca1c6368db1ca4ff"
@@ -9999,6 +10346,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8c539daa0a83c5ef53217c99a3754c6a951ee7cc"
@@ -10024,6 +10372,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8ca1fa8f24002982eab793a7b85318feef1d1ac6"
@@ -10047,6 +10396,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8cb4e532f1ec298dd8e93c1b265d00c4ac0b4512"
@@ -10075,6 +10425,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "H2": "runs attached, but no way into or out of the main network",
    "H5": "runs attached, but no way into or out of the main network",
@@ -10102,6 +10453,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8e5dbdde0808be45e5e47253e905635c9f867c3b"
@@ -10129,6 +10481,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L16": "bottom: no run within 500 m"
   },
@@ -10160,6 +10513,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L3": "bottom: nearest run 449 m; top: no run within 500 m"
   },
@@ -10189,6 +10543,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L1": "bottom: nearest run 337 m"
   },
@@ -10214,6 +10569,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8ed780a048377fa824a6473c49bb2552a9472e12"
@@ -10256,6 +10612,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -10291,6 +10648,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8f63ee82162e69c39d10e6a73b73d005b4028fcd"
@@ -10314,6 +10672,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "8ff7c34b93e1bc6da29f199f301a7c1871a9352b"
@@ -10337,6 +10696,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "90a81e4553e20103cd6b13c9a152bbc97f90f9ec"
@@ -10362,6 +10722,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network"
   },
@@ -10387,6 +10748,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9159a8a28bc8accd268e8eeb330ae53c379b1391"
@@ -10416,6 +10778,7 @@
    134
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "13": "runs attached, but no way into or out of the main network",
    "L15": "bottom: nearest run 288 m"
@@ -10444,6 +10807,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "RIE": "runs attached, but no way into or out of the main network"
   },
@@ -10469,6 +10833,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "92676053fdc889afa65b91206f5158532b3fafcc"
@@ -10492,6 +10857,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "92ec4cdfb514f61000d0f4c9344fc1484d452901"
@@ -10517,6 +10883,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "93f78af003dfe7aa2efa72fb091e67828d5ff77c"
@@ -10540,6 +10907,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "94a0f07cbc6591aa34fe575a16264667d2821934"
@@ -10563,6 +10931,7 @@
    55
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "94cb050e1e20e04e822c14216840885aea2eafcc"
@@ -10591,6 +10960,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "22": "runs attached, but no way into or out of the main network",
    "25": "runs attached, but no way into or out of the main network",
@@ -10648,6 +11018,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "1": "runs attached, but no way into or out of the main network",
    "2": "runs attached, but no way into or out of the main network",
@@ -10694,6 +11065,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "96682590bffa8f01f852eac06bca6fa6dcea0945"
@@ -10717,6 +11089,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "96ddf9d61d1f1450728348b3c3c4db30e379e6e9"
@@ -10748,6 +11121,7 @@
    53
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L50": "bottom: no run within 500 m; top: no run within 500 m"
@@ -10781,6 +11155,7 @@
    29
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L4": "runs attached, but no way into or out of the main network",
    "L21": "runs attached, but no way into or out of the main network",
@@ -10810,6 +11185,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "982c9241c57dd4a42bd2525ef81566069ee06448"
@@ -10833,6 +11209,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "98392622932b17cf8ecfbcdb9ccfef413473fc77"
@@ -10856,6 +11233,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "99713653576c6e645d010ccfb24c164d181019fa"
@@ -10879,6 +11257,7 @@
    33
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "99cef648d8c6f7231b60448092fb29de26069d0f"
@@ -10904,6 +11283,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L14": "runs attached, but no way into or out of the main network"
   },
@@ -10929,6 +11309,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9b2e119addfc0afa49b11fa80970374732521abb"
@@ -10952,6 +11333,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9bf30654603392fbfb87a26cd9e81b0cc8e32e6f"
@@ -10975,6 +11357,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9c8c1c1000130abb373b7e6f4d7259b897b6807c"
@@ -10998,6 +11381,7 @@
    48
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9cb83fdd2a49011eec76e3d1bbc2af8f582888a9"
@@ -11021,6 +11405,7 @@
    33
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9d0b2c5e0fcac9deba9c727a834cac4b43a5d2c9"
@@ -11048,6 +11433,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9d79e5920594df28c0b7622a17041a3c9bad89aa"
@@ -11344,6 +11730,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "86": "bottom: no run within 500 m",
    "100": "runs attached, but no way into or out of the main network",
@@ -11604,6 +11991,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9e5f29a0cf4edfbfbbc5e6128608038e537fc4f3"
@@ -11632,6 +12020,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9e8a091097aeb5af7c87b5f53922e3db043a9849"
@@ -11655,6 +12044,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9ea685d2404d5268c6cb02acbda87feb44cb0db4"
@@ -11680,6 +12070,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "9ebf3503311da1c2e8d04a89c04e678a0d347367"
@@ -11703,6 +12094,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a044deedf9fb7f84d9cd7c15b0d503403da71c2e"
@@ -11726,6 +12118,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a06c96ff5a340aa3db6c8369ebc7334513637f10"
@@ -11765,6 +12158,7 @@
    18
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "6": "runs attached, but no way into or out of the main network",
    "7": "runs attached, but no way into or out of the main network",
@@ -11799,6 +12193,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a0d7a79ba35ffd413e477f7a9fbefef1250dad49"
@@ -11822,6 +12217,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a0ff12f1c7e58784375a6532825f9383cdf75715"
@@ -11845,6 +12241,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a12bb085d8e841022904dbed3e471f4088c8caff"
@@ -11868,6 +12265,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a2b33899f2bfeab7e6f73d80520d0bfd5b27a514"
@@ -11891,6 +12289,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a2fed1f3149f7c9e4f9ccaac4b8e29f0bfccd632"
@@ -11914,6 +12313,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a3f181286a5893208aa7d7b7d1704bb923673003"
@@ -11937,6 +12337,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a485de04d1b518ac50b60887ac630a742927ed06"
@@ -11960,6 +12361,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a4ab6152ad856758bbac95daa5cf3fdd077aea0f"
@@ -11985,6 +12387,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a52b30a524e35adb64e78425a0a8e62dad0f0006"
@@ -12008,6 +12411,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a56f59aadb4aa6cfbd0343dad0519926595c6e29"
@@ -12031,6 +12435,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a576a9778987780492fa148fd909b5c38caf0552"
@@ -12054,6 +12459,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a654d2ce9e67040e03edcb1b31c8df2abb5100b3"
@@ -12077,6 +12483,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a6792c241300dee70b989ffcf6a12b8225bbd7d9"
@@ -12100,6 +12507,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a69a57ca1f64eda684455dfe6c096108b9b5dee7"
@@ -12135,6 +12543,7 @@
    70
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L8": "runs attached, but no way into or out of the main network",
    "L12": "bottom: nearest run 207 m; top: nearest run 309 m",
@@ -12167,6 +12576,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a710407367bee5d3a51e5dec4c2c6acc0ea5e432"
@@ -12196,6 +12606,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network",
@@ -12226,6 +12637,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a7d8a791eb2e7bb4eacaf78d43dc2cba36de0851"
@@ -12249,6 +12661,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a82f34f376325886d7e9645f44a5f0e20084e78f"
@@ -12272,6 +12685,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a848fe66f4aa22f54b96871f9b731c037c04a43f"
@@ -12341,6 +12755,7 @@
    40
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L2": "runs attached, but no way into or out of the main network",
@@ -12407,6 +12822,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a92397b065ec576c2c743acd0571294da2c7ac09"
@@ -12430,6 +12846,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "a9a697b480cff1366c2b4b9d721b3d950797ed6a"
@@ -12453,6 +12870,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "aa4898a35811657ba96b647d8a0bfeb4e36de78c"
@@ -12478,6 +12896,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L9": "runs attached, but no way into or out of the main network"
   },
@@ -12518,6 +12937,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -12555,6 +12975,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ab1f9a29185ea464553449ca060e40589115b16c"
@@ -12628,6 +13049,7 @@
    19
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L5": "runs attached, but no way into or out of the main network",
    "L6": "runs attached, but no way into or out of the main network",
@@ -12697,6 +13119,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ab685762e7c70dbc382cd75919670442e27c48a5"
@@ -12723,6 +13146,7 @@
    13
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ab7961704073ef3c88692eee6638c6622112defc"
@@ -12746,6 +13170,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "abd8fc58a269e575731226a78d77a13b2e38a673"
@@ -12783,6 +13208,7 @@
    10
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L5": "runs attached, but no way into or out of the main network",
    "L7": "runs attached, but no way into or out of the main network",
@@ -12817,6 +13243,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ac690991dbcfa02d18fac8b991a6319f67db75bf"
@@ -12840,6 +13267,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ac6e8db707345e560695c24c1d0ec5bc069a797f"
@@ -12863,6 +13291,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "afe60e139226cf1605312301c160eb7846ba88fd"
@@ -12886,6 +13315,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b038c9b06cac9bc5e400f5d1b2c3b42e00dc3728"
@@ -12909,6 +13339,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b0474b173deabca7cc8c3b5e9070b881220db472"
@@ -12932,6 +13363,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b0a93ffd62df6dae4750a71875f77e24250d4169"
@@ -12955,6 +13387,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b0bddc47ef4ca3986252ef0f2a22daa242427f15"
@@ -12985,6 +13418,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L12": "runs attached, but no way into or out of the main network"
   },
@@ -13012,6 +13446,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b11f8a9b8390463caf77e7adc3db6c226cfe088b"
@@ -13035,6 +13470,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b1929238d8b7cb7633b24fa6629b5bbf8ef48911"
@@ -13058,6 +13494,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b1a655113e872a26a397061747cc833b8a6932b2"
@@ -13081,6 +13518,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b253b1283c1d06a015d07ec4f2d4211858ed3edb"
@@ -13104,6 +13542,7 @@
    27
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b28af962323890eb2dc4f2705ed7b6893d894add"
@@ -13127,6 +13566,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b2b17f3b9d21a8d5f61a25fbd662766b17b4d8ad"
@@ -13156,6 +13596,7 @@
    40
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L15": "bottom: no run within 500 m"
   },
@@ -13181,6 +13622,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b457f7e14191ebb120ac33a540b1edc7cd554186"
@@ -13204,6 +13646,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b52af9fdfc801d31bbd6a69f9b16e1bf0f4df842"
@@ -13237,6 +13680,7 @@
    25
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L4": "runs attached, but no way into or out of the main network",
@@ -13270,6 +13714,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b66cd0bd82cf0860c0b65dbe7ba26066f8463554"
@@ -13293,6 +13738,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b7443d19e7d96e34523f321fcfd44bddd0d9aca4"
@@ -13316,6 +13762,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b7833ccfbf2f1d33ea1771f80296d89830bc2d6d"
@@ -13339,6 +13786,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b85ed4089d26f2edac6ea2ee44d0c49ff5172866"
@@ -13365,6 +13813,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "K": "runs attached, but no way into or out of the main network",
    "B": "runs attached, but no way into or out of the main network"
@@ -13391,6 +13840,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "b9dc9702b0595480837d45098fa72c625df05c55"
@@ -13414,6 +13864,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bb859b4269eb6f934c05064197bbc9b80c57185f"
@@ -13437,6 +13888,7 @@
    44
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bbbfaa27816f58cfdfecc5b692b0ee59dde891f5"
@@ -13462,6 +13914,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "runs attached, but no way into or out of the main network"
   },
@@ -13511,6 +13964,7 @@
    20
   ],
   "quality": "onvolledig",
+  "listing": "hidden: under half the lifts connected",
   "why": {
    "1": "bottom: no run within 500 m",
    "5": "runs attached, but no way into or out of the main network",
@@ -13550,6 +14004,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bc0361849d0e6e33ef5d9cd035522200a3125df1"
@@ -13575,6 +14030,7 @@
    28
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bc0ee62d23f20f8e6f30661302cd2a2d3ee2a897"
@@ -13598,6 +14054,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bcc0ce007a2e96485c7c5b8a25c100d44615c14c"
@@ -13621,6 +14078,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bd20a22098680c5ef7617fda5fe3a4c854f56a3c"
@@ -13647,6 +14105,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bd7b3458f542e69b67d1aadb4d474ffe5f5aa157"
@@ -13670,6 +14129,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bdd08a03378f40f323db3efc27d51bafea12c040"
@@ -13696,6 +14156,7 @@
    6
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network"
@@ -13724,6 +14185,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bf84a37cc70d5392f741ffad9d2cfb34e79ed42f"
@@ -13747,6 +14209,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bfaf7859a62833a0ffbe369e6009dd1b662e10a9"
@@ -13770,6 +14233,7 @@
    28
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "bffad13dcc96a8c292c819dc670726b0be3a7f5d"
@@ -13797,6 +14261,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "A": "runs attached, but no way into or out of the main network",
    "B": "runs attached, but no way into or out of the main network",
@@ -13824,6 +14289,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c1ae8c3b7620eecf6bc1981c79ded91aaa1ae568"
@@ -13847,6 +14313,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c1bb41346278aa404c3e62769608553e1d22d149"
@@ -13870,6 +14337,7 @@
    29
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c259ea609011ea98e4062c559b3b31c5cf2d7524"
@@ -13893,6 +14361,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c2d3d65ebe065fbf5a84ab6887168c8403d2fc28"
@@ -13916,6 +14385,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c2d815c7960d40f5ef2ea4f7e826f2423d97e44e"
@@ -13948,6 +14418,7 @@
    13
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "15": "runs attached, but no way into or out of the main network",
    "L1": "runs attached, but no way into or out of the main network",
@@ -13982,6 +14453,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L2": "runs attached, but no way into or out of the main network"
   },
@@ -14016,6 +14488,7 @@
    17
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network",
@@ -14050,6 +14523,7 @@
    27
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c321766df512ba35d713dac3f9517527c067bb4a"
@@ -14075,6 +14549,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network"
   },
@@ -14100,6 +14575,7 @@
    22
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c349bb235a74def4c527ddf3fdb200ce99c18fe2"
@@ -14123,6 +14599,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c443cc1044843c9e8087e6c40fe118eb8d8fa18b"
@@ -14156,6 +14633,7 @@
    21
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L16": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -14192,6 +14670,7 @@
    29
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network",
@@ -14226,6 +14705,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c59eb5ea73c7ee28d4d4bc11ff9701156f9ee17d"
@@ -14255,6 +14735,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -14284,6 +14765,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c75c6ca036981ab96a6547398e30e705a9e30809"
@@ -14310,6 +14792,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c79f434116ab6555cbe73845867dcac62ecea953"
@@ -14333,6 +14816,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c8547268e6587eee86cfcdba99a0265eb20118ba"
@@ -14356,6 +14840,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c85b6de868247191eb8068ee3e485ab9df0dbfee"
@@ -14385,6 +14870,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "V": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -14413,6 +14899,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L3": "runs attached, but no way into or out of the main network"
@@ -14439,6 +14926,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c8df10ba59b2c80f2302566b5b0b9958292c8075"
@@ -14471,6 +14959,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L5": "runs attached, but no way into or out of the main network",
    "L6": "runs attached, but no way into or out of the main network",
@@ -14508,6 +14997,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "K": "bottom: nearest run 470 m"
   },
@@ -14533,6 +15023,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "c9f7bd1feef91e49dbdae4831ed347243b5dfa33"
@@ -14558,6 +15049,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cb17ba3f010488194237ab23a00c94f211bf46da"
@@ -14581,6 +15073,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cb33e8a24970287d50b90c1871433c93164de4e3"
@@ -14604,6 +15097,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cb461faaed3fbddd289cb3d86c6d8a7bbb4649bd"
@@ -14627,6 +15121,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cb8c6de1ef0955c0dc5db93eeea711855c0a2ac0"
@@ -14658,6 +15153,7 @@
    19
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cc230857c5e1b30400e87df6ecaaf2c47e02aebe"
@@ -14681,6 +15177,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cdf9fe4555d883edac5cf2896c70ca34ab763f95"
@@ -14704,6 +15201,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ce27bffab42bb84f428aa6a5f1e3b3889536dc6b"
@@ -14727,6 +15225,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cecc6336ead1c4d3fd9e805c04004885f10e32f2"
@@ -14750,6 +15249,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cede63bd5d98d56e4c424bf3d57e851e57caf33d"
@@ -14773,6 +15273,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "cfbb98a11ce32418f403f52e0b12e1cbd81b1e17"
@@ -14796,6 +15297,7 @@
    26
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d09876081e42349fefcd79d88991e34820af2a16"
@@ -14819,6 +15321,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d10f2f21ec726d6ca8de5886b078f40426870c4b"
@@ -14887,6 +15390,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "L1": "runs attached, but no way into or out of the main network",
    "L5": "runs attached, but no way into or out of the main network",
@@ -14953,6 +15457,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network"
   },
@@ -14978,6 +15483,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d2e1e84c6527c29dc0f4fbd22c9f7fd34bd61480"
@@ -15003,6 +15509,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d3c7b897d3dac0b590961eb352677d3070e52fe1"
@@ -15026,6 +15533,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d3d69f021189f84fe11396cd2078f905ebd0beb9"
@@ -15051,6 +15559,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "A": "runs attached, but no way into or out of the main network"
   },
@@ -15076,6 +15585,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d42867feac2bb103b3cb1c084f707679f7373bfa"
@@ -15099,6 +15609,7 @@
    15
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d42aa81cb4e1cba7f24c0f4f19a158df01fe6086"
@@ -15122,6 +15633,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d439a81c89522f99d9f58daedda995c9b189d301"
@@ -15148,6 +15660,7 @@
    11
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d45b83e0e69c153a4880dd640f9e6c00a53401a7"
@@ -15171,6 +15684,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d49fb763370f4ddb93f355430d537911de694958"
@@ -15196,6 +15710,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d4c30482dd7589be58b5597546bab89f29722bc2"
@@ -15219,6 +15734,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d4cb3282136b8577609eab37f579b5fdff4480a7"
@@ -15242,6 +15758,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d54a7899a76181e766fba54c7b3ef6d4c1b783e3"
@@ -15265,6 +15782,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d5a7de306263a468a29d6d1c9fa093ed27b6452d"
@@ -15288,6 +15806,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d5c3e4c741c115e23486469898b9325a51289e1b"
@@ -15311,6 +15830,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d5e7592301c0a122ea8e807a2659d29a7e21beee"
@@ -15340,6 +15860,7 @@
    33
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L23": "bottom: nearest run 238 m; top: nearest run 285 m"
   },
@@ -15365,6 +15886,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d63d2e6deda516a3c67bc526cbda3f54370ad1e8"
@@ -15388,6 +15910,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d6419e857f84da3c06e3c910a1f0122eb3f8fba1"
@@ -15419,6 +15942,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L2": "runs attached, but no way into or out of the main network",
    "L6": "runs attached, but no way into or out of the main network",
@@ -15456,6 +15980,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "1a": "runs attached, but no way into or out of the main network",
    "L1": "runs attached, but no way into or out of the main network",
@@ -15488,6 +16013,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d7a1340b104edf73827525c56925c83e4a7d0733"
@@ -15511,6 +16037,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d82e28553db93364cfe7d4b915d6123cca23099c"
@@ -15534,6 +16061,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d9332bf3676666dc7fb5749ff99faf2f6edc0d59"
@@ -15559,6 +16087,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L2": "runs attached, but no way into or out of the main network"
   },
@@ -15584,6 +16113,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d9965566ba3a7abba8abc92d7b1dcec002cf86de"
@@ -15611,6 +16141,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "d9ac8983541d7960d801802ce64751267338b5e4"
@@ -15640,6 +16171,7 @@
    4
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L3": "runs attached, but no way into or out of the main network",
    "L6": "runs attached, but no way into or out of the main network",
@@ -15668,6 +16200,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "daeda6699aff32076cc90fd43fc0eaf0156ce7cd"
@@ -15695,6 +16228,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: nearest run 229 m"
   },
@@ -15722,6 +16256,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "dbc0bc60b1e30a0037ee606b5cc5841e4239d35c"
@@ -15745,6 +16280,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "dbf72bafe6c5e03414df9ef1c4d842592dda11da"
@@ -15770,6 +16306,7 @@
    23
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "dcb15d6d8592e307e3cf6da3bc1dd4e759d75d90"
@@ -15798,6 +16335,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ddc84744a5056544e511606c3a03c2ff53efbb0f"
@@ -15823,6 +16361,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L2": "runs attached, but no way into or out of the main network"
   },
@@ -15848,6 +16387,7 @@
    29
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "de350ad7968df87ff7ca6ef38f27963ca0c2ec2a"
@@ -15874,6 +16414,7 @@
    51
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "de4f884c40976fe9d18c23d0bab174c1d6b79218"
@@ -15899,6 +16440,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "de62da63231c90907f454ddbd3d8f4a280e219d4"
@@ -15931,6 +16473,7 @@
    47
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "13": "runs attached, but no way into or out of the main network",
    "29": "bottom: nearest run 245 m",
@@ -15958,6 +16501,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "deedc021e3c6f4862d261652d36b41e693d11561"
@@ -15989,6 +16533,7 @@
    17
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "XII": "runs attached, but no way into or out of the main network",
    "XV": "runs attached, but no way into or out of the main network",
@@ -16018,6 +16563,7 @@
    17
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "df4c0541e78ace196a344e169cb23e9464c26224"
@@ -16041,6 +16587,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "df9a26b589d512af30d78fa6ad55e745a3a677e3"
@@ -16064,6 +16611,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e00ad7b65bd8cbf38b5fe3a45cbcbdb5f0c68e87"
@@ -16087,6 +16635,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e057dafbfd136ff8ff80097cc7fa1d9000c46d2a"
@@ -16110,6 +16659,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e0e82fa69c646dc18fd3f42b53806d7f1a4c98b5"
@@ -16135,6 +16685,7 @@
    41
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e13d9d82f727b3101571e54b9aeeb900a8286337"
@@ -16160,6 +16711,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e18255e7d2167bde2ed8fb9099d3b4e3dfd3f1a3"
@@ -16183,6 +16735,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e440360d8662ceeb6c358b6d5ad9f9614014a8a7"
@@ -16206,6 +16759,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e46979235b7900d705c2748e4571a7dccaf6aefe"
@@ -16229,6 +16783,7 @@
    38
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e587928ea763f20b3232a5069c5d2438d09b6908"
@@ -16252,6 +16807,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e5aebd95738452e2967b4b9cce0a50b1822a6dde"
@@ -16275,6 +16831,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e5f2ecffbec19f6ada9be3680c33c156b3795b68"
@@ -16308,6 +16865,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "212": "runs attached, but no way into or out of the main network",
    "215": "runs attached, but no way into or out of the main network",
@@ -16339,6 +16897,7 @@
    32
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e61adbd637839187e907618f82887995b324f482"
@@ -16362,6 +16921,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e6785badc6edee0517405a996973fe5020974cda"
@@ -16385,6 +16945,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e6a74235073fc0517ccdd08109a1f10e6ccc60d5"
@@ -16408,6 +16969,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e76c1a9500f5a340efbbf72368114f1d13939676"
@@ -16431,6 +16993,7 @@
    33
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e7c4c03bd7f9a3d907ff566775cfba1823bcf2ae"
@@ -16454,6 +17017,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e803e6b7f511dd24e94cbe8882324020e9cc013f"
@@ -16477,6 +17041,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e876d1a921e6e04fed57331a03f9f5298a20e069"
@@ -16500,6 +17065,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "e8a6ca6d3428fe6f8834452132ac04f0fce1ebca"
@@ -16526,6 +17092,7 @@
    9
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L9": "bottom: nearest run 381 m; top: no run within 500 m",
    "L9r": "bottom: no run within 500 m; top: nearest run 381 m"
@@ -16554,6 +17121,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ea9dfe26da36c33e8cf007b22b628c153ac69ab4"
@@ -16599,6 +17167,7 @@
    17
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "21": "runs attached, but no way into or out of the main network",
    "22": "runs attached, but no way into or out of the main network",
@@ -16643,6 +17212,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "eca584f2dff15b85832e337cf8e9e93259bb060e"
@@ -16666,6 +17236,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "eca9675beb234d219763dd324641fda72768f5db"
@@ -16696,6 +17267,7 @@
    28
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {},
   "osd": [
    "ee4a88d48636b7002270cc56a8c243627499e001"
@@ -16721,6 +17293,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "B18": "runs attached, but no way into or out of the main network"
   },
@@ -16771,6 +17344,7 @@
    8
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "13": "runs attached, but no way into or out of the main network",
    "14": "runs attached, but no way into or out of the main network",
@@ -16822,6 +17396,7 @@
    53
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L13": "runs attached, but no way into or out of the main network",
    "L30": "runs attached, but no way into or out of the main network",
@@ -16850,6 +17425,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "efcb8ce39fdff9fbf1d8918742699b95077bbca0"
@@ -16873,6 +17449,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "eff3c7c671d2a85838ae69b9e282f04bdf663d44"
@@ -16896,6 +17473,7 @@
    13
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f04f5c36668c9ba4e5256ccbd611698f3df75688"
@@ -16921,6 +17499,7 @@
    10
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f09500d7cff4036c5241afa941f84b4e17187cea"
@@ -16944,6 +17523,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f09b2df684ab0fac8edae2fe546f7cada93f72b8"
@@ -16967,6 +17547,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f0f1464ccf3931c0f102675ad57d66599b2391af"
@@ -16992,6 +17573,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f1ae030e9b17ac258bb0eb30a0f769106518dfcd"
@@ -17017,6 +17599,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f21450a542a05b0b1d7dc7e647189168f962fa66"
@@ -17040,6 +17623,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f3b4e79c767462bfb7b253fd94d2840cc52d7e1a"
@@ -17063,6 +17647,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f3c460921997b7a952418bdb735251e921e89466"
@@ -17090,6 +17675,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "H": "bottom: no run within 500 m"
   },
@@ -17115,6 +17701,7 @@
    73
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f47f7e05cc676b25b6a00f77f0b86a897f03018c"
@@ -17138,6 +17725,7 @@
    5
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f5012c2e28919e74195713107bb17f13079554ae"
@@ -17167,6 +17755,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "L1": "bottom: no run within 500 m; top: no run within 500 m"
   },
@@ -17192,6 +17781,7 @@
    14
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f54edf4eb846b74ae58ad68a608eef4ae1599627"
@@ -17223,6 +17813,7 @@
    3
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "F": "runs attached, but no way into or out of the main network",
    "L1": "bottom: nearest run 228 m; top: nearest run 340 m"
@@ -17256,6 +17847,7 @@
    5
   ],
   "quality": "onvolledig",
+  "listing": "deels",
   "why": {
    "L1": "bottom: nearest run 379 m; top: nearest run 433 m",
    "L3": "bottom: nearest run 438 m; top: no run within 500 m"
@@ -17285,6 +17877,7 @@
    41
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f5fcc0e543cfb0e4d50280c286081c27d975697f"
@@ -17308,6 +17901,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f67fcfdc97b272689e469e104b225613395ef66a"
@@ -17331,6 +17925,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f6bd4222e297e614f61284c0b8bed442dd7bad3b"
@@ -17354,6 +17949,7 @@
    9
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f7dc751e2a702b78afc47b42214106bc336a0f97"
@@ -17377,6 +17973,7 @@
    20
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f8176e48416adcfc9118014d5c390cd2099a6a18"
@@ -17400,6 +17997,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f83cb97ace9308e949a7638a1922ba589f5cc40d"
@@ -17423,6 +18021,7 @@
    12
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f8a135103929215d692c27c3b10670b5b8ff1e7b"
@@ -17452,6 +18051,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f93e740601821a663803ec50529854339b744b27"
@@ -17477,6 +18077,7 @@
    26
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f94a892361e284e65c670fa761f010ba207ff189"
@@ -17506,6 +18107,7 @@
    44
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "L11": "runs attached, but no way into or out of the main network"
   },
@@ -17533,6 +18135,7 @@
    18
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f9d49079770850663f3c200a1956a203489c57ac"
@@ -17556,6 +18159,7 @@
    7
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "f9f0996b409d5b929c4bf2ecb6ea1915037b700f"
@@ -17581,6 +18185,7 @@
    16
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fa473fa12ab6059b9e93af8498afa0efdea2cff6"
@@ -17625,6 +18230,7 @@
    67
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "200": "bottom: nearest run 318 m",
    "201": "runs attached, but no way into or out of the main network",
@@ -17663,6 +18269,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "faa3b5961985ac8abe14b00d07ca7235b4eef86b"
@@ -17686,6 +18293,7 @@
    8
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fafa43aac37c73502229a75ea9bd44ad2c66dcba"
@@ -17709,6 +18317,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fb20868f99b43dbfe8cf7195c47619680ac21f37"
@@ -17732,6 +18341,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fc29dc943652ee283066ab19aa9eb0a74e5ef8e9"
@@ -17765,6 +18375,7 @@
    27
   ],
   "quality": "onvolledig",
+  "listing": "ok",
   "why": {
    "X": "bottom: no run within 500 m; top: no run within 500 m",
    "L3": "runs attached, but no way into or out of the main network",
@@ -17803,6 +18414,7 @@
    7
   ],
   "quality": "onvolledig",
+  "listing": "hidden: several separate domains",
   "why": {
    "Ca": "runs attached, but no way into or out of the main network",
    "L7": "runs attached, but no way into or out of the main network",
@@ -17835,6 +18447,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fc89413ef26e4479473070112eb1e72e15b3d23f"
@@ -17860,6 +18473,7 @@
    6
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fcd953f477b9b444439b177eda3e3c8a0aafda65"
@@ -17883,6 +18497,7 @@
    25
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fd0ec06eda21e684cc4b06fe2d8d2b4f685ca07f"
@@ -17906,6 +18521,7 @@
    21
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fd2502303c53c45c2a6c5dd332f5105bb3c95179"
@@ -17933,6 +18549,7 @@
    19
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {
    "72": "bottom: no run within 500 m"
   },
@@ -17958,6 +18575,7 @@
    11
   ],
   "quality": "automatisch",
+  "listing": "ok",
   "why": {},
   "osd": [
    "fe93095197fc1a4226c781072a9ce1c877bc18b2"

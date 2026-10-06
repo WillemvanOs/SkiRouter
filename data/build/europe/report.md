@@ -12,6 +12,8 @@ Why lifts fall outside their area's main network: runs attached, no way into/out
 
 Areas made of several separate parts (ski passes covering several domains): 40
 
+In the app: **ok** 546 · **hidden: several separate domains** 32 · **deels** 33 · **hidden: under half the lifts connected** 6 · **curated elsewhere** 1
+
 ## The 40 biggest areas
 
 | Area | Country | Lifts | km | Connected | Parts | Label | Lifts outside the main network |

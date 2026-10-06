@@ -236,6 +236,113 @@ main {
   color: #888;
 }
 
+.area-search-form {
+  margin-bottom: 10px;
+}
+
+.area-search {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; /* below 16px, iPhones zoom in on focus */
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.area-search:focus {
+  border-color: var(--alpine);
+}
+
+.area-near-btn {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  border: 1.5px dashed #c9d6e6;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--alpine);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.area-group {
+  margin-top: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #999;
+}
+
+.area-country {
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.area-country > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.area-country > summary::-webkit-details-marker {
+  display: none;
+}
+
+.area-count {
+  font-size: 0.78rem;
+  color: #888;
+  font-weight: 600;
+}
+
+.area-country[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 10px;
+}
+
+.area-country[open] > .area-btn {
+  width: auto;
+  margin: 0 10px;
+}
+
+.area-btn-facts {
+  font-size: 0.78rem;
+  color: var(--alpine);
+  font-weight: 600;
+}
+
+.area-btn-warn {
+  font-size: 0.75rem;
+  color: #b9770e;
+  font-weight: 600;
+}
+
+.area-credit {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  color: #999;
+  text-align: center;
+}
+
+.area-credit a {
+  color: inherit;
+}
+
 .area-loading,
 .area-error {
   padding: 16px 4px;
@@ -585,6 +692,12 @@ main {
   white-space: nowrap;
 }
 
+.station-item-nr:empty,
+.lift-code:empty,
+.chosen-nr:empty {
+  display: none;
+}
+
 .station-item-alt {
   font-size: 0.75rem;
   font-weight: 700;
@@ -906,6 +1019,7 @@ main {
 .sign-rood     { background: var(--red); }
 .sign-zwart    { background: var(--black); }
 .sign-noname   { font-size: 1.3rem; }
+.sign-long     { font-size: 1.15rem; letter-spacing: 0; }
 
 /* Ski route: a diamond, like the orange/yellow markers on the mountain. */
 .sign-skiroute {
