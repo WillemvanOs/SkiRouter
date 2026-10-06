@@ -38,6 +38,7 @@ const OUT = args.out || (EUROPE_MODE ? 'build/europe' : 'build');
 const AREA_DIR = EUROPE_MODE ? `${OUT}/areas` : OUT;
 const CACHE = process.env.OSD_CACHE || '/tmp/openskidata';
 const SPILL = `${CACHE}/spill`;
+const SAMPLE = new Set(String(args.sample || '').split(',').filter(Boolean)); // also copy these to <out>/sample/
 mkdirSync(AREA_DIR, { recursive: true });
 mkdirSync(CACHE, { recursive: true });
 rmSync(SPILL, { recursive: true, force: true });
@@ -109,7 +110,7 @@ for (const meta of areas.values()) {
   const input = await readSpill(meta.id);
   if (!input) { skipped++; continue; }
   const overrides = existsSync(`overrides/${meta.id}.json`) ? JSON.parse(readFileSync(`overrides/${meta.id}.json`, 'utf8')) : {};
-  const { area } = compileArea(input, {
+  const { area, diagnostics } = compileArea(input, {
     id: meta.id,
     name: overrides.name || meta.name || meta.id,
     subtitle: overrides.subtitle || [meta.region, meta.country].filter(Boolean).join(', '),
@@ -124,8 +125,11 @@ for (const meta of areas.values()) {
     continue;
   }
   const quality = overrides.reviewed ? 'gecontroleerd' : report.quality;
+  const why = Object.fromEntries(report.outsideMainNetwork.map(nr =>
+    [nr, [diagnostics[`${nr}-onder`], diagnostics[`${nr}-boven`]].filter(Boolean).join('; ') || 'runs attached, but no way into or out of the main network']));
   reports[meta.id] = { name: area.name, country: meta.country, region: meta.region, ...report, quality,
-    osd: meta.osd, inputLifts: input.lifts.length, inputRuns: input.runs.length };
+    why, osd: meta.osd, inputLifts: input.lifts.length, inputRuns: input.runs.length };
+  if (SAMPLE.has(meta.id)) { mkdirSync(`${OUT}/sample`, { recursive: true }); writeFileSync(`${OUT}/sample/${meta.id}.json`, JSON.stringify(area) + '\n'); }
   writeFileSync(`${AREA_DIR}/${meta.id}.json`, JSON.stringify(area) + '\n');
   const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
   index.push({ id: meta.id, name: area.name, country: meta.country, region: meta.region, centre,
@@ -174,8 +178,16 @@ function summary(reports, skipped) {
   const quality = by('quality');
   const countries = Object.entries(by('country')).sort((a, b) => b[1] - a[1]);
   const big = [...rows].sort((a, b) => b.pistesKm - a.pistesKm);
-  const line = r => `| ${r.name} | ${r.country} | ${r.lifts} | ${r.pistesKm} | ${r.connectedShare}% | ${r.quality} | ${r.outsideMainNetwork.slice(0, 6).join(' ')}${r.outsideMainNetwork.length > 6 ? ' …' : ''} |`;
-  const head = '| Area | Country | Lifts | km | Connected | Label | Lifts outside the main network |\n|---|---|---|---|---|---|---|';
+  const line = r => `| ${r.name} | ${r.country} | ${r.lifts} | ${r.pistesKm} | ${r.connectedShare}% | ${r.domains.join('+') || '-'} | ${r.quality} | ${r.outsideMainNetwork.slice(0, 6).join(' ')}${r.outsideMainNetwork.length > 6 ? ' …' : ''} |`;
+  const head = '| Area | Country | Lifts | km | Connected | Parts | Label | Lifts outside the main network |\n|---|---|---|---|---|---|---|---|';
+  const causes = {};
+  rows.forEach(r => Object.values(r.why || {}).forEach(w => {
+    const k = /no run within/.test(w) ? 'no run within 500 m of a station'
+      : /filtered by elevation/.test(w) ? 'run nearby but at another level'
+      : /nearest run/.test(w) ? 'nearest run 80–500 m from a station'
+      : 'runs attached, no way into/out of the main network';
+    causes[k] = (causes[k] || 0) + 1;
+  }));
   const shares = rows.map(r => r.connectedShare).sort((a, b) => a - b);
   const pct = f => shares[Math.floor(shares.length * f)] ?? '-';
   return [
@@ -188,6 +200,10 @@ function summary(reports, skipped) {
     `Share of lift stations that can all reach each other: p10 ${pct(0.1)}% · median ${pct(0.5)}% · p90 ${pct(0.9)}%`,
     '',
     `Per country: ${countries.map(([c, n]) => `${c} ${n}`).join(' · ')}`,
+    '',
+    `Why lifts fall outside their area's main network: ${Object.entries(causes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}: ${v}`).join(' · ')}`,
+    '',
+    `Areas made of several separate parts (ski passes covering several domains): ${rows.filter(r => r.domains.length > 1).length}`,
     '',
     '## The 40 biggest areas',
     '',

@@ -117,6 +117,7 @@ export function compileArea(input, meta = {}) {
   });
   // Lift stations: the nearest point of every run close by.
   const attach = { top: new Map(), bottom: new Map() }; // station id -> Set(vertex)
+  const diagnostics = {}; // station id -> why no run is attached (for the report)
   for (const s of stations) {
     const perRun = new Map();
     for (const id of grid.near(s.x, s.y, STATION_SNAP_M)) {
@@ -130,6 +131,18 @@ export function compileArea(input, meta = {}) {
     }
     const set = new Set([...perRun.values()].map(h => { junction[h.id] = 1; return h.id; }));
     (s.side === 'boven' ? attach.top : attach.bottom).set(s.id, set);
+    if (!set.size) {
+      // For the report: how far off is the nearest run, and was it only the
+      // elevation check that kept it out?
+      let near = null;
+      for (const id of grid.near(s.x, s.y, 500)) {
+        const d = dist(V[id], s);
+        if (d <= 500 && (!near || d < near.d)) near = { d, e: V[id].e };
+      }
+      diagnostics[s.id] = near
+        ? `${s.side === 'boven' ? 'top' : 'bottom'}: nearest run ${Math.round(near.d)} m${near.d <= STATION_SNAP_M ? ' (filtered by elevation)' : ''}`
+        : `${s.side === 'boven' ? 'top' : 'bottom'}: no run within 500 m`;
+    }
   }
 
   // Edges between consecutive junctions along each run.
@@ -261,7 +274,7 @@ export function compileArea(input, meta = {}) {
     restaurants: [],
     pisteLijnen,
   };
-  return { area, report: validate(area) };
+  return { area, report: validate(area), diagnostics };
 }
 
 // ── Shortest descents ────────────────────────────────────────────────────────
@@ -373,6 +386,10 @@ export function validate(area) {
   const noWayDown = real.filter(l => !topsWithDescent.has(l.liftNr) && !transfers.some(t => t.includes(`${l.liftNr}-boven`)));
   const noWayIn = real.filter(l => !bottomsReached.has(l.liftNr) && !transfers.some(t => t.includes(`${l.liftNr}-onder`)));
   const share = stations.length ? biggest.size / stations.length : 0;
+  // Separate parts of the area (no way between them in either direction),
+  // with at least 3 lifts: more than one suggests a ski pass of several
+  // domains rather than one connected ski area.
+  const parts = groups(stations, adj).filter(g => g.size >= 3).map(g => g.size).sort((a, b) => b - a);
   const quality = real.length && share >= 0.9 && noWayDown.length <= Math.max(1, real.length * 0.1) ? 'automatisch' : 'onvolledig';
   return {
     lifts: real.length,
@@ -383,8 +400,29 @@ export function validate(area) {
     noWayDown: noWayDown.map(l => l.liftNr),
     noWayIn: noWayIn.map(l => l.liftNr),
     outsideMainNetwork: stations.filter(s => !biggest.has(s)).map(s => s.slice(0, -'-onder'.length)),
+    domains: parts,
     quality,
   };
+}
+
+// Groups of lift bottoms linked in any direction (undirected components).
+function groups(stations, adj) {
+  const und = new Map();
+  const link = (a, b) => { if (!und.has(a)) und.set(a, new Set()); und.get(a).add(b); };
+  for (const [a, set] of adj) for (const b of set) { link(a, b); link(b, a); }
+  const seen = new Set(), out = [];
+  for (const s of stations) {
+    if (seen.has(s)) continue;
+    const group = new Set(), stack = [s];
+    seen.add(s);
+    while (stack.length) {
+      const n = stack.pop();
+      if (n.endsWith('-onder') && stations.includes(n)) group.add(n);
+      for (const m of und.get(n) || []) if (!seen.has(m)) { seen.add(m); stack.push(m); }
+    }
+    out.push(group);
+  }
+  return out;
 }
 
 // Biggest set of lift bottoms that can all reach each other.

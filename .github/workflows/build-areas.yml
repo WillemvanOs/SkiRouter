@@ -21,6 +21,10 @@ on:
         type: choice
         options: [config, europe]
         default: config
+      sample:
+        description: Europe only — area ids (comma-separated) to also commit in full, for review
+        type: string
+        default: ''
   push:
     branches-ignore: [main]
     paths:
@@ -64,9 +68,10 @@ jobs:
       - name: Build (Europe)
         if: inputs.scope == 'europe'
         run: |
-          node tools/build-areas.mjs --europe --out build/europe
+          node tools/build-areas.mjs --europe --out build/europe --sample "${{ inputs.sample }}"
           mkdir -p data/build/europe
           cp build/europe/index.json build/europe/report.json build/europe/report.md data/build/europe/
+          if [ -d build/europe/sample ]; then rm -rf data/build/europe/sample; cp -r build/europe/sample data/build/europe/; fi
           du -sh build/europe/areas
           cat build/europe/report.md >> "$GITHUB_STEP_SUMMARY"
 
