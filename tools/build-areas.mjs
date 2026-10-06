@@ -240,5 +240,11 @@ function applyOverrides(area, o) {
     const drop = new Set(o.drop.afdalingen.map(p => p.join('>')));
     area.afdalingen = area.afdalingen.filter(d => !drop.has(`${d.van}>${d.naar}`));
   }
-  if (o.verbindingen) area.verbindingen = o.verbindingen;
+  // Hand-made links (e.g. a ski bus) come on top of the generated walks; a
+  // hand-made link between the same two stations replaces the walk.
+  if (o.verbindingen) {
+    const key = v => [v.van, v.naar].sort().join('|');
+    const own = new Set(o.verbindingen.map(key));
+    area.verbindingen = [...area.verbindingen.filter(v => !own.has(key(v))), ...o.verbindingen];
+  }
 }
