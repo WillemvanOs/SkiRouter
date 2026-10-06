@@ -2,6 +2,12 @@
 # tools/build-areas.mjs and commits them, with a validation report, to
 # data/build/ on the same branch for review.
 #
+# Scope "config" (default, and on a push) builds the areas in
+# tools/build-areas.config.json. Scope "europe" builds every European ski
+# area: the area files are kept as a download on the run (artifact
+# "europe-areas"); only index.json and the report are committed, to
+# data/build/europe/.
+#
 # Runs by hand (Actions → "Build ski areas" → Run workflow), or on a push to a
 # branch other than main that changes the build script, its config or an
 # override.
@@ -9,6 +15,12 @@ name: Build ski areas
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Which areas to build
+        type: choice
+        options: [config, europe]
+        default: config
   push:
     branches-ignore: [main]
     paths:
@@ -28,7 +40,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -45,8 +57,26 @@ jobs:
           path: /tmp/openskidata
           key: openskidata-${{ steps.date.outputs.day }}
 
-      - name: Build
+      - name: Build (configured areas)
+        if: inputs.scope != 'europe'
         run: node tools/build-areas.mjs --out data/build
+
+      - name: Build (Europe)
+        if: inputs.scope == 'europe'
+        run: |
+          node tools/build-areas.mjs --europe --out build/europe
+          mkdir -p data/build/europe
+          cp build/europe/index.json build/europe/report.json build/europe/report.md data/build/europe/
+          du -sh build/europe/areas
+          cat build/europe/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the Europe area files
+        if: inputs.scope == 'europe'
+        uses: actions/upload-artifact@v4
+        with:
+          name: europe-areas
+          path: build/europe/areas
+          retention-days: 14
 
       - name: Commit result
         run: |
