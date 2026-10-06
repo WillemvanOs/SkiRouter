@@ -18,7 +18,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
   a.startsWith('--') ? [...acc, [a.slice(2), all[i + 1]?.startsWith('--') ? true : all[i + 1] ?? true]] : acc, []));
 const AREAS_DIR = args.areas || 'build/europe/areas';
 const OUT = args.out || 'data/pois/europe.json';
-const BATCH = 12;          // bounding boxes per Overpass query
+const BATCH = Number(process.env.BATCH || 6);           // bounding boxes per Overpass query (halved when one times out)
 const PAUSE_MS = 3000;     // between queries
 const PAD = 0.004;         // ~400 m around an area's lifts and runs
 const KEEP_RUN_M = 100;    // keep a place this close to a run's course…
@@ -44,14 +44,43 @@ const areas = readdirSync(AREAS_DIR).filter(f => f.endsWith('.json')).map(f => {
 console.log(`${areas.length} areas`);
 
 // Batches of nearby areas (sorted west to east), one Overpass query each.
+// A batch that keeps failing (the server times out on busy areas) is split
+// in halves, down to single areas; an area that still fails keeps the places
+// it had in the previous file, and the run carries on.
 areas.sort((a, b) => a.bbox[1] - b.bbox[1]);
+const previous = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')).pois : [];
 const pois = new Map();
-for (let i = 0; i < areas.length; i += BATCH) {
-  const batch = areas.slice(i, i + BATCH);
+const failed = [];
+const batches = [];
+for (let i = 0; i < areas.length; i += BATCH) batches.push(areas.slice(i, i + BATCH));
+for (let b = 0; b < batches.length; b++) {
+  await fetchBatch(batches[b], `${b + 1}/${batches.length}`);
+}
+for (const area of failed) {
+  const kept = previous.filter(p => inBox(area.bbox, [p.lat, p.lon]));
+  kept.forEach(p => pois.set(p.id, p));
+  console.log(`- ${area.id}: not fetched, kept ${kept.length} places from the previous run`);
+}
+
+async function fetchBatch(batch, label) {
   const boxes = batch.map(a => a.bbox.map(v => v.toFixed(4)).join(','));
-  const query = `[out:json][timeout:300];(${boxes.map(b =>
+  const query = `[out:json][timeout:180];(${boxes.map(b =>
     `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
-  const data = await overpass(query);
+  let data;
+  try {
+    data = await overpass(query, 3);
+  } catch (err) {
+    if (batch.length > 1) {
+      console.log(`batch ${label}: ${err.message}; splitting it`);
+      const half = Math.ceil(batch.length / 2);
+      await fetchBatch(batch.slice(0, half), `${label}a`);
+      await fetchBatch(batch.slice(half), `${label}b`);
+    } else {
+      console.log(`batch ${label} (${batch[0].id}): ${err.message}; skipped`);
+      failed.push(batch[0]);
+    }
+    return;
+  }
   let kept = 0;
   for (const e of data.elements || []) {
     const lat = e.lat ?? e.center?.lat, lon = e.lon ?? e.center?.lon;
@@ -68,25 +97,27 @@ for (let i = 0; i < areas.length; i += BATCH) {
     });
     kept++;
   }
-  console.log(`batch ${i / BATCH + 1}/${Math.ceil(areas.length / BATCH)}: ${(data.elements || []).length} places, ${kept} on the piste`);
+  console.log(`batch ${label}: ${(data.elements || []).length} places, ${kept} on the piste`);
   await new Promise(r => setTimeout(r, PAUSE_MS));
 }
 
 const list = [...pois.values()].sort((a, b) => a.id.localeCompare(b.id));
 mkdirSync(dirname(OUT), { recursive: true });
-const before = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')).pois : null;
-if (before && JSON.stringify(before) === JSON.stringify(list)) {
+if (previous.length && JSON.stringify(previous) === JSON.stringify(list)) {
   console.log('unchanged');
 } else {
   writeFileSync(OUT, JSON.stringify({ updated: new Date().toISOString().slice(0, 10), count: list.length, pois: list }) + '\n');
-  console.log(`written ${list.length} places to ${OUT}`);
+  console.log(`written ${list.length} places to ${OUT}${failed.length ? ` (${failed.length} areas not fetched)` : ''}`);
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
+function inBox([s, w, n, e], p) {
+  return p[0] >= s && p[0] <= n && p[1] >= w && p[1] <= e;
+}
+
 function nearArea(area, p) {
-  const [s, w, n, e] = area.bbox;
-  if (p[0] < s || p[0] > n || p[1] < w || p[1] > e) return false;
+  if (!inBox(area.bbox, p)) return false;
   if (area.tops.some(t => distM(p, t) <= KEEP_TOP_M)) return true;
   return area.lines.some(line => line.some((q, i) => i > 0 && segDistM(p, line[i - 1], q) <= KEEP_RUN_M));
 }
@@ -104,23 +135,23 @@ function segDistM(p, a, b) {
   return Math.hypot(ax + t * dx, ay + t * dy);
 }
 
-async function overpass(query) {
+async function overpass(query, attempts = 3) {
   let lastErr;
-  for (let attempt = 0; attempt < 6; attempt++) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
     const url = OVERPASS[attempt % OVERPASS.length];
     try {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': UA },
         body: 'data=' + encodeURIComponent(query),
-        signal: AbortSignal.timeout(330000),
+        signal: AbortSignal.timeout(200000),
       });
       if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
       return await res.json();
     } catch (err) {
       lastErr = err;
       console.warn(`  overpass failed (${err.message}), retrying…`);
-      await new Promise(r => setTimeout(r, 15000 * (attempt + 1)));
+      await new Promise(r => setTimeout(r, 10000 * (attempt + 1)));
     }
   }
   throw lastErr;
