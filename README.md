@@ -94,7 +94,7 @@ Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not l
 
 The area picker searches names, villages, regions and countries (with a few local names:
 Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your favourites (tap ☆) on top
-and lists the rest per country. An area is downloaded when you open it and then stays
+and lists every area per country (KitzSki under Austria). An area is downloaded when you open it and then stays
 available offline. Areas without known mountain restaurants plan a day without the lunch
 box. Lifts without a number in the map data show their name only.
 
@@ -198,9 +198,10 @@ The parsers are in `tools/lib/liftstatus-providers.mjs`.
   public). It matches the names to the area's lifts with `liftmatch.js`, refreshes every 5
   minutes, and keeps the last status on the phone for offline use. Names are compared without
   accents, type words ("TSD", "8EUB", "Sesselbahn") or map codes ("A", "C3"), with Roman
-  numerals as digits; two lifts whose numbers differ are never matched. These areas are listed
-  under **● With live lift status** in the area picker. From there, everything works as
-  for KitzSki: status in the station picker, warnings, avoiding and the day planner's lift
+  numerals as digits; two lifts whose numbers differ are never matched. In the area picker
+  every area says "● Live lift status" or "○ No live lift status". Once an area is open, the
+  same line sits under its facts at the top, with the time of the last update. From there,
+  everything works as for KitzSki: status in the station picker, warnings, avoiding and the day planner's lift
   hours.
 
 ## Avoiding lifts

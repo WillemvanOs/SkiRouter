@@ -143,6 +143,16 @@ header::after {
   font-weight: 600;
 }
 
+/* Under the area's facts: live lift status or not */
+.header-live {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.header-live.is-live  { color: #6fe39b; }
+.header-live.not-live { color: rgba(225, 238, 252, 0.6); }
+
 /* Change ski area: top right, next to the logo */
 .area-switch {
   display: inline-flex;
@@ -369,8 +379,9 @@ main {
   font-weight: 600;
 }
 
-.area-live-group > summary > span:first-child {
-  color: var(--green);
+.area-btn-nolive {
+  font-size: 0.75rem;
+  color: #999;
 }
 
 .area-credit {
