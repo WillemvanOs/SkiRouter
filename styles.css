@@ -1181,6 +1181,23 @@ main {
   border-color: var(--alpine);
 }
 
+/* iPhones give time fields a native minimum width that ignores width: 100%,
+   so "Back by" ran over "Start" and out of the card. Without the native
+   look they size like any other field; the value stays left-aligned. */
+input.day-input[type="time"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  height: 40px;
+  text-align: left;
+}
+
+input.day-input[type="time"]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
+}
+
 .pace-row {
   display: flex;
   gap: 8px;
