@@ -1,10 +1,10 @@
 {
   "bron": "www.kitzski.at",
-  "sourceUpdate": "2026-10-06T11:10:27",
-  "changed": "2026-10-06T09:10:35.192Z",
+  "sourceUpdate": "2026-10-07T17:20:42",
+  "changed": "2026-10-07T15:20:59.224Z",
   "lifts": {
     "A1": {
-      "open": true,
+      "open": false,
       "hours": "08:30-17:00",
       "from": "2026-06-13",
       "to": "2026-11-01",
