@@ -152,6 +152,7 @@ header::after {
 
 .header-live.is-live  { color: #6fe39b; }
 .header-live.not-live { color: rgba(225, 238, 252, 0.6); }
+.header-live.is-stale { color: #f5c26b; }
 
 /* Above the planner the header is quieter: a smaller logo and button */
 .in-planner .logo { font-size: 1.7rem; }
@@ -539,7 +540,9 @@ main {
   color: rgba(255, 255, 255, 0.8);
   font: inherit;
   font-weight: 600;
-  padding: 4px 7px;
+  /* Taller itself rather than an invisible touch area, which would cover the
+     rest of the chosen station (that opens the station picker). */
+  padding: 8px 10px;
   cursor: pointer;
 }
 
@@ -1855,4 +1858,49 @@ select.day-input {
   font-weight: 700;
   color: #c0392b;
   cursor: pointer;
+}
+
+/* ── Touch targets ────────────────────────────────────────────
+   Small controls with nothing else to tap around them keep their look but
+   get a touch area of at least 44 × 44 px (Apple's guideline; WCAG 2.5.8
+   asks 24), easy to hit with gloves or cold fingers. Controls next to
+   another action (Avoid in a step, ✕ on a chosen station) are made
+   bigger themselves instead, so a near miss does not do the other thing. */
+.avoid-closed-btn, .area-switch, .back-btn, .link-btn {
+  position: relative;
+}
+
+.avoid-closed-btn::before, .area-switch::before, .back-btn::before, .link-btn::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+
+.tab-btn {
+  min-height: 44px;
+}
+
+.avoid-btn {
+  min-height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.chosen-reset {
+  min-width: 36px;
+  min-height: 36px;
+}
+
+#q-closed .closed-warning {
+  margin: 0 0 12px;
+}
+
+/* A required field that was left empty when planning */
+.sel-box.field-error {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
 }

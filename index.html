@@ -43,7 +43,7 @@
     <div class="card-title">🏔 Choose a ski area</div>
     <button class="area-back" id="area-back-btn" type="button" onclick="backToArea()" style="display:none"></button>
     <form class="area-search-form" action="#" onsubmit="event.preventDefault(); document.getElementById('area-search').blur()">
-      <input class="area-search" id="area-search" type="search" enterkeyhint="search"
+      <input class="area-search" id="area-search" type="search" enterkeyhint="search" aria-label="Search ski areas"
         placeholder="Search ski area, village or region…" autocomplete="off" oninput="renderAreaList()">
     </form>
     <button class="area-near-btn" id="area-near-btn" type="button" onclick="findAreasNearMe()">📍 Ski areas near me</button>
@@ -72,7 +72,7 @@
     <form class="sheet-search-form" action="#" onsubmit="sheetSearchSubmit(event)">
       <input
         class="sheet-search"
-        id="sheet-search"
+        id="sheet-search" aria-label="Search lifts and stations"
         type="search"
         enterkeyhint="go"
         placeholder="Search lift or station…"
@@ -177,6 +177,7 @@
       </div>
     </div>
 
+    <div id="q-closed"></div>
     <div class="progress" id="p-progress"></div>
     <div class="steps" id="steps"></div>
 

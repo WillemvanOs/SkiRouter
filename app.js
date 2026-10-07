@@ -488,10 +488,12 @@ function renderHeaderLiftStatus() {
   const el = document.getElementById('header-live');
   if (!el) return;
   el.style.display = currentArea ? 'block' : 'none';
-  el.className = `header-live ${liftStatusMeta ? 'is-live' : 'not-live'}`;
+  const stale = liftStatusMeta && LIFT_STATUS && liftStatusStale();
+  el.className = `header-live ${!liftStatusMeta ? 'not-live' : stale || !LIFT_STATUS ? 'is-stale' : 'is-live'}`;
   el.textContent = !liftStatusMeta ? '○ No live lift status'
-    : LIFT_STATUS ? `● Live lift status · ${liftStatusAge()}`
-    : '● Live lift status · not available right now';
+    : !LIFT_STATUS ? '● Live lift status · not available right now'
+    : stale ? `● Lift status from ${liftStatusAge().replace(/^updated /, '')} · not yet updated today`
+    : `● Live lift status · ${liftStatusAge()}`;
 }
 
 function showAreaPicker() {
@@ -768,8 +770,15 @@ function setChosenSide(routeSide) {
   }));
 }
 
+// Point at the station fields left empty: a red edge, scrolled into view.
+function markMissing(sides) {
+  sides.forEach(side => document.getElementById(`${side}-box`).classList.add('field-error'));
+  if (sides.length) document.getElementById(`${sides[0]}-box`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 function resetSide(side) {
   selected[side] = null;
+  document.getElementById(`${side}-box`).classList.remove('field-error');
   document.getElementById(`${side}-box`).style.display    = 'flex';
   document.getElementById(`${side}-chosen`).style.display = 'none';
   if (side === 'dend') setEndField(false);
@@ -977,6 +986,7 @@ function planRoute(options = {}) {
   if (!selected.from || !selected.to) {
     errorEl.textContent = 'Select a starting point and a destination.';
     errorEl.classList.add('visible');
+    markMissing(['from', 'to'].filter(side => !selected[side]));
     return;
   }
   if (selected.from.id === selected.to.id) {
@@ -1071,7 +1081,9 @@ function renderRoute(result) {
     }
   });
 
-  document.getElementById('tip').innerHTML = getTip(visibleSteps);
+  // Closed lifts first, above the steps, as in the day plan.
+  document.getElementById('q-closed').innerHTML = closedWarning(visibleSteps);
+  document.getElementById('tip').innerHTML = getTip();
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
@@ -1163,12 +1175,15 @@ function addWaypoint(parent, name, alt, icon, subtitle, delay) {
   parent.appendChild(div);
 }
 
-function getTip(steps = []) {
+function closedWarning(steps = []) {
   const closed = closedLiftsOn(steps);
-  const warning = closed.length
-    ? `<div class="closed-warning">⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</div>`
+  return closed.length
+    ? `<div class="closed-warning">⚠ ${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</div>`
     : '';
-  return warning + '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
+}
+
+function getTip() {
+  return '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
     ? `Lift status ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
     : 'Check the current opening times of your ski area before you set off.');
 }
@@ -1404,6 +1419,17 @@ function liftStatusHtml(liftNr) {
   if (!label) return '';
   const open = liftStatus(liftNr).open;
   return `<span class="lift-status ${open ? 'is-open' : 'is-closed'}">${open ? '●' : '○'} ${label}</span>`;
+}
+
+// A status from an earlier day says nothing about today's lifts.
+function liftStatusStale() {
+  const t = LIFT_STATUS?.sourceUpdate ? new Date(LIFT_STATUS.sourceUpdate) : null;
+  return !!t && !isNaN(t) && t.toDateString() !== new Date().toDateString();
+}
+
+// "Closed right now", or, with an old status, when it was last known closed.
+function closedLabel() {
+  return liftStatusStale() ? `Closed at the last update (${liftStatusAge().replace(/^updated /, '')})` : 'Closed right now';
 }
 
 // When the status was last checked against the source, in words.
