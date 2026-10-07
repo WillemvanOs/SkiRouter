@@ -153,6 +153,24 @@ header::after {
 .header-live.is-live  { color: #6fe39b; }
 .header-live.not-live { color: rgba(225, 238, 252, 0.6); }
 
+/* Above the planner the header is quieter: a smaller logo and button */
+.in-planner .logo { font-size: 1.7rem; }
+.in-planner .area-switch { padding: 5px 10px; font-size: 0.7rem; }
+
+/* In the area picker: back to the area that was open */
+.area-back {
+  display: block;
+  margin: -4px 0 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--alpine);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* Change ski area: top right, next to the logo */
 .area-switch {
   display: inline-flex;

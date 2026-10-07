@@ -473,6 +473,14 @@ function applyAreaToHeader(area) {
   document.getElementById('header-stats').style.display     = 'flex';
   renderHeaderLiftStatus();
   document.getElementById('area-switch-btn').style.display  = 'inline-flex';
+  document.body.classList.add('in-planner'); // smaller logo and button above the planner
+}
+
+// The area picker is a screen of its own: nothing about an area at the top.
+function clearAreaHeader() {
+  document.getElementById('header-tagline').textContent = 'Choose a ski area to get started';
+  ['header-stats', 'header-live', 'area-switch-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+  document.body.classList.remove('in-planner');
 }
 
 // Under the area's facts: whether it has live lift status, and how fresh.
@@ -489,9 +497,21 @@ function renderHeaderLiftStatus() {
 function showAreaPicker() {
   document.getElementById('area-search').value = '';
   renderAreaList();
+  clearAreaHeader();
+  const back = document.getElementById('area-back-btn');
+  back.style.display = currentArea ? 'block' : 'none';
+  back.textContent = currentArea ? `← Back to ${currentArea.name}` : '';
   document.getElementById('planner-cards').style.display = 'none';
   document.getElementById('area-picker').style.display   = 'block';
-  document.getElementById('area-picker').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Back from the area picker to the area that was open, as it was.
+function backToArea() {
+  if (!currentArea) return;
+  applyAreaToHeader(currentArea);
+  document.getElementById('area-picker').style.display   = 'none';
+  document.getElementById('planner-cards').style.display = 'block';
 }
 
 function resetPlanner() {
