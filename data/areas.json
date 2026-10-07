@@ -2,6 +2,7 @@
   {
     "id": "kitzski-osm",
     "name": "KitzSki",
+    "country": "AT",
     "subtitle": "Kitzbühel · Kirchberg · Jochberg · Pass Thurn · Mittersill",
     "file": "data/kitzski-osm.json",
     "liftstatus": {

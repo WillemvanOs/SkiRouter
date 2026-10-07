@@ -32,6 +32,7 @@
       <div class="stat"><strong id="stat-liften">—</strong> Lifts</div>
       <div class="stat"><strong id="stat-hoogte">—</strong> Altitude</div>
     </div>
+    <div class="header-live" id="header-live" style="display:none"></div>
   </div>
 </header>
 
@@ -40,6 +41,7 @@
   <!-- Area picker: shown first, hidden once a gebied is chosen -->
   <div class="card" id="area-picker">
     <div class="card-title">🏔 Choose a ski area</div>
+    <button class="area-back" id="area-back-btn" type="button" onclick="backToArea()" style="display:none"></button>
     <form class="area-search-form" action="#" onsubmit="event.preventDefault(); document.getElementById('area-search').blur()">
       <input class="area-search" id="area-search" type="search" enterkeyhint="search"
         placeholder="Search ski area, village or region…" autocomplete="off" oninput="renderAreaList()">

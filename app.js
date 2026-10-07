@@ -345,9 +345,9 @@ function renderAreaList() {
     section('Near you', near.map(n => ({ ...n.a, distance: n.d })));
   }
   // A folded group (tap to open), kept open across redraws.
-  const foldGroup = (key, title, areas, className = '') => {
+  const foldGroup = (key, title, areas) => {
     const box = document.createElement('details');
-    box.className = `area-country ${className}`.trim();
+    box.className = 'area-country';
     box.innerHTML = `<summary><span>${title}</span><span class="area-count">${areas.length}</span></summary>`;
     box.addEventListener('toggle', () => {
       if (box.open) openCountries.add(key); else openCountries.delete(key);
@@ -359,22 +359,9 @@ function renderAreaList() {
     if (openCountries.has(key)) box.open = true;
   };
 
-  // Areas with live lift status: the curated ones (KitzSki) in view, the
-  // European areas with a status source (tools/liftstatus-sources.mjs) folded.
-  const curated = AREAS.filter(a => a.curated && !favourites.includes(a));
-  const live = AREAS.filter(a => a.liftstatus && !a.curated);
-  if (curated.length || live.length) {
-    const label = document.createElement('div');
-    label.className = 'area-group';
-    label.textContent = 'With live lift status';
-    listEl.appendChild(label);
-    curated.forEach(a => listEl.appendChild(areaButton(a)));
-    if (live.length) foldGroup('live', `● ${curated.length ? `${live.length} more ski area${live.length === 1 ? '' : 's'}` : 'Ski areas'}`, live, 'area-live-group');
-  }
-
-  // Everything else by country, folded away: tap a country to open it.
+  // Every area by country, folded away: tap a country to open it.
   const byCountry = new Map();
-  AREAS.filter(a => !a.curated).forEach(a => {
+  AREAS.forEach(a => {
     if (!byCountry.has(a.country)) byCountry.set(a.country, []);
     byCountry.get(a.country).push(a);
   });
@@ -415,7 +402,7 @@ function areaButton(area) {
     <span class="area-btn-name">🏔 ${escapeHtml(area.name)}</span>
     <span class="area-btn-sub">${escapeHtml(where)}</span>
     ${facts ? `<span class="area-btn-facts">${facts}</span>` : ''}
-    ${area.liftstatus ? '<span class="area-btn-live">● Live lift status</span>' : ''}
+    ${area.liftstatus ? '<span class="area-btn-live">● Live lift status</span>' : '<span class="area-btn-nolive">○ No live lift status</span>'}
     ${area.status === 'deels' ? '<span class="area-btn-warn">⚠ Not all lifts are connected</span>' : ''}
   `;
   btn.addEventListener('click', () => selectArea(area));
@@ -484,15 +471,47 @@ function applyAreaToHeader(area) {
   document.getElementById('stat-liften').textContent  = stats.liften  != null ? `${stats.liften}`       : '—';
   document.getElementById('stat-hoogte').textContent  = stats.hoogte  || '—';
   document.getElementById('header-stats').style.display     = 'flex';
+  renderHeaderLiftStatus();
   document.getElementById('area-switch-btn').style.display  = 'inline-flex';
+  document.body.classList.add('in-planner'); // smaller logo and button above the planner
+}
+
+// The area picker is a screen of its own: nothing about an area at the top.
+function clearAreaHeader() {
+  document.getElementById('header-tagline').textContent = 'Choose a ski area to get started';
+  ['header-stats', 'header-live', 'area-switch-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+  document.body.classList.remove('in-planner');
+}
+
+// Under the area's facts: whether it has live lift status, and how fresh.
+function renderHeaderLiftStatus() {
+  const el = document.getElementById('header-live');
+  if (!el) return;
+  el.style.display = currentArea ? 'block' : 'none';
+  el.className = `header-live ${liftStatusMeta ? 'is-live' : 'not-live'}`;
+  el.textContent = !liftStatusMeta ? '○ No live lift status'
+    : LIFT_STATUS ? `● Live lift status · ${liftStatusAge()}`
+    : '● Live lift status · not available right now';
 }
 
 function showAreaPicker() {
   document.getElementById('area-search').value = '';
   renderAreaList();
+  clearAreaHeader();
+  const back = document.getElementById('area-back-btn');
+  back.style.display = currentArea ? 'block' : 'none';
+  back.textContent = currentArea ? `← Back to ${currentArea.name}` : '';
   document.getElementById('planner-cards').style.display = 'none';
   document.getElementById('area-picker').style.display   = 'block';
-  document.getElementById('area-picker').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Back from the area picker to the area that was open, as it was.
+function backToArea() {
+  if (!currentArea) return;
+  applyAreaToHeader(currentArea);
+  document.getElementById('area-picker').style.display   = 'none';
+  document.getElementById('planner-cards').style.display = 'block';
 }
 
 function resetPlanner() {
@@ -1354,6 +1373,7 @@ function liveLiftStatus(data, cfg) {
 
 // New status in: redraw an open station list and any route or day on screen.
 function redrawLiftStatus() {
+  renderHeaderLiftStatus();
   if (document.getElementById('sheet').style.display !== 'none') renderSheet();
   if (document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
   if (document.getElementById('day-result').classList.contains('visible') && dayOptions.length) renderDayOption(dayShown);
