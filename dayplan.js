@@ -683,7 +683,7 @@ function planDay(options = {}) {
   const lunchAt  = document.getElementById('day-lunch-at').value;
   dayBus = busAllowed('day-bus');
 
-  if (!start)                       return fail('Choose where your day starts.');
+  if (!start) { markMissing(['dstart']); return fail('Choose where your day starts.'); }
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
   if (t1 - t0 < 30)                 return fail('"Back by" must be at least half an hour after the start.');
   if (!(targetKm > 0))              return fail('Enter how many kilometres you want to ski.');
@@ -790,7 +790,7 @@ function dayNotes(walk, ctx) {
   const notes = [];
   const closed = closedLiftsOn(walk.steps.map(s => s.edge));
   if (closed.length) {
-    notes.push(`⚠ Closed right now: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')} (lift status ${liftStatusAge()}). ${avoidClosedButton(closed)}`);
+    notes.push(`⚠ ${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}${liftStatusStale() ? '' : ` (lift status ${liftStatusAge()})`}. ${avoidClosedButton(closed)}`);
   }
   const kmShort = ctx.targetKm - walk.km;
   if (kmShort > ctx.targetKm * 0.1) {
@@ -898,7 +898,8 @@ function renderDayOption(index) {
     const partTotal = parts.reduce((sum, p) => sum + (p.tijd || 0), 0) || 1;
     let partT = t;
     parts.forEach((part, partIndex) => {
-      const div = stepElement(part, number, formatClock(partT));
+      const next = walk.steps.slice(stepIndex + 1).find(s => s.edge)?.edge;
+      const div = stepElement(part, number, formatClock(partT), next);
       div.style.animationDelay = `${Math.min(number, 30) * 30}ms`;
       div.classList.add('checkable');
       div.dataset.t  = partT;
