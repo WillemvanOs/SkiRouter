@@ -1904,3 +1904,16 @@ select.day-input {
   border-color: #c0392b;
   box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
 }
+
+/* Under a lift step: which way to turn when you get off */
+.step-exit {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--alpine);
+}
+
+.step-exit .exit-arrow {
+  margin-right: 4px;
+  font-size: 1.05rem;
+}

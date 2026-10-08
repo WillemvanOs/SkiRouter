@@ -1067,8 +1067,11 @@ function renderRoute(result) {
 
   addWaypoint(stepsEl, selected.from.name, selected.from.alt, '📍', 'Start', 0);
 
+  // What comes after each lift (a transfer included), for the exit hint.
+  const nextOf = new Map(result.path.map((edge, i) => [edge, result.path[i + 1]]));
+
   visibleSteps.forEach((edge, index) => {
-    const div = stepElement(edge, index);
+    const div = stepElement(edge, index, undefined, nextOf.get(edge));
     div.style.animationDelay = `${(index + 1) * 50}ms`;
     div.classList.add('checkable');
     div.dataset.min = edge.tijd || 0;
@@ -1102,7 +1105,7 @@ function quickStatus(done, items) {
 
 // One route step (a lift or a piste) as a DOM element. `clock` is an optional
 // "09:12"-style time shown in front of the step (used by the day planner).
-function stepElement(edge, index, clock) {
+function stepElement(edge, index, clock, next) {
   const div   = document.createElement('div');
   const km = edge.km ? Math.round(edge.km * 10) / 10 : 0;
   const facts = [km ? `${km || 0.1} km` : '', edge.tijd ? `~${edge.tijd} min` : ''].filter(Boolean).join(' · ');
@@ -1152,6 +1155,7 @@ function stepElement(edge, index, clock) {
         <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
         <div class="step-actions">${liftStatusHtml(edge.liftNr)}<button class="avoid-btn" type="button" data-avoid="${edge.liftNr}" aria-label="Avoid ${edge.liftNr}">⊘ Avoid</button></div>
         <div class="step-title"><span class="lift-code">${liftCode(edge.liftNr)}</span><span class="step-name">${edge.name}</span></div>
+        ${exitHintHtml(edge, next)}
       </div>
     `;
   }
@@ -1469,6 +1473,96 @@ function distanceM([lat1, lon1], [lat2, lon2]) {
   const dLat = (lat2 - lat1) * rad, dLon = (lon2 - lon1) * rad;
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// ── Getting off a lift: left or right? ───────────────────────────────────────
+//
+// The direction you ride is the line from the station you board to the one
+// you leave. Where you go next is the next piste a little way down from
+// where it is closest to the exit station (or, when the route goes on with
+// another lift, that lift's bottom station); when the piste only starts a
+// few hundred metres away, at the end of a connecting path, it is the
+// direction of the piste itself. The angle between the two says left,
+// right, straight on or back. Both come from the map data, so there is no
+// hint when the piste is further away than that.
+
+const EXIT_PISTE_NEAR_M = 150; // a piste this close starts at the station: follow its direction
+const EXIT_PISTE_MAX_M  = 500; // further, up to this, a connecting path leads to it: head for it
+const EXIT_LOOK_M       = 80;  // how far down the piste to look for its direction
+
+// Compass bearing from a to b in degrees (flat projection).
+function bearingDeg(a, b) {
+  const kx = Math.cos(a[0] * Math.PI / 180);
+  return Math.atan2((b[1] - a[1]) * kx, b[0] - a[0]) * 180 / Math.PI;
+}
+
+// The point EXIT_LOOK_M along a line from index i, going one way (+1/-1).
+function alongLine(line, i, step) {
+  let walked = 0;
+  for (let k = i; k + step >= 0 && k + step < line.length; k += step) {
+    walked += distanceM(line[k], line[k + step]);
+    if (walked >= EXIT_LOOK_M) return line[k + step];
+  }
+  return i + step >= 0 && i + step < line.length ? line[step > 0 ? line.length - 1 : 0] : null;
+}
+
+// Where the next piste heads from the exit station: a point on it, or null.
+function pisteHeading(nr, exit, towards) {
+  let best = null;
+  (currentArea?.pisteLijnen?.[nr] || []).forEach(line => {
+    line.forEach((p, i) => {
+      const d = distanceM(exit, p);
+      if (!best || d < best.d) best = { d, line, i };
+    });
+  });
+  if (!best || best.d > EXIT_PISTE_MAX_M) return null;
+  // Not at the station: the way off the lift is towards where the piste is.
+  if (best.d > EXIT_PISTE_NEAR_M) return best.line[best.i];
+  // The piste may start at the station or pass it: of the two ways along
+  // it, take the one towards where this descent ends.
+  const options = [alongLine(best.line, best.i, 1), alongLine(best.line, best.i, -1)].filter(Boolean);
+  if (!options.length) return null;
+  if (options.length === 1 || !towards) return options[0];
+  return options.sort((a, b) => distanceM(a, towards) - distanceM(b, towards))[0];
+}
+
+// "right", "left", "ahead" or "back" from a lift towards the next step, or null.
+function exitSide(liftEdge, next) {
+  if (!liftEdge?.liftNr || !next) return null;
+  const pos = stationPositions();
+  const from = pos[liftEdge.from], exit = pos[liftEdge.to];
+  if (!from || !exit || distanceM(from, exit) < 50) return null;
+  let target = null;
+  if (next.type === 'piste') {
+    const nr = next.trajecten?.[0]?.pisteNr ?? next.pisteNr;
+    target = pisteHeading(nr, exit, pos[next.chainEnd || next.to]);
+  } else if (next.type === 'transfer' || isConnection(next)) {
+    target = pos[next.to];
+  }
+  if (!target || distanceM(exit, target) < 15) return null;
+  let angle = bearingDeg(exit, target) - bearingDeg(from, exit);
+  angle = ((angle + 540) % 360) - 180; // -180…180, positive is to the right
+  if (Math.abs(angle) <= 35) return 'ahead';
+  if (Math.abs(angle) >= 145) return 'back';
+  return angle > 0 ? 'right' : 'left';
+}
+
+// The hint under a lift step: "↱ Off the lift, turn right to piste 21".
+function exitHintHtml(liftEdge, next) {
+  const side = exitSide(liftEdge, next);
+  if (!side) return '';
+  const to = next.type === 'piste'
+    ? pisteLabel(next.trajecten?.[0]?.pisteNr ?? next.pisteNr)
+    : next.type === 'transfer'
+      ? (() => { const lift = LIFTS.find(l => l.dal === next.to || l.berg === next.to); return lift ? `lift ${[liftCode(lift.nr), lift.name].filter(Boolean).join(' ')}` : STATIONS[next.to]?.name || 'the next lift'; })()
+      : (STATIONS[next.to]?.name || 'the next stop');
+  const text = {
+    right: ['↱', `turn right to ${to}`],
+    left:  ['↰', `turn left to ${to}`],
+    ahead: ['↑', `straight on to ${to}`],
+    back:  ['↩', `turn around to ${to}`],
+  }[side];
+  return `<div class="step-exit exit-${side}"><span class="exit-arrow">${text[0]}</span> Off the lift, ${escapeHtml(text[1])}</div>`;
 }
 
 // Distance from point p to segment a–b in metres (flat projection, fine at this scale).

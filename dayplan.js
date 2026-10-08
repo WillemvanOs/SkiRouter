@@ -898,7 +898,8 @@ function renderDayOption(index) {
     const partTotal = parts.reduce((sum, p) => sum + (p.tijd || 0), 0) || 1;
     let partT = t;
     parts.forEach((part, partIndex) => {
-      const div = stepElement(part, number, formatClock(partT));
+      const next = walk.steps.slice(stepIndex + 1).find(s => s.edge)?.edge;
+      const div = stepElement(part, number, formatClock(partT), next);
       div.style.animationDelay = `${Math.min(number, 30) * 30}ms`;
       div.classList.add('checkable');
       div.dataset.t  = partT;

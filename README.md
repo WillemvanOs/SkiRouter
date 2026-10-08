@@ -124,6 +124,18 @@ The station picker lists each lift once, with its status. Picking a lift chooses
 station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
 the top station instead.
 
+## Which way off the lift
+
+Under every lift step the planners say which way to go when you get off: "↱ Off the lift,
+turn right to piste 21", left, straight on or turn around. The direction you ride is the
+line from the station you board to the one you leave. The next piste is followed for about
+80 m down from where it is closest to the exit station. When it only starts further away
+(up to 500 m, at the end of a connecting path), its nearest point is used instead. When the
+route goes on with another lift, the hint points to that lift's bottom station. Both
+directions come from the map data (`coordOnder`/`coordBoven`, `pisteLijnen`). There is no
+hint when the piste is further away, or when the data has no course for it: about 6 in 10
+lift–piste pairs in KitzSki and nearly all in the areas built from OpenSkiData get one.
+
 ## Riding a lift down
 
 Some valley stations have no piste down to them, such as G8 Panoramabahn in Hollersbach. Both
