@@ -95,7 +95,7 @@ Ski passes of several separate domains are hidden as a whole; each part with at 
 
 | Pass | Part | Lifts | Overlaps listed areas | Result | Some lifts |
 |---|---:|---:|---|---|---|
-| yllas-fi | 1 | 14 | – | listed as Ylläs (yllas-fi-9) | Jokeri-Pokeri, Perhe, Dondo, Tenava, Ylläs 1, Jokeri 1, Kulkuri, Ankkuri |
+| yllas-fi | 1 | 14 | – | listed as Ylläs (yllas-fi-part1) | Jokeri-Pokeri, Perhe, Dondo, Tenava, Ylläs 1, Jokeri 1, Kulkuri, Ankkuri |
 | cortina-d-ampezzo-it | 1 | 22 | Cortina Tofane 12, Lagazuoi - 5 Torri 8 | listed as Cortina d'Ampezzo: Cortina Tofane, Lagazuoi (cortina-d-ampezzo-cortina-tofane-lagazuo-it) | Lacedel-Socrepes, Baby Socrepes, Col Gallina, Piè Tofana - Duca d'Aosta, Roncato - Festis (Tofana Express), Falzarego, Ra Valles - Cima Tofana, Cortina Skyline (Son dei Prade - Cianzopè) |
 | san-martino-di-castrozza-passo-rolle-it | 1 | 12 | San Martino di Castrozza 12 | already listed as San Martino di Castrozza | Tognola, Scandola, Coston, Colbricon Express, Conca, Cigolera, Rododendro, Coston |
 | champery-les-crosets-champoussin-morgins-ch | 1 | 27 | Les Portes du Soleil 27 | already listed as Les Portes du Soleil | Planachaux, Babylift Planachaux, Aiguille des Champeys, Cuboré, Pauvre Conche, Truche, Mossettes, Grand Paradis |
@@ -109,7 +109,7 @@ Ski passes of several separate domains are hidden as a whole; each part with at 
 | ski-amade-at | 7 | 11 | Hauser Kaibling 11 | already listed as Hauser Kaibling | Höfi-Express I, Senderbahn, Schladminger Tauern Seilbahn, Kaibling 6er, Wollis Tellerlift, Gipfelbahn, Höfi-Express II, Alm 6er |
 | skiresort-cerna-hora-pec-pl | 1 | 16 | Pec pod Sněžkou 12 | listed as Skiresort Černá Hora-Pec: Pec pod Sněžkou (skiresort-cerna-hora-pec-pec-pod-snezkou-pl) | Vebrovy boudy, L2, Zahrádky II, chata Dakota, Javor 2, Smrk, Fichtenbaum, U Lesa, Zahrádky Express |
 | skiresort-cerna-hora-pec-pl | 2 | 11 | Janské Lázně - Černá hora 11 | already listed as Janské Lázně - Černá hora | Koštálka 2, Sport Formánek 1, Hofmanky Express, Hofmannsbauden Express, Protěž, Sport 1, Sport 2, Černohorský Express, Schwarzhorn Express, Black Mountain Express, Idyla |
-| are-se | 1 | 35 | – | listed as Åre (are-se-2) | Å22 - VM 8:an, B47 - Vikliften, Å17 - Ripanliften 1, Å21 - Bräckeliften, B36 - Högåsliften, H23 - Gondolen, Å30 - Stjärnliften, B42 - Vargenliften |
+| are-se | 1 | 35 | – | listed as Åre (are-se-part1) | Å22 - VM 8:an, B47 - Vikliften, Å17 - Ripanliften 1, Å21 - Bräckeliften, B36 - Högåsliften, H23 - Gondolen, Å30 - Stjärnliften, B42 - Vargenliften |
 | are-se | 2 | 10 | – | listed as Åre – Duved (are-duved-se) | D7 - Gunnilliften, D5 - Leråliften, D9 - Tegeliften, D8 - Mini Tege, D3 - Duveds Linbana, D6 - Englandsliften, D10 - Fjällvallsliften, D4 - Torpliften |
 | stubai-at | 1 | 19 | Stubaier Gletscher 17 | already listed as Stubaier Gletscher | Schlepplift Gaiskarferner, Schlepplift Daunferner I, Schlepplift Daunferner II, 6er Sesselbahn Eisjoch, Eisgratbahn 2, Eisgratbahn 1, 4er Sesselbahn Daunjoch, 6er Sesselbahn Fernau |
 | roc-d-enfer-fr | 1 | 11 | Les Portes du Soleil 11 | already listed as Les Portes du Soleil | Graydon, Bray, Chargeau, Terchette, Lanches, Têtes, Grande Terche, Follys 2 |
@@ -123,10 +123,10 @@ Ski passes of several separate domains are hidden as a whole; each part with at 
 | dolomiti-superski-it | 7 | 14 | Gitschberg Jochtal, Rio Pusteria 14 | already listed as Gitschberg Jochtal, Rio Pusteria | Nesselbahn, Manovia Restaurant, Brunner, Ski Express I, Ski Express II, Gitschberg - Monte Cuzzo, Gitschberg, Monte Cuzzo, Tasa, Schilling |
 | dolomiti-superski-it | 8 | 12 | Cortina Tofane 12 | already listed as Cortina Tofane | Lacedel-Socrepes, Baby Socrepes, Piè Tofana - Duca d'Aosta, Roncato - Festis (Tofana Express), Ra Valles - Cima Tofana, Duca d'Aosta - Forcella Pomedes, Bus Tofana, Cacciatori |
 | dolomiti-superski-it | 9 | 12 | San Martino di Castrozza 12 | already listed as San Martino di Castrozza | Tognola, Scandola, Coston, Colbricon Express, Conca, Cigolera, Rododendro, Coston |
-| parnassos-ski-centre-gr | 1 | 18 | – | listed as Χιονοδρομικό Κέντρο Παρνασσού, Parnassos Ski Centre (parnassos-ski-centre-gr-2) | Δίας, Zeus, Παν, Pan, Ηνίοχος, Iniohos, Αθηναϊκός 1, Πυθία, Pythia, Baby 1, Αφροδίτη, Aphrodite, Αθηναϊκός Baby |
+| parnassos-ski-centre-gr | 1 | 18 | – | listed as Χιονοδρομικό Κέντρο Παρνασσού, Parnassos Ski Centre (parnassos-ski-centre-gr-part1) | Δίας, Zeus, Παν, Pan, Ηνίοχος, Iniohos, Αθηναϊκός 1, Πυθία, Pythia, Baby 1, Αφροδίτη, Aphrodite, Αθηναϊκός Baby |
 | salen-se | 1 | 46 | Lindvallen 34, Högfjället 12 | listed as Sälen: Lindvallen, Högfjället (salen-lindvallen-hogfjallet-se) | Minken 2, Kråkan, Haren, Ugglan, Orren 1, Korpen, Svalan, Gladan |
 | salen-se | 2 | 40 | Tandådalen 22, Hundfjället 16 | listed as Sälen: Tandådalen, Hundfjället (salen-tandadalen-hundfjallet-se) | Tunnelliften, Parliftarna, Lines Lift, Transportliften Östra, Trolliften, Tunnelliften, Kotten, Stockenliften |
-| les-portes-du-mont-blanc-fr | 1 | 18 | – | listed as Les Portes du Mont-Blanc (les-portes-du-mont-blanc-fr-2) | Pattes, Jaillet, Mowgli, TKE1 des Charmots, TSF4 des Prés, Beauregard, TSF4 de Jouty, TSF4 de la Grande Rare |
+| les-portes-du-mont-blanc-fr | 1 | 18 | – | listed as Les Portes du Mont-Blanc (les-portes-du-mont-blanc-fr-part1) | Pattes, Jaillet, Mowgli, TKE1 des Charmots, TSF4 des Prés, Beauregard, TSF4 de Jouty, TSF4 de la Grande Rare |
 | evasion-mont-blanc-fr | 1 | 54 | Megève 50 | already listed as Megève | Caboche, Mont Joly, Côte 2000, Gouet, Cabochon, Rochebrune, Radaz, Tour |
 | evasion-mont-blanc-fr | 2 | 24 | Les Contamines 23 | already listed as Les Contamines | La Gorge, Signal, Grevettaz, Montjoie, Véleray, Ruelle, Olympique, Aiguille Croche |
 | evasion-mont-blanc-fr | 3 | 19 | Les Portes du Mont-Blanc 18 | already listed as Les Portes du Mont-Blanc | Pattes, Jaillet, Mowgli, TKE1 des Charmots, TSF4 des Prés, Télécorde du Front de Neige, Beauregard, TSF4 de Jouty |
