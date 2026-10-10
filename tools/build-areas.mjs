@@ -219,7 +219,10 @@ for (const { meta, input, area, liftIds } of pendingSplits) {
     const overlapNames = overlaps.slice(0, 2).map(([id]) => short(listedNames.get(id)));
     const name = cfg?.name || (overlapNames.length ? `${short(meta.name)}: ${overlapNames.join(', ')}`
       : k === 0 ? meta.name : `${meta.name} (part ${k + 1})`);
-    const id = uniqueId(`${slug(cfg?.id || name)}-${meta.country.toLowerCase()}`);
+    // A stable id (favourites are kept by id): a part named like its pass
+    // gets the part number instead of a counter that depends on build order.
+    const base = `${slug(cfg?.id || name)}-${meta.country.toLowerCase()}`;
+    const id = usedIds.has(base) ? uniqueId(`${meta.id}-part${k + 1}`) : uniqueId(base);
     const overrides = existsSync(`overrides/${id}.json`) ? JSON.parse(readFileSync(`overrides/${id}.json`, 'utf8')) : {};
     const { area: part_, liftIds: partIds } = compileArea(sub, {
       id, name: overrides.name || name,
@@ -234,6 +237,7 @@ for (const { meta, input, area, liftIds } of pendingSplits) {
     reports[id] = { name: part_.name, country: meta.country, region: meta.region, ...report, quality: report.quality, listing,
       splitOf: meta.id, osd: meta.osd, inputLifts: lifts.length, inputRuns: runs.length };
     entry.result = listing.startsWith('hidden') ? listing : `listed as ${part_.name} (${id})`;
+    if (SAMPLE.has(id)) { mkdirSync(`${OUT}/sample`, { recursive: true }); writeFileSync(`${OUT}/sample/${id}.json`, JSON.stringify(part_) + '\n'); }
     if (listing.startsWith('hidden')) return;
     Object.values(partIds).forEach(lid => { if (!listedLiftIds.has(lid)) listedLiftIds.set(lid, id); });
     listedNames.set(id, part_.name);
