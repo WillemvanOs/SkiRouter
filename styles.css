@@ -1919,12 +1919,18 @@ select.day-input {
   box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
 }
 
-/* Under a lift step: which way to turn when you get off */
+/* Under a lift step: which way to turn when you get off. Shown only on the
+   step you are at (the first one not ticked yet), not all the way down. */
 .step-exit {
+  display: none;
   margin-top: 6px;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--alpine);
+}
+
+.checkable.next .step-exit {
+  display: block;
 }
 
 .step-exit .exit-arrow {
