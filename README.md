@@ -136,7 +136,7 @@ the top station instead.
 
 ## Which way off the lift
 
-Under every lift step the planners say which way to go when you get off: "↱ Off the lift,
+On the lift step you are at (the first one not ticked yet), the planners say which way to go when you get off: "↱ Off the lift,
 turn right to piste 21", left, straight on or turn around. The direction you ride is the
 line from the station you board to the one you leave. The next piste is followed for about
 80 m down from where it is closest to the exit station. When it only starts further away
