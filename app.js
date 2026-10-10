@@ -462,9 +462,8 @@ async function selectArea(areaMeta) {
 }
 
 function applyAreaToHeader(area) {
-  document.getElementById('header-tagline').textContent = area.subtitle
-    ? `${area.name} · ${area.subtitle}`
-    : area.name;
+  // Just the name: the compact header above the planner has room for one line.
+  document.getElementById('header-tagline').textContent = area.name;
 
   const stats = area.stats || {};
   document.getElementById('stat-km').textContent      = stats.pistesKm != null ? `${stats.pistesKm} km` : '—';

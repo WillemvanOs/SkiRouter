@@ -155,8 +155,22 @@ header::after {
 .header-live.is-stale { color: #f5c26b; }
 
 /* Above the planner the header is quieter: a smaller logo and button */
+/* Above the planner the header is compact: logo and button, the area's name
+   and its lift status, on the sky without the mountains, so the planner
+   starts high on the screen. The area picker keeps the full header. */
+.in-planner header {
+  background: linear-gradient(180deg, #081629 0%, #13335a 100%);
+  padding: 12px 16px 14px;
+  border-radius: 0 0 18px 18px;
+}
+.in-planner header::before,
+.in-planner header::after { display: none; }
+.in-planner .snowfall { inset: 0; }
 .in-planner .logo { font-size: 1.7rem; }
 .in-planner .area-switch { padding: 5px 10px; font-size: 0.7rem; }
+.in-planner .tagline { margin-top: 4px; letter-spacing: 2px; }
+.in-planner .stats { display: none !important; }
+.in-planner .header-live { margin-top: 6px; }
 
 /* In the area picker: back to the area that was open */
 .area-back {
