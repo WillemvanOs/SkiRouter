@@ -209,9 +209,16 @@ for (const { meta, input, area, liftIds } of pendingSplits) {
     const sub = { lifts, runs };
     sub.pois = poisIn(sub);
 
-    const cfg = (config.splits || []).find(c => c.parent === meta.id && liftNames.some(name => name && name.toLowerCase() === c.lift.toLowerCase()));
-    const overlapNames = overlaps.slice(0, 3).map(([id]) => listedNames.get(id));
-    const name = cfg?.name || (overlapNames.length ? `${meta.name}: ${overlapNames.join(', ')}` : `${meta.name} (part ${k + 1})`);
+    // A name from the config ("splits": the part overlapping a given listed
+    // area, or with a lift whose name contains a word), else from the listed
+    // areas it overlaps; the biggest part of a pass that overlaps nothing
+    // takes the pass's name.
+    const cfg = (config.splits || []).find(c => c.parent === meta.id
+      && (c.overlaps ? !!overlap[c.overlaps] : c.lift ? liftNames.some(n => n && n.toLowerCase().includes(c.lift.toLowerCase())) : true));
+    const short = name => name.replace(/\s*\(.*\)\s*/g, ' ').split(/ - |, /)[0].trim();
+    const overlapNames = overlaps.slice(0, 2).map(([id]) => short(listedNames.get(id)));
+    const name = cfg?.name || (overlapNames.length ? `${short(meta.name)}: ${overlapNames.join(', ')}`
+      : k === 0 ? meta.name : `${meta.name} (part ${k + 1})`);
     const id = uniqueId(`${slug(cfg?.id || name)}-${meta.country.toLowerCase()}`);
     const overrides = existsSync(`overrides/${id}.json`) ? JSON.parse(readFileSync(`overrides/${id}.json`, 'utf8')) : {};
     const { area: part_, liftIds: partIds } = compileArea(sub, {
@@ -230,7 +237,7 @@ for (const { meta, input, area, liftIds } of pendingSplits) {
     if (listing.startsWith('hidden')) return;
     Object.values(partIds).forEach(lid => { if (!listedLiftIds.has(lid)) listedLiftIds.set(lid, id); });
     listedNames.set(id, part_.name);
-    addToIndex(id, part_, report, meta, listing, [...(cfg?.places || []), ...overlapNames]);
+    addToIndex(id, part_, report, meta, listing, [...(cfg?.places || []), ...overlaps.slice(0, 4).map(([id]) => short(listedNames.get(id)))]);
   });
 }
 rmSync(SPILL, { recursive: true, force: true });
@@ -247,7 +254,7 @@ function addToIndex(id, area, report, meta, listing, places) {
   writeFileSync(`${AREA_DIR}/${id}.json`, JSON.stringify(area) + '\n');
   const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
   index.push({ id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
-    places: [...new Set(places)].filter(n => n && n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 8), centre,
+    places: [...new Set(places)].filter(n => n && n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 14), centre,
     liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte,
     status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${id}.json`,
     ...(LIVE_RAW && LIVE_SOURCES[id] ? { liftstatus: { europe: true, file: `${LIVE_RAW}/europe/${id}.json` } } : {}) });
