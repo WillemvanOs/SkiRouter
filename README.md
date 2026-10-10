@@ -92,6 +92,16 @@ are connected". Ski passes made of several separate domains (Dolomiti Superski, 
 amadé, …) are left out; their parts (Alta Badia, Kronplatz, …) are listed on their own.
 Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not listed twice.
 
+Some valleys have no ski area of their own in OpenSkiData, only the pass they are part of. Val
+Gardena, for example, is only in "Dolomiti Superski", which is hidden as a pass of separate
+domains. So every part of such a hidden pass with at least 10 lifts is built as an area of its
+own, with the runs in and around it. A part is skipped when 80 % of its lifts are in one area
+that is listed already (Kronplatz, Megève, …). Its name and search words come from the listed
+areas it overlaps. For a few parts they are set under `splits` in
+`tools/build-areas.config.json`, such as "Sella Ronda – Val Gardena, Alta Badia, Arabba, Val
+di Fassa", which can be found by searching Val Gardena, Gröden, Selva, Ortisei and so on. The build
+report lists every part and what became of it.
+
 The area picker searches names, villages, regions and countries (with a few local names:
 Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your favourites (tap ☆) on top
 and lists every area per country (KitzSki under Austria). An area is downloaded when you open it and then stays

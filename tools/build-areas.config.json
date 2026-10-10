@@ -9,5 +9,60 @@
       "listed": false
     }
   ],
-  "_comment": "\"listed\": false keeps an area out of the Europe index (KitzSki: the app uses its curated file in data/areas.json)."
+  "_comment": "\"listed\": false keeps an area out of the Europe index (KitzSki: the app uses its curated file in data/areas.json).",
+  "splits": [
+    {
+      "parent": "dolomiti-superski-it",
+      "overlaps": "alta-badia-it",
+      "id": "sella-ronda",
+      "name": "Sella Ronda – Val Gardena, Alta Badia, Arabba, Val di Fassa",
+      "places": [
+        "Val Gardena",
+        "Gröden",
+        "Gherdëina",
+        "Selva",
+        "Wolkenstein",
+        "Santa Cristina",
+        "St. Christina",
+        "Ortisei",
+        "St. Ulrich",
+        "Sella Ronda",
+        "Corvara",
+        "Arabba",
+        "Canazei",
+        "Seiser Alm"
+      ]
+    },
+    {
+      "parent": "are-se",
+      "lift": "Duved",
+      "name": "Åre – Duved",
+      "places": [
+        "Duved",
+        "Tegefjäll"
+      ]
+    },
+    {
+      "parent": "andermatt-disentis-sedrun-ch",
+      "lift": "Gütsch",
+      "name": "Andermatt – Sedrun",
+      "places": [
+        "Andermatt",
+        "Sedrun",
+        "Oberalp",
+        "Gütsch",
+        "Nätschen"
+      ]
+    },
+    {
+      "parent": "livigno-it",
+      "lift": "Carosello",
+      "name": "Livigno – Carosello 3000",
+      "places": [
+        "Livigno",
+        "Carosello"
+      ]
+    }
+  ],
+  "_comment_splits": "splits: names for parts of hidden multi-domain passes (tools/build-areas.mjs, step 4). A part matches by 'overlaps' (a listed area id it shares lifts with) or 'lift' (a word in one of its lift names); 'places' are extra search words."
 }

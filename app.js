@@ -1077,10 +1077,10 @@ function renderRoute(result) {
     div.dataset.min = edge.tijd || 0;
     stepsEl.appendChild(div);
 
-    const toStation = STATIONS[edge.to];
+    // The chosen destination, also when a short walk from the last step leads there.
     const isLast = index === visibleSteps.length - 1;
-    if (isLast && toStation) {
-      addWaypoint(stepsEl, toStation.name, toStation.alt, '🏁', 'Destination reached!', (index + 1.5) * 50);
+    if (isLast && selected.to) {
+      addWaypoint(stepsEl, selected.to.name, selected.to.alt, '🏁', 'Destination reached!', (index + 1.5) * 50);
     }
   });
 
