@@ -1201,7 +1201,7 @@
   "country": "AT",
   "region": "Tyrol",
   "lifts": 9,
-  "runs": 39,
+  "runs": 40,
   "pistesKm": 26,
   "descents": 130,
   "connectedShare": 100,
@@ -1218,7 +1218,7 @@
    "0f17e89de28821511c59e184dd520b7d6aea6a51"
   ],
   "inputLifts": 10,
-  "inputRuns": 50
+  "inputRuns": 51
  },
  "formigal-es": {
   "name": "Formigal",
@@ -2016,7 +2016,7 @@
   "lifts": 76,
   "runs": 314,
   "pistesKm": 224,
-  "descents": 1137,
+  "descents": 1167,
   "connectedShare": 79,
   "noWayDown": [
    "L6"
@@ -2068,7 +2068,7 @@
   "osd": [
    "180faeea32aba7b22fbe1438b0a3a82f6a2a4ad8"
   ],
-  "inputLifts": 81,
+  "inputLifts": 82,
   "inputRuns": 437
  },
  "grindelwald-first-ch": {
@@ -4438,36 +4438,6 @@
   ],
   "inputLifts": 9,
   "inputRuns": 30
- },
- "kasprowy-wierch-pl": {
-  "name": "Kasprowy Wierch",
-  "country": "PL",
-  "region": "Lesser Poland Voivodeship",
-  "lifts": 5,
-  "runs": 20,
-  "pistesKm": 10,
-  "descents": 6,
-  "connectedShare": 80,
-  "noWayDown": [],
-  "noWayIn": [
-   "L1"
-  ],
-  "outsideMainNetwork": [
-   "L3"
-  ],
-  "domains": [
-   4
-  ],
-  "quality": "onvolledig",
-  "listing": "ok",
-  "why": {
-   "L3": "runs attached, but no way into or out of the main network"
-  },
-  "osd": [
-   "3e4f2615639f5fbffd8fcb502193a964d4ebbac0"
-  ],
-  "inputLifts": 5,
-  "inputRuns": 21
  },
  "hochoetz-at": {
   "name": "Hochoetz",
@@ -8119,9 +8089,9 @@
   "country": "FR",
   "region": "Haute-Savoie",
   "lifts": 185,
-  "runs": 586,
-  "pistesKm": 401,
-  "descents": 3051,
+  "runs": 585,
+  "pistesKm": 399,
+  "descents": 3046,
   "connectedShare": 63,
   "noWayDown": [
    "L84",
@@ -8287,7 +8257,7 @@
    "70b5c16a6a584808d97c9084dd340e4c8605acdb"
   ],
   "inputLifts": 194,
-  "inputRuns": 822
+  "inputRuns": 820
  },
  "folgaria-area-sciistica-folgaria-it": {
   "name": "Folgaria, Area sciistica Folgaria",
@@ -10704,6 +10674,38 @@
   "inputLifts": 23,
   "inputRuns": 57
  },
+ "skiareal-klinovec-cz": {
+  "name": "Skiareál Klínovec",
+  "country": "CZ",
+  "region": "Karlovy Vary",
+  "lifts": 10,
+  "runs": 31,
+  "pistesKm": 20,
+  "descents": 155,
+  "connectedShare": 90,
+  "noWayDown": [
+   "K"
+  ],
+  "noWayIn": [
+   "K"
+  ],
+  "outsideMainNetwork": [
+   "K"
+  ],
+  "domains": [
+   9
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "why": {
+   "K": "bottom: nearest run 470 m"
+  },
+  "osd": [
+   "90cd7e03fcd0e4fec75943c12c418507d965f588"
+  ],
+  "inputLifts": 14,
+  "inputRuns": 35
+ },
  "edsasdalen-se": {
   "name": "Edsåsdalen",
   "country": "SE",
@@ -11446,7 +11448,7 @@
   "country": "IT",
   "region": "Bolzano/Bozen",
   "lifts": 428,
-  "runs": 1054,
+  "runs": 1055,
   "pistesKm": 971,
   "descents": 4723,
   "connectedShare": 45,
@@ -11529,7 +11531,7 @@
    "301a",
    "303a",
    "L21",
-   "4j",
+   "4k",
    "303b",
    "L22",
    "L23",
@@ -11814,7 +11816,7 @@
    "301a": "runs attached, but no way into or out of the main network",
    "303a": "runs attached, but no way into or out of the main network",
    "L21": "runs attached, but no way into or out of the main network",
-   "4j": "runs attached, but no way into or out of the main network",
+   "4k": "runs attached, but no way into or out of the main network",
    "303b": "runs attached, but no way into or out of the main network",
    "L22": "runs attached, but no way into or out of the main network",
    "L23": "bottom: no run within 500 m; top: nearest run 415 m",
@@ -12224,6 +12226,36 @@
   ],
   "inputLifts": 14,
   "inputRuns": 39
+ },
+ "kasprowy-wierch-pl": {
+  "name": "Kasprowy Wierch",
+  "country": "PL",
+  "region": "Lesser Poland Voivodeship",
+  "lifts": 5,
+  "runs": 5,
+  "pistesKm": 10,
+  "descents": 7,
+  "connectedShare": 80,
+  "noWayDown": [],
+  "noWayIn": [
+   "L1"
+  ],
+  "outsideMainNetwork": [
+   "L3"
+  ],
+  "domains": [
+   4
+  ],
+  "quality": "onvolledig",
+  "listing": "ok",
+  "why": {
+   "L3": "runs attached, but no way into or out of the main network"
+  },
+  "osd": [
+   "a12b471bc19ea23fb51bbf32dcc1c37acda7231d"
+  ],
+  "inputLifts": 5,
+  "inputRuns": 17
  },
  "kuhtai-at": {
   "name": "Kühtai",
@@ -13579,9 +13611,9 @@
   "country": "FR",
   "region": "Haute-Savoie",
   "lifts": 40,
-  "runs": 145,
-  "pistesKm": 96,
-  "descents": 959,
+  "runs": 144,
+  "pistesKm": 95,
+  "descents": 954,
   "connectedShare": 98,
   "noWayDown": [
    "L16"
@@ -13604,7 +13636,7 @@
    "b2d026c49e73f7b49e043de835baa5622adc2e47"
   ],
   "inputLifts": 45,
-  "inputRuns": 193
+  "inputRuns": 191
  },
  "riksgransen-no": {
   "name": "Riksgränsen",
@@ -14694,9 +14726,9 @@
   "country": "AT",
   "region": "Upper Austria",
   "lifts": 16,
-  "runs": 33,
+  "runs": 34,
   "pistesKm": 22,
-  "descents": 305,
+  "descents": 319,
   "connectedShare": 100,
   "noWayDown": [],
   "noWayIn": [],
@@ -14711,7 +14743,7 @@
    "c59eb5ea73c7ee28d4d4bc11ff9701156f9ee17d"
   ],
   "inputLifts": 19,
-  "inputRuns": 57
+  "inputRuns": 60
  },
  "willingen-de-2": {
   "name": "Willingen",
@@ -14853,7 +14885,7 @@
   "country": "CH",
   "region": "Graubunden",
   "lifts": 13,
-  "runs": 42,
+  "runs": 43,
   "pistesKm": 37,
   "descents": 185,
   "connectedShare": 92,
@@ -14878,7 +14910,7 @@
    "c880b001fe8a065af66fca1a93ea7ce3d62e546a"
   ],
   "inputLifts": 13,
-  "inputRuns": 58
+  "inputRuns": 59
  },
  "passo-rolle-it": {
   "name": "Passo Rolle",
@@ -14974,38 +15006,6 @@
   ],
   "inputLifts": 15,
   "inputRuns": 36
- },
- "skiareal-klinovec-cz": {
-  "name": "Skiareál Klínovec",
-  "country": "CZ",
-  "region": "Karlovy Vary",
-  "lifts": 10,
-  "runs": 31,
-  "pistesKm": 20,
-  "descents": 155,
-  "connectedShare": 90,
-  "noWayDown": [
-   "K"
-  ],
-  "noWayIn": [
-   "K"
-  ],
-  "outsideMainNetwork": [
-   "K"
-  ],
-  "domains": [
-   9
-  ],
-  "quality": "automatisch",
-  "listing": "ok",
-  "why": {
-   "K": "bottom: nearest run 470 m"
-  },
-  "osd": [
-   "c94c0aef2dc15725b34dd344889ef2da9d5e8895"
-  ],
-  "inputLifts": 14,
-  "inputRuns": 35
  },
  "scuol-motta-naluns-ch": {
   "name": "Scuol Motta Naluns",
@@ -18581,6 +18581,495 @@
    "fe93095197fc1a4226c781072a9ce1c877bc18b2"
   ],
   "inputLifts": 15,
+  "inputRuns": 59
+ },
+ "yllas-part-1-fi": {
+  "name": "Ylläs (part 1)",
+  "country": "FI",
+  "region": "Lapland",
+  "lifts": 14,
+  "runs": 29,
+  "pistesKm": 12,
+  "descents": 89,
+  "connectedShare": 100,
+  "noWayDown": [
+   "L8"
+  ],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   14
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "yllas-fi",
+  "osd": [
+   "007c630224a3cf5cb3c023b3cf6b7571d5a16482"
+  ],
+  "inputLifts": 14,
+  "inputRuns": 30
+ },
+ "cortina-d-ampezzo-cortina-tofane-lagazuo-it": {
+  "name": "Cortina d'Ampezzo: Cortina Tofane, Lagazuoi - 5 Torri",
+  "country": "IT",
+  "region": "Belluno",
+  "lifts": 22,
+  "runs": 72,
+  "pistesKm": 67,
+  "descents": 139,
+  "connectedShare": 95,
+  "noWayDown": [
+   "27"
+  ],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "1"
+  ],
+  "domains": [
+   22
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "cortina-d-ampezzo-it",
+  "osd": [
+   "02196b1e0dd473176e265318bc9c06e22df53ace"
+  ],
+  "inputLifts": 21,
+  "inputRuns": 103
+ },
+ "livigno-part-1-it": {
+  "name": "Livigno (part 1)",
+  "country": "IT",
+  "region": "Sondrio",
+  "lifts": 20,
+  "runs": 92,
+  "pistesKm": 52,
+  "descents": 240,
+  "connectedShare": 55,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "24",
+   "19",
+   "29b",
+   "25",
+   "27",
+   "28",
+   "29a",
+   "23",
+   "30"
+  ],
+  "domains": [
+   20
+  ],
+  "quality": "onvolledig",
+  "listing": "deels",
+  "splitOf": "livigno-it",
+  "osd": [
+   "4c87ad2b81e6af13513c56907fa5850c59fa5e32"
+  ],
+  "inputLifts": 20,
+  "inputRuns": 101
+ },
+ "ski-amade-flachau-wagrain-shuttleberg-fl-at": {
+  "name": "Ski amadé: Flachau, Wagrain, Shuttleberg Flachauwinkl-Kleinarl",
+  "country": "AT",
+  "region": "Salzburg",
+  "lifts": 55,
+  "runs": 122,
+  "pistesKm": 117,
+  "descents": 823,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   55
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "ski-amade-at",
+  "osd": [
+   "53a8bb068ae7f82160a4c6e2df63ee3a724b62dd"
+  ],
+  "inputLifts": 53,
+  "inputRuns": 230
+ },
+ "ski-amade-planai-hochwurzen-reiteralm-at": {
+  "name": "Ski amadé: Planai & Hochwurzen, Reiteralm",
+  "country": "AT",
+  "region": "Salzburg",
+  "lifts": 33,
+  "runs": 103,
+  "pistesKm": 91,
+  "descents": 530,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   33
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "ski-amade-at",
+  "osd": [
+   "53a8bb068ae7f82160a4c6e2df63ee3a724b62dd"
+  ],
+  "inputLifts": 33,
+  "inputRuns": 169
+ },
+ "skiresort-cerna-hora-pec-pec-pod-snezkou-pl": {
+  "name": "Skiresort Černá Hora-Pec: Pec pod Sněžkou",
+  "country": "PL",
+  "region": "dolnoslaskie",
+  "lifts": 16,
+  "runs": 29,
+  "pistesKm": 14,
+  "descents": 112,
+  "connectedShare": 94,
+  "noWayDown": [
+   "L1",
+   "L9"
+  ],
+  "noWayIn": [
+   "L1",
+   "L4",
+   "L9"
+  ],
+  "outsideMainNetwork": [
+   "L4"
+  ],
+  "domains": [
+   16
+  ],
+  "quality": "onvolledig",
+  "listing": "ok",
+  "splitOf": "skiresort-cerna-hora-pec-pl",
+  "osd": [
+   "583dbc4651db7ebcc7875a11180b634ec108ba8a"
+  ],
+  "inputLifts": 16,
+  "inputRuns": 38
+ },
+ "are-part-1-se": {
+  "name": "Åre (part 1)",
+  "country": "SE",
+  "region": "Jamtland",
+  "lifts": 35,
+  "runs": 139,
+  "pistesKm": 83,
+  "descents": 717,
+  "connectedShare": 97,
+  "noWayDown": [
+   "L4"
+  ],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "L4"
+  ],
+  "domains": [
+   35
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "are-se",
+  "osd": [
+   "5ea6683e3bed42670ca7fc03e9820599aee891a6"
+  ],
+  "inputLifts": 35,
+  "inputRuns": 176
+ },
+ "are-part-2-se": {
+  "name": "Åre (part 2)",
+  "country": "SE",
+  "region": "Jamtland",
+  "lifts": 10,
+  "runs": 42,
+  "pistesKm": 21,
+  "descents": 71,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   10
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "are-se",
+  "osd": [
+   "5ea6683e3bed42670ca7fc03e9820599aee891a6"
+  ],
+  "inputLifts": 10,
+  "inputRuns": 44
+ },
+ "kleinwalsertal-oberstdorf-skigebiet-fell-at": {
+  "name": "Kleinwalsertal-Oberstdorf: Skigebiet Fellhorn/Kanzelwand, Skigebiet Heuberg Arena/Walmendingerhorn",
+  "country": "AT",
+  "region": "Vorarlberg",
+  "lifts": 28,
+  "runs": 114,
+  "pistesKm": 84,
+  "descents": 273,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   28
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "kleinwalsertal-oberstdorf-at",
+  "osd": [
+   "95d07bbe7b52066bdd3653541ed114ac6d24ca93"
+  ],
+  "inputLifts": 28,
+  "inputRuns": 158
+ },
+ "dolomiti-superski-alta-badia-val-di-fass-it": {
+  "name": "Dolomiti Superski: Alta Badia, Val di Fassa, Seiser Alm - Mont de Sëuc - Alpe di Siusi, Seiser Alm, Alpe di Siusi, Mont de Sëuc",
+  "country": "IT",
+  "region": "Bolzano/Bozen",
+  "lifts": 207,
+  "runs": 485,
+  "pistesKm": 446,
+  "descents": 2029,
+  "connectedShare": 94,
+  "noWayDown": [
+   "103",
+   "L2"
+  ],
+  "noWayIn": [
+   "103",
+   "83",
+   "86",
+   "L3",
+   "101"
+  ],
+  "outsideMainNetwork": [
+   "3a",
+   "2c",
+   "1b",
+   "61b",
+   "7b",
+   "4x",
+   "86",
+   "16b",
+   "63b",
+   "60b",
+   "62b",
+   "5b",
+   "8c"
+  ],
+  "domains": [
+   207
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "dolomiti-superski-it",
+  "osd": [
+   "9d84c79afd13915cb14c9e5fc3b63189e4f160fc"
+  ],
+  "inputLifts": 205,
+  "inputRuns": 773
+ },
+ "parnassos-ski-centre-part-1-gr": {
+  "name": "Χιονοδρομικό Κέντρο Παρνασσού, Parnassos Ski Centre (part 1)",
+  "country": "GR",
+  "region": "Central Greece",
+  "lifts": 18,
+  "runs": 21,
+  "pistesKm": 16,
+  "descents": 61,
+  "connectedShare": 50,
+  "noWayDown": [
+   "L5"
+  ],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "13",
+   "10",
+   "6",
+   "L1",
+   "14",
+   "L3",
+   "7",
+   "L5",
+   "B4"
+  ],
+  "domains": [
+   18
+  ],
+  "quality": "onvolledig",
+  "listing": "deels",
+  "splitOf": "parnassos-ski-centre-gr",
+  "osd": [
+   "a06f4e81bbb3de7e113b1f906b2d2e327e42e3f7"
+  ],
+  "inputLifts": 18,
+  "inputRuns": 21
+ },
+ "salen-lindvallen-hogfjallet-se": {
+  "name": "Sälen: Lindvallen, Högfjället",
+  "country": "SE",
+  "region": "Dalarna",
+  "lifts": 46,
+  "runs": 47,
+  "pistesKm": 37,
+  "descents": 516,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   46
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "salen-se",
+  "osd": [
+   "a90ddb2814177b4fe5041d31947430a994346452"
+  ],
+  "inputLifts": 46,
+  "inputRuns": 62
+ },
+ "salen-tandadalen-hundfjallet-se": {
+  "name": "Sälen: Tandådalen, Hundfjället",
+  "country": "SE",
+  "region": "Dalarna",
+  "lifts": 40,
+  "runs": 57,
+  "pistesKm": 40,
+  "descents": 460,
+  "connectedShare": 57,
+  "noWayDown": [
+   "L4",
+   "L7"
+  ],
+  "noWayIn": [
+   "L7"
+  ],
+  "outsideMainNetwork": [
+   "L3",
+   "L5",
+   "L8",
+   "L9",
+   "L11",
+   "L13",
+   "L14",
+   "L18",
+   "L19",
+   "L23",
+   "L33",
+   "L34",
+   "L35",
+   "L36",
+   "L37",
+   "H3",
+   "L38"
+  ],
+  "domains": [
+   40
+  ],
+  "quality": "onvolledig",
+  "listing": "deels",
+  "splitOf": "salen-se",
+  "osd": [
+   "a90ddb2814177b4fe5041d31947430a994346452"
+  ],
+  "inputLifts": 40,
+  "inputRuns": 61
+ },
+ "les-portes-du-mont-blanc-part-1-fr": {
+  "name": "Les Portes du Mont-Blanc (part 1)",
+  "country": "FR",
+  "region": "Haute-Savoie",
+  "lifts": 18,
+  "runs": 100,
+  "pistesKm": 74,
+  "descents": 213,
+  "connectedShare": 56,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "L4",
+   "L5",
+   "L8",
+   "L10",
+   "L12",
+   "L13",
+   "L14",
+   "L18"
+  ],
+  "domains": [
+   18
+  ],
+  "quality": "onvolledig",
+  "listing": "deels",
+  "splitOf": "les-portes-du-mont-blanc-fr",
+  "osd": [
+   "aa87548d9445d366123e7ef7aee40af9d4a78dff"
+  ],
+  "inputLifts": 18,
+  "inputRuns": 121
+ },
+ "andermatt-disentis-sedrun-part-1-ch": {
+  "name": "Andermatt+Disentis+Sedrun (part 1)",
+  "country": "CH",
+  "region": "Uri",
+  "lifts": 14,
+  "runs": 63,
+  "pistesKm": 48,
+  "descents": 120,
+  "connectedShare": 100,
+  "noWayDown": [],
+  "noWayIn": [],
+  "outsideMainNetwork": [],
+  "domains": [
+   14
+  ],
+  "quality": "automatisch",
+  "listing": "ok",
+  "splitOf": "andermatt-disentis-sedrun-ch",
+  "osd": [
+   "eeb2093cd64adef211261520c569179894373a74"
+  ],
+  "inputLifts": 14,
+  "inputRuns": 117
+ },
+ "andermatt-disentis-sedrun-disentis-muste-ch": {
+  "name": "Andermatt+Disentis+Sedrun: Disentis/Mustér",
+  "country": "CH",
+  "region": "Uri",
+  "lifts": 12,
+  "runs": 39,
+  "pistesKm": 34,
+  "descents": 58,
+  "connectedShare": 50,
+  "noWayDown": [
+   "L2"
+  ],
+  "noWayIn": [],
+  "outsideMainNetwork": [
+   "L1",
+   "L2",
+   "L3",
+   "L5",
+   "13",
+   "14"
+  ],
+  "domains": [
+   12
+  ],
+  "quality": "onvolledig",
+  "listing": "deels",
+  "splitOf": "andermatt-disentis-sedrun-ch",
+  "osd": [
+   "eeb2093cd64adef211261520c569179894373a74"
+  ],
+  "inputLifts": 12,
   "inputRuns": 59
  }
 }
