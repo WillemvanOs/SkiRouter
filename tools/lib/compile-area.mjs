@@ -302,7 +302,9 @@ export function compileArea(input, meta = {}) {
     pisteLijnen,
   };
   cleanText(area);
-  return { area, report: validate(area), diagnostics };
+  // OpenSkiData lift id per lift number, for splitting an area into its parts.
+  const liftIds = Object.fromEntries(lifts.map(l => [l.liftNr, l.id]));
+  return { area, report: validate(area), diagnostics, liftIds };
 }
 
 // ── Restaurants ──────────────────────────────────────────────────────────────
@@ -503,6 +505,21 @@ export function validate(area) {
     domains: parts,
     quality,
   };
+}
+
+// The separate parts of an area (see validate): the lift numbers of each part
+// with at least `min` lifts, biggest first.
+export function areaParts(area, min = 3) {
+  const adj = new Map();
+  const add = (a, b) => { if (!adj.has(a)) adj.set(a, new Set()); adj.get(a).add(b); };
+  area.liften.forEach(l => add(`${l.liftNr}-onder`, `${l.liftNr}-boven`));
+  area.afdalingen.forEach(a => add(`${a.van}-boven`, `${a.naar}-onder`));
+  (area.overstappen || []).forEach(([a, b]) => add(a, b));
+  (area.verbindingen || []).forEach(v => add(v.van, v.naar));
+  const stations = area.liften.filter(l => l.echteLift).map(l => `${l.liftNr}-onder`);
+  return groups(stations, adj).filter(g => g.size >= min)
+    .map(g => [...g].map(s => s.slice(0, -'-onder'.length)))
+    .sort((a, b) => b.length - a.length);
 }
 
 // Groups of lift bottoms linked in any direction (undirected components).

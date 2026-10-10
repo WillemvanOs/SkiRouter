@@ -21,12 +21,14 @@
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync, appendFileSync, rmSync, createReadStream } from 'node:fs';
 import { createInterface } from 'node:readline';
-import { compileArea, validate } from './lib/compile-area.mjs';
+import { compileArea, validate, areaParts } from './lib/compile-area.mjs';
 import { download, readFeatures, skiAreaIds, toLift, toRuns } from './lib/openskidata.mjs';
 
 const countryNames = new Intl.DisplayNames(['en'], { type: 'region' });
 const MIN_LIFTS = 5;
 const MIN_KM = 10;
+const SPLIT_MIN_LIFTS = 10;   // a part of a hidden multi-domain pass this big becomes an area of its own
+const SPLIT_DUPLICATE = 0.8;  // …unless this share of its lifts is in one area that is listed already
 // European countries (ISO 3166-1 alpha-2), incl. Turkey, Georgia and Russia,
 // which all have ski areas OpenSkiData lists.
 const EUROPE = new Set(('AD AL AM AT AZ BA BE BG BY CH CY CZ DE DK EE ES FI FR GB GE GR HR HU IE IS IT ' +
@@ -135,12 +137,15 @@ console.log(`${Object.keys(LIVE_SOURCES).length} areas with a lift status source
 const reports = {};
 const index = [];
 let skipped = 0;
+const pendingSplits = [];          // hidden passes of several domains, split after the loop
+const listedLiftIds = new Map();   // OpenSkiData lift id -> listed area id
+const listedNames = new Map();     // listed area id -> name
 for (const meta of areas.values()) {
   const input = await readSpill(meta.id);
   if (!input) { skipped++; continue; }
   input.pois = poisIn(input);
   const overrides = existsSync(`overrides/${meta.id}.json`) ? JSON.parse(readFileSync(`overrides/${meta.id}.json`, 'utf8')) : {};
-  const { area, diagnostics } = compileArea(input, {
+  const { area, diagnostics, liftIds } = compileArea(input, {
     id: meta.id,
     name: overrides.name || meta.name || meta.id,
     subtitle: overrides.subtitle || [meta.region, countryNames.of(meta.country)].filter(Boolean).join(', '),
@@ -168,24 +173,95 @@ for (const meta of areas.values()) {
   reports[meta.id] = { name: area.name, country: meta.country, region: meta.region, ...report, quality, listing,
     why, osd: meta.osd, inputLifts: input.lifts.length, inputRuns: input.runs.length };
   if (SAMPLE.has(meta.id)) { mkdirSync(`${OUT}/sample`, { recursive: true }); writeFileSync(`${OUT}/sample/${meta.id}.json`, JSON.stringify(area) + '\n'); }
+  if (EUROPE_MODE && listing.startsWith('hidden') && report.domains[0] >= SPLIT_MIN_LIFTS) pendingSplits.push({ meta, input, area, liftIds });
   if (EUROPE_MODE && listing !== 'ok' && listing !== 'deels') continue;
-  writeFileSync(`${AREA_DIR}/${meta.id}.json`, JSON.stringify(area) + '\n');
-  const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
-  index.push({ id: meta.id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
-    places: [...meta.places].filter(n => n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 8), centre,
-    liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte,
-    status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${meta.id}.json`,
-    ...(LIVE_RAW && LIVE_SOURCES[meta.id] ? { liftstatus: { europe: true, file: `${LIVE_RAW}/europe/${meta.id}.json` } } : {}) });
+  Object.values(liftIds).forEach(id => listedLiftIds.set(id, meta.id));
+  listedNames.set(meta.id, area.name);
+  addToIndex(meta.id, area, report, meta, listing, meta.places);
   if (!EUROPE_MODE) console.log(`- ${meta.id}: ${JSON.stringify(reports[meta.id])}`);
+}
+
+// 4. Ski passes of several separate domains (Dolomiti Superski) are hidden as
+//    a whole, but a valley that has no ski area of its own in OpenSkiData
+//    (Val Gardena) would then be missing. Every part with at least
+//    SPLIT_MIN_LIFTS lifts becomes an area of its own, unless most of its
+//    lifts are in one area that is listed already (Kronplatz). Its name and
+//    search words come from the listed areas it overlaps, or from
+//    "splits" in tools/build-areas.config.json.
+const splitReport = [];
+for (const { meta, input, area, liftIds } of pendingSplits) {
+  areaParts(area, SPLIT_MIN_LIFTS).forEach((part, k) => {
+    const ids = new Set(part.map(nr => liftIds[nr]).filter(Boolean));
+    const liftNames = area.liften.filter(l => part.includes(l.liftNr)).map(l => l.naam);
+    const overlap = {};
+    ids.forEach(id => { const a = listedLiftIds.get(id); if (a) overlap[a] = (overlap[a] || 0) + 1; });
+    const overlaps = Object.entries(overlap).sort((a, b) => b[1] - a[1]);
+    const entry = { parent: meta.id, part: k + 1, lifts: part.length, sample: liftNames.slice(0, 8), overlaps: overlaps.map(([id, n]) => `${listedNames.get(id)} ${n}`) };
+    splitReport.push(entry);
+    if (overlaps.length && overlaps[0][1] >= SPLIT_DUPLICATE * part.length) { entry.result = `already listed as ${listedNames.get(overlaps[0][0])}`; return; }
+
+    // Its lifts, and the runs in and around them.
+    const lifts = input.lifts.filter(l => ids.has(l.id));
+    let s = 90, w = 180, n = -90, e = -180;
+    for (const l of lifts) for (const [lon, lat] of l.coords) { s = Math.min(s, lat); n = Math.max(n, lat); w = Math.min(w, lon); e = Math.max(e, lon); }
+    const pad = 0.003;
+    const runs = input.runs.filter(r => r.coords.some(([lon, lat]) => lat >= s - pad && lat <= n + pad && lon >= w - pad && lon <= e + pad));
+    const sub = { lifts, runs };
+    sub.pois = poisIn(sub);
+
+    const cfg = (config.splits || []).find(c => c.parent === meta.id && liftNames.some(name => name && name.toLowerCase() === c.lift.toLowerCase()));
+    const overlapNames = overlaps.slice(0, 3).map(([id]) => listedNames.get(id));
+    const name = cfg?.name || (overlapNames.length ? `${meta.name}: ${overlapNames.join(', ')}` : `${meta.name} (part ${k + 1})`);
+    const id = uniqueId(`${slug(cfg?.id || name)}-${meta.country.toLowerCase()}`);
+    const overrides = existsSync(`overrides/${id}.json`) ? JSON.parse(readFileSync(`overrides/${id}.json`, 'utf8')) : {};
+    const { area: part_, liftIds: partIds } = compileArea(sub, {
+      id, name: overrides.name || name,
+      subtitle: overrides.subtitle || [meta.region, countryNames.of(meta.country)].filter(Boolean).join(', '),
+      bron: `OpenSkiData (OpenStreetMap) ${meta.osd.join(', ')}, part ${k + 1}, ${new Date().toISOString().slice(0, 10)}`,
+    });
+    applyOverrides(part_, overrides);
+    const report = validate(part_);
+    if (report.lifts < MIN_LIFTS || report.pistesKm < MIN_KM) { entry.result = 'too small'; return; }
+    const listing = report.connectedShare < 50 ? 'hidden: under half the lifts connected'
+      : report.connectedShare < 75 && !overrides.reviewed ? 'deels' : 'ok';
+    reports[id] = { name: part_.name, country: meta.country, region: meta.region, ...report, quality: report.quality, listing,
+      splitOf: meta.id, osd: meta.osd, inputLifts: lifts.length, inputRuns: runs.length };
+    entry.result = listing.startsWith('hidden') ? listing : `listed as ${part_.name} (${id})`;
+    if (listing.startsWith('hidden')) return;
+    Object.values(partIds).forEach(lid => { if (!listedLiftIds.has(lid)) listedLiftIds.set(lid, id); });
+    listedNames.set(id, part_.name);
+    addToIndex(id, part_, report, meta, listing, [...(cfg?.places || []), ...overlapNames]);
+  });
 }
 rmSync(SPILL, { recursive: true, force: true });
 index.sort((a, b) => a.country.localeCompare(b.country) || a.name.localeCompare(b.name));
 writeFileSync(`${OUT}/index.json`, JSON.stringify(index) + '\n');
 writeFileSync(`${OUT}/report.json`, JSON.stringify(reports, null, 1) + '\n');
-writeFileSync(`${OUT}/report.md`, summary(reports, skipped));
+writeFileSync(`${OUT}/report.md`, summary(reports, skipped) + splitSummary(splitReport));
 console.log(`Built ${Object.keys(reports).length} areas (${index.length} listed), skipped ${skipped} (too small or empty).`);
 
 // ── helpers ──────────────────────────────────────────────────────────────────
+
+// Write an area for the app and add it to the area list.
+function addToIndex(id, area, report, meta, listing, places) {
+  writeFileSync(`${AREA_DIR}/${id}.json`, JSON.stringify(area) + '\n');
+  const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
+  index.push({ id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
+    places: [...new Set(places)].filter(n => n && n !== meta.region).map(n => n.replace(/[<>"`]/g, '')).slice(0, 8), centre,
+    liften: report.lifts, pistesKm: report.pistesKm, hoogte: area.stats.hoogte,
+    status: listing === 'deels' ? 'deels' : 'ok', file: `data/europe/areas/${id}.json`,
+    ...(LIVE_RAW && LIVE_SOURCES[id] ? { liftstatus: { europe: true, file: `${LIVE_RAW}/europe/${id}.json` } } : {}) });
+}
+
+function splitSummary(parts) {
+  if (!parts.length) return '';
+  return ['', '## Parts of hidden ski passes', '',
+    'Ski passes of several separate domains are hidden as a whole; each part with at least ' +
+    `${SPLIT_MIN_LIFTS} lifts is built on its own, unless it is mostly an area that is listed already.`, '',
+    '| Pass | Part | Lifts | Overlaps listed areas | Result | Some lifts |', '|---|---:|---:|---|---|---|',
+    ...parts.map(p => `| ${p.parent} | ${p.part} | ${p.lifts} | ${p.overlaps.join(', ') || '–'} | ${p.result || ''} | ${p.sample.filter(Boolean).join(', ')} |`),
+  ].join('\n') + '\n';
+}
 
 async function readSpill(id) {
   const file = `${SPILL}/${id}.ndjson`;
