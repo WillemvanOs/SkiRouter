@@ -18583,8 +18583,8 @@
   "inputLifts": 15,
   "inputRuns": 59
  },
- "yllas-part-1-fi": {
-  "name": "Ylläs (part 1)",
+ "yllas-fi-9": {
+  "name": "Ylläs",
   "country": "FI",
   "region": "Lapland",
   "lifts": 14,
@@ -18610,7 +18610,7 @@
   "inputRuns": 30
  },
  "cortina-d-ampezzo-cortina-tofane-lagazuo-it": {
-  "name": "Cortina d'Ampezzo: Cortina Tofane, Lagazuoi - 5 Torri",
+  "name": "Cortina d'Ampezzo: Cortina Tofane, Lagazuoi",
   "country": "IT",
   "region": "Belluno",
   "lifts": 22,
@@ -18637,8 +18637,8 @@
   "inputLifts": 21,
   "inputRuns": 103
  },
- "livigno-part-1-it": {
-  "name": "Livigno (part 1)",
+ "livigno-carosello-3000-it": {
+  "name": "Livigno – Carosello 3000",
   "country": "IT",
   "region": "Sondrio",
   "lifts": 20,
@@ -18671,8 +18671,8 @@
   "inputLifts": 20,
   "inputRuns": 101
  },
- "ski-amade-flachau-wagrain-shuttleberg-fl-at": {
-  "name": "Ski amadé: Flachau, Wagrain, Shuttleberg Flachauwinkl-Kleinarl",
+ "ski-amade-flachau-wagrain-at": {
+  "name": "Ski amadé: Flachau, Wagrain",
   "country": "AT",
   "region": "Salzburg",
   "lifts": 55,
@@ -18752,8 +18752,8 @@
   "inputLifts": 16,
   "inputRuns": 38
  },
- "are-part-1-se": {
-  "name": "Åre (part 1)",
+ "are-se-2": {
+  "name": "Åre",
   "country": "SE",
   "region": "Jamtland",
   "lifts": 35,
@@ -18780,8 +18780,8 @@
   "inputLifts": 35,
   "inputRuns": 176
  },
- "are-part-2-se": {
-  "name": "Åre (part 2)",
+ "are-duved-se": {
+  "name": "Åre – Duved",
   "country": "SE",
   "region": "Jamtland",
   "lifts": 10,
@@ -18828,8 +18828,8 @@
   "inputLifts": 28,
   "inputRuns": 158
  },
- "dolomiti-superski-alta-badia-val-di-fass-it": {
-  "name": "Dolomiti Superski: Alta Badia, Val di Fassa, Seiser Alm - Mont de Sëuc - Alpe di Siusi, Seiser Alm, Alpe di Siusi, Mont de Sëuc",
+ "sella-ronda-it": {
+  "name": "Sella Ronda – Val Gardena, Alta Badia, Arabba, Val di Fassa",
   "country": "IT",
   "region": "Bolzano/Bozen",
   "lifts": 207,
@@ -18875,8 +18875,8 @@
   "inputLifts": 205,
   "inputRuns": 773
  },
- "parnassos-ski-centre-part-1-gr": {
-  "name": "Χιονοδρομικό Κέντρο Παρνασσού, Parnassos Ski Centre (part 1)",
+ "parnassos-ski-centre-gr-2": {
+  "name": "Χιονοδρομικό Κέντρο Παρνασσού, Parnassos Ski Centre",
   "country": "GR",
   "region": "Central Greece",
   "lifts": 18,
@@ -18982,8 +18982,8 @@
   "inputLifts": 40,
   "inputRuns": 61
  },
- "les-portes-du-mont-blanc-part-1-fr": {
-  "name": "Les Portes du Mont-Blanc (part 1)",
+ "les-portes-du-mont-blanc-fr-2": {
+  "name": "Les Portes du Mont-Blanc",
   "country": "FR",
   "region": "Haute-Savoie",
   "lifts": 18,
@@ -19015,8 +19015,8 @@
   "inputLifts": 18,
   "inputRuns": 121
  },
- "andermatt-disentis-sedrun-part-1-ch": {
-  "name": "Andermatt+Disentis+Sedrun (part 1)",
+ "andermatt-sedrun-ch": {
+  "name": "Andermatt – Sedrun",
   "country": "CH",
   "region": "Uri",
   "lifts": 14,
