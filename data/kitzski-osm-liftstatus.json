@@ -1,7 +1,7 @@
 {
   "bron": "www.kitzski.at",
-  "sourceUpdate": "2026-10-11T17:07:31",
-  "changed": "2026-10-11T15:07:57.746Z",
+  "sourceUpdate": "2026-10-12T00:02:34",
+  "changed": "2026-10-11T22:08:53.064Z",
   "lifts": {
     "A1": {
       "open": true,
@@ -69,11 +69,11 @@
     },
     "B1": {
       "open": false,
-      "hours": "08:30-17:00",
-      "from": "2026-06-04",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "Fleck Sommer 2"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "B2": {
       "open": false,
@@ -93,11 +93,11 @@
     },
     "B4": {
       "open": false,
-      "hours": "09:00-16:00",
-      "from": "2026-06-04",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "Sonnenrast Sommer"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "B5": {
       "open": false,
@@ -109,11 +109,11 @@
     },
     "B6": {
       "open": false,
-      "hours": "09:00-16:00",
-      "from": "2026-06-04",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "Sommerbetrieb Bike"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "C1": {
       "open": false,
@@ -381,43 +381,43 @@
     },
     "G8": {
       "open": false,
-      "hours": "08:45-16:15",
-      "from": "2026-06-20",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "19.06. - 12.10.2025"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "G9": {
       "open": false,
-      "hours": "08:45-16:15",
-      "from": "2026-06-20",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "20.06. - 11.10.2026"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "H1": {
       "open": false,
-      "hours": "08:30-17:00",
-      "from": "2026-05-23",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "23.05. - 11.10.2026"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "H2": {
       "open": false,
-      "hours": "08:45-17:00",
-      "from": "2026-05-23",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "23.05. - 11.10.2026"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "H3": {
       "open": false,
-      "hours": "08:45-17:00",
-      "from": "2026-05-23",
-      "to": "2026-10-11",
-      "weekdays": 127,
-      "text": "Sommer HGB"
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "H4": {
       "open": false,
@@ -478,8 +478,8 @@
     "H11": {
       "open": false,
       "hours": "09:00-17:30",
-      "from": "2026-10-10",
-      "to": "2026-10-11",
+      "from": "2026-10-17",
+      "to": "2026-10-18",
       "weekdays": 96,
       "text": "Wochenendbetrieb Oktober"
     }
