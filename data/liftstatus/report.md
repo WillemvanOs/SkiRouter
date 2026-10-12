@@ -1,10 +1,10 @@
 # Live lift status: sources
 
-Run 2026-10-06T16:55 UTC, 6 min. 2124 candidate sources, 117 with lifts.
+Run 2026-10-12T05:04 UTC, 9 min. 2165 candidate sources, 115 with lifts.
 
 **85 areas with live lift status** (at least 75 % of their named lifts matched).
 
-- Per country: AT 51, CH 14, FR 8, IT 6, DE 5, LI 1
+- Per country: AT 50, CH 14, FR 8, IT 7, DE 5, LI 1
 - Per provider: intermaps 71, lumiplan 7, infosnow 6, micado 2
 
 | Area | Country | Source | Match | Live |
@@ -20,7 +20,6 @@ Run 2026-10-06T16:55 UTC, 6 min. 2124 candidate sources, 117 with lifts.
 | Lachtal | AT | intermaps winter.intermaps.com/lachtal | 100 % | yes |
 | Lech/Zürs | AT | intermaps skiarlberg.intermaps.com/skiarlberg | 100 % | yes |
 | Mölltaler Gletscher | AT | intermaps winter.intermaps.com/moelltaler_gletscher | 100 % | yes |
-| Nassfeld, Mokrine | AT | intermaps winter.intermaps.com/nassfeld | 100 % | yes |
 | Nauders Bergkastel | AT | intermaps winter.intermaps.com/reschenpass | 100 % | yes |
 | Pitztaler Gletscher | AT | intermaps winter.intermaps.com/pitztaler_gletscher | 100 % | yes |
 | Planneralm | AT | intermaps winter.intermaps.com/planneralm | 100 % | yes |
@@ -44,23 +43,23 @@ Run 2026-10-06T16:55 UTC, 6 min. 2124 candidate sources, 117 with lifts.
 | Hoch-Ybrig | CH | intermaps winter.intermaps.com/hoch_ybrig | 100 % | yes |
 | Lauchernalp | CH | intermaps winter.intermaps.com/lauchernalp | 100 % | yes |
 | Leukerbad (Torrent) | CH | infosnow pid 48 | 100 % | yes |
-| Saas Fee | CH | intermaps winter.intermaps.com/saas_fee | 100 % | yes |
 | Wildhaus | CH | infosnow pid 154 | 100 % | yes |
 | Ofterschwang/​Gunzesried | DE | intermaps winter.intermaps.com/ofterschwang | 100 % | yes |
 | Skigebiet Garmisch-Classic | DE | intermaps winter.intermaps.com/zugspitzbahn_garmisch | 100 % | yes |
 | Albiez-Montrond | FR | lumiplan albiez-montrond | 100 % | yes |
 | Font d'Urle Chaud Clapier | FR | lumiplan font-d-urle | 100 % | yes |
-| Gavarnie-Gèdre | FR | lumiplan gavarnie | 100 % | yes |
 | La Norma | FR | lumiplan la-norma | 100 % | yes |
 | Forni di Sopra | IT | intermaps winter.intermaps.com/forni_di_sopra | 100 % | yes |
+| Nassfeld, Mokrine | IT | intermaps winter.intermaps.com/nassfeld | 100 % | yes |
 | Passo Stelvio - Stilfserjoch | IT | intermaps winter.intermaps.com/passo_stelvio | 100 % | yes |
 | Piancavallo | IT | intermaps winter.intermaps.com/piancavallo | 100 % | yes |
 | Ratschings-Jaufen | IT | intermaps winter.intermaps.com/ratschings_jaufen | 100 % | yes |
 | Obertauern | AT | intermaps winter.intermaps.com/obertauern | 96 % | yes |
 | SkiWelt Wilder Kaiser - Brixental | AT | micado www.skiwelt.at skiwelt | 96 % | yes |
 | Arosa Lenzerheide | CH | intermaps winter.intermaps.com/arosa_lenzerheide | 96 % | yes |
+| Saas Fee | CH | intermaps winter.intermaps.com/saas_fee | 96 % | yes |
 | Skiliftkarussell Winterberg | DE | intermaps winter.intermaps.com/winterberg | 96 % | yes |
-| Les Contamines | FR | lumiplan megeve | 96 % | yes |
+| Les Ménuires | FR | lumiplan les-menuires | 96 % | yes |
 | Kronplatz - Plan de Corones, Kronplatz, Plan de Corones | IT | intermaps winter.intermaps.com/kronplatz | 96 % | yes |
 | Stubaier Gletscher | AT | intermaps winter.intermaps.com/stubaier_gletscher | 94 % | yes |
 | Tauplitz / Bad Mitterndorf | AT | intermaps winter.intermaps.com/tauplitz | 94 % | yes |

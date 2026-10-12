@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06",
+ "updated": "2026-10-12",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
@@ -191,18 +191,6 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/gargellen"
-    }
-   ]
-  },
-  "gavarnie-gedre-fr": {
-   "name": "Gavarnie-Gèdre",
-   "country": "FR",
-   "share": 100,
-   "bron": "lumiplan.pro",
-   "sources": [
-    {
-     "provider": "lumiplan",
-     "station": "gavarnie"
     }
    ]
   },
@@ -530,6 +518,18 @@
     }
    ]
   },
+  "les-menuires-fr": {
+   "name": "Les Ménuires",
+   "country": "FR",
+   "share": 96,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "les-menuires"
+    }
+   ]
+  },
   "leukerbad-torrent-ch": {
    "name": "Leukerbad (Torrent)",
    "country": "CH",
@@ -566,9 +566,9 @@
     }
    ]
   },
-  "nassfeld-mokrine-at": {
+  "nassfeld-mokrine-it": {
    "name": "Nassfeld, Mokrine",
-   "country": "AT",
+   "country": "IT",
    "share": 100,
    "bron": "intermaps.com",
    "sources": [
@@ -725,7 +725,7 @@
   "saas-fee-ch": {
    "name": "Saas Fee",
    "country": "CH",
-   "share": 100,
+   "share": 96,
    "bron": "intermaps.com",
    "sources": [
     {
