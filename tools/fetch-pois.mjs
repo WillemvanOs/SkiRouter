@@ -4,8 +4,13 @@
 // lift stations and runs of each area (see linkRestaurants in
 // tools/lib/compile-area.mjs).
 //
+// With --kind landmarks it fetches named peaks, towns, villages and hamlets
+// in and around each area instead, for the route map (tools/lib/landmarks.mjs),
+// into data/pois/landmarks.json. The hand-curated areas in data/areas.json get
+// theirs written into their own file (`plaatsen`), as they are not built.
+//
 //   node tools/build-areas.mjs --europe --out build/europe
-//   node tools/fetch-pois.mjs [--areas build/europe/areas] [--out data/pois/europe.json]
+//   node tools/fetch-pois.mjs [--kind restaurants|landmarks] [--areas build/europe/areas] [--out data/pois/europe.json]
 //
 // The Overpass API is free and shared: areas are asked in batches of bounding
 // boxes, one batch at a time with a pause in between. A run stops after
@@ -15,14 +20,17 @@
 
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { LANDMARK_PAD, areaPoints, boxOf, landmarksFor } from './lib/landmarks.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
   a.startsWith('--') ? [...acc, [a.slice(2), all[i + 1]?.startsWith('--') ? true : all[i + 1] ?? true]] : acc, []));
+const LANDMARKS = args.kind === 'landmarks';
 const AREAS_DIR = args.areas || 'build/europe/areas';
-const OUT = args.out || 'data/pois/europe.json';
+const OUT = args.out || (LANDMARKS ? 'data/pois/landmarks.json' : 'data/pois/europe.json');
+const CURATED = 'data/areas.json'; // hand-curated areas, for landmarks
 const BATCH = Number(process.env.BATCH || 6);           // bounding boxes per Overpass query (halved when one times out)
 const PAUSE_MS = 3000;     // between queries
-const PAD = 0.004;         // ~400 m around an area's lifts and runs
+const PAD = LANDMARKS ? LANDMARK_PAD : 0.004; // ~400 m around an area's lifts and runs (landmarks: ~1.5 km)
 const KEEP_RUN_M = 100;    // keep a place this close to a run's course…
 const KEEP_TOP_M = 130;    // …or to a top station (the build applies the exact rules)
 const OVERPASS = [
@@ -30,25 +38,24 @@ const OVERPASS = [
   'https://overpass.private.coffee/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
 ];
-const FRESH_DAYS = 6;      // an area fetched this recently is skipped
+const FRESH_DAYS = LANDMARKS ? 30 : 6; // an area fetched this recently is skipped (peaks and villages hardly change)
 const BUDGET_MIN = Number(process.env.BUDGET_MIN || 80); // then stop and save what we have
 const UA = 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)';
 
-// Every built area: its bounding box, run courses and top stations.
-const areas = readdirSync(AREAS_DIR).filter(f => f.endsWith('.json')).map(f => {
-  const a = JSON.parse(readFileSync(`${AREAS_DIR}/${f}`, 'utf8'));
-  const pts = [
-    ...a.liften.flatMap(l => [l.coordOnder, l.coordBoven]),
-    ...Object.values(a.pisteLijnen || {}).flat(2),
-  ].filter(Boolean);
-  const lats = pts.map(p => p[0]), lons = pts.map(p => p[1]);
-  return {
-    id: a.id,
-    bbox: [Math.min(...lats) - PAD, Math.min(...lons) - PAD, Math.max(...lats) + PAD, Math.max(...lons) + PAD],
-    lines: Object.values(a.pisteLijnen || {}).flat(),
-    tops: a.liften.map(l => l.coordBoven).filter(Boolean),
-  };
-}).filter(a => a.lines.length);
+// Every built area: its bounding box, run courses and top stations. For
+// landmarks also the hand-curated areas.
+const curated = LANDMARKS && existsSync(CURATED)
+  ? JSON.parse(readFileSync(CURATED, 'utf8')).filter(m => m.file && existsSync(m.file)).map(m => ({ file: m.file, area: JSON.parse(readFileSync(m.file, 'utf8')) }))
+  : [];
+const areas = [
+  ...readdirSync(AREAS_DIR).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`${AREAS_DIR}/${f}`, 'utf8'))),
+  ...curated.map(c => c.area),
+].map(a => ({
+  id: a.id,
+  bbox: boxOf(areaPoints(a), PAD),
+  lines: Object.values(a.pisteLijnen || {}).flat(),
+  tops: a.liften.map(l => l.coordBoven).filter(Boolean),
+})).filter(a => a.lines.length);
 console.log(`${areas.length} areas`);
 
 // Batches of nearby areas, one Overpass query each. The public Overpass
@@ -79,8 +86,11 @@ for (const area of failed) console.log(`- ${area.id}: not fetched, keeps its pre
 
 async function fetchBatch(batch, label) {
   const boxes = batch.map(a => a.bbox.map(v => v.toFixed(4)).join(','));
-  const query = `[out:json][timeout:90];(${boxes.map(b =>
-    `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
+  const query = LANDMARKS
+    ? `[out:json][timeout:90];(${boxes.map(b =>
+      `node["natural"="peak"]["name"](${b});node["place"~"^(town|village|hamlet)$"]["name"](${b});`).join('')});out body;`
+    : `[out:json][timeout:90];(${boxes.map(b =>
+      `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
   let data;
   try {
     data = await overpass(query, 2);
@@ -101,8 +111,19 @@ async function fetchBatch(batch, label) {
   for (const e of data.elements || []) {
     const lat = e.lat ?? e.center?.lat, lon = e.lon ?? e.center?.lon;
     if (lat == null || pois.has(`${e.type}/${e.id}`)) continue;
-    if (!batch.some(a => nearArea(a, [lat, lon]))) continue;
     const t = e.tags || {};
+    if (LANDMARKS) {
+      if (!batch.some(a => inBox(a.bbox, [lat, lon]))) continue;
+      pois.set(`${e.type}/${e.id}`, {
+        id: `${e.type}/${e.id}`, name: t.name,
+        ...(t.natural ? { natural: t.natural } : { place: t.place }),
+        lat: +lat.toFixed(5), lon: +lon.toFixed(5),
+        ...(t.ele && !isNaN(parseFloat(t.ele)) ? { ele: Math.round(parseFloat(t.ele)) } : {}),
+      });
+      kept++;
+      continue;
+    }
+    if (!batch.some(a => nearArea(a, [lat, lon]))) continue;
     pois.set(`${e.type}/${e.id}`, {
       id: `${e.type}/${e.id}`, name: t.name, amenity: t.amenity || null, tourism: t.tourism || null,
       lat: +lat.toFixed(5), lon: +lon.toFixed(5),
@@ -113,7 +134,7 @@ async function fetchBatch(batch, label) {
     });
     kept++;
   }
-  console.log(`batch ${label}: ${(data.elements || []).length} places, ${kept} on the piste`);
+  console.log(`batch ${label}: ${(data.elements || []).length} places, ${kept} ${LANDMARKS ? 'kept' : 'on the piste'}`);
   await new Promise(r => setTimeout(r, PAUSE_MS));
 }
 
@@ -130,6 +151,15 @@ if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile
   writeFileSync(OUT, JSON.stringify({ updated: today, count: list.length, fetched, pois: list }) + '\n');
   const covered = Object.keys(fetched).length;
   console.log(`written ${list.length} places to ${OUT}; ${covered}/${areas.length} areas fetched so far${failed.length ? `, ${failed.length} failed this run` : ''}`);
+}
+
+// The hand-curated areas are not built: their landmarks go into their file.
+for (const { file, area } of curated) {
+  const plaatsen = landmarksFor(list, area);
+  if (JSON.stringify(area.plaatsen || []) === JSON.stringify(plaatsen)) continue;
+  area.plaatsen = plaatsen;
+  writeFileSync(file, JSON.stringify(area, null, 2) + '\n');
+  console.log(`${file}: ${plaatsen.length} landmarks`);
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────

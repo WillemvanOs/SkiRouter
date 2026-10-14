@@ -1,0 +1,57 @@
+// Landmarks for the route map: named peaks and the towns and villages in and
+// around a ski area, as a paper piste map shows them. They come from
+// OpenStreetMap (tools/fetch-pois.mjs --kind landmarks, into
+// data/pois/landmarks.json); landmarksFor picks an area's own.
+//
+// An area's landmarks (`plaatsen`): [{ n: name, k: 'peak'|'town'|'village'|'hamlet', lat, lon, ele? }]
+
+export const LANDMARK_PAD = 0.015;  // ~1.5 km around an area's lifts and runs
+const MAX_PEAKS = 25;
+const MAX_PLACES = 20;
+const HAMLET_NEAR_M = 1200;         // a hamlet only when a lift starts or ends this close
+const PLACE_RANK = { town: 0, village: 1, hamlet: 2 };
+
+// The points of an area (format 2: liften + pisteLijnen) that set its extent.
+export function areaPoints(area) {
+  return [
+    ...(area.liften || []).flatMap(l => [l.coordOnder, l.coordBoven]),
+    ...Object.values(area.pisteLijnen || {}).flat(2),
+  ].filter(Boolean);
+}
+
+export function boxOf(points, pad) {
+  let s = 90, w = 180, n = -90, e = -180;
+  for (const [lat, lon] of points) {
+    if (lat < s) s = lat; if (lat > n) n = lat; if (lon < w) w = lon; if (lon > e) e = lon;
+  }
+  return [s - pad, w - pad, n + pad, e + pad];
+}
+
+const inBox = ([s, w, n, e], lat, lon) => lat >= s && lat <= n && lon >= w && lon <= e;
+
+function distM(a, b) {
+  const kx = 111320 * Math.cos(a[0] * Math.PI / 180), ky = 110540;
+  return Math.hypot((a[1] - b[1]) * kx, (a[0] - b[0]) * ky);
+}
+
+// The landmarks of one area, from the fetched list: the highest named peaks
+// and the towns and villages, plus hamlets where a lift starts or ends.
+export function landmarksFor(all, area) {
+  const points = areaPoints(area);
+  if (!points.length) return [];
+  const box = boxOf(points, LANDMARK_PAD);
+  const stations = (area.liften || []).flatMap(l => [l.coordOnder, l.coordBoven]).filter(Boolean);
+  const mid = [(box[0] + box[2]) / 2, (box[1] + box[3]) / 2];
+  const inside = all.filter(p => inBox(box, p.lat, p.lon));
+  const peaks = inside.filter(p => p.natural === 'peak')
+    .sort((a, b) => (b.ele ?? -1) - (a.ele ?? -1))
+    .slice(0, MAX_PEAKS);
+  const places = inside.filter(p => p.place in PLACE_RANK)
+    .filter(p => p.place !== 'hamlet' || stations.some(s => distM(s, [p.lat, p.lon]) <= HAMLET_NEAR_M))
+    .sort((a, b) => PLACE_RANK[a.place] - PLACE_RANK[b.place] || distM(mid, [a.lat, a.lon]) - distM(mid, [b.lat, b.lon]))
+    .slice(0, MAX_PLACES);
+  return [...places, ...peaks].map(p => ({
+    n: p.name, k: p.natural === 'peak' ? 'peak' : p.place, lat: p.lat, lon: p.lon,
+    ...(p.ele != null ? { ele: p.ele } : {}),
+  }));
+}
