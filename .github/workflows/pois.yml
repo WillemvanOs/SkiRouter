@@ -67,7 +67,7 @@ jobs:
       # The time the restaurants left (at least 20 minutes).
       - name: Fetch peaks, towns and villages
         run: |
-          left=$(( 95 - ($(date +%s) - POIS_START) / 60 ))
+          left=$(( 88 - ($(date +%s) - POIS_START) / 60 ))
           BUDGET_MIN=$(( left > 20 ? left : 20 )) node tools/fetch-pois.mjs --kind landmarks --areas build/europe/areas
 
       - name: Commit when changed
