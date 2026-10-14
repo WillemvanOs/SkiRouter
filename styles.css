@@ -2007,6 +2007,11 @@ select.day-input {
   opacity: 0.45;
 }
 
+.map-step.map-lunch {
+  font-size: 0.85rem;
+  border-color: #b5651d;
+}
+
 .map-step.is-current {
   transform: scale(1.35);
   background: #f5c542;

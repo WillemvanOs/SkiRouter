@@ -136,7 +136,7 @@ the top station instead.
 
 ## Route map
 
-A quick route can be shown as a list or as a map (**☰ List | 🗺 Map**). The map is flat and
+A quick route and a day plan can each be shown as a list or as a map (**☰ List | 🗺 Map**). The map is flat and
 plain: no map tiles, just the area's own data on a light background, so it works offline and is
 easy to read.
 - The whole area is drawn faintly: every piste in its colour and every lift as a grey line.
@@ -147,6 +147,8 @@ easy to read.
 - Every step has its number halfway along its line. The step you are at (the first one not
   ticked yet) is bigger and yellow, and steps done are faded. Numbers that would overlap are
   hidden until you zoom in.
+- In a day plan, lunch is a 🍽 at the restaurant; it counts as a step when ticking off.
+  Choosing another option redraws the map.
 - Tap a line or a number for its name. 📍 shows and follows your position.
 
 The map uses Leaflet (`vendor/leaflet`, BSD-2-Clause), loaded the first time the map is opened

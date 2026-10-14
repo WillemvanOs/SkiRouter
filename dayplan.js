@@ -49,6 +49,7 @@ let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
 let dayMoves   = {}; // per node, the edges this plan may take, with their cost (see prepareDayMoves)
 let dayTracker = null; // ticking off the shown option's steps
 let dayShown   = 0;    // index of the option on screen
+let dayDone    = 0;    // steps ticked, for the map's current step
 
 // ── Tabs ─────────────────────────────────────────────────────────────────────
 
@@ -58,6 +59,9 @@ function showTab(tab) {
   document.getElementById('tabbtn-quick').classList.toggle('on', tab === 'quick');
   document.getElementById('tabbtn-day').classList.toggle('on', tab === 'day');
   try { localStorage.setItem(DAY_TAB_KEY, tab); } catch {}
+  // One map for both planners: draw it again in the one now on screen.
+  stopMapGps();
+  if (routeViews[tab] === 'map') drawPlannerMap(tab);
 }
 
 // ── Form ─────────────────────────────────────────────────────────────────────
@@ -925,6 +929,19 @@ function renderDayOption(index) {
 
   const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
   dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });
+  if (routeViews.day === 'map') drawPlannerMap('day');
+}
+
+// The shown option for the map: lunch included, transfers too.
+function dayMapRoute() {
+  const walk = dayOptions?.[dayShown];
+  if (!walk || !dayCtx) return null;
+  return {
+    path: walk.steps.map(s => s.lunch ? { lunch: s.lunch } : s.edge),
+    done: dayDone,
+    fromName: STATIONS[dayCtx.startId]?.name,
+    toName: STATIONS[dayCtx.endId]?.name,
+  };
 }
 
 // ── Following the plan ───────────────────────────────────────────────────────
@@ -941,6 +958,8 @@ let dayLateBuzzed = null; // the plan we already vibrated for
 // after "back by", warn — in the progress area and in the sticky bar — and
 // offer to replan the rest of the day.
 function dayStatus(done, items) {
+  dayDone = done;
+  if (routeViews.day === 'map') updateRouteMapProgress(done, 'day');
   const total = items.length;
   const walk  = dayOptions[dayShown];
   const now   = nowMinutes();

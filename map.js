@@ -16,6 +16,7 @@ let routeMap = null;       // the Leaflet map, kept while the page lives
 let routeMapLayer = null;  // everything drawn on it for the current route
 let routeMapMarkers = [];  // numbered dot per step, in step order
 let routeMapGps = null;    // { watch, marker } while showing your position
+const routeViews = { quick: 'list', day: 'list' }; // List or Map, per planner
 
 function loadLeaflet() {
   if (window.L) return Promise.resolve();
@@ -75,12 +76,14 @@ function pisteJunction(nr, next) {
 }
 
 // The route as drawable pieces, numbered like the step list (transfers have
-// no number of their own).
+// no number of their own). A day plan's route also holds its lunch, as
+// { lunch: restaurant }: not numbered, but tickable like a step. `item` is
+// the piece's place among the tickable steps.
 function routePieces(path) {
   const pos = stationPositions();
   const pieces = [];
-  let cursor = pos[path[0]?.from] || null;
-  let number = 0;
+  let cursor = pos[path.find(e => !e.lunch)?.from] || null;
+  let number = 0, item = 0;
   // Where the mapped course of the next step starts away from where the last
   // one ended (a connecting path that is not mapped as a piste), a dotted
   // line keeps the route in one piece.
@@ -88,10 +91,19 @@ function routePieces(path) {
     if (cursor && distanceM(cursor, p) > 25) pieces.push({ kind: 'link', edge: { type: 'transfer' }, latlngs: [cursor, p], number: null, gap: true });
   };
   path.forEach(edge => {
+    if (edge.lunch) {
+      const r = edge.lunch;
+      const at = r.lat != null && r.lon != null ? [r.lat, r.lon] : cursor;
+      if (at) pieces.push({ kind: 'lunch', edge: { type: 'lunch', name: r.naam }, latlngs: [at], number: null, item });
+      item++;
+      return;
+    }
     if (edge.type === 'transfer' || isConnection(edge)) {
       const a = cursor || pos[edge.from], b = pos[edge.to];
-      if (a && b) pieces.push({ kind: 'link', edge, latlngs: [a, b], number: edge.type === 'transfer' ? null : ++number });
-      else if (edge.type !== 'transfer') ++number;
+      const counted = edge.type !== 'transfer';
+      if (a && b) pieces.push({ kind: 'link', edge, latlngs: [a, b], number: counted ? ++number : null, item: counted ? item : null });
+      else if (counted) ++number;
+      if (counted) item++;
       cursor = b || cursor;
       return;
     }
@@ -99,7 +111,8 @@ function routePieces(path) {
       const a = pos[edge.from], b = pos[edge.to];
       ++number;
       if (a) bridge(a);
-      if (a && b) pieces.push({ kind: 'lift', edge, latlngs: [a, b], number });
+      if (a && b) pieces.push({ kind: 'lift', edge, latlngs: [a, b], number, item });
+      item++;
       cursor = b || cursor;
       return;
     }
@@ -108,8 +121,9 @@ function routePieces(path) {
       ++number;
       const target = pos[part.to] || (parts[k + 1] ? pisteJunction(part.pisteNr, parts[k + 1].pisteNr) : pos[edge.to]);
       const seg = pisteSegment(part.pisteNr, cursor, target);
-      if (seg) { bridge(seg[0]); pieces.push({ kind: 'piste', edge: part, latlngs: seg, number }); }
-      else if (cursor && target) pieces.push({ kind: 'link', edge: part, latlngs: [cursor, target], number, unknown: true });
+      if (seg) { bridge(seg[0]); pieces.push({ kind: 'piste', edge: part, latlngs: seg, number, item }); }
+      else if (cursor && target) pieces.push({ kind: 'link', edge: part, latlngs: [cursor, target], number, item, unknown: true });
+      item++;
       cursor = seg ? seg[seg.length - 1] : target || cursor;
     });
   });
@@ -123,6 +137,7 @@ function pisteColourOf(nr) {
 
 function stepLabel(piece) {
   const e = piece.edge;
+  if (piece.kind === 'lunch') return `Lunch · ${e.name}`;
   if (piece.kind === 'lift') return `${piece.number} · ${[liftCode(e.liftNr), e.name].filter(Boolean).join(' ')}`;
   if (piece.kind === 'piste') return `${piece.number} · ${pisteLabel(e.pisteNr)}${e.name && !String(e.name).startsWith('Piste ') ? ` (${e.name})` : ''}`;
   if (e.type === 'transfer') return 'Short walk';
@@ -145,8 +160,13 @@ function halfway(latlngs) {
 }
 
 // Draw the map for a route (`path` as planned, transfers included) into `el`.
-async function renderRouteMap(el, path, done = 0) {
+// `opts.owner` names the planner the map belongs to ('quick' or 'day'), so
+// ticking steps in the other one leaves it alone; `opts.fromName` and
+// `opts.toName` label the start and the finish.
+let routeMapOwner = null;
+async function renderRouteMap(el, path, done = 0, opts = {}) {
   await loadLeaflet();
+  routeMapOwner = opts.owner || 'quick';
   if (!routeMap || routeMap.getContainer() !== el) {
     routeMap?.remove();
     routeMap = L.map(el, { zoomControl: true, attributionControl: true, minZoom: 9, maxZoom: 18, zoomSnap: 0.5 });
@@ -178,6 +198,7 @@ async function renderRouteMap(el, path, done = 0) {
   const pieces = routePieces(path);
   const bounds = [];
   pieces.forEach(piece => {
+    if (piece.kind === 'lunch') { bounds.push(...piece.latlngs); return; }
     const colour = piece.kind === 'lift' ? MAP_LIFT_COLOUR : piece.kind === 'piste' ? pisteColourOf(piece.edge.pisteNr) : '#6a7d92';
     if (piece.gap) {
       L.polyline(piece.latlngs, { renderer, color: '#6a7d92', weight: 3, opacity: 0.9, dashArray: '2 6', interactive: false }).addTo(routeMapLayer);
@@ -190,39 +211,45 @@ async function renderRouteMap(el, path, done = 0) {
       .bindPopup(escapeHtml(stepLabel(piece))).addTo(routeMapLayer);
     bounds.push(...piece.latlngs);
   });
-  // Numbered dots at the start of each step, drawn last so they stay on top.
-  pieces.filter(p => p.number).forEach(piece => {
+  // Numbered dots halfway along each step (🍽 for lunch), drawn last so they
+  // stay on top.
+  pieces.filter(p => p.item != null).forEach(piece => {
+    const html = piece.kind === 'lunch' ? '<span class="map-step map-lunch">🍽</span>' : `<span class="map-step">${piece.number}</span>`;
     const marker = L.marker(halfway(piece.latlngs), {
-      icon: L.divIcon({ className: 'map-step-icon', html: `<span class="map-step">${piece.number}</span>`, iconSize: [26, 26], iconAnchor: [13, 13] }),
+      icon: L.divIcon({ className: 'map-step-icon', html, iconSize: [26, 26], iconAnchor: [13, 13] }),
       keyboard: false,
     }).bindPopup(escapeHtml(stepLabel(piece))).addTo(routeMapLayer);
-    routeMapMarkers[piece.number - 1] = marker;
+    routeMapMarkers[piece.item] = marker;
   });
-  const first = pieces[0]?.latlngs[0], last = pieces[pieces.length - 1]?.latlngs.slice(-1)[0];
+  const drawn = pieces.filter(p => p.kind !== 'lunch');
+  const first = drawn[0]?.latlngs[0], last = drawn[drawn.length - 1]?.latlngs.slice(-1)[0];
   if (first) {
     L.marker(first, { icon: L.divIcon({ className: 'map-step-icon', html: '<span class="map-start"></span>', iconSize: [16, 16], iconAnchor: [8, 8] }) })
-      .bindPopup(escapeHtml(selected.from?.name || 'Start')).addTo(routeMapLayer);
+      .bindPopup(escapeHtml(opts.fromName || 'Start')).addTo(routeMapLayer);
   }
   if (last) {
     L.marker(last, { icon: L.divIcon({ className: 'map-step-icon', html: '<span class="map-flag">🏁</span>', iconSize: [28, 28], iconAnchor: [6, 26] }) })
-      .bindPopup(escapeHtml(selected.to?.name || 'Destination')).addTo(routeMapLayer);
+      .bindPopup(escapeHtml(opts.toName || 'Destination')).addTo(routeMapLayer);
   }
   routeMap.invalidateSize();
   if (bounds.length) routeMap.fitBounds(L.latLngBounds(bounds), { padding: [28, 28] });
   else if (first) routeMap.setView(first, 14);
   routeMap.off('zoomend', declutterSteps).on('zoomend', declutterSteps);
   // After the view is set: only then do the markers have their elements.
-  updateRouteMapProgress(done);
+  updateRouteMapProgress(done, routeMapOwner);
 }
 
 // Numbers that would sit on top of each other at this zoom: show the
-// current step's, then the others in order, and hide what overlaps.
-// Zooming in brings them back.
+// current step's, then lunch, then the others in order, and hide what
+// overlaps. Zooming in brings them back.
 function declutterSteps() {
   if (!routeMap || !routeMap._loaded) return; // no view yet (before fitBounds)
-  const current = routeMapMarkers.findIndex(m => m?.getElement()?.querySelector('.map-step.is-current'));
+  const rank = i => {
+    const el = routeMapMarkers[i].getElement()?.querySelector('.map-step');
+    return el?.classList.contains('is-current') ? 0 : el?.classList.contains('map-lunch') ? 1 : 2;
+  };
   const order = routeMapMarkers.map((m, i) => i).filter(i => routeMapMarkers[i]);
-  if (current >= 0) order.sort((a, b) => (b === current) - (a === current));
+  order.sort((a, b) => rank(a) - rank(b) || a - b);
   const placed = [];
   order.forEach(i => {
     const marker = routeMapMarkers[i];
@@ -235,7 +262,8 @@ function declutterSteps() {
 }
 
 // The step you are at is big and yellow, steps done are faded.
-function updateRouteMapProgress(done) {
+function updateRouteMapProgress(done, owner) {
+  if (owner !== routeMapOwner) return;
   routeMapMarkers.forEach((marker, i) => {
     const el = marker?.getElement()?.querySelector('.map-step');
     if (!el) return;

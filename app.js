@@ -1094,41 +1094,62 @@ function renderRoute(result) {
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
     from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'),
   });
-  if (routeView === 'map') renderRouteMap(document.getElementById('q-map'), lastQuickPath, quickDone).catch(mapFailed);
+  if (routeViews.quick === 'map') drawPlannerMap('quick');
 }
 
 // ── List or map ──────────────────────────────────────────────────────────────
 
-let routeView = 'list';   // how the quick route is shown
 let lastQuickPath = null; // the route on screen, for the map
 let quickDone = 0;        // steps ticked, for the map's current step
 
-function showRouteView(view) {
-  routeView = view;
-  const map = document.getElementById('q-map');
-  document.getElementById('q-view-list').classList.toggle('active', view === 'list');
-  document.getElementById('q-view-map').classList.toggle('active', view === 'map');
-  document.getElementById('q-view-list').setAttribute('aria-pressed', String(view === 'list'));
-  document.getElementById('q-view-map').setAttribute('aria-pressed', String(view === 'map'));
-  document.getElementById('steps').style.display = view === 'map' ? 'none' : '';
-  map.style.display = view === 'map' ? 'block' : 'none';
-  if (view === 'map' && lastQuickPath) renderRouteMap(map, lastQuickPath, quickDone).catch(mapFailed);
+// Each planner has its own List | Map switch (routeViews, in map.js); the
+// one map is drawn into the planner on screen.
+const MAP_PARTS = {
+  quick: { list: 'q-view-list', map: 'q-view-map', el: 'q-map', steps: 'steps' },
+  day:   { list: 'd-view-list', map: 'd-view-map', el: 'd-map', steps: 'day-steps' },
+};
+
+function showRouteView(view, planner = 'quick') {
+  routeViews[planner] = view;
+  const ids = MAP_PARTS[planner];
+  ['list', 'map'].forEach(v => {
+    const btn = document.getElementById(ids[v]);
+    btn.classList.toggle('active', v === view);
+    btn.setAttribute('aria-pressed', String(v === view));
+  });
+  document.getElementById(ids.steps).style.display = view === 'map' ? 'none' : '';
+  document.getElementById(ids.el).style.display = view === 'map' ? 'block' : 'none';
+  if (view === 'map') drawPlannerMap(planner);
   else stopMapGps();
 }
 
-function mapFailed(err) {
+function drawPlannerMap(planner) {
+  const el = document.getElementById(MAP_PARTS[planner].el);
+  if (planner === 'quick') {
+    if (!lastQuickPath) return;
+    renderRouteMap(el, lastQuickPath, quickDone, { owner: 'quick', fromName: selected.from?.name, toName: selected.to?.name })
+      .catch(err => mapFailed(err, el));
+  } else {
+    const route = dayMapRoute();
+    if (!route) return;
+    renderRouteMap(el, route.path, route.done, { owner: 'day', fromName: route.fromName, toName: route.toName })
+      .catch(err => mapFailed(err, el));
+  }
+}
+
+function mapFailed(err, el) {
   console.warn(err);
   // Start the map afresh next time: the message replaces its contents.
   routeMap?.remove();
   routeMap = null;
-  document.getElementById('q-map').innerHTML = `<div class="map-error">${window.L
+  el.innerHTML = `<div class="map-error">${window.L
     ? 'The map could not be drawn for this route.'
     : 'The map could not be loaded. Open the app once with a connection.'}</div>`;
 }
 
 function quickStatus(done, items) {
   quickDone = done;
-  if (routeView === 'map') updateRouteMapProgress(done);
+  if (routeViews.quick === 'map') updateRouteMapProgress(done, 'quick');
   const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
   let text;
   if (done === 0)                 text = 'Tap a step once you have done it.';
