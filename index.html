@@ -177,6 +177,11 @@
       </div>
     </div>
 
+    <div class="view-toggle" role="group" aria-label="Show the route as">
+      <button type="button" class="view-btn active" id="q-view-list" aria-pressed="true" onclick="showRouteView('list')">☰ List</button>
+      <button type="button" class="view-btn" id="q-view-map" aria-pressed="false" onclick="showRouteView('map')">🗺 Map</button>
+    </div>
+    <div class="route-map" id="q-map" style="display:none"></div>
     <div id="q-closed"></div>
     <div class="progress" id="p-progress"></div>
     <div class="steps" id="steps"></div>
@@ -343,6 +348,7 @@
 </main>
 
 <script src="liftmatch.js"></script>
+<script src="map.js"></script>
 <script src="dayplan.js"></script>
 <script src="app.js"></script>
 </body>

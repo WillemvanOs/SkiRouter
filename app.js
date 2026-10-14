@@ -1087,13 +1087,48 @@ function renderRoute(result) {
   document.getElementById('q-closed').innerHTML = closedWarning(visibleSteps);
   document.getElementById('tip').innerHTML = getTip();
 
+  // For the map view: the route as planned, transfers included.
+  lastQuickPath = result.path;
+
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
     from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'),
   });
+  if (routeView === 'map') renderRouteMap(document.getElementById('q-map'), lastQuickPath, quickDone).catch(mapFailed);
+}
+
+// ── List or map ──────────────────────────────────────────────────────────────
+
+let routeView = 'list';   // how the quick route is shown
+let lastQuickPath = null; // the route on screen, for the map
+let quickDone = 0;        // steps ticked, for the map's current step
+
+function showRouteView(view) {
+  routeView = view;
+  const map = document.getElementById('q-map');
+  document.getElementById('q-view-list').classList.toggle('active', view === 'list');
+  document.getElementById('q-view-map').classList.toggle('active', view === 'map');
+  document.getElementById('q-view-list').setAttribute('aria-pressed', String(view === 'list'));
+  document.getElementById('q-view-map').setAttribute('aria-pressed', String(view === 'map'));
+  document.getElementById('steps').style.display = view === 'map' ? 'none' : '';
+  map.style.display = view === 'map' ? 'block' : 'none';
+  if (view === 'map' && lastQuickPath) renderRouteMap(map, lastQuickPath, quickDone).catch(mapFailed);
+  else stopMapGps();
+}
+
+function mapFailed(err) {
+  console.warn(err);
+  // Start the map afresh next time: the message replaces its contents.
+  routeMap?.remove();
+  routeMap = null;
+  document.getElementById('q-map').innerHTML = `<div class="map-error">${window.L
+    ? 'The map could not be drawn for this route.'
+    : 'The map could not be loaded. Open the app once with a connection.'}</div>`;
 }
 
 function quickStatus(done, items) {
+  quickDone = done;
+  if (routeView === 'map') updateRouteMapProgress(done);
   const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
   let text;
   if (done === 0)                 text = 'Tap a step once you have done it.';
