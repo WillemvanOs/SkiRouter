@@ -134,6 +134,24 @@ The station picker lists each lift once, with its status. Picking a lift chooses
 station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
 the top station instead.
 
+## Route map
+
+A quick route can be shown as a list or as a map (**☰ List | 🗺 Map**). The map is flat and
+plain: no map tiles, just the area's own data on a light background, so it works offline and is
+easy to read.
+- The whole area is drawn faintly: every piste in its colour and every lift as a grey line.
+- The route is drawn on top, thick with a white edge. Lifts are dark blue straight lines between
+  their stations, and pistes follow their mapped course (`pisteLijnen`), cut to the part the
+  route uses. Where the next mapped course starts away from where the last one ended (a
+  connecting path that is not mapped as a piste), a dotted line keeps the route in one piece.
+- Every step has its number halfway along its line. The step you are at (the first one not
+  ticked yet) is bigger and yellow, and steps done are faded. Numbers that would overlap are
+  hidden until you zoom in.
+- Tap a line or a number for its name. 📍 shows and follows your position.
+
+The map uses Leaflet (`vendor/leaflet`, BSD-2-Clause), loaded the first time the map is opened
+and kept offline by the service worker. The code is in `map.js`.
+
 ## Which way off the lift
 
 On the lift step you are at (the first one not ticked yet), the planners say which way to go when you get off: "↱ Off the lift,
