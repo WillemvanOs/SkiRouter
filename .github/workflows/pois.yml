@@ -3,7 +3,7 @@
 # peaks, towns and villages for the route map into data/pois/landmarks.json
 # (and into the hand-curated area files), and commit them when they changed.
 # The public Overpass servers are often busy, so each run works for a limited
-# time (restaurants 70 minutes, landmarks 20) on the areas fetched longest ago
+# time (restaurants up to 70 minutes, landmarks the rest) on the areas fetched longest ago
 # (restaurants fetched in the last 6 days and landmarks in the last 30 are
 # skipped) and saves what it got. On main the site is then redeployed, so the
 # areas built at deploy time get the new data. A commit made with
@@ -57,15 +57,18 @@ jobs:
       - name: Build the areas (for their runs and stations)
         run: node tools/build-areas.mjs --europe --out build/europe
 
-      - name: Fetch peaks, towns and villages
-        env:
-          BUDGET_MIN: 20
-        run: node tools/fetch-pois.mjs --kind landmarks --areas build/europe/areas
-
       - name: Fetch restaurants and huts
         env:
           BUDGET_MIN: 70
-        run: node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+        run: |
+          echo "POIS_START=$(date +%s)" >> "$GITHUB_ENV"
+          node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+
+      # The time the restaurants left (at least 20 minutes).
+      - name: Fetch peaks, towns and villages
+        run: |
+          left=$(( 95 - ($(date +%s) - POIS_START) / 60 ))
+          BUDGET_MIN=$(( left > 20 ? left : 20 )) node tools/fetch-pois.mjs --kind landmarks --areas build/europe/areas
 
       - name: Commit when changed
         id: commit

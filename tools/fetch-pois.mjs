@@ -52,6 +52,7 @@ const areas = [
   ...curated.map(c => c.area),
 ].map(a => ({
   id: a.id,
+  curated: curated.some(c => c.area === a),
   bbox: boxOf(areaPoints(a), PAD),
   lines: Object.values(a.pisteLijnen || {}).flat(),
   tops: a.liften.map(l => l.coordBoven).filter(Boolean),
@@ -70,14 +71,17 @@ const fetchedAt = { ...(prevFile.fetched || {}) };
 const today = new Date().toISOString().slice(0, 10);
 const fresh = id => fetchedAt[id] && (Date.now() - Date.parse(fetchedAt[id])) / 864e5 < FRESH_DAYS;
 const deadline = Date.now() + BUDGET_MIN * 60e3;
+// The hand-curated areas first (one query each, so they are not held up by a busy batch).
 const todo = areas.filter(a => !fresh(a.id))
-  .sort((a, b) => (fetchedAt[a.id] || '').localeCompare(fetchedAt[b.id] || '') || a.bbox[1] - b.bbox[1]);
+  .sort((a, b) => b.curated - a.curated || (fetchedAt[a.id] || '').localeCompare(fetchedAt[b.id] || '') || a.bbox[1] - b.bbox[1]);
 console.log(`${todo.length} to fetch (${areas.length - todo.length} fetched in the last ${FRESH_DAYS} days)`);
 const pois = new Map();
 const done = [];
 const failed = [];
 const batches = [];
-for (let i = 0; i < todo.length; i += BATCH) batches.push(todo.slice(i, i + BATCH));
+todo.filter(a => a.curated).forEach(a => batches.push([a]));
+const rest = todo.filter(a => !a.curated);
+for (let i = 0; i < rest.length; i += BATCH) batches.push(rest.slice(i, i + BATCH));
 for (let b = 0; b < batches.length; b++) {
   if (Date.now() > deadline) { console.log(`Time is up: ${batches.length - b} batches left for the next run.`); break; }
   await fetchBatch(batches[b], `${b + 1}/${batches.length}`);
