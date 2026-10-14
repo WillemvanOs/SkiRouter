@@ -1120,7 +1120,7 @@ function showRouteView(view, planner = 'quick') {
   document.getElementById(ids.steps).style.display = view === 'map' ? 'none' : '';
   document.getElementById(ids.el).style.display = view === 'map' ? 'block' : 'none';
   if (view === 'map') drawPlannerMap(planner);
-  else stopMapGps();
+  else leaveRouteMap();
 }
 
 function drawPlannerMap(planner) {

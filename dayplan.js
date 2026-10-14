@@ -60,7 +60,7 @@ function showTab(tab) {
   document.getElementById('tabbtn-day').classList.toggle('on', tab === 'day');
   try { localStorage.setItem(DAY_TAB_KEY, tab); } catch {}
   // One map for both planners: draw it again in the one now on screen.
-  stopMapGps();
+  leaveRouteMap();
   if (routeViews[tab] === 'map') drawPlannerMap(tab);
 }
 

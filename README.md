@@ -136,23 +136,39 @@ the top station instead.
 
 ## Route map
 
-A quick route and a day plan can each be shown as a list or as a map (**☰ List | 🗺 Map**). The map is flat and
-plain: no map tiles, just the area's own data on a light background, so it works offline and is
-easy to read.
-- The whole area is drawn faintly: every piste in its colour and every lift as a grey line.
-- The route is drawn on top, thick with a white edge. Lifts are dark blue straight lines between
-  their stations, and pistes follow their mapped course (`pisteLijnen`), cut to the part the
-  route uses. Where the next mapped course starts away from where the last one ended (a
-  connecting path that is not mapped as a piste), a dotted line keeps the route in one piece.
-- Every step has its number halfway along its line. The step you are at (the first one not
-  ticked yet) is bigger and yellow, and steps done are faded. Numbers that would overlap are
-  hidden until you zoom in.
-- In a day plan, lunch is a 🍽 at the restaurant; it counts as a step when ticking off.
-  Choosing another option redraws the map.
-- Tap a line or a number for its name. 📍 shows and follows your position.
+A quick route and a day plan can each be shown as a list or as a map (**☰ List | 🗺 Map**). The
+map is drawn the way a paper piste map is, but flat and plain: no map tiles, just the area's own
+data on a light background, so it works offline and is easy to read.
+- **Valley down, mountain up.** The map is turned so the lifts, on average, go up the screen,
+  as on a piste map seen from the valley. Where lifts go every which way (around a valley), it
+  stays north up. The compass shows where north is; tap it for north up (remembered).
+- **The route on top of a faint area.** Pistes are thick lines in their colour, lifts thin dark
+  lines with a dot at each station, and arrows show which way you go. The lifts and pistes of the
+  route carry their number, as on a piste map: a lift's code in a dark box, a piste's number in a
+  circle of its colour (runs without a number go by their name). Where the next mapped course
+  starts away from where the last one ended, a dotted line keeps the route in one piece.
+- **It follows you.** The map opens on the step you are at (its label yellow) and the next three,
+  in full colour; the rest of the route is lighter and the steps done are grey. Tick a step and
+  the map moves on. **⤢ Whole route** shows all of it, **◎ My step** goes back.
+- **Places to find your way.** Towns, villages, hamlets at a lift and named peaks (with their
+  height) come from OpenStreetMap (`plaatsen`, see below). Start and finish are named. In a day
+  plan, lunch is a 🍽 at the restaurant and counts as a step.
+- Labels that would overlap are hidden, the least important first (the step you are at, lunch,
+  the next steps, start and finish, towns, the rest of the route, villages, peaks, steps done,
+  hamlets); zooming in brings them back.
+- ⛶ shows the map full screen (also on iPhone), 📍 shows and follows your position, and a tap on a
+  line or label gives its name.
 
 The map uses Leaflet (`vendor/leaflet`, BSD-2-Clause), loaded the first time the map is opened
 and kept offline by the service worker. The code is in `map.js`.
+
+**Landmarks.** `node tools/fetch-pois.mjs --kind landmarks` asks OpenStreetMap for named peaks,
+towns, villages and hamlets in and around every area (about 1.5 km) into
+`data/pois/landmarks.json`; it runs daily with the restaurants (`.github/workflows/pois.yml`,
+each area every 30 days). The area build gives each area its own (`plaatsen`: the 25 highest
+peaks, and up to 20 towns and villages, hamlets only near a lift; `tools/lib/landmarks.mjs`).
+The hand-curated areas in `data/areas.json` are not built, so the fetch writes theirs into
+their file.
 
 ## Which way off the lift
 
