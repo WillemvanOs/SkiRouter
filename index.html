@@ -335,6 +335,11 @@
 
     <div class="day-options" id="day-options"></div>
     <div class="day-notes" id="day-notes"></div>
+    <div class="view-toggle" role="group" aria-label="Show the day as">
+      <button type="button" class="view-btn active" id="d-view-list" aria-pressed="true" onclick="showRouteView('list', 'day')">☰ List</button>
+      <button type="button" class="view-btn" id="d-view-map" aria-pressed="false" onclick="showRouteView('map', 'day')">🗺 Map</button>
+    </div>
+    <div class="route-map" id="d-map" style="display:none"></div>
     <div class="progress" id="dp-progress"></div>
     <div class="steps" id="day-steps"></div>
 

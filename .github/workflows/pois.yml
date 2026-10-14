@@ -1,10 +1,12 @@
 # Daily: fetch mountain restaurants and huts for European ski areas from
-# OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and commit
-# it when it changed. The public Overpass servers are often busy, so each run
-# works for up to 80 minutes on the areas fetched longest ago (areas fetched
-# in the last 6 days are skipped) and saves what it got; together the daily
-# runs keep every area about a week fresh. On main the site is then redeployed, so the
-# areas built at deploy time get the new restaurants. A commit made with
+# OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and the
+# peaks, towns and villages for the route map into data/pois/landmarks.json
+# (and into the hand-curated area files), and commit them when they changed.
+# The public Overpass servers are often busy, so each run works for a limited
+# time (restaurants up to 70 minutes, landmarks the rest) on the areas fetched longest ago
+# (restaurants fetched in the last 6 days and landmarks in the last 30 are
+# skipped) and saves what it got. On main the site is then redeployed, so the
+# areas built at deploy time get the new data. A commit made with
 # GITHUB_TOKEN does not start other workflows, hence the explicit deploy job.
 #
 # Runs by hand too (Actions → "Fetch mountain restaurants" → Run workflow),
@@ -20,6 +22,7 @@ on:
     branches-ignore: [main]
     paths:
       - tools/fetch-pois.mjs
+      - tools/lib/landmarks.mjs
       - .github/workflows/pois.yml
 
 permissions:
@@ -55,20 +58,30 @@ jobs:
         run: node tools/build-areas.mjs --europe --out build/europe
 
       - name: Fetch restaurants and huts
-        run: node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+        env:
+          BUDGET_MIN: 70
+        run: |
+          echo "POIS_START=$(date +%s)" >> "$GITHUB_ENV"
+          node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+
+      # The time the restaurants left (at least 20 minutes).
+      - name: Fetch peaks, towns and villages
+        run: |
+          left=$(( 88 - ($(date +%s) - POIS_START) / 60 ))
+          BUDGET_MIN=$(( left > 20 ? left : 20 )) node tools/fetch-pois.mjs --kind landmarks --areas build/europe/areas
 
       - name: Commit when changed
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/pois)" ]; then
+          if [ -z "$(git status --porcelain -- data)" ]; then
             echo "No changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
-          git add data/pois
-          git commit -m "Update mountain restaurants"
+          git add data/pois data/*.json
+          git commit -m "Update mountain restaurants and landmarks"
           git pull --rebase
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"

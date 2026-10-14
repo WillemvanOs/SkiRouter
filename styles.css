@@ -1983,54 +1983,212 @@ select.day-input {
   font-family: 'DM Sans', sans-serif;
 }
 
-.map-step-icon {
+.map-step-icon,
+.map-arrow-icon {
   background: none;
   border: none;
 }
 
-.map-step {
+/* Labels as on a piste map: the size of their text, centred on their point */
+.map-label {
+  background: none;
+  border: none;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.map-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.map-lift,
+.map-piste,
+.map-lunch,
+.map-link {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+}
+
+/* A lift: its number in a dark box */
+.map-lift {
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #1a3a5c;
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+/* A piste: its number in a circle of its colour */
+.map-piste {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.map-piste.is-name {
+  font-size: 0.66rem;
+}
+
+.map-lunch,
+.map-link {
   width: 26px;
   height: 26px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #fff;
-  border: 2px solid var(--alpine);
-  color: var(--alpine);
-  font-size: 0.75rem;
-  font-weight: 700;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  border-color: #b5651d;
+  font-size: 0.85rem;
 }
 
-.map-step.is-done {
-  opacity: 0.45;
+.map-tag.is-current {
+  transform: translate(-50%, -50%) scale(1.3);
+  border-color: #f5c542;
+  box-shadow: 0 0 0 3px #f5c542, 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
-.map-step.is-current {
-  transform: scale(1.35);
-  background: #f5c542;
-  border-color: #8a6a00;
-  color: #1d1d1f;
+.map-tag.is-later {
+  opacity: 0.75;
+}
+
+.map-tag.is-done {
+  opacity: 0.4;
+}
+
+/* Places and peaks: plain text with a white halo, like printed names */
+.map-place,
+.map-peak,
+.map-end {
+  color: #2c3e50;
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 2px #fff;
+}
+
+.map-place {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.map-place.is-town {
+  font-size: 0.85rem;
+}
+
+.map-place.is-hamlet {
+  font-size: 0.64rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* The ▲ sits on the peak, the name to its right */
+.map-peak {
+  transform: translate(-5px, -50%);
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #5a4632;
+}
+
+.map-peak small {
+  font-weight: 500;
+  font-size: 0.6rem;
+}
+
+/* Start and finish: the name to the right of their marker */
+.map-end {
+  transform: translate(12px, -50%);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.map-end b {
+  font-weight: 800;
+  color: #1e8449;
+}
+
+.map-arrow path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8));
+}
+
+.map-arrow.is-later {
+  opacity: 0.6;
 }
 
 .map-flag {
   font-size: 1.4rem;
 }
 
-.map-gps-btn {
-  width: 40px;
+.map-btn {
+  min-width: 40px;
   height: 40px;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   background: #fff;
   font-size: 1.1rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .map-gps-btn.on {
   background: #e3efff;
   border-color: #2f80ed;
+}
+
+.map-compass-btn {
+  position: relative;
+}
+
+.map-compass-n {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #d63b2f;
+  line-height: 1;
+}
+
+.map-follow-btn {
+  padding: 0 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--alpine);
+}
+
+/* Full screen: the map over the whole page */
+.route-map.is-full {
+  position: fixed !important; /* Leaflet sets position: relative on the element */
+  inset: 0;
+  z-index: 2000;
+  height: auto;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
+
+body.map-full {
+  overflow: hidden;
 }
 
 .map-error {
@@ -2047,4 +2205,12 @@ select.day-input {
   background: #27ae60;
   border: 3px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.route-map.is-full .leaflet-top {
+  top: env(safe-area-inset-top);
+}
+
+.route-map.is-full .leaflet-bottom {
+  bottom: env(safe-area-inset-bottom);
 }

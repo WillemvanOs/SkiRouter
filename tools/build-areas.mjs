@@ -23,6 +23,7 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync, appendFileSync, rmS
 import { createInterface } from 'node:readline';
 import { compileArea, validate, areaParts } from './lib/compile-area.mjs';
 import { download, readFeatures, skiAreaIds, toLift, toRuns } from './lib/openskidata.mjs';
+import { landmarksFor } from './lib/landmarks.mjs';
 
 const countryNames = new Intl.DisplayNames(['en'], { type: 'region' });
 const MIN_LIFTS = 5;
@@ -123,6 +124,11 @@ function poisIn(input) {
   const pad = 0.004;
   return ALL_POIS.filter(p => p.lat >= s - pad && p.lat <= n + pad && p.lon >= w - pad && p.lon <= e + pad);
 }
+
+// Peaks, towns and villages for the route map (tools/fetch-pois.mjs --kind landmarks), when fetched.
+const LANDMARKS_FILE = 'data/pois/landmarks.json';
+const ALL_LANDMARKS = existsSync(LANDMARKS_FILE) ? JSON.parse(readFileSync(LANDMARKS_FILE, 'utf8')).pois : [];
+console.log(`${ALL_LANDMARKS.length} peaks, towns and villages`);
 
 // Areas with a live lift status source (tools/liftstatus-sources.mjs). The
 // status itself is on the `liftstatus` branch (tools/liftstatus-europe.mjs),
@@ -255,6 +261,8 @@ console.log(`Built ${Object.keys(reports).length} areas (${index.length} listed)
 
 // Write an area for the app and add it to the area list.
 function addToIndex(id, area, report, meta, listing, places) {
+  const plaatsen = landmarksFor(ALL_LANDMARKS, area);
+  if (plaatsen.length) area.plaatsen = plaatsen;
   writeFileSync(`${AREA_DIR}/${id}.json`, JSON.stringify(area) + '\n');
   const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
   index.push({ id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,
