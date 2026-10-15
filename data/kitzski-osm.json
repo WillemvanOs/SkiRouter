@@ -20432,25 +20432,137 @@
       "lon": 12.42142
     },
     {
+      "n": "Zweitausender",
+      "k": "peak",
+      "lat": 47.32345,
+      "lon": 12.3496,
+      "ele": 2004
+    },
+    {
+      "n": "Kitzbüheler Horn",
+      "k": "peak",
+      "lat": 47.47612,
+      "lon": 12.42979,
+      "ele": 1996
+    },
+    {
+      "n": "Latschinger Kogl",
+      "k": "peak",
+      "lat": 47.31846,
+      "lon": 12.35181,
+      "ele": 1988
+    },
+    {
+      "n": "Steinbergkogel",
+      "k": "peak",
+      "lat": 47.40218,
+      "lon": 12.36715,
+      "ele": 1972
+    },
+    {
+      "n": "Hanglhöhe",
+      "k": "peak",
+      "lat": 47.31401,
+      "lon": 12.36929,
+      "ele": 1940
+    },
+    {
+      "n": "Pengelstein",
+      "k": "peak",
+      "lat": 47.391,
+      "lon": 12.34871,
+      "ele": 1938
+    },
+    {
+      "n": "Jufenkamm",
+      "k": "peak",
+      "lat": 47.39744,
+      "lon": 12.3507,
+      "ele": 1905
+    },
+    {
+      "n": "Resterhöhe",
+      "k": "peak",
+      "lat": 47.30711,
+      "lon": 12.38253,
+      "ele": 1892
+    },
+    {
+      "n": "Stuckkogel",
+      "k": "peak",
+      "lat": 47.44134,
+      "lon": 12.46549,
+      "ele": 1888
+    },
+    {
+      "n": "Bärenbadkogel",
+      "k": "peak",
+      "lat": 47.34053,
+      "lon": 12.381,
+      "ele": 1883
+    },
+    {
+      "n": "Ehrenbachhöhe",
+      "k": "peak",
+      "lat": 47.41891,
+      "lon": 12.35887,
+      "ele": 1802
+    },
+    {
+      "n": "Hornköpfl",
+      "k": "peak",
+      "lat": 47.46693,
+      "lon": 12.43275,
+      "ele": 1773
+    },
+    {
+      "n": "Wurzhöhe",
+      "k": "peak",
+      "lat": 47.37012,
+      "lon": 12.38728,
+      "ele": 1739
+    },
+    {
+      "n": "Hochetzkogel",
+      "k": "peak",
+      "lat": 47.44342,
+      "lon": 12.45148,
+      "ele": 1738
+    },
+    {
+      "n": "Hahnenkamm",
+      "k": "peak",
+      "lat": 47.42379,
+      "lon": 12.36492,
+      "ele": 1712
+    },
+    {
+      "n": "Wilder Hag",
+      "k": "peak",
+      "lat": 47.45973,
+      "lon": 12.42178,
+      "ele": 1639
+    },
+    {
+      "n": "Harschbichl",
+      "k": "peak",
+      "lat": 47.48466,
+      "lon": 12.42832,
+      "ele": 1604
+    },
+    {
+      "n": "Rankenkopf",
+      "k": "peak",
+      "lat": 47.31276,
+      "lon": 12.41306,
+      "ele": 1496
+    },
+    {
       "n": "Großer Rettenstein",
       "k": "peak",
       "lat": 47.33261,
       "lon": 12.29659,
       "ele": 2366
-    },
-    {
-      "n": "Großer Rettenstein Kreuzgipfel",
-      "k": "peak",
-      "lat": 47.33311,
-      "lon": 12.29629,
-      "ele": 2362
-    },
-    {
-      "n": "Rettenstein Pinzgauer Gipfel",
-      "k": "peak",
-      "lat": 47.33132,
-      "lon": 12.29917,
-      "ele": 2357
     },
     {
       "n": "Wildkogel",
@@ -20493,118 +20605,6 @@
       "lat": 47.32854,
       "lon": 12.33526,
       "ele": 2156
-    },
-    {
-      "n": "Maurerkogel",
-      "k": "peak",
-      "lat": 47.32396,
-      "lon": 12.47027,
-      "ele": 2129
-    },
-    {
-      "n": "Tristkogel",
-      "k": "peak",
-      "lat": 47.36814,
-      "lon": 12.47704,
-      "ele": 2096
-    },
-    {
-      "n": "Kleiner Schütz",
-      "k": "peak",
-      "lat": 47.36605,
-      "lon": 12.46165,
-      "ele": 2075
-    },
-    {
-      "n": "Blaufeldköpfe",
-      "k": "peak",
-      "lat": 47.33666,
-      "lon": 12.29969,
-      "ele": 2073
-    },
-    {
-      "n": "Schützkogel",
-      "k": "peak",
-      "lat": 47.36958,
-      "lon": 12.45683,
-      "ele": 2069
-    },
-    {
-      "n": "Kuhkaser",
-      "k": "peak",
-      "lat": 47.33715,
-      "lon": 12.44705,
-      "ele": 2054
-    },
-    {
-      "n": "Schellenberg",
-      "k": "peak",
-      "lat": 47.3286,
-      "lon": 12.44175,
-      "ele": 2048
-    },
-    {
-      "n": "Mittagskogel",
-      "k": "peak",
-      "lat": 47.3551,
-      "lon": 12.47715,
-      "ele": 2040
-    },
-    {
-      "n": "Kitzstein",
-      "k": "peak",
-      "lat": 47.34204,
-      "lon": 12.47752,
-      "ele": 2032
-    },
-    {
-      "n": "Schwarzkogel",
-      "k": "peak",
-      "lat": 47.36861,
-      "lon": 12.3439,
-      "ele": 2030
-    },
-    {
-      "n": "Sintersbachhöhe",
-      "k": "peak",
-      "lat": 47.32723,
-      "lon": 12.4472,
-      "ele": 2028
-    },
-    {
-      "n": "Schöntagweidkogel",
-      "k": "peak",
-      "lat": 47.33267,
-      "lon": 12.43856,
-      "ele": 2014
-    },
-    {
-      "n": "Zweitausender",
-      "k": "peak",
-      "lat": 47.32345,
-      "lon": 12.3496,
-      "ele": 2004
-    },
-    {
-      "n": "Kitzbüheler Horn",
-      "k": "peak",
-      "lat": 47.47612,
-      "lon": 12.42979,
-      "ele": 1996
-    },
-    {
-      "n": "Latschinger Kogl",
-      "k": "peak",
-      "lat": 47.31846,
-      "lon": 12.35181,
-      "ele": 1988
-    },
-    {
-      "n": "Rauber",
-      "k": "peak",
-      "lat": 47.37883,
-      "lon": 12.47952,
-      "ele": 1972
     }
   ]
 }

@@ -9,6 +9,8 @@ export const LANDMARK_PAD = 0.015;  // ~1.5 km around an area's lifts and runs
 const MAX_PEAKS = 25;
 const MAX_PLACES = 20;
 const HAMLET_NEAR_M = 1200;         // a hamlet only when a lift starts or ends this close
+const PEAK_IN_AREA_M = 600;         // a peak this close to a lift station or a run is in the area
+const PEAK_SAME_M = 400;            // peaks this close together are one (the highest is kept)
 const PLACE_RANK = { town: 0, village: 1, hamlet: 2 };
 
 // The points of an area (format 2: liften + pisteLijnen) that set its extent.
@@ -34,7 +36,8 @@ function distM(a, b) {
   return Math.hypot((a[1] - b[1]) * kx, (a[0] - b[0]) * ky);
 }
 
-// The landmarks of one area, from the fetched list: the highest named peaks
+// The landmarks of one area, from the fetched list: the named peaks in the
+// area (at a lift or a run; the highest first), then the highest around it,
 // and the towns and villages, plus hamlets where a lift starts or ends.
 export function landmarksFor(all, area) {
   const points = areaPoints(area);
@@ -43,9 +46,15 @@ export function landmarksFor(all, area) {
   const stations = (area.liften || []).flatMap(l => [l.coordOnder, l.coordBoven]).filter(Boolean);
   const mid = [(box[0] + box[2]) / 2, (box[1] + box[3]) / 2];
   const inside = all.filter(p => inBox(box, p.lat, p.lon));
-  const peaks = inside.filter(p => p.natural === 'peak')
-    .sort((a, b) => (b.ele ?? -1) - (a.ele ?? -1))
-    .slice(0, MAX_PEAKS);
+  const near = [...stations, ...Object.values(area.pisteLijnen || {}).flat().flatMap(line => line.filter((q, i) => i % 3 === 0))];
+  const inArea = p => near.some(q => distM(q, [p.lat, p.lon]) <= PEAK_IN_AREA_M);
+  const peaks = [];
+  inside.filter(p => p.natural === 'peak')
+    .map(p => ({ p, in: inArea(p) }))
+    .sort((a, b) => b.in - a.in || (b.p.ele ?? -1) - (a.p.ele ?? -1))
+    .forEach(({ p }) => {
+      if (peaks.length < MAX_PEAKS && !peaks.some(q => distM([q.lat, q.lon], [p.lat, p.lon]) <= PEAK_SAME_M)) peaks.push(p);
+    });
   const places = inside.filter(p => p.place in PLACE_RANK)
     .filter(p => p.place !== 'hamlet' || stations.some(s => distM(s, [p.lat, p.lon]) <= HAMLET_NEAR_M))
     .sort((a, b) => PLACE_RANK[a.place] - PLACE_RANK[b.place] || distM(mid, [a.lat, a.lon]) - distM(mid, [b.lat, b.lon]))

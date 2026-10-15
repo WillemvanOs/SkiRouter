@@ -165,8 +165,8 @@ and kept offline by the service worker. The code is in `map.js`.
 **Landmarks.** `node tools/fetch-pois.mjs --kind landmarks` asks OpenStreetMap for named peaks,
 towns, villages and hamlets in and around every area (about 1.5 km) into
 `data/pois/landmarks.json`; it runs daily with the restaurants (`.github/workflows/pois.yml`,
-each area every 30 days, with the time the restaurants leave). The area build gives each area its own (`plaatsen`: the 25 highest
-peaks, and up to 20 towns and villages, hamlets only near a lift; `tools/lib/landmarks.mjs`).
+each area every 30 days, with the time the restaurants leave). The area build gives each area its own (`plaatsen`: up to 25 peaks, those at a lift or a run first, then the highest around; up to 20 towns and villages,
+and hamlets only near a lift; `tools/lib/landmarks.mjs`).
 The hand-curated areas in `data/areas.json` are not built, so the fetch writes theirs into
 their file.
 
