@@ -16,8 +16,7 @@
 // picker — directly from `liften`/`pistes` each time an area loads.
 
 let STATIONS     = {}; // nodeId ("<liftNr>-boven"/"-onder") -> { name, alt: null }
-let LIFTS        = []; // [{ nr, name, sector, type, echteLift, dal: nodeId, berg: nodeId }] — for the picker
-let SECTOR_ORDER = [];
+let LIFTS        = []; // [{ nr, name, type, echteLift, dal: nodeId, berg: nodeId }] — for the picker
 let GRAPH        = {};
 
 const SIDE_ICONS = { dal: '⬇', berg: '⬆' };
@@ -60,8 +59,6 @@ function buildFromSkimapData(area) {
   }
 
   const lifts = [];
-  const sectorOrder = [];
-  const seenSectors = new Set();
 
   liften.forEach(lift => {
     if (!lift.liftNr) return;
@@ -94,13 +91,9 @@ function buildFromSkimapData(area) {
       });
     }
 
-    const sector = lift.komtAanBij || 'Other';
-    if (!seenSectors.has(sector)) { seenSectors.add(sector); sectorOrder.push(sector); }
-
     lifts.push({
       nr: lift.liftNr,
       name: lift.naam || lift.liftNr,
-      sector,
       type: lift.type || 'gondola',
       echteLift: lift.echteLift !== false,
       dal: bottomId,
@@ -174,7 +167,6 @@ function buildFromSkimapData(area) {
 
   STATIONS     = stations;
   LIFTS        = lifts;
-  SECTOR_ORDER = sectorOrder;
   GRAPH        = graph;
 }
 
@@ -637,11 +629,9 @@ function sheetSearchFocus() {
   [100, 350, 700].forEach(ms => setTimeout(fitSheetToScreen, ms));
 }
 
-// Scrolling the list closes the keyboard, so more of the list can be seen.
-document.getElementById('sheet-list').addEventListener('touchmove', () => {
-  const search = document.getElementById('sheet-search');
-  if (document.activeElement === search) search.blur();
-}, { passive: true });
+// Scrolling the list leaves the keyboard open: closing it mid-swipe resizes
+// the sheet under the finger and the scroll stutters. The list scrolls in the
+// space above the keyboard; Go (or Done) closes it.
 
 document.getElementById('sheet').addEventListener('touchstart', () => { sheetTouched = true; }, { passive: true });
 ['touchend', 'touchcancel'].forEach(type => document.getElementById('sheet').addEventListener(type, () => {
@@ -668,30 +658,20 @@ function sheetSearchSubmit(event) {
   else input.blur();
 }
 
+// One list of lifts, A to Z by name (then by number), without headings.
+const liftOrder = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
 function renderSheet() {
   const query = document.getElementById('sheet-search').value.toLowerCase();
   const list = document.getElementById('sheet-list');
   list.innerHTML = '';
 
-  const sectors = {};
-  LIFTS.forEach(lift => {
-    const dalStation  = STATIONS[lift.dal];
-    const bergStation = STATIONS[lift.berg];
-    const matches =
-      !query ||
-      lift.nr.toLowerCase().includes(query) ||
-      lift.name.toLowerCase().includes(query) ||
-      lift.sector.toLowerCase().includes(query) ||
-      dalStation?.name.toLowerCase().includes(query) ||
-      bergStation?.name.toLowerCase().includes(query);
-    if (!matches) return;
-    (sectors[lift.sector] = sectors[lift.sector] || []).push(lift);
-  });
-
-  const orderedSectors = [
-    ...SECTOR_ORDER.filter(s => sectors[s]),
-    ...Object.keys(sectors).filter(s => !SECTOR_ORDER.includes(s)),
-  ];
+  const lifts = LIFTS.filter(lift => !query ||
+    lift.nr.toLowerCase().includes(query) ||
+    lift.name.toLowerCase().includes(query) ||
+    STATIONS[lift.dal]?.name.toLowerCase().includes(query) ||
+    STATIONS[lift.berg]?.name.toLowerCase().includes(query))
+    .sort((a, b) => liftOrder.compare(a.name, b.name) || liftOrder.compare(a.nr, b.nr));
 
   if (!query && (activeSide === 'from' || activeSide === 'dstart')) {
     const gps = document.createElement('button');
@@ -702,30 +682,23 @@ function renderSheet() {
     list.appendChild(gps);
   }
 
-  orderedSectors.forEach(sector => {
-    const label = document.createElement('div');
-    label.className = 'group-label';
-    label.textContent = sector;
-    list.appendChild(label);
-
-    sectors[sector].forEach(lift => {
-      // One row per lift; picking it chooses the bottom station. The top is
-      // one tap away on the chosen field (see setChosenSide).
-      const btn = document.createElement('button');
-      btn.className = 'station-item';
-      btn.innerHTML = `
-        ${liftIcon(lift)}
-        <span class="station-item-nr">${liftCode(lift.nr)}</span>
-        <span class="station-item-name">${lift.name}</span>
-        ${liftStatusHtml(lift.nr)}
-      `;
-      btn.addEventListener('click', () => pickStation(lift.dal, lift, 'dal'));
-      list.appendChild(btn);
-    });
+  lifts.forEach(lift => {
+    // One row per lift; picking it chooses the bottom station. The top is
+    // one tap away on the chosen field (see setChosenSide).
+    const btn = document.createElement('button');
+    btn.className = 'station-item';
+    btn.innerHTML = `
+      ${liftIcon(lift)}
+      <span class="station-item-nr">${liftCode(lift.nr)}</span>
+      <span class="station-item-name">${escapeHtml(lift.name)}</span>
+      ${liftStatusHtml(lift.nr)}
+    `;
+    btn.addEventListener('click', () => pickStation(lift.dal, lift, 'dal'));
+    list.appendChild(btn);
   });
 
-  if (!list.children.length) {
-    list.innerHTML = '<div style="padding:24px;text-align:center;color:#aaa">No stations found</div>';
+  if (!lifts.length) {
+    list.insertAdjacentHTML('beforeend', '<div style="padding:24px;text-align:center;color:#aaa">No stations found</div>');
   }
 }
 

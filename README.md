@@ -130,7 +130,9 @@ says so.
 
 ## Picking a lift station
 
-The station picker lists each lift once, with its status. Picking a lift chooses its bottom
+The station picker lists each lift once, A to Z by name, with its status. The keyboard opens
+with it for searching and stays open while you scroll the list (closing it mid-swipe made the
+list stutter); Go closes it. Picking a lift chooses its bottom
 station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
 the top station instead.
 
