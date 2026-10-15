@@ -566,7 +566,7 @@ function openSheet(side) {
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
   lockPageScroll();
-  fitSheetToScreen();
+  fitSheetToKeyboard();
   // Focus right away, still inside the tap: iPhones only bring up the
   // keyboard for a focus that happens during the tap itself, not after a delay.
   document.getElementById('sheet-search').focus({ preventScroll: true });
@@ -576,9 +576,8 @@ function closeSheet() {
   const sheet = document.getElementById('sheet');
   document.getElementById('overlay').style.display = 'none';
   sheet.style.display = 'none';
-  sheet.classList.remove('keyboard-open');
-  sheet.style.top = sheet.style.maxHeight = '';
-  sheetPinned = false;
+  sheet.style.transform = '';
+  document.getElementById('sheet-list').style.paddingBottom = '';
   unlockPageScroll();
   activeSide = null;
 }
@@ -599,50 +598,52 @@ function unlockPageScroll() {
   lockedScrollY = null;
 }
 
-// Keep the results above the on-screen keyboard. On iPhones the keyboard
-// covers the bottom of the page without resizing it, so while it is open the
-// sheet is pinned to the top of the part still visible (visualViewport) and
-// sized to fit it.
-let sheetPinned = false;   // pinned to the top since the keyboard first came up
+// The on-screen keyboard. The sheet has a fixed height and never changes
+// size or place for the keyboard: an iPhone stutters or drops a scroll when
+// the list resizes under the finger. The keyboard just covers the bottom of
+// the sheet; the list gets room at its end (padding) so every lift can be
+// scrolled up above it, and the first swipe on the list puts the keyboard
+// away, which uncovers the rest without anything moving.
 let sheetTouched = false;  // a finger is on the sheet
-function fitSheetToScreen() {
+function fitSheetToKeyboard() {
   const sheet = document.getElementById('sheet');
   const vv = window.visualViewport;
   if (!vv || sheet.style.display === 'none') return;
-  // Never move or shrink the list under a finger: an iPhone drops the scroll
-  // when it does. The keyboard closing at the start of a swipe is handled
-  // once the finger lets go.
-  if (sheetTouched) return;
   const layoutHeight = document.documentElement.clientHeight;
-  // Once pinned to the top the sheet stays there (only growing when the
-  // keyboard goes away), so the list never jumps from top to bottom.
-  if (vv.height < layoutHeight - 80) sheetPinned = true;
-  sheet.classList.toggle('keyboard-open', sheetPinned);
-  sheet.style.top       = sheetPinned ? `${Math.round(vv.offsetTop)}px` : '';
-  sheet.style.maxHeight = sheetPinned ? `${Math.round(vv.height)}px` : '';
+  const covered = Math.max(0, Math.round(layoutHeight - vv.height - vv.offsetTop));
+  // Extra room at the end only adds space below the last lift: nothing in
+  // view moves, so this is safe mid-swipe.
+  document.getElementById('sheet-list').style.paddingBottom = covered > 80 ? `${covered + 24}px` : '';
+  // Should the browser still have shifted the page to show the search field,
+  // follow it (not under a finger: the list would jump).
+  if (!sheetTouched) sheet.style.transform = vv.offsetTop > 1 ? `translateY(${Math.round(vv.offsetTop)}px)` : '';
 }
-window.visualViewport?.addEventListener('resize', fitSheetToScreen);
-window.visualViewport?.addEventListener('scroll', fitSheetToScreen);
-window.addEventListener('resize', fitSheetToScreen);
-// The keyboard slides in after focus; check again once it is there.
+window.visualViewport?.addEventListener('resize', fitSheetToKeyboard);
+window.visualViewport?.addEventListener('scroll', fitSheetToKeyboard);
+window.addEventListener('resize', fitSheetToKeyboard);
+// The keyboard slides in and out after focus and blur; check again once it has.
 function sheetSearchFocus() {
-  [100, 350, 700].forEach(ms => setTimeout(fitSheetToScreen, ms));
+  [100, 350, 700].forEach(ms => setTimeout(fitSheetToKeyboard, ms));
 }
 
-// Scrolling the list leaves the keyboard open: closing it mid-swipe resizes
-// the sheet under the finger and the scroll stutters. The list scrolls in the
-// space above the keyboard; Go (or Done) closes it.
+// The first swipe on the list puts the keyboard away (Go does too).
+document.getElementById('sheet-list').addEventListener('touchmove', () => {
+  const search = document.getElementById('sheet-search');
+  if (document.activeElement === search) search.blur();
+}, { passive: true });
 
 document.getElementById('sheet').addEventListener('touchstart', () => { sheetTouched = true; }, { passive: true });
 ['touchend', 'touchcancel'].forEach(type => document.getElementById('sheet').addEventListener(type, () => {
   sheetTouched = false;
-  setTimeout(fitSheetToScreen, 50);
+  setTimeout(fitSheetToKeyboard, 50);
 }, { passive: true }));
 
-// A swipe on the sheet outside the list (title, search field) moves nothing.
-document.getElementById('sheet').addEventListener('touchmove', event => {
-  if (!event.target.closest('.sheet-list')) event.preventDefault();
-}, { passive: false });
+// A swipe on the title or the search field moves nothing. Only there: a
+// touchmove listener that can cancel the swipe on the list itself would make
+// the browser wait for it on every move, and the scroll would lag.
+['.sheet-header', '.sheet-search'].forEach(sel => document.querySelector(`#sheet ${sel}`).addEventListener('touchmove', event => {
+  event.preventDefault();
+}, { passive: false }));
 
 // Enter / Go in the search: pick the only lift left, or the lift whose number
 // was typed ("a1"); otherwise close the keyboard so the whole list can be
