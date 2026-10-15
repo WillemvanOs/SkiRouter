@@ -20309,5 +20309,302 @@
         ]
       ]
     ]
-  }
+  },
+  "plaatsen": [
+    {
+      "n": "Kitzbühel",
+      "k": "town",
+      "lat": 47.44636,
+      "lon": 12.39115
+    },
+    {
+      "n": "Filzen",
+      "k": "village",
+      "lat": 47.38824,
+      "lon": 12.41577
+    },
+    {
+      "n": "Jochberg",
+      "k": "village",
+      "lat": 47.38046,
+      "lon": 12.418
+    },
+    {
+      "n": "Hütte",
+      "k": "village",
+      "lat": 47.39004,
+      "lon": 12.42426
+    },
+    {
+      "n": "Wiesenegg",
+      "k": "village",
+      "lat": 47.40094,
+      "lon": 12.42426
+    },
+    {
+      "n": "Einath",
+      "k": "village",
+      "lat": 47.40812,
+      "lon": 12.43138
+    },
+    {
+      "n": "Unteraurach",
+      "k": "village",
+      "lat": 47.42079,
+      "lon": 12.41787
+    },
+    {
+      "n": "Aurach bei Kitzbühel",
+      "k": "village",
+      "lat": 47.41398,
+      "lon": 12.43157
+    },
+    {
+      "n": "Kochau",
+      "k": "village",
+      "lat": 47.40655,
+      "lon": 12.43814
+    },
+    {
+      "n": "Oberaurach",
+      "k": "village",
+      "lat": 47.41805,
+      "lon": 12.43416
+    },
+    {
+      "n": "Rehbühel",
+      "k": "village",
+      "lat": 47.43207,
+      "lon": 12.42169
+    },
+    {
+      "n": "Aschau",
+      "k": "village",
+      "lat": 47.38238,
+      "lon": 12.31047
+    },
+    {
+      "n": "Kirchberg in Tirol",
+      "k": "village",
+      "lat": 47.44759,
+      "lon": 12.31445
+    },
+    {
+      "n": "Grub",
+      "k": "village",
+      "lat": 47.46645,
+      "lon": 12.3871
+    },
+    {
+      "n": "Reith bei Kitzbühel",
+      "k": "village",
+      "lat": 47.47601,
+      "lon": 12.34224
+    },
+    {
+      "n": "Oberndorf in Tirol",
+      "k": "village",
+      "lat": 47.49986,
+      "lon": 12.38324
+    },
+    {
+      "n": "Mühlbach",
+      "k": "village",
+      "lat": 47.27813,
+      "lon": 12.37577
+    },
+    {
+      "n": "Hollersbach im Pinzgau",
+      "k": "village",
+      "lat": 47.2752,
+      "lon": 12.41947
+    },
+    {
+      "n": "Bramberg am Wildkogel",
+      "k": "village",
+      "lat": 47.27279,
+      "lon": 12.3474
+    },
+    {
+      "n": "Reitlehen",
+      "k": "village",
+      "lat": 47.27115,
+      "lon": 12.42142
+    },
+    {
+      "n": "Großer Rettenstein",
+      "k": "peak",
+      "lat": 47.33261,
+      "lon": 12.29659,
+      "ele": 2366
+    },
+    {
+      "n": "Großer Rettenstein Kreuzgipfel",
+      "k": "peak",
+      "lat": 47.33311,
+      "lon": 12.29629,
+      "ele": 2362
+    },
+    {
+      "n": "Rettenstein Pinzgauer Gipfel",
+      "k": "peak",
+      "lat": 47.33132,
+      "lon": 12.29917,
+      "ele": 2357
+    },
+    {
+      "n": "Wildkogel",
+      "k": "peak",
+      "lat": 47.28575,
+      "lon": 12.2974,
+      "ele": 2224
+    },
+    {
+      "n": "Kleiner Rettenstein",
+      "k": "peak",
+      "lat": 47.33703,
+      "lon": 12.34193,
+      "ele": 2217
+    },
+    {
+      "n": "Rescheskogel",
+      "k": "peak",
+      "lat": 47.32635,
+      "lon": 12.47837,
+      "ele": 2182
+    },
+    {
+      "n": "Gamshag",
+      "k": "peak",
+      "lat": 47.36442,
+      "lon": 12.4678,
+      "ele": 2178
+    },
+    {
+      "n": "Teufelssprung",
+      "k": "peak",
+      "lat": 47.35622,
+      "lon": 12.46943,
+      "ele": 2174
+    },
+    {
+      "n": "Rossgruber",
+      "k": "peak",
+      "lat": 47.32854,
+      "lon": 12.33526,
+      "ele": 2156
+    },
+    {
+      "n": "Maurerkogel",
+      "k": "peak",
+      "lat": 47.32396,
+      "lon": 12.47027,
+      "ele": 2129
+    },
+    {
+      "n": "Tristkogel",
+      "k": "peak",
+      "lat": 47.36814,
+      "lon": 12.47704,
+      "ele": 2096
+    },
+    {
+      "n": "Kleiner Schütz",
+      "k": "peak",
+      "lat": 47.36605,
+      "lon": 12.46165,
+      "ele": 2075
+    },
+    {
+      "n": "Blaufeldköpfe",
+      "k": "peak",
+      "lat": 47.33666,
+      "lon": 12.29969,
+      "ele": 2073
+    },
+    {
+      "n": "Schützkogel",
+      "k": "peak",
+      "lat": 47.36958,
+      "lon": 12.45683,
+      "ele": 2069
+    },
+    {
+      "n": "Kuhkaser",
+      "k": "peak",
+      "lat": 47.33715,
+      "lon": 12.44705,
+      "ele": 2054
+    },
+    {
+      "n": "Schellenberg",
+      "k": "peak",
+      "lat": 47.3286,
+      "lon": 12.44175,
+      "ele": 2048
+    },
+    {
+      "n": "Mittagskogel",
+      "k": "peak",
+      "lat": 47.3551,
+      "lon": 12.47715,
+      "ele": 2040
+    },
+    {
+      "n": "Kitzstein",
+      "k": "peak",
+      "lat": 47.34204,
+      "lon": 12.47752,
+      "ele": 2032
+    },
+    {
+      "n": "Schwarzkogel",
+      "k": "peak",
+      "lat": 47.36861,
+      "lon": 12.3439,
+      "ele": 2030
+    },
+    {
+      "n": "Sintersbachhöhe",
+      "k": "peak",
+      "lat": 47.32723,
+      "lon": 12.4472,
+      "ele": 2028
+    },
+    {
+      "n": "Schöntagweidkogel",
+      "k": "peak",
+      "lat": 47.33267,
+      "lon": 12.43856,
+      "ele": 2014
+    },
+    {
+      "n": "Zweitausender",
+      "k": "peak",
+      "lat": 47.32345,
+      "lon": 12.3496,
+      "ele": 2004
+    },
+    {
+      "n": "Kitzbüheler Horn",
+      "k": "peak",
+      "lat": 47.47612,
+      "lon": 12.42979,
+      "ele": 1996
+    },
+    {
+      "n": "Latschinger Kogl",
+      "k": "peak",
+      "lat": 47.31846,
+      "lon": 12.35181,
+      "ele": 1988
+    },
+    {
+      "n": "Rauber",
+      "k": "peak",
+      "lat": 47.37883,
+      "lon": 12.47952,
+      "ele": 1972
+    }
+  ]
 }
