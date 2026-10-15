@@ -299,7 +299,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     routeMap.attributionControl.setPrefix('').addAttribution('© OpenStreetMap contributors');
     routeMap.createPane('arrows').style.zIndex = 450; // above the lines, below the labels
     addMapControls(routeMap, turn);
-    routeMap.on('zoomend', drawArrows).on('moveend', declutterLabels);
+    routeMap.on('zoomend', drawArrows).on('moveend', declutterSoon);
     routeMapKey = key;
   }
   routeMapOwner = opts.owner || 'quick';
@@ -327,12 +327,13 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
   });
 
   // Towns, villages and peaks.
-  (currentArea?.plaatsen || []).forEach(p => {
+  // Peaks come in the area first (tools/lib/landmarks.mjs): their order is their rank.
+  (currentArea?.plaatsen || []).forEach((p, i) => {
     const peak = p.k === 'peak';
     const html = peak
       ? `<span class="map-tag map-peak">▲ ${escapeHtml(p.n)}${p.ele ? ` <small>${p.ele}</small>` : ''}</span>`
       : `<span class="map-tag map-place is-${p.k}">${escapeHtml(p.n)}</span>`;
-    const rank = peak ? 7 - Math.min(p.ele || 0, 4000) / 5000 : { town: 4, village: 6, hamlet: 9 }[p.k] ?? 9;
+    const rank = peak ? 7 + i / 1000 : { town: 4, village: 6, hamlet: 9 }[p.k] ?? 9;
     routeMapLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(routeMapLayer), rank: () => rank });
   });
 
@@ -356,7 +357,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       .bindPopup(escapeHtml(stepLabel(piece))).addTo(routeMapLayer);
     piece.label = marker;
     routeMapMarkers[piece.item] = marker;
-    routeMapLabels.push({ marker, rank: () => stepRank(piece) });
+    routeMapLabels.push({ marker, rank: () => stepRank(piece), step: true });
   });
 
   // Start and finish.
@@ -498,6 +499,14 @@ function drawArrows() {
   });
 }
 
+// After a move or zoom, once Leaflet's zoom animation has settled (labels
+// measured halfway through it are in the wrong place).
+let declutterTimer = null;
+function declutterSoon() {
+  clearTimeout(declutterTimer);
+  declutterTimer = setTimeout(declutterLabels, 300);
+}
+
 // Labels that would sit on top of each other at this zoom: keep the most
 // important (the step you are at, lunch, the next steps, start and finish,
 // towns, the rest of the route, villages, peaks, steps done, hamlets) and
@@ -515,7 +524,9 @@ function declutterLabels() {
       if (!tag) return;
       const r = tag.getBoundingClientRect();
       const onScreen = r.right > box.left && r.left < box.right && r.bottom > box.top && r.top < box.bottom;
-      const clash = onScreen && placed.some(q => r.left < q.right + 3 && r.right > q.left - 3 && r.top < q.bottom + 3 && r.bottom > q.top - 3);
+      // A name cut off by the edge reads wrong ("CHBERG"): hide it until you pan.
+      const cut = !label.step && onScreen && (r.left < box.left || r.right > box.right || r.top < box.top || r.bottom > box.bottom);
+      const clash = cut || (onScreen && placed.some(q => r.left < q.right + 3 && r.right > q.left - 3 && r.top < q.bottom + 3 && r.bottom > q.top - 3));
       icon.style.visibility = clash ? 'hidden' : '';
       if (onScreen && !clash) placed.push(r);
     });
