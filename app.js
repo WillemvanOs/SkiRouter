@@ -659,7 +659,8 @@ function sheetSearchSubmit(event) {
   else input.blur();
 }
 
-// One list of lifts, A to Z by name (then by number), without headings.
+// One list of lifts, without headings: by lift number (A1, A2, A10, B1, …)
+// where the area has them, then the lifts without one A to Z by name.
 const liftOrder = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
 function renderSheet() {
@@ -672,7 +673,12 @@ function renderSheet() {
     lift.name.toLowerCase().includes(query) ||
     STATIONS[lift.dal]?.name.toLowerCase().includes(query) ||
     STATIONS[lift.berg]?.name.toLowerCase().includes(query))
-    .sort((a, b) => liftOrder.compare(a.name, b.name) || liftOrder.compare(a.nr, b.nr));
+    .sort((a, b) => {
+      const ca = liftCode(a.nr), cb = liftCode(b.nr);
+      if (ca && cb) return liftOrder.compare(ca, cb);
+      if (ca || cb) return ca ? -1 : 1;
+      return liftOrder.compare(a.name, b.name) || liftOrder.compare(a.nr, b.nr);
+    });
 
   if (!query && (activeSide === 'from' || activeSide === 'dstart')) {
     const gps = document.createElement('button');
