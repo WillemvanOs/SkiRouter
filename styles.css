@@ -626,7 +626,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  max-height: 82vh;
+  height: 82vh; /* fixed: the keyboard covers its bottom, it never resizes (see fitSheetToKeyboard) */
   background: #fff;
   border-radius: 20px 20px 0 0;
   z-index: 101;
@@ -685,12 +685,6 @@ main {
 
 .sheet-search-form {
   display: contents;
-}
-
-/* Keyboard open: pinned to the top of the visible part of the screen. */
-.sheet.keyboard-open {
-  bottom: auto;
-  border-radius: 0 0 20px 20px;
 }
 
 .sheet-search:focus {

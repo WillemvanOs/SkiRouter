@@ -130,9 +130,11 @@ says so.
 
 ## Picking a lift station
 
-The station picker lists each lift once, A to Z by name, with its status. The keyboard opens
-with it for searching and stays open while you scroll the list (closing it mid-swipe made the
-list stutter); Go closes it. Picking a lift chooses its bottom
+The station picker lists each lift once with its status: by lift number where the area has them (A1, A2, A10,
+B1, …), then the lifts without one A to Z by name. The keyboard opens
+with it for searching; the first swipe on the list (or Go) puts it away. The sheet keeps one
+size whether the keyboard is open or not (the keyboard just covers its bottom), because an
+iPhone stutters when a list resizes under the finger. Picking a lift chooses its bottom
 station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
 the top station instead.
 
