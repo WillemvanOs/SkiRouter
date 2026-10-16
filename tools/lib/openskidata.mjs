@@ -55,7 +55,8 @@ const LIFT_TYPES = {
 export function runDifficulty(p) {
   if (p.grooming === 'backcountry') return 'skiroute';
   switch (p.difficulty) {
-    case 'novice': case 'easy': return 'blauw';
+    case 'novice': return 'groen'; // green runs (France, Spain, Scandinavia, …)
+    case 'easy': return 'blauw';
     case 'intermediate': return 'rood';
     case 'advanced': case 'expert': return 'zwart';
     case 'freeride': case 'extreme': return 'skiroute';

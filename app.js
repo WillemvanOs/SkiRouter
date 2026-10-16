@@ -45,6 +45,10 @@ const CONNECTION_PENALTY = 10;
 // Extra routing cost of riding a lift down, so a route only does it when no
 // piste gets you there (the time shown stays the real ride time).
 const RIDE_DOWN_PENALTY = 60;
+// Extra routing cost of a piste in a colour you did not pick, or a drag lift
+// when you would rather not: such a route is only taken when there is no
+// other way (and the route says so).
+const UNWANTED_PENALTY = 120;
 
 function buildFromSkimapData(area) {
   const stations = {};
@@ -515,7 +519,13 @@ function resetPlanner() {
   allowedDiff = new Set(DIFF_LEVELS);
   renderQuickDiff();
   document.getElementById('q-bus').checked = true;
+  document.getElementById('q-drag').checked = true;
+  // Green only where the area has green runs.
+  const hasGreen = (currentArea?.pistes || []).some(p => p.kleur === 'groen');
+  document.querySelectorAll('.diff-btn.green').forEach(btn => { btn.style.display = hasGreen ? '' : 'none'; });
   document.querySelectorAll('.bus-row').forEach(row => { row.style.display = areaHasBus() ? 'flex' : 'none'; });
+  const hasDrag = LIFTS.some(l => DRAG_LIFT_LABEL[l.type]);
+  document.querySelectorAll('.drag-row').forEach(row => { row.style.display = hasDrag ? 'flex' : 'none'; });
   loadAvoided();
   restoreQuickRoute();
   resetDayPlan();
@@ -533,6 +543,7 @@ function restoreQuickRoute() {
     renderQuickDiff();
   }
   document.getElementById('q-bus').checked = saved.bus !== false;
+  document.getElementById('q-drag').checked = saved.drag !== false;
   planRoute({ silent: true });
 }
 
@@ -547,9 +558,40 @@ function busAllowed(id) {
   return !box || box.checked;
 }
 
+// The drag lift switch of a planner (T-bars, platters, rope tows): off means
+// "rather not", so they are only used when there is no other way.
+function dragAllowed(id) {
+  const box = document.getElementById(id);
+  return !box || box.checked;
+}
+
+function isDragLift(edge) {
+  return !!DRAG_LIFT_LABEL[edge.type];
+}
+
+// A piste in a colour you did not pick, or a drag lift while you would rather
+// not: allowed, but only when there is no other way (UNWANTED_PENALTY).
+function unwantedEdge(edge, diff, dragOk) {
+  if (edge.type === 'piste') return pisteKleuren(edge).some(k => !diff.has(k));
+  return !dragOk && isDragLift(edge);
+}
+
+// What a route uses that you would rather not, said once above its steps.
+function unwantedWarning(edges, diff, dragOk) {
+  const seen = new Set();
+  const items = edges.filter(e => e && unwantedEdge(e, diff, dragOk)).filter(e => {
+    const key = e.type === 'piste' ? `p${e.pisteNr}` : `l${e.liftNr}`;
+    return !seen.has(key) && seen.add(key);
+  }).map(e => e.type === 'piste'
+    ? `${pisteLabel(e.pisteNr)} (${(DIFF_NAMES[e.diff] || '').toLowerCase()})`
+    : `${[liftCode(e.liftNr), e.name].filter(Boolean).join(' ')} (${(DRAG_LIFT_LABEL[e.type] || 'drag lift').toLowerCase()})`);
+  return items.length ? `Not possible with only your choices, so this uses ${items.join(' and ')}.` : '';
+}
+
 // ── State ────────────────────────────────────────────────────────────────────
 
-const DIFF_LEVELS = ['blauw', 'rood', 'zwart', 'skiroute'];
+// Green: the easiest runs where an area marks them (France, Spain, …).
+const DIFF_LEVELS = ['groen', 'blauw', 'rood', 'zwart', 'skiroute'];
 
 let activeSide = null;
 const selected = { from: null, to: null };
@@ -560,8 +602,10 @@ let allowedDiff = new Set(DIFF_LEVELS);
 function openSheet(side) {
   activeSide = side;
   document.getElementById('sheet-title').textContent =
-    side === 'from' || side === 'dstart' ? 'Choose starting point' : 'Choose destination';
+    side === 'stop' ? 'Add a stop'
+      : side === 'from' || side === 'dstart' ? 'Choose starting point' : 'Choose destination';
   document.getElementById('sheet-search').value = '';
+  setSheetKind('lifts', false);
   renderSheet();
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
@@ -641,7 +685,7 @@ document.getElementById('sheet').addEventListener('touchstart', () => { sheetTou
 // A swipe on the title or the search field moves nothing. Only there: a
 // touchmove listener that can cancel the swipe on the list itself would make
 // the browser wait for it on every move, and the scroll would lag.
-['.sheet-header', '.sheet-search'].forEach(sel => document.querySelector(`#sheet ${sel}`).addEventListener('touchmove', event => {
+['.sheet-header', '.sheet-search', '.sheet-kinds'].forEach(sel => document.querySelector(`#sheet ${sel}`).addEventListener('touchmove', event => {
   event.preventDefault();
 }, { passive: false }));
 
@@ -663,10 +707,26 @@ function sheetSearchSubmit(event) {
 // where the area has them, then the lifts without one A to Z by name.
 const liftOrder = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
+// What the picker lists: lifts (the default), points of interest
+// (restaurants, viewpoints, snow parks) or villages and peaks.
+let sheetKind = 'lifts';
+function setSheetKind(kind, render = true) {
+  sheetKind = kind;
+  document.querySelectorAll('#sheet-kinds .sheet-kind').forEach(btn => {
+    btn.classList.toggle('on', btn.dataset.kind === kind);
+    btn.setAttribute('aria-pressed', String(btn.dataset.kind === kind));
+  });
+  document.getElementById('sheet-search').placeholder =
+    kind === 'lifts' ? 'Search lift or station…' : kind === 'poi' ? 'Search restaurant, viewpoint, park…' : 'Search village or peak…';
+  if (render) renderSheet();
+}
+
 function renderSheet() {
   const query = document.getElementById('sheet-search').value.toLowerCase();
   const list = document.getElementById('sheet-list');
   list.innerHTML = '';
+
+  if (sheetKind !== 'lifts') { renderPlaceList(list, query); return; }
 
   const lifts = LIFTS.filter(lift => !query ||
     lift.nr.toLowerCase().includes(query) ||
@@ -700,13 +760,165 @@ function renderSheet() {
       <span class="station-item-name">${escapeHtml(lift.name)}</span>
       ${liftStatusHtml(lift.nr)}
     `;
-    btn.addEventListener('click', () => pickStation(lift.dal, lift, 'dal'));
+    btn.addEventListener('click', () => activeSide === 'stop' ? addDayStop(liftStop(lift)) : pickStation(lift.dal, lift, 'dal'));
     list.appendChild(btn);
   });
 
   if (!lifts.length) {
     list.insertAdjacentHTML('beforeend', '<div style="padding:24px;text-align:center;color:#aaa">No stations found</div>');
   }
+}
+
+// ── Places: points of interest, villages and peaks ───────────────────────────
+//
+// A place is not on the lift network itself: it goes by the nearest lift
+// station (a village by the nearest bottom station), and the route says how
+// far that is. Restaurants at a station go by that station.
+
+const PLACE_ICONS = { restaurant: '🍽', viewpoint: '🔭', snowpark: '🏂', town: '🏘', village: '🏘', hamlet: '🏠', peak: '⛰', lift: '🚡' };
+const PLACE_GROUPS = {
+  poi: [['restaurant', 'Restaurants & huts'], ['viewpoint', 'Viewpoints'], ['snowpark', 'Snow parks']],
+  towns: [['town', 'Villages'], ['peak', 'Peaks']],
+};
+
+// Every place of one kind of list ('poi' or 'towns') in this area.
+function areaPlaces(kind) {
+  if (kind === 'poi') {
+    return [
+      ...(typeof mountainRestaurants === 'function' ? mountainRestaurants() : []).filter(r => r.lat != null || r.station).map(r => ({
+        id: `r:${r.id}`, kind: 'restaurant', name: r.naam, lat: r.lat, lon: r.lon, station: r.station || null,
+      })),
+      ...(currentArea?.plekken || []).map(p => ({
+        id: `p:${p.id}`, kind: p.k, name: p.n || (p.k === 'viewpoint' ? 'Viewpoint' : 'Snow park'), lat: p.lat, lon: p.lon, ele: p.ele,
+      })),
+    ];
+  }
+  return (currentArea?.plaatsen || []).map(p => ({
+    id: `l:${p.k}:${p.n}`, kind: p.k, name: p.n, lat: p.lat, lon: p.lon, ele: p.ele,
+  }));
+}
+
+function findPlace(id) {
+  return [...areaPlaces('poi'), ...areaPlaces('towns')].find(p => p.id === id) || null;
+}
+
+const PLACE_MAX_WALK_M = 1500; // a place further from any lift is not in the area
+
+// The stations of the area's main network (the biggest part where every
+// station can be reached from every other one, ignoring direction): a place
+// goes by one of those, not by a practice lift on its own in the village.
+let mainNetwork = { area: null, nodes: null };
+function mainNetworkNodes() {
+  if (mainNetwork.area === currentArea && mainNetwork.nodes) return mainNetwork.nodes;
+  const links = {};
+  Object.values(GRAPH).flat().forEach(e => {
+    (links[e.from] = links[e.from] || []).push(e.to);
+    (links[e.to] = links[e.to] || []).push(e.from);
+  });
+  let best = new Set();
+  const seen = new Set();
+  Object.keys(STATIONS).forEach(start => {
+    if (seen.has(start)) return;
+    const part = new Set([start]);
+    const queue = [start];
+    seen.add(start);
+    while (queue.length) (links[queue.pop()] || []).forEach(n => { if (!seen.has(n)) { seen.add(n); part.add(n); queue.push(n); } });
+    if (part.size > best.size) best = part;
+  });
+  mainNetwork = { area: currentArea, nodes: best };
+  return best;
+}
+
+// The lift station a place goes by, and how far it is from it.
+function placeStation(place) {
+  if (place.station && STATIONS[place.station]) return { id: place.station, walkM: 0 };
+  if (place.lat == null) return null;
+  const valley = place.kind === 'town' || place.kind === 'village' || place.kind === 'hamlet';
+  const main = mainNetworkNodes();
+  let best = null;
+  Object.entries(stationPositions()).forEach(([id, pos]) => {
+    if (valley && !id.endsWith('-onder')) return;
+    if (!main.has(id)) return;
+    const d = distanceM([place.lat, place.lon], pos);
+    if (!best || d < best.walkM) best = { id, walkM: Math.round(d) };
+  });
+  return best && best.walkM <= PLACE_MAX_WALK_M ? best : null;
+}
+
+function placeSub(place, station) {
+  const lift = LIFTS.find(l => l.dal === station.id || l.berg === station.id);
+  const at = lift ? `${lift.berg === station.id ? 'top' : 'bottom'} of ${[liftCode(lift.nr), lift.name].filter(Boolean).join(' ')}` : STATIONS[station.id]?.name || '';
+  return station.walkM >= 50 ? `${Math.round(station.walkM / 10) * 10} m from ${at}` : `at ${at}`;
+}
+
+function renderPlaceList(list, query) {
+  const places = areaPlaces(sheetKind)
+    .filter(p => !query || p.name.toLowerCase().includes(query))
+    .map(p => ({ ...p, at: placeStation(p) }))
+    .filter(p => p.at);
+  PLACE_GROUPS[sheetKind].forEach(([group, label]) => {
+    const inGroup = places
+      .filter(p => group === 'town' ? ['town', 'village', 'hamlet'].includes(p.kind) : p.kind === group)
+      .sort((a, b) => liftOrder.compare(a.name, b.name));
+    if (!inGroup.length) return;
+    list.insertAdjacentHTML('beforeend', `<div class="group-label">${label}</div>`);
+    inGroup.forEach(place => {
+      const btn = document.createElement('button');
+      btn.className = 'station-item place-item';
+      btn.innerHTML = `
+        <span class="lift-ico ico-place">${PLACE_ICONS[place.kind] || '📍'}</span>
+        <span class="station-item-name">${escapeHtml(place.name)}${place.kind === 'peak' && place.ele ? ` <small>${place.ele} m</small>` : ''}
+          <span class="place-sub">${escapeHtml(placeSub(place, place.at))}</span></span>
+      `;
+      btn.addEventListener('click', () => activeSide === 'stop' ? addDayStop(placeStop(place)) : pickPlace(place));
+      list.appendChild(btn);
+    });
+  });
+  if (!list.children.length) {
+    list.innerHTML = `<div style="padding:24px;text-align:center;color:#aaa">${query ? 'Nothing found' : sheetKind === 'poi'
+      ? 'No points of interest known in this area yet'
+      : 'No villages or peaks known in this area yet'}</div>`;
+  }
+}
+
+// A place as start or destination: routed from or to its station.
+function pickPlace(place) {
+  const routeSide = activeSide;
+  const at = placeStation(place);
+  if (!at) return;
+  selected[routeSide] = {
+    id: at.id, ...STATIONS[at.id], name: place.name, side: null, liftNr: '', liftName: place.name, lift: null,
+    place: { id: place.id, kind: place.kind, name: place.name, walkM: at.walkM, sub: placeSub(place, at) },
+  };
+  closeSheet();
+  showChosen(routeSide);
+  if (routeSide === 'dend') setEndField(true);
+}
+
+// Put a place back by its id (saved day inputs); false when it is unknown.
+function restorePlace(side, placeId) {
+  const place = placeId && findPlace(placeId);
+  if (!place) return false;
+  const previous = activeSide;
+  activeSide = side;
+  pickPlace(place);
+  activeSide = previous;
+  return true;
+}
+
+// The chosen field of a side, for a lift, a place or your location.
+function showChosen(side) {
+  const s = selected[side];
+  if (!s) { resetSide(side); return; }
+  document.getElementById(`${side}-box`).style.display    = 'none';
+  document.getElementById(`${side}-chosen`).style.display = 'flex';
+  document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON
+    : s.place ? `<span class="lift-ico ico-place">${PLACE_ICONS[s.place.kind] || '📍'}</span>` : liftIcon(s.lift);
+  document.getElementById(`${side}-nr`).textContent       = s.gps ? s.liftNr : s.place ? '' : liftCode(s.liftNr);
+  document.getElementById(`${side}-liftname`).textContent = s.liftName;
+  if (s.gps) document.getElementById(`${side}-side`).textContent = '';
+  else if (s.place) document.getElementById(`${side}-side`).innerHTML = `<span class="place-sub">${escapeHtml(s.place.sub)}</span>`;
+  else setChosenSide(side);
 }
 
 // Small lift-type pictogram for the station picker and the chosen start/destination,
@@ -769,7 +981,7 @@ function resetSide(side) {
 function setEndField(show) {
   document.getElementById('end-field').style.display = show ? 'block' : 'none';
   document.getElementById('end-add').style.display   = show ? 'none' : 'inline-flex';
-  document.getElementById('dstart-label').textContent = show ? 'Start – lift station' : 'Start & end – lift station';
+  document.getElementById('dstart-label').textContent = show ? 'Start' : 'Start & end';
 }
 
 function swapSides() {
@@ -781,17 +993,7 @@ function swapSides() {
   selected.from = selected.to;
   selected.to   = tmp;
 
-  ['from', 'to'].forEach(side => {
-    if (!selected[side]) { resetSide(side); return; }
-    const s = selected[side];
-    document.getElementById(`${side}-box`).style.display    = 'none';
-    document.getElementById(`${side}-chosen`).style.display = 'flex';
-    document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON : liftIcon(s.lift);
-    document.getElementById(`${side}-nr`).textContent       = s.gps ? s.liftNr : liftCode(s.liftNr);
-    document.getElementById(`${side}-liftname`).textContent = s.liftName;
-    if (s.gps) document.getElementById(`${side}-side`).textContent = '';
-    else setChosenSide(side);
-  });
+  ['from', 'to'].forEach(showChosen);
 }
 
 // ── Difficulty filter ────────────────────────────────────────────────────────
@@ -812,9 +1014,11 @@ function renderQuickDiff() {
 }
 
 // "All", "None" or e.g. "Blue · Red": the collapsed difficulty setting.
-const DIFF_NAMES = { blauw: 'Blue', rood: 'Red', zwart: 'Black', skiroute: 'Ski route' };
+const DIFF_NAMES = { groen: 'Green', blauw: 'Blue', rood: 'Red', zwart: 'Black', skiroute: 'Ski route' };
 function diffSummary(set) {
-  if (set.size === DIFF_LEVELS.length) return 'All';
+  // Green hidden (the area has none): all the shown colours on is "All".
+  const shown = DIFF_LEVELS.filter(d => d !== 'groen' || (currentArea?.pistes || []).some(p => p.kleur === 'groen'));
+  if (shown.every(d => set.has(d))) return 'All';
   if (!set.size) return 'None';
   return DIFF_LEVELS.filter(d => set.has(d)).map(d => DIFF_NAMES[d]).join(' · ');
 }
@@ -843,13 +1047,14 @@ function dijkstra(startId, endId) {
     visited.add(current);
     if (current === endId) break;
 
+    const dragOk = dragAllowed('q-drag');
     (GRAPH[current] || []).forEach(edge => {
-      if (edge.type === 'piste' && pisteKleuren(edge).some(k => !allowedDiff.has(k))) return;
       if (edge.type === 'bus' && !busAllowed('q-bus')) return;
       if (isAvoided(edge)) return;
       const newCost = dist[current] + (edge.tijd || 0)
         + (edge.descent ? RIDE_DOWN_PENALTY : 0)
-        + (isConnection(edge) ? CONNECTION_PENALTY : 0);
+        + (isConnection(edge) ? CONNECTION_PENALTY : 0)
+        + (unwantedEdge(edge, allowedDiff, dragOk) ? UNWANTED_PENALTY : 0);
       if (newCost < dist[edge.to]) {
         dist[edge.to]     = newCost;
         prev[edge.to]     = current;
@@ -908,6 +1113,7 @@ const STEP_ICONS = {
   chair_lift:       CHAIRLIFT_ICON,
   draglift:         TBAR_ICON,
   oefenlift:        '🎿',
+  'piste-groen':    '🟢',
   'piste-blauw':    '🔵',
   'piste-rood':     '🔴',
   'piste-zwart':    '⚫',
@@ -935,7 +1141,7 @@ function stepClass(edge) {
 }
 
 function tagClass(edge) {
-  if (edge.type === 'piste') return { blauw: 'tag-blauw', rood: 'tag-rood', zwart: 'tag-zwart', skiroute: 'tag-skiroute' }[edge.diff] || 'tag-rood';
+  if (edge.type === 'piste') return { groen: 'tag-groen', blauw: 'tag-blauw', rood: 'tag-rood', zwart: 'tag-zwart', skiroute: 'tag-skiroute' }[edge.diff] || 'tag-rood';
   if (edge.echteLift === false) return 'tag-stoeltjeslift';
   if (edge.type === 'chair_lift') return 'tag-stoeltjeslift';
   if (edge.type === 'gondola' || edge.type === 'cable_car' || edge.type === 'funicular') return 'tag-gondel';
@@ -945,7 +1151,7 @@ function tagClass(edge) {
 function tagLabel(edge) {
   if (edge.type === 'bus')   return 'Ski bus';
   if (edge.type === 'walk')  return 'Walk';
-  if (edge.type === 'piste') return { blauw: 'Blue ●', rood: 'Red ●', zwart: 'Black ●', skiroute: 'Ski route ●' }[edge.diff] || 'Piste';
+  if (edge.type === 'piste') return { groen: 'Green ●', blauw: 'Blue ●', rood: 'Red ●', zwart: 'Black ●', skiroute: 'Ski route ●' }[edge.diff] || 'Piste';
   if (DRAG_LIFT_LABEL[edge.type]) return DRAG_LIFT_LABEL[edge.type];
   if (edge.echteLift === false) return 'Practice lift';
   return LIFT_TYPE_LABEL[edge.type] || 'Lift';
@@ -977,10 +1183,10 @@ function planRoute(options = {}) {
   const result = dijkstra(selected.from.id, selected.to.id);
   if (!result || !result.path.length) {
     errorEl.textContent = avoidedLifts.size
-      ? `No route without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list, or also select red or black.`
+      ? `No route without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
       : busAllowed('q-bus')
-        ? 'No route found. Try also selecting red or black.'
-        : 'No route without the ski bus. Switch the ski bus on, or also select red or black.';
+        ? 'No route found between these two stations.'
+        : 'No route without the ski bus. Switch the ski bus on.';
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
     return;
@@ -1030,7 +1236,7 @@ function splitTrajecten(edge) {
   }));
 }
 
-const PISTE_KIND = { blauw: 'Blue piste', rood: 'Red piste', zwart: 'Black piste', skiroute: 'Ski route' };
+const PISTE_KIND = { groen: 'Green piste', blauw: 'Blue piste', rood: 'Red piste', zwart: 'Black piste', skiroute: 'Ski route' };
 
 function renderRoute(result) {
   const visibleSteps = result.path.filter(edge => edge.type !== 'transfer').flatMap(splitTrajecten);
@@ -1044,7 +1250,8 @@ function renderRoute(result) {
   const stepsEl = document.getElementById('steps');
   stepsEl.innerHTML = '';
 
-  addWaypoint(stepsEl, selected.from.name, selected.from.alt, '📍', 'Start', 0);
+  addWaypoint(stepsEl, escapeHtml(selected.from.name), selected.from.alt, selected.from.place ? PLACE_ICONS[selected.from.place.kind] || '📍' : '📍',
+    selected.from.place ? `Start · ${escapeHtml(selected.from.place.sub)}` : 'Start', 0);
 
   // What comes after each lift (a transfer included), for the exit hint.
   const nextOf = new Map(result.path.map((edge, i) => [edge, result.path[i + 1]]));
@@ -1059,12 +1266,15 @@ function renderRoute(result) {
     // The chosen destination, also when a short walk from the last step leads there.
     const isLast = index === visibleSteps.length - 1;
     if (isLast && selected.to) {
-      addWaypoint(stepsEl, selected.to.name, selected.to.alt, '🏁', 'Destination reached!', (index + 1.5) * 50);
+      addWaypoint(stepsEl, escapeHtml(selected.to.name), selected.to.alt, '🏁',
+        selected.to.place ? `Destination reached! · ${escapeHtml(selected.to.place.sub)}` : 'Destination reached!', (index + 1.5) * 50);
     }
   });
 
   // Closed lifts first, above the steps, as in the day plan.
-  document.getElementById('q-closed').innerHTML = closedWarning(visibleSteps);
+  const unwanted = unwantedWarning(result.path, allowedDiff, dragAllowed('q-drag'));
+  document.getElementById('q-closed').innerHTML =
+    (unwanted ? `<div class="closed-warning unwanted-warning">⚠ ${unwanted}</div>` : '') + closedWarning(visibleSteps);
   document.getElementById('tip').innerHTML = getTip();
 
   // For the map view: the route as planned, transfers included.
@@ -1072,7 +1282,7 @@ function renderRoute(result) {
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
-    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'),
+    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'), drag: dragAllowed('q-drag'),
   });
   if (routeViews.quick === 'map') drawPlannerMap('quick');
 }

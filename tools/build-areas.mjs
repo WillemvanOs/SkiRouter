@@ -23,7 +23,7 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync, appendFileSync, rmS
 import { createInterface } from 'node:readline';
 import { compileArea, validate, areaParts } from './lib/compile-area.mjs';
 import { download, readFeatures, skiAreaIds, toLift, toRuns } from './lib/openskidata.mjs';
-import { landmarksFor } from './lib/landmarks.mjs';
+import { landmarksFor, poisFor } from './lib/landmarks.mjs';
 
 const countryNames = new Intl.DisplayNames(['en'], { type: 'region' });
 const MIN_LIFTS = 5;
@@ -263,6 +263,8 @@ console.log(`Built ${Object.keys(reports).length} areas (${index.length} listed)
 function addToIndex(id, area, report, meta, listing, places) {
   const plaatsen = landmarksFor(ALL_LANDMARKS, area);
   if (plaatsen.length) area.plaatsen = plaatsen;
+  const plekken = poisFor(ALL_LANDMARKS, area);
+  if (plekken.length) area.plekken = plekken;
   writeFileSync(`${AREA_DIR}/${id}.json`, JSON.stringify(area) + '\n');
   const centre = area.liften.reduce((c, l) => [c[0] + l.coordOnder[0], c[1] + l.coordOnder[1]], [0, 0]).map(v => +(v / area.liften.length).toFixed(4));
   index.push({ id, name: area.name, country: meta.country, region: (meta.region || '').replace(/[<>"`]/g, '') || null,

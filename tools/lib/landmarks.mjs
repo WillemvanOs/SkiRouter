@@ -4,6 +4,7 @@
 // data/pois/landmarks.json); landmarksFor picks an area's own.
 //
 // An area's landmarks (`plaatsen`): [{ n: name, k: 'peak'|'town'|'village'|'hamlet', lat, lon, ele? }]
+// and its places to go (`plekken`): [{ id, n?: name, k: 'viewpoint'|'snowpark', lat, lon, ele? }]
 
 export const LANDMARK_PAD = 0.015;  // ~1.5 km around an area's lifts and runs
 const MAX_PEAKS = 25;
@@ -12,6 +13,9 @@ const HAMLET_NEAR_M = 1200;         // a hamlet only when a lift starts or ends 
 const PEAK_IN_AREA_M = 600;         // a peak this close to a lift station or a run is in the area
 const PEAK_SAME_M = 400;            // peaks this close together are one (the highest is kept)
 const PLACE_RANK = { town: 0, village: 1, hamlet: 2 };
+const POI_IN_AREA_M = 300;          // a viewpoint or snow park this close to a lift station or a run
+const MAX_VIEWPOINTS = 20;
+const MAX_SNOWPARKS = 10;
 
 // The points of an area (format 2: liften + pisteLijnen) that set its extent.
 export function areaPoints(area) {
@@ -61,6 +65,28 @@ export function landmarksFor(all, area) {
     .slice(0, MAX_PLACES);
   return [...places, ...peaks].map(p => ({
     n: p.name, k: p.natural === 'peak' ? 'peak' : p.place, lat: p.lat, lon: p.lon,
+    ...(p.ele != null ? { ele: p.ele } : {}),
+  }));
+}
+
+// Places to go in an area: viewpoints and snow parks at a lift or a run
+// (named ones first), for the station picker and the day planner's stops.
+export function poisFor(all, area) {
+  const points = areaPoints(area);
+  if (!points.length) return [];
+  const box = boxOf(points, LANDMARK_PAD);
+  const stations = (area.liften || []).flatMap(l => [l.coordOnder, l.coordBoven]).filter(Boolean);
+  const near = [...stations, ...Object.values(area.pisteLijnen || {}).flat().flatMap(line => line.filter((q, i) => i % 2 === 0))];
+  const inArea = p => near.some(q => distM(q, [p.lat, p.lon]) <= POI_IN_AREA_M);
+  const pick = (kind, max) => all
+    .filter(p => kind(p) && inBox(box, p.lat, p.lon) && inArea(p))
+    .sort((a, b) => !!b.name - !!a.name || (b.ele ?? -1) - (a.ele ?? -1))
+    .slice(0, max);
+  return [
+    ...pick(p => p.tourism === 'viewpoint', MAX_VIEWPOINTS).map(p => ({ k: 'viewpoint', p })),
+    ...pick(p => p.piste === 'snow_park', MAX_SNOWPARKS).map(p => ({ k: 'snowpark', p })),
+  ].map(({ k, p }) => ({
+    id: p.id, ...(p.name ? { n: p.name } : {}), k, lat: p.lat, lon: p.lon,
     ...(p.ele != null ? { ele: p.ele } : {}),
   }));
 }

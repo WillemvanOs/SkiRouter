@@ -38,11 +38,13 @@ const DAY_LUNCH_STOPS   = 16;  // lunch stops tried at most when no restaurant i
 const DAY_LUNCH_FIT_MIN = 15;  // arriving this close to lunchtime is "perfect"
 const DAY_ALONG_WINDOW  = 60;  // "also on your route" around lunchtime, ± minutes
 const DAY_MOUNTAIN_ELE  = 1100; // a restaurant this high is on the mountain
-const DAY_DIFF_LEVELS   = ['blauw', 'rood', 'zwart', 'skiroute'];
+const DAY_STOP_RUNS     = 240;  // walks per option with stops, shared out over its legs
+const DAY_DIFF_LEVELS   = ['groen', 'blauw', 'rood', 'zwart', 'skiroute']; // as DIFF_LEVELS (app.js)
 
 let dayDiff    = new Set(DAY_DIFF_LEVELS);
 let dayPace    = 'normal';
 let dayBus     = true;   // may the plan use the ski bus
+let dayDrag    = true;   // drag lifts welcome (false: only when there is no other way)
 let dayOptions = [];
 let dayCtx     = null;
 let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
@@ -50,6 +52,7 @@ let dayMoves   = {}; // per node, the edges this plan may take, with their cost 
 let dayTracker = null; // ticking off the shown option's steps
 let dayShown   = 0;    // index of the option on screen
 let dayDone    = 0;    // steps ticked, for the map's current step
+let dayStops   = [];   // stops on the way, in order: { id, kind, name, station, sub }
 
 // ── Tabs ─────────────────────────────────────────────────────────────────────
 
@@ -81,12 +84,15 @@ function resetDayPlan() {
   setDayPace(DAY_PACES[saved.pace] ? saved.pace : 'normal');
   dayDiff = new Set(Array.isArray(saved.diff) ? saved.diff.filter(d => DAY_DIFF_LEVELS.includes(d)) : DAY_DIFF_LEVELS);
   renderDayDiff();
-  restoreStation('dstart', saved.start);
+  if (!restorePlace('dstart', saved.startPlace)) restoreStation('dstart', saved.start);
+  dayStops = (saved.stops || []).map(stopById).filter(Boolean);
+  renderDayStops();
   // The end field starts folded away ('Start & end'), unless a day that ends
   // elsewhere is being followed right now: then its end station comes back.
-  if (dayInProgress()) restoreStation('dend', saved.end);
+  if (dayInProgress() && !restorePlace('dend', saved.endPlace)) restoreStation('dend', saved.end);
 
   document.getElementById('day-bus').checked         = saved.bus !== false;
+  document.getElementById('day-drag').checked        = saved.drag !== false;
   // Areas without known mountain restaurants (most built from OpenSkiData
   // so far) plan without lunch: the lunch box is not shown at all.
   const hasFood = mountainRestaurants().length > 0;
@@ -116,6 +122,62 @@ function restoreDayProgress() {
   if (!dayInProgress() || !selected.dstart) return;
   planDay({ silent: true });
   if (dayOptions.length && saved.option > 0 && saved.option < dayOptions.length) renderDayOption(saved.option);
+}
+
+// ── Stops ────────────────────────────────────────────────────────────────────
+//
+// Places to pass during the day, in order, besides lunch: a lift to ride, a
+// restaurant, viewpoint, snow park, village or peak (picked like a start or
+// destination). The day is planned in legs from stop to stop.
+
+function liftStop(lift) {
+  return { id: `lift:${lift.nr}`, kind: 'lift', name: [liftCode(lift.nr), lift.name].filter(Boolean).join(' '), station: lift.berg, sub: 'ride it to the top' };
+}
+
+function placeStop(place) {
+  const at = placeStation(place);
+  return at && { id: place.id, kind: place.kind, name: place.name, station: at.id, sub: placeSub(place, at) };
+}
+
+function stopById(id) {
+  if (id?.startsWith('lift:')) {
+    const lift = LIFTS.find(l => l.nr === id.slice(5));
+    return lift ? liftStop(lift) : null;
+  }
+  const place = findPlace(id);
+  return place ? placeStop(place) : null;
+}
+
+function addDayStop(stop) {
+  closeSheet();
+  if (!stop || dayStops.some(s => s.id === stop.id)) return;
+  dayStops.push(stop);
+  renderDayStops();
+}
+
+function removeDayStop(i) {
+  dayStops.splice(i, 1);
+  renderDayStops();
+}
+
+function moveDayStopUp(i) {
+  if (i < 1) return;
+  [dayStops[i - 1], dayStops[i]] = [dayStops[i], dayStops[i - 1]];
+  renderDayStops();
+}
+
+function renderDayStops() {
+  const el = document.getElementById('day-stops');
+  if (!el) return;
+  el.innerHTML = dayStops.map((stop, i) => `
+    <div class="stop-row">
+      <span class="stop-nr">${i + 1}</span>
+      <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || '📍'}</span>
+      <span class="stop-name">${escapeHtml(stop.name)}<span class="place-sub">${escapeHtml(stop.sub)}</span></span>
+      ${i ? `<button type="button" class="stop-btn" onclick="moveDayStopUp(${i})" aria-label="Earlier in the day">↑</button>` : ''}
+      <button type="button" class="stop-btn" onclick="removeDayStop(${i})" aria-label="Remove this stop">✕</button>
+    </div>`).join('');
+  document.getElementById('stops-summary').textContent = dayStops.length ? `${dayStops.length} stop${dayStops.length > 1 ? 's' : ''}` : 'None';
 }
 
 function toggleLunch() {
@@ -234,14 +296,66 @@ function dayCost(edge, pace) {
   return (edge.tijd || 0) + (edge.echteLift === false ? DAY_PRACTICE_MIN : pace.wait);
 }
 
-function dayAllowed(edge) {
+// May the plan take this edge at all (the bus switch, lifts avoided by hand)…
+function dayUsable(edge) {
   if (edge.type === 'bus') return dayBus;
-  if (isAvoided(edge)) return false;
-  return edge.type !== 'piste' || pisteKleuren(edge).every(k => dayDiff.has(k));
+  return !isAvoided(edge);
 }
 
+// …and is it one you want: a piste in a picked colour, a drag lift only when
+// they are welcome. The plan skis only these; the others (UNWANTED_PENALTY)
+// only on the way back when there is no other way.
+function dayAllowed(edge) {
+  return dayUsable(edge) && !unwantedEdge(edge, dayDiff, dayDrag);
+}
+
+// What counts as "the same piste" for variety. Areas built from map data give
+// runs without a number a key of their own per stretch ("~12", "~13"), so
+// three stretches of the "Village" run looked like three different pistes and
+// a day could lap them back to back. Those go by their name instead, unless
+// the name is a made-up one ("Blue run").
+const GENERIC_RUN_NAME = /^((green|blue|red|black) run|ski route|piste)\b/i;
 function pisteKey(edge) {
+  const nr = String(edge.pisteNr || '');
+  const numbered = nr && !nr.startsWith('~') && nr.length <= 4;
+  if (!numbered && edge.name && !GENERIC_RUN_NAME.test(edge.name)) return `name|${edge.name.toLowerCase()}`;
   return `${edge.pisteNr}|${edge.name}`;
+}
+
+// The pistes a piste edge skis, one key each. A descent through several
+// marked runs ("31, 52": piste 31 into 52) counts for each of them, so the
+// same slope reached a slightly different way is not "new" again.
+const pisteKeysCache = new WeakMap();
+function pisteKeys(edge) {
+  let keys = pisteKeysCache.get(edge);
+  if (!keys) {
+    keys = [...new Set(splitTrajecten(edge).map(pisteKey))];
+    pisteKeysCache.set(edge, keys);
+  }
+  return keys;
+}
+
+// The km of a piste edge worth skiing given today's plan so far: each part
+// counts by how often its piste was skied already, so a long run that starts
+// on an often-skied beginner slope is still mostly new.
+const pistePartsCache = new WeakMap();
+function freshKm(usage, edge) {
+  let parts = pistePartsCache.get(edge);
+  if (!parts) {
+    const split = splitTrajecten(edge);
+    const total = edge.km || 0;
+    const sum = split.reduce((a, p) => a + (p.km || 0), 0);
+    // Parts without a length share the edge's km evenly.
+    parts = split.map(p => ({ key: pisteKey(p), km: sum > 0 ? total * (p.km || 0) / sum : total / split.length }));
+    pistePartsCache.set(edge, parts);
+  }
+  let km = 0;
+  for (const part of parts) km += part.km * novelty(usage.get(part.key) || 0);
+  return km;
+}
+
+function countPistes(usage, edge) {
+  pisteKeys(edge).forEach(key => usage.set(key, (usage.get(key) || 0) + 1));
 }
 
 // How attractive a piste is given how often it was skied today already.
@@ -252,8 +366,10 @@ function novelty(timesSkied) {
 // Quickest time (and the next edge to take) from every node to `endId`.
 function costsToEnd(endId, pace) {
   const reverse = {};
+  // The way home may use what you would rather not, at a high price: only
+  // when nothing else gets you back.
   Object.values(dayGraph).forEach(edges => edges.forEach(edge => {
-    if (dayAllowed(edge)) (reverse[edge.to] = reverse[edge.to] || []).push(edge);
+    if (dayUsable(edge)) (reverse[edge.to] = reverse[edge.to] || []).push(edge);
   }));
 
   // Route on cost (riding a lift down only when nothing else gets you
@@ -268,7 +384,8 @@ function costsToEnd(endId, pace) {
     if (done.has(id)) continue;
     done.add(id);
     (reverse[id] || []).forEach(edge => {
-      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0) + (isConnection(edge) ? CONNECTION_PENALTY : 0);
+      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0) + (isConnection(edge) ? CONNECTION_PENALTY : 0)
+        + (unwantedEdge(edge, dayDiff, dayDrag) ? UNWANTED_PENALTY : 0);
       if (c < (cost[edge.from] ?? Infinity)) {
         cost[edge.from] = c;
         next[edge.from] = edge;
@@ -305,7 +422,7 @@ function prepareDayMoves(pace) {
       cost: dayCost(edge, pace),
       piste: edge.type === 'piste',
       transfer: edge.type === 'transfer',
-      key: edge.type === 'piste' ? pisteKey(edge) : null,
+
       km: edge.km || 0,
       memo: [], // lookahead answers for the current step, per depth
       step: -1,
@@ -319,7 +436,7 @@ function prepareDayMoves(pace) {
 // throughout it), since the same edges come up again and again.
 function lookahead(move, usage, depth, step) {
   const cost = move.cost;
-  if (move.piste) return { gain: move.km * novelty(usage.get(move.key) || 0), cost };
+  if (move.piste) return { gain: freshKm(usage, move.edge), cost };
   if (depth === 0) return { gain: 0, cost };
   if (move.step === step && move.memo[depth]) return move.memo[depth];
 
@@ -406,6 +523,7 @@ function dayWalk(ctx, random, initialUsage) {
   const { startId, endId, t0, t1, targetKm, pace, home } = ctx;
   const steps = [];
   const usage = new Map(initialUsage || []);
+  const liftRides = new Map(); // rides per lift today: laps on one lift get less likely
   let node = startId, t = t0, km = 0, prevEdge = null;
 
   function take(edge) {
@@ -413,9 +531,10 @@ function dayWalk(ctx, random, initialUsage) {
     t += dayCost(edge, pace);
     node = edge.to;
     prevEdge = edge;
+    if (edge.liftNr && edge.type !== 'piste' && !isConnection(edge)) liftRides.set(edge.liftNr, (liftRides.get(edge.liftNr) || 0) + 1);
     if (edge.type === 'piste') {
       km += edge.km || 0;
-      usage.set(pisteKey(edge), (usage.get(pisteKey(edge)) || 0) + 1);
+      countPistes(usage, edge);
     }
   }
 
@@ -436,6 +555,7 @@ function dayWalk(ctx, random, initialUsage) {
       const ahead = lookahead(move, usage, 3, step);
       let weight = (ahead.gain + 0.01) / ahead.cost;
       if (edge.echteLift === false) weight *= 0.2;
+      if (edge.liftNr && !move.piste) weight *= [1, 0.7, 0.35, 0.15][liftRides.get(edge.liftNr) || 0] ?? 0.08;
       if (edge.descent) weight *= 0.3;
       if (isConnection(edge)) weight *= 0.3;
       candidates.push({ edge, weight: weight ** 3 });
@@ -464,8 +584,15 @@ function dayWalk(ctx, random, initialUsage) {
 function varietyScore(walk) {
   let repeats = 0;
   walk.usage.forEach(count => { repeats += Math.max(0, count - 2); });
+  // Laps on one lift: a few are fine, a dozen on the same baby lift is not.
+  const rides = new Map();
+  walk.steps.forEach(s => {
+    if (s.edge?.liftNr && s.edge.type !== 'piste' && !isConnection(s.edge)) rides.set(s.edge.liftNr, (rides.get(s.edge.liftNr) || 0) + 1);
+  });
+  let laps = 0;
+  rides.forEach(count => { laps += Math.max(0, count - 3); });
   const practiceLifts = walk.steps.filter(s => s.edge && s.edge.echteLift === false && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
-  return 0.8 * walk.usage.size - 3 * repeats - 2 * practiceLifts;
+  return 0.8 * walk.usage.size - 3 * repeats - 3 * laps - 2 * practiceLifts;
 }
 
 function scoreDay(walk, ctx) {
@@ -619,7 +746,7 @@ function daysVia(stop, ctx, random) {
       if (i === k + 1) t = leave + partMin[k] / 2;
       (i <= k ? beforeSteps : afterSteps).push({ edge: part, t });
       t += partMin[i];
-      usage.set(pisteKey(part), (usage.get(pisteKey(part)) || 0) + 1);
+      countPistes(usage, part);
       km += part.km || 0;
     });
 
@@ -646,6 +773,118 @@ function daysVia(stop, ctx, random) {
     });
   });
   return days;
+}
+
+// ── Stops: a day in legs ─────────────────────────────────────────────────────
+//
+// start → stop 1 → stop 2 → … → end. Each leg gets the quickest time between
+// its ends plus a share of the time left (longer legs a bigger share), and
+// the same share of the distance. Lunch goes in the leg around lunchtime,
+// planned like a lunch day of its own. Legs are planned one after another,
+// each starting when the last one ended and knowing what was skied already;
+// the three options avoid each other leg by leg.
+function planWithStops(ctx, random, stops, lunchAt) {
+  const { pace } = ctx;
+  const legs = [];
+  let from = ctx.startId;
+  [...stops, null].forEach(stop => {
+    const to = stop ? stop.station : ctx.endId;
+    legs.push({ from, to, stop });
+    from = to;
+  });
+  for (const leg of legs) {
+    leg.home = costsToEnd(leg.to, pace);
+    leg.base = leg.from === leg.to ? 0 : leg.home.dist[leg.from];
+    if (leg.base == null) {
+      return { error: leg.stop
+        ? `${leg.stop.name} cannot be reached from the stop before it. Change the order or remove it.`
+        : 'The end station cannot be reached from the last stop.' };
+    }
+  }
+  const lunchMin = ctx.withLunch ? ctx.lunchMin : 0;
+  const avail = ctx.t1 - ctx.t0 - lunchMin;
+  const baseSum = legs.reduce((sum, l) => sum + l.base, 0);
+  if (baseSum > avail) return { error: `Getting past all stops alone takes about ${Math.round(baseSum)} min, which does not fit before ${formatClock(ctx.t1)}.` };
+
+  // A leg that starts and ends at the same station (a stop right at the
+  // start) gets no time of its own, unless it is the whole day.
+  const moving = legs.filter(l => l.from !== l.to || legs.length === 1);
+  if (!moving.length) moving.push(legs[legs.length - 1]);
+  const weight = l => moving.includes(l) ? l.base + 20 : 0;
+  const weights = legs.reduce((sum, l) => sum + weight(l), 0);
+  const free = avail - baseSum;
+  legs.forEach(l => {
+    l.len = l.base + free * weight(l) / weights;
+    l.km = ctx.targetKm * weight(l) / weights;
+  });
+  let lunchLeg = -1;
+  if (ctx.withLunch) {
+    let t = ctx.t0;
+    lunchLeg = legs.findIndex(l => (t += l.len) >= ctx.lunchT && moving.includes(l));
+    if (lunchLeg < 0) lunchLeg = legs.indexOf(moving[moving.length - 1]);
+  }
+  let t = ctx.t0;
+  legs.forEach((l, i) => {
+    l.t0 = t;
+    l.t1 = t + l.len + (i === lunchLeg ? lunchMin : 0);
+    t = l.t1;
+  });
+
+  // Lunch: the best days through a restaurant within the lunch leg.
+  if (lunchLeg >= 0) {
+    const l = legs[lunchLeg];
+    const lunchT = Math.min(Math.max(ctx.lunchT, l.t0 + 15), l.t1 - lunchMin - 15);
+    const lctx = { ...ctx, startId: l.from, endId: l.to, t0: l.t0, t1: l.t1, targetKm: Math.max(0.1, l.km), home: l.home, lunchT };
+    const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
+    l.lunchDays = pickLunchStops(lunchStops(restaurants), lctx, random).flatMap(stop => daysVia(stop, lctx, random))
+      .sort((a, b) => b.score - a.score);
+    if (!l.lunchDays.length) return { error: 'No restaurant fits around lunchtime between your stops. Try another lunch time, other stops or switch lunch off.' };
+  }
+
+  const perLeg = Math.max(20, Math.ceil(DAY_STOP_RUNS / moving.length));
+  const options = [];
+  for (let k = 0; k < DAY_MAX_OPTIONS; k++) {
+    let usage = new Map();
+    const steps = [];
+    const legWalks = [];
+    let km = 0, end = ctx.t0, lunch = null;
+    for (let i = 0; i < legs.length; i++) {
+      const l = legs[i];
+      const before = options.map(o => o.legWalks[i]).filter(Boolean);
+      const distinct = w => before.every(p => p !== w && overlap(p, w) < 0.6);
+      let walk;
+      if (i === lunchLeg) {
+        walk = l.lunchDays.find(d => distinct(d) && before.every(p => p.lunch?.restaurant.id !== d.lunch.restaurant.id))
+          || l.lunchDays.find(distinct) || l.lunchDays[0];
+        usage = new Map([...usage, ...walk.usage].map(([key]) => [key, (usage.get(key) || 0) + (walk.usage.get(key) || 0)]));
+      } else if (!moving.includes(l)) {
+        walk = { steps: [], km: 0, end, usage };
+      } else {
+        // From when the leg before ended; legs before lunch keep clear of it.
+        const legEnd = i < lunchLeg ? l.t1 - DAY_LATE_SLACK : l.t1;
+        const lctx = { ...ctx, startId: l.from, endId: l.to, t0: Math.max(end, l.t0 - 30), t1: Math.max(legEnd, end + l.base), targetKm: Math.max(0.1, l.km), home: l.home };
+        const walks = [];
+        for (let r = 0; r < perLeg; r++) {
+          const w = dayWalk(lctx, random, usage);
+          if (w) { w.score = scoreDay(w, lctx); walks.push(w); }
+        }
+        walks.sort((a, b) => b.score - a.score);
+        walk = walks.find(distinct) || walks[0];
+        if (walk) usage = walk.usage;
+      }
+      if (!walk) return options.length ? { options } : { error: 'No day plan found past these stops. Try a longer day, fewer stops or another order.' };
+      legWalks.push(walk);
+      steps.push(...walk.steps);
+      km += walk.km;
+      end = Math.max(end, walk.end);
+      if (walk.lunch) lunch = walk.lunch;
+      if (l.stop) steps.push({ stop: l.stop, t: end });
+    }
+    const day = { steps, km, end, usage, lunch, legWalks };
+    day.score = scoreDay(day, ctx);
+    options.push(day);
+  }
+  return { options };
 }
 
 // ── Planning ─────────────────────────────────────────────────────────────────
@@ -686,6 +925,7 @@ function planDay(options = {}) {
   const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
   const lunchAt  = document.getElementById('day-lunch-at').value;
   dayBus = busAllowed('day-bus');
+  dayDrag = dragAllowed('day-drag');
 
   if (!start) { markMissing(['dstart']); return fail('Choose where your day starts.'); }
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
@@ -698,9 +938,11 @@ function planDay(options = {}) {
 
   saveDayInputs({
     start: start.id, end: selected.dend?.id || null,
+    startPlace: start.place?.id || null, endPlace: selected.dend?.place?.id || null,
+    stops: dayStops.map(s => s.id),
     t0: document.getElementById('day-t0').value, t1: document.getElementById('day-t1').value,
     km: targetKm, pace: dayPace, diff: [...dayDiff],
-    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt, bus: dayBus,
+    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt, bus: dayBus, drag: dayDrag,
   });
 
   const pace = DAY_PACES[dayPace];
@@ -710,9 +952,9 @@ function planDay(options = {}) {
   if (home.dist[start.id] == null) {
     return fail(dayBus
       ? (avoidedLifts.size
-        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list, or also select red or black.`
-        : 'The end station cannot be reached from the start with these difficulties. Try also selecting red or black.')
-      : 'The end station cannot be reached without the ski bus. Switch the ski bus on, or also select red or black.');
+        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
+        : 'The end station cannot be reached from the start.')
+      : 'The end station cannot be reached without the ski bus. Switch the ski bus on.');
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
@@ -724,14 +966,20 @@ function planDay(options = {}) {
     if (w) liftWindows[l.liftNr] = w;
   });
 
-  dayCtx = { startId: start.id, endId: end.id, t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
+  dayCtx = { startId: start.id, endId: end.id, startName: start.name, endName: end.name, t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
   const random = seededRandom(hashString(JSON.stringify([
     start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
     ...(dayBus ? [] : ['no-bus']),
+    ...(dayDrag ? [] : ['no-drag']),
+    ...dayStops.map(s => s.id),
     ...[...avoidedLifts].sort(),
   ])));
 
-  if (withLunch) {
+  if (dayStops.length) {
+    const planned = planWithStops(dayCtx, random, dayStops, lunchAt);
+    if (planned.error) return fail(planned.error);
+    dayOptions = planned.options;
+  } else if (withLunch) {
     const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
     const stops = lunchStops(restaurants);
     const days = pickLunchStops(stops, dayCtx, random).flatMap(stop => daysVia(stop, dayCtx, random));
@@ -792,6 +1040,8 @@ function restaurantsAlong(walk) {
 
 function dayNotes(walk, ctx) {
   const notes = [];
+  const unwanted = unwantedWarning(walk.steps.map(s => s.edge), dayDiff, dayDrag);
+  if (unwanted) notes.push(`⚠ ${unwanted}`);
   const closed = closedLiftsOn(walk.steps.map(s => s.edge));
   if (closed.length) {
     notes.push(`⚠ ${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}${liftStatusStale() ? '' : ` (lift status ${liftStatusAge()})`}. ${avoidClosedButton(closed)}`);
@@ -832,10 +1082,10 @@ function dayNotes(walk, ctx) {
   } else if (ctx.t1 - walk.end >= 45) {
     notes.push(`☕ Done around ${formatClock(walk.end)}: ${Math.round(ctx.t1 - walk.end)} min to spare for breaks or extra runs.`);
   }
-  const names = new Map(walk.steps.filter(s => s.edge?.type === 'piste').map(s => [pisteKey(s.edge), s.edge]));
+  const names = new Map(walk.steps.filter(s => s.edge?.type === 'piste').flatMap(s => splitTrajecten(s.edge)).map(part => [pisteKey(part), part]));
   walk.usage.forEach((count, key) => {
     const piste = names.get(key);
-    if (piste && count >= 3) notes.push(`🔁 ${piste.name} (${piste.pisteNr}) is on the plan ${count}× — few alternatives with these difficulties.`);
+    if (piste && count >= 3) notes.push(`🔁 ${piste.name}${hasOwnNumber(piste.pisteNr) ? ` (${piste.pisteNr})` : ''} is on the plan ${count}× — few alternatives with these difficulties.`);
   });
   walk.steps.forEach(({ edge, t }) => {
     const w = edge?.liftNr && edge.type !== 'piste' ? ctx.liftWindows[edge.liftNr] : null;
@@ -877,12 +1127,20 @@ function renderDayOption(index) {
   const stepsEl = document.getElementById('day-steps');
   stepsEl.innerHTML = '';
   const startStation = STATIONS[ctx.startId];
-  addWaypoint(stepsEl, startStation.name, startStation.alt, '📍', `Start · ${formatClock(ctx.t0)}`, 0);
+  addWaypoint(stepsEl, escapeHtml(ctx.startName || startStation.name), startStation.alt, '📍', `Start · ${formatClock(ctx.t0)}`, 0);
 
   // Each tickable step records when it is planned to start (data-t), where
   // you stand when it is next (data-at, for "replan from here") and its km.
   let number = 0;
   walk.steps.forEach((step, stepIndex) => {
+    if (step.stop) {
+      // A stop you asked for: a waypoint, not a step to tick.
+      addWaypoint(stepsEl, escapeHtml(step.stop.name), null, PLACE_ICONS[step.stop.kind] || '📍',
+        `Stop · ${formatClock(step.t)} · ${escapeHtml(step.stop.sub)}`, Math.min(number, 30) * 30);
+      stepsEl.lastElementChild.classList.add('step-stop');
+      stepsEl.lastElementChild.dataset.stopId = step.stop.id;
+      return;
+    }
     if (step.lunch) {
       const r = step.lunch;
       const where = step.onPiste ? `halfway down ${pisteLabel(r.piste)}` : restaurantWhere(r);
@@ -919,7 +1177,7 @@ function renderDayOption(index) {
   });
 
   const endStation = STATIONS[ctx.endId];
-  addWaypoint(stepsEl, endStation.name, endStation.alt, '🏁', `Back · ${formatClock(walk.end)}`, Math.min(number, 30) * 30);
+  addWaypoint(stepsEl, escapeHtml(ctx.endName || endStation.name), endStation.alt, '🏁', `Back · ${formatClock(walk.end)}`, Math.min(number, 30) * 30);
 
   document.getElementById('day-tip').innerHTML =
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
@@ -927,7 +1185,7 @@ function renderDayOption(index) {
     `Restaurants come from OpenStreetMap and may be missing or closed.` +
     (LIFT_STATUS ? ` Lift hours ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}.` : '');
 
-  const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
+  const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.stop ? `S:${s.stop.id}` : s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
   dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });
   if (routeViews.day === 'map') drawPlannerMap('day');
 }
@@ -937,16 +1195,17 @@ function dayMapRoute() {
   const walk = dayOptions?.[dayShown];
   if (!walk || !dayCtx) return null;
   return {
-    path: walk.steps.map(s => s.lunch ? { lunch: s.lunch } : s.edge),
+    path: walk.steps.map(s => s.stop ? { stop: s.stop } : s.lunch ? { lunch: s.lunch } : s.edge),
     done: dayDone,
-    fromName: STATIONS[dayCtx.startId]?.name,
-    toName: STATIONS[dayCtx.endId]?.name,
+    fromName: dayCtx.startName || STATIONS[dayCtx.startId]?.name,
+    toName: dayCtx.endName || STATIONS[dayCtx.endId]?.name,
   };
 }
 
 // ── Following the plan ───────────────────────────────────────────────────────
 
 const DAY_ON_TIME_MIN = 5;
+const DAY_FOLLOW_MIN  = 90; // nothing ticked this long after the first step: not being followed
 
 // Ahead or behind: the clock now against when the next step was planned.
 // Late warning: projected return later than "back by" by more than this.
@@ -964,7 +1223,9 @@ function dayStatus(done, items) {
   const walk  = dayOptions[dayShown];
   const now   = nowMinutes();
   const inDay = now >= dayCtx.t0 - 60 && now <= dayCtx.t1 + 120;
-  const started = done > 0 || now >= dayCtx.t0;
+  // Nothing ticked and long past the first step: this plan is not being
+  // followed right now (looked at later, or planned for another day).
+  const started = done > 0 || (now >= dayCtx.t0 && now <= +items[0].dataset.t + DAY_FOLLOW_MIN);
   const delta = done < total && inDay && started ? Math.round(now - +items[done].dataset.t) : null;
   const backAt = delta != null ? walk.end + Math.max(0, delta) : null;
   const late = backAt != null ? Math.round(backAt - dayCtx.t1) : 0;
@@ -1022,6 +1283,12 @@ function replanFromHere() {
   if (lunchNext) startT += +next.dataset.lunch;
   startT = Math.ceil(startT / 5) * 5;
 
+  // Stops still ahead stay; the ones passed are done.
+  const ahead = [...document.querySelectorAll('#day-steps .step-stop')]
+    .filter(row => next.compareDocumentPosition(row) & Node.DOCUMENT_POSITION_FOLLOWING)
+    .map(row => row.dataset.stopId);
+  dayStops = dayStops.filter(s => ahead.includes(s.id));
+  renderDayStops();
   restoreStation('dstart', next.dataset.at);
   if (!selected.dend && dayCtx.endId !== next.dataset.at) restoreStation('dend', dayCtx.endId);
   document.getElementById('day-t0').value = formatClock(startT);

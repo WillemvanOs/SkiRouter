@@ -11,8 +11,8 @@
 //      on another run, and where a lift station sits next to a run.
 //   2. From the top of every lift, a shortest-path search down that network
 //      finds every lift bottom you can ski to, with the runs on the way.
-//      It runs once per difficulty ceiling (blue only, up to red, up to
-//      black, everything) and once per run leaving the top, so the app gets
+//      It runs once per difficulty ceiling (green only, up to blue, up to
+//      red, up to black, everything) and once per run leaving the top, so the app gets
 //      the easy way down as well as the alternatives.
 //   3. Each descent is stored as its parts (run number + metres), in order.
 //
@@ -20,7 +20,7 @@
 //   { lifts: [{ id, ref, name, type, coords: [[lon, lat, ele?], …], duration?,
 //               bottomName?, topName? }],
 //     runs:  [{ id, ref, name, difficulty, coords: [[lon, lat, ele?], …] }] }
-// with difficulty one of 'blauw' | 'rood' | 'zwart' | 'skiroute'.
+// with difficulty one of 'groen' | 'blauw' | 'rood' | 'zwart' | 'skiroute'.
 
 const RUN_M_PER_MIN    = 200; // same average as the app's pisteTijd()
 const DENSIFY_M        = 20;  // extra points along runs, so junctions can sit anywhere
@@ -43,8 +43,8 @@ const UNNAMED_PART_M   = 300; // …and unnamed connectors shorter than this
 const SHORT_PART_M     = 150; // shorter run pieces fold into their neighbour when no harder
 const MAX_PER_PAIR     = 4;   // alternatives kept per lift top → lift bottom
 
-const DIFF_ORDER = ['blauw', 'rood', 'zwart', 'skiroute'];
-const CEILINGS = [['blauw'], ['blauw', 'rood'], ['blauw', 'rood', 'zwart'], DIFF_ORDER];
+const DIFF_ORDER = ['groen', 'blauw', 'rood', 'zwart', 'skiroute'];
+const CEILINGS = DIFF_ORDER.map((d, i) => DIFF_ORDER.slice(0, i + 1)); // green only, up to blue, …, everything
 
 // Lift speeds in m/s, for lifts without a mapped duration.
 const LIFT_SPEED = {
@@ -616,7 +616,7 @@ function stationName(lift, name, side) {
 }
 
 function defaultRunName(run, key) {
-  const kind = { blauw: 'Blue run', rood: 'Red run', zwart: 'Black run', skiroute: 'Ski route' }[run.difficulty];
+  const kind = { groen: 'Green run', blauw: 'Blue run', rood: 'Red run', zwart: 'Black run', skiroute: 'Ski route' }[run.difficulty];
   return key.startsWith('~') ? kind : `${kind} ${key}`;
 }
 
