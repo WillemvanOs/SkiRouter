@@ -19,7 +19,7 @@
 //   zooming in brings them back.
 // Leaflet (vendor/leaflet, BSD-2) is loaded the first time the map is opened.
 
-const MAP_COLOURS = { blauw: '#1e6fd9', rood: '#d63b2f', zwart: '#1d1d1f', skiroute: '#e08a00' };
+const MAP_COLOURS = { groen: '#22a050', blauw: '#1e6fd9', rood: '#d63b2f', zwart: '#1d1d1f', skiroute: '#e08a00' };
 const MAP_LIFT_COLOUR = '#1a3a5c';
 const MAP_DONE_COLOUR = '#a3afbd';
 const MAP_LINK_COLOUR = '#6a7d92';

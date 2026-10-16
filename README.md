@@ -274,6 +274,20 @@ replanned from the next step. The closed-lifts warning has **Avoid these** for a
 the route at once. Avoided lifts show as chips in both planners; ✕ takes one off the list. If no
 route is left, the message names the avoided lifts.
 
+## Difficulty and drag lifts: preferences
+
+The colours picked under **Difficulty** and the **Drag lifts** switch (shown when the area has
+T-bars, platters or rope tows) are preferences, not hard limits. A piste in another colour, or a
+drag lift while the switch is off, costs an extra 120 minutes in the route search
+(`UNWANTED_PENALTY`), so a route only takes one when there is no other way. It then says so
+above the steps ("Not possible with only your choices, so this uses piste 21a (black)"). The day
+planner only skis what you picked, but may use the rest on the way back when nothing else gets
+you there, with the same warning. Lifts avoided by hand (above) stay a hard limit.
+
+**Green** runs (OSM `novice`, used in France, Spain, Scandinavia, …) have their own colour; the
+Green button only shows in areas that have them. North American double black diamonds do not
+come up: the app covers European areas, where `expert` runs are black.
+
 ## Where am I (GPS)
 
 In the station picker for a starting point, **Use my location** starts the route where you are:
@@ -288,7 +302,10 @@ ski area. Station positions and piste courses come from the OSM enrichment (`coo
 The **Day plan** tab plans a whole day: a start station and time, roughly how many
 kilometres, and when (and where) to be back. It tries many routes through the lift and
 piste network, prefers pistes not skied yet that day, and offers up to three options
-with a time for every step. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
+with a time for every step. Variety counts per marked piste: a descent through several runs
+("31, 52") counts for each of them, so the same slope reached a slightly different way is not
+"new" again, and runs without a number go by their name. Laps on one lift get less likely with
+every ride, and more than three on the same lift cost the day's score. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
 and piste times stretched for short stops. The code is in `dayplan.js`.
 
 With **Lunch** switched on, the day becomes start → restaurant (around the chosen time) →
@@ -309,7 +326,8 @@ reopened. **Calculate route** and **Plan my day** start afresh with nothing tick
 it is the same route as before.
 
 When the delay carried through to the end of the day means getting back more than 10 minutes
-after **Back by**, the day plan warns automatically (checked against the clock every minute, also
+after **Back by**, the day plan warns automatically (once a step is ticked, or within 90 minutes
+of the first step; a plan looked at later without ticking anything is not being followed) (checked against the clock every minute, also
 without tapping): a red bar in the sticky header and a warning above the steps, both with
 **Replan from here**. The phone vibrates once when the warning first appears.
 

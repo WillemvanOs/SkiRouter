@@ -38,11 +38,12 @@ const DAY_LUNCH_STOPS   = 16;  // lunch stops tried at most when no restaurant i
 const DAY_LUNCH_FIT_MIN = 15;  // arriving this close to lunchtime is "perfect"
 const DAY_ALONG_WINDOW  = 60;  // "also on your route" around lunchtime, ± minutes
 const DAY_MOUNTAIN_ELE  = 1100; // a restaurant this high is on the mountain
-const DAY_DIFF_LEVELS   = ['blauw', 'rood', 'zwart', 'skiroute'];
+const DAY_DIFF_LEVELS   = ['groen', 'blauw', 'rood', 'zwart', 'skiroute']; // as DIFF_LEVELS (app.js)
 
 let dayDiff    = new Set(DAY_DIFF_LEVELS);
 let dayPace    = 'normal';
 let dayBus     = true;   // may the plan use the ski bus
+let dayDrag    = true;   // drag lifts welcome (false: only when there is no other way)
 let dayOptions = [];
 let dayCtx     = null;
 let dayGraph   = {}; // the routing graph (GRAPH, ride-down edges included)
@@ -87,6 +88,7 @@ function resetDayPlan() {
   if (dayInProgress()) restoreStation('dend', saved.end);
 
   document.getElementById('day-bus').checked         = saved.bus !== false;
+  document.getElementById('day-drag').checked        = saved.drag !== false;
   // Areas without known mountain restaurants (most built from OpenSkiData
   // so far) plan without lunch: the lunch box is not shown at all.
   const hasFood = mountainRestaurants().length > 0;
@@ -234,14 +236,66 @@ function dayCost(edge, pace) {
   return (edge.tijd || 0) + (edge.echteLift === false ? DAY_PRACTICE_MIN : pace.wait);
 }
 
-function dayAllowed(edge) {
+// May the plan take this edge at all (the bus switch, lifts avoided by hand)…
+function dayUsable(edge) {
   if (edge.type === 'bus') return dayBus;
-  if (isAvoided(edge)) return false;
-  return edge.type !== 'piste' || pisteKleuren(edge).every(k => dayDiff.has(k));
+  return !isAvoided(edge);
 }
 
+// …and is it one you want: a piste in a picked colour, a drag lift only when
+// they are welcome. The plan skis only these; the others (UNWANTED_PENALTY)
+// only on the way back when there is no other way.
+function dayAllowed(edge) {
+  return dayUsable(edge) && !unwantedEdge(edge, dayDiff, dayDrag);
+}
+
+// What counts as "the same piste" for variety. Areas built from map data give
+// runs without a number a key of their own per stretch ("~12", "~13"), so
+// three stretches of the "Village" run looked like three different pistes and
+// a day could lap them back to back. Those go by their name instead, unless
+// the name is a made-up one ("Blue run").
+const GENERIC_RUN_NAME = /^((green|blue|red|black) run|ski route|piste)\b/i;
 function pisteKey(edge) {
+  const nr = String(edge.pisteNr || '');
+  const numbered = nr && !nr.startsWith('~') && nr.length <= 4;
+  if (!numbered && edge.name && !GENERIC_RUN_NAME.test(edge.name)) return `name|${edge.name.toLowerCase()}`;
   return `${edge.pisteNr}|${edge.name}`;
+}
+
+// The pistes a piste edge skis, one key each. A descent through several
+// marked runs ("31, 52": piste 31 into 52) counts for each of them, so the
+// same slope reached a slightly different way is not "new" again.
+const pisteKeysCache = new WeakMap();
+function pisteKeys(edge) {
+  let keys = pisteKeysCache.get(edge);
+  if (!keys) {
+    keys = [...new Set(splitTrajecten(edge).map(pisteKey))];
+    pisteKeysCache.set(edge, keys);
+  }
+  return keys;
+}
+
+// The km of a piste edge worth skiing given today's plan so far: each part
+// counts by how often its piste was skied already, so a long run that starts
+// on an often-skied beginner slope is still mostly new.
+const pistePartsCache = new WeakMap();
+function freshKm(usage, edge) {
+  let parts = pistePartsCache.get(edge);
+  if (!parts) {
+    const split = splitTrajecten(edge);
+    const total = edge.km || 0;
+    const sum = split.reduce((a, p) => a + (p.km || 0), 0);
+    // Parts without a length share the edge's km evenly.
+    parts = split.map(p => ({ key: pisteKey(p), km: sum > 0 ? total * (p.km || 0) / sum : total / split.length }));
+    pistePartsCache.set(edge, parts);
+  }
+  let km = 0;
+  for (const part of parts) km += part.km * novelty(usage.get(part.key) || 0);
+  return km;
+}
+
+function countPistes(usage, edge) {
+  pisteKeys(edge).forEach(key => usage.set(key, (usage.get(key) || 0) + 1));
 }
 
 // How attractive a piste is given how often it was skied today already.
@@ -252,8 +306,10 @@ function novelty(timesSkied) {
 // Quickest time (and the next edge to take) from every node to `endId`.
 function costsToEnd(endId, pace) {
   const reverse = {};
+  // The way home may use what you would rather not, at a high price: only
+  // when nothing else gets you back.
   Object.values(dayGraph).forEach(edges => edges.forEach(edge => {
-    if (dayAllowed(edge)) (reverse[edge.to] = reverse[edge.to] || []).push(edge);
+    if (dayUsable(edge)) (reverse[edge.to] = reverse[edge.to] || []).push(edge);
   }));
 
   // Route on cost (riding a lift down only when nothing else gets you
@@ -268,7 +324,8 @@ function costsToEnd(endId, pace) {
     if (done.has(id)) continue;
     done.add(id);
     (reverse[id] || []).forEach(edge => {
-      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0) + (isConnection(edge) ? CONNECTION_PENALTY : 0);
+      const c = cost[id] + dayCost(edge, pace) + (edge.descent ? RIDE_DOWN_PENALTY : 0) + (isConnection(edge) ? CONNECTION_PENALTY : 0)
+        + (unwantedEdge(edge, dayDiff, dayDrag) ? UNWANTED_PENALTY : 0);
       if (c < (cost[edge.from] ?? Infinity)) {
         cost[edge.from] = c;
         next[edge.from] = edge;
@@ -305,7 +362,7 @@ function prepareDayMoves(pace) {
       cost: dayCost(edge, pace),
       piste: edge.type === 'piste',
       transfer: edge.type === 'transfer',
-      key: edge.type === 'piste' ? pisteKey(edge) : null,
+
       km: edge.km || 0,
       memo: [], // lookahead answers for the current step, per depth
       step: -1,
@@ -319,7 +376,7 @@ function prepareDayMoves(pace) {
 // throughout it), since the same edges come up again and again.
 function lookahead(move, usage, depth, step) {
   const cost = move.cost;
-  if (move.piste) return { gain: move.km * novelty(usage.get(move.key) || 0), cost };
+  if (move.piste) return { gain: freshKm(usage, move.edge), cost };
   if (depth === 0) return { gain: 0, cost };
   if (move.step === step && move.memo[depth]) return move.memo[depth];
 
@@ -406,6 +463,7 @@ function dayWalk(ctx, random, initialUsage) {
   const { startId, endId, t0, t1, targetKm, pace, home } = ctx;
   const steps = [];
   const usage = new Map(initialUsage || []);
+  const liftRides = new Map(); // rides per lift today: laps on one lift get less likely
   let node = startId, t = t0, km = 0, prevEdge = null;
 
   function take(edge) {
@@ -413,9 +471,10 @@ function dayWalk(ctx, random, initialUsage) {
     t += dayCost(edge, pace);
     node = edge.to;
     prevEdge = edge;
+    if (edge.liftNr && edge.type !== 'piste' && !isConnection(edge)) liftRides.set(edge.liftNr, (liftRides.get(edge.liftNr) || 0) + 1);
     if (edge.type === 'piste') {
       km += edge.km || 0;
-      usage.set(pisteKey(edge), (usage.get(pisteKey(edge)) || 0) + 1);
+      countPistes(usage, edge);
     }
   }
 
@@ -436,6 +495,7 @@ function dayWalk(ctx, random, initialUsage) {
       const ahead = lookahead(move, usage, 3, step);
       let weight = (ahead.gain + 0.01) / ahead.cost;
       if (edge.echteLift === false) weight *= 0.2;
+      if (edge.liftNr && !move.piste) weight *= [1, 0.7, 0.35, 0.15][liftRides.get(edge.liftNr) || 0] ?? 0.08;
       if (edge.descent) weight *= 0.3;
       if (isConnection(edge)) weight *= 0.3;
       candidates.push({ edge, weight: weight ** 3 });
@@ -464,8 +524,15 @@ function dayWalk(ctx, random, initialUsage) {
 function varietyScore(walk) {
   let repeats = 0;
   walk.usage.forEach(count => { repeats += Math.max(0, count - 2); });
+  // Laps on one lift: a few are fine, a dozen on the same baby lift is not.
+  const rides = new Map();
+  walk.steps.forEach(s => {
+    if (s.edge?.liftNr && s.edge.type !== 'piste' && !isConnection(s.edge)) rides.set(s.edge.liftNr, (rides.get(s.edge.liftNr) || 0) + 1);
+  });
+  let laps = 0;
+  rides.forEach(count => { laps += Math.max(0, count - 3); });
   const practiceLifts = walk.steps.filter(s => s.edge && s.edge.echteLift === false && s.edge.type !== 'piste' && s.edge.type !== 'transfer').length;
-  return 0.8 * walk.usage.size - 3 * repeats - 2 * practiceLifts;
+  return 0.8 * walk.usage.size - 3 * repeats - 3 * laps - 2 * practiceLifts;
 }
 
 function scoreDay(walk, ctx) {
@@ -619,7 +686,7 @@ function daysVia(stop, ctx, random) {
       if (i === k + 1) t = leave + partMin[k] / 2;
       (i <= k ? beforeSteps : afterSteps).push({ edge: part, t });
       t += partMin[i];
-      usage.set(pisteKey(part), (usage.get(pisteKey(part)) || 0) + 1);
+      countPistes(usage, part);
       km += part.km || 0;
     });
 
@@ -686,6 +753,7 @@ function planDay(options = {}) {
   const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
   const lunchAt  = document.getElementById('day-lunch-at').value;
   dayBus = busAllowed('day-bus');
+  dayDrag = dragAllowed('day-drag');
 
   if (!start) { markMissing(['dstart']); return fail('Choose where your day starts.'); }
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
@@ -700,7 +768,7 @@ function planDay(options = {}) {
     start: start.id, end: selected.dend?.id || null,
     t0: document.getElementById('day-t0').value, t1: document.getElementById('day-t1').value,
     km: targetKm, pace: dayPace, diff: [...dayDiff],
-    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt, bus: dayBus,
+    lunch: withLunch, lunchT: document.getElementById('day-lunch-t').value, lunchMin, lunchAt, bus: dayBus, drag: dayDrag,
   });
 
   const pace = DAY_PACES[dayPace];
@@ -710,9 +778,9 @@ function planDay(options = {}) {
   if (home.dist[start.id] == null) {
     return fail(dayBus
       ? (avoidedLifts.size
-        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list, or also select red or black.`
-        : 'The end station cannot be reached from the start with these difficulties. Try also selecting red or black.')
-      : 'The end station cannot be reached without the ski bus. Switch the ski bus on, or also select red or black.');
+        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
+        : 'The end station cannot be reached from the start.')
+      : 'The end station cannot be reached without the ski bus. Switch the ski bus on.');
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
@@ -728,6 +796,7 @@ function planDay(options = {}) {
   const random = seededRandom(hashString(JSON.stringify([
     start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
     ...(dayBus ? [] : ['no-bus']),
+    ...(dayDrag ? [] : ['no-drag']),
     ...[...avoidedLifts].sort(),
   ])));
 
@@ -792,6 +861,8 @@ function restaurantsAlong(walk) {
 
 function dayNotes(walk, ctx) {
   const notes = [];
+  const unwanted = unwantedWarning(walk.steps.map(s => s.edge), dayDiff, dayDrag);
+  if (unwanted) notes.push(`⚠ ${unwanted}`);
   const closed = closedLiftsOn(walk.steps.map(s => s.edge));
   if (closed.length) {
     notes.push(`⚠ ${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}${liftStatusStale() ? '' : ` (lift status ${liftStatusAge()})`}. ${avoidClosedButton(closed)}`);
@@ -832,10 +903,10 @@ function dayNotes(walk, ctx) {
   } else if (ctx.t1 - walk.end >= 45) {
     notes.push(`☕ Done around ${formatClock(walk.end)}: ${Math.round(ctx.t1 - walk.end)} min to spare for breaks or extra runs.`);
   }
-  const names = new Map(walk.steps.filter(s => s.edge?.type === 'piste').map(s => [pisteKey(s.edge), s.edge]));
+  const names = new Map(walk.steps.filter(s => s.edge?.type === 'piste').flatMap(s => splitTrajecten(s.edge)).map(part => [pisteKey(part), part]));
   walk.usage.forEach((count, key) => {
     const piste = names.get(key);
-    if (piste && count >= 3) notes.push(`🔁 ${piste.name} (${piste.pisteNr}) is on the plan ${count}× — few alternatives with these difficulties.`);
+    if (piste && count >= 3) notes.push(`🔁 ${piste.name}${hasOwnNumber(piste.pisteNr) ? ` (${piste.pisteNr})` : ''} is on the plan ${count}× — few alternatives with these difficulties.`);
   });
   walk.steps.forEach(({ edge, t }) => {
     const w = edge?.liftNr && edge.type !== 'piste' ? ctx.liftWindows[edge.liftNr] : null;
@@ -947,6 +1018,7 @@ function dayMapRoute() {
 // ── Following the plan ───────────────────────────────────────────────────────
 
 const DAY_ON_TIME_MIN = 5;
+const DAY_FOLLOW_MIN  = 90; // nothing ticked this long after the first step: not being followed
 
 // Ahead or behind: the clock now against when the next step was planned.
 // Late warning: projected return later than "back by" by more than this.
@@ -964,7 +1036,9 @@ function dayStatus(done, items) {
   const walk  = dayOptions[dayShown];
   const now   = nowMinutes();
   const inDay = now >= dayCtx.t0 - 60 && now <= dayCtx.t1 + 120;
-  const started = done > 0 || now >= dayCtx.t0;
+  // Nothing ticked and long past the first step: this plan is not being
+  // followed right now (looked at later, or planned for another day).
+  const started = done > 0 || (now >= dayCtx.t0 && now <= +items[0].dataset.t + DAY_FOLLOW_MIN);
   const delta = done < total && inDay && started ? Math.round(now - +items[done].dataset.t) : null;
   const backAt = delta != null ? walk.end + Math.max(0, delta) : null;
   const late = backAt != null ? Math.round(backAt - dayCtx.t1) : 0;

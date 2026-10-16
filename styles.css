@@ -7,6 +7,7 @@
   --midnight: #0d1b2a;
   --alpine:   #1a3a5c;
   --kitz-gold:#d4a017;
+  --green:    #27ae60;
   --blue:     #2980b9;
   --red:      #e74c3c;
   --black:    #1a1a1a;
@@ -818,6 +819,7 @@ main {
 }
 
 .diff-btn.all      { background: #f0f0f8; color: var(--alpine);   border-color: var(--alpine);   }
+.diff-btn.green    { background: #dcf5e5; color: var(--green);    border-color: var(--green);    }
 .diff-btn.blue     { background: #dbeeff; color: var(--blue);     border-color: var(--blue);     }
 .diff-btn.red      { background: #ffe0de; color: var(--red);      border-color: var(--red);      }
 .diff-btn.black    { background: #e5e5e5; color: var(--black);    border-color: #555;            }
@@ -944,6 +946,7 @@ main {
 .ico-funicular      { background: #d5f0e0; }
 .ico-chair_lift     { background: #ede0f5; }
 .ico-oefenlift      { background: #ede0f5; }
+.ico-piste-groen    { background: #dcf5e5; }
 .ico-piste-blauw    { background: #dbeeff; }
 .ico-piste-rood     { background: #ffe0de; }
 .ico-piste-zwart    { background: #e5e5e5; }
@@ -987,6 +990,7 @@ main {
 
 .tag-gondel        { background: #d5f0e0; color: #1a7a3c; }
 .tag-stoeltjeslift { background: #ede0f5; color: #6d2a99; }
+.tag-groen         { background: #dcf5e5; color: #1e8449;         }
 .tag-blauw         { background: #dbeeff; color: var(--blue);     }
 .tag-rood          { background: #ffe0de; color: var(--red);      }
 .tag-zwart         { background: #e5e5e5; color: #222;            }
@@ -1073,6 +1077,7 @@ main {
 }
 
 .kind-lift     { color: #6d2a99; }
+.kind-groen    { color: #1e8449; }
 .kind-blauw    { color: var(--blue); }
 .kind-rood     { color: var(--red); }
 .kind-zwart    { color: #222; }
@@ -1096,6 +1101,7 @@ main {
 
 .piste-sign span { padding-top: 3px; }
 
+.sign-groen    { background: var(--green); }
 .sign-blauw    { background: var(--blue); }
 .sign-rood     { background: var(--red); }
 .sign-zwart    { background: var(--black); }
@@ -2207,4 +2213,11 @@ body.map-full {
 
 .route-map.is-full .leaflet-bottom {
   bottom: env(safe-area-inset-bottom);
+}
+
+.setting-hint {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #8a99ab;
 }

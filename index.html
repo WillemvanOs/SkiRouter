@@ -138,6 +138,9 @@
       </summary>
       <div class="diff-row">
         <button class="diff-btn all on" id="d-all"   onclick="setDiff('all')">All</button>
+        <button class="diff-btn green on" id="d-groen" onclick="setDiff('groen')" style="display:none">
+          <span class="dot" style="background:var(--green)"></span>Green
+        </button>
         <button class="diff-btn blue on" id="d-blauw" onclick="setDiff('blauw')">
           <span class="dot" style="background:var(--blue)"></span>Blue
         </button>
@@ -156,6 +159,11 @@
     <div class="setting setting-switch bus-row" id="q-bus-row" style="display:none">
       <span class="setting-name">🚌 Ski bus</span>
       <label class="switch"><input type="checkbox" id="q-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="setting setting-switch drag-row" id="q-drag-row" style="display:none">
+      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
+      <label class="switch"><input type="checkbox" id="q-drag" checked aria-label="Use drag lifts"><span class="switch-track"></span></label>
     </div>
 
     <div class="avoid-row" id="q-avoid" style="display:none"></div>
@@ -292,6 +300,9 @@
       </summary>
       <div class="diff-row">
         <button class="diff-btn all on" id="dd-all" onclick="setDayDiff('all')">All</button>
+        <button class="diff-btn green on" id="dd-groen" onclick="setDayDiff('groen')" style="display:none">
+          <span class="dot" style="background:var(--green)"></span>Green
+        </button>
         <button class="diff-btn blue on" id="dd-blauw" onclick="setDayDiff('blauw')">
           <span class="dot" style="background:var(--blue)"></span>Blue
         </button>
@@ -310,6 +321,11 @@
     <div class="setting setting-switch bus-row" id="day-bus-row" style="display:none">
       <span class="setting-name">🚌 Ski bus</span>
       <label class="switch"><input type="checkbox" id="day-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="setting setting-switch drag-row" id="day-drag-row" style="display:none">
+      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
+      <label class="switch"><input type="checkbox" id="day-drag" checked aria-label="Use drag lifts"><span class="switch-track"></span></label>
     </div>
 
     <div class="avoid-row" id="day-avoid" style="display:none"></div>
