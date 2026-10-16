@@ -692,6 +692,48 @@ main {
   border-color: var(--alpine);
 }
 
+/* Lifts | POI | Villages & peaks: what the picker lists */
+.sheet-kinds {
+  display: flex;
+  gap: 4px;
+  margin: 0 16px 6px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--snow);
+  flex-shrink: 0;
+}
+
+.sheet-kind {
+  flex: 1;
+  min-height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6a7d92;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sheet-kind.on {
+  background: #fff;
+  color: var(--alpine);
+  box-shadow: 0 1px 4px rgba(26, 58, 92, 0.15);
+}
+
+.ico-place {
+  background: #f0f4fa;
+}
+
+.place-sub {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #8a99ab;
+}
+
 .sheet-list {
   overflow-y: auto;
   padding: 4px 8px 24px;
@@ -1970,6 +2012,8 @@ select.day-input {
 
 /* A flat, plain map: no tiles, a light background */
 .route-map {
+  position: relative;
+  z-index: 0; /* its own stacking: the map's buttons stay under the sticky header */
   height: 62vh;
   min-height: 320px;
   margin-bottom: 12px;
@@ -2220,4 +2264,52 @@ body.map-full {
   font-size: 0.7rem;
   font-weight: 500;
   color: #8a99ab;
+}
+
+/* Day plan stops */
+.stops-box {
+  padding: 4px 0 10px;
+}
+
+.stop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ice);
+}
+
+.stop-nr {
+  min-width: 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8a99ab;
+  text-align: center;
+}
+
+.stop-name {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.stop-btn {
+  min-width: 36px;
+  min-height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: var(--snow);
+  color: var(--alpine);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.step-stop .step-icon {
+  background: #efe7f7;
+}
+
+
+.map-stop {
+  border-color: #7d5ba6;
 }

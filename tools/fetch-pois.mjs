@@ -5,7 +5,8 @@
 // tools/lib/compile-area.mjs).
 //
 // With --kind landmarks it fetches named peaks, towns, villages and hamlets
-// in and around each area instead, for the route map (tools/lib/landmarks.mjs),
+// in and around each area instead, plus viewpoints and snow parks, for the
+// route map and as places to go (tools/lib/landmarks.mjs),
 // into data/pois/landmarks.json. The hand-curated areas in data/areas.json get
 // theirs written into their own file (`plaatsen`), as they are not built.
 //
@@ -20,7 +21,7 @@
 
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { LANDMARK_PAD, areaPoints, boxOf, landmarksFor } from './lib/landmarks.mjs';
+import { LANDMARK_PAD, areaPoints, boxOf, landmarksFor, poisFor } from './lib/landmarks.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
   a.startsWith('--') ? [...acc, [a.slice(2), all[i + 1]?.startsWith('--') ? true : all[i + 1] ?? true]] : acc, []));
@@ -67,7 +68,9 @@ console.log(`${areas.length} areas`);
 // had before.
 const prevFile = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {};
 const previous = prevFile.pois || [];
-const fetchedAt = { ...(prevFile.fetched || {}) };
+// What a landmarks fetch asks for; when that changes, every area is fetched again.
+const KINDS_VERSION = LANDMARKS ? 2 : 1; // 2: viewpoints and snow parks
+const fetchedAt = { ...((prevFile.version || 1) === KINDS_VERSION ? prevFile.fetched || {} : {}) };
 const today = new Date().toISOString().slice(0, 10);
 const fresh = id => fetchedAt[id] && (Date.now() - Date.parse(fetchedAt[id])) / 864e5 < FRESH_DAYS;
 const deadline = Date.now() + BUDGET_MIN * 60e3;
@@ -92,7 +95,7 @@ async function fetchBatch(batch, label) {
   const boxes = batch.map(a => a.bbox.map(v => v.toFixed(4)).join(','));
   const query = LANDMARKS
     ? `[out:json][timeout:90];(${boxes.map(b =>
-      `node["natural"="peak"]["name"](${b});node["place"~"^(town|village|hamlet)$"]["name"](${b});`).join('')});out body;`
+      `node["natural"="peak"]["name"](${b});node["place"~"^(town|village|hamlet)$"]["name"](${b});node["tourism"="viewpoint"](${b});nwr["piste:type"="snow_park"](${b});`).join('')})->.all;node.all;out body;(way.all;relation.all;);out tags center;`
     : `[out:json][timeout:90];(${boxes.map(b =>
       `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
   let data;
@@ -119,8 +122,8 @@ async function fetchBatch(batch, label) {
     if (LANDMARKS) {
       if (!batch.some(a => inBox(a.bbox, [lat, lon]))) continue;
       pois.set(`${e.type}/${e.id}`, {
-        id: `${e.type}/${e.id}`, name: t.name,
-        ...(t.natural ? { natural: t.natural } : { place: t.place }),
+        id: `${e.type}/${e.id}`, ...(t.name ? { name: t.name } : {}),
+        ...(t.natural ? { natural: t.natural } : t.place ? { place: t.place } : t.tourism === 'viewpoint' ? { tourism: 'viewpoint' } : { piste: 'snow_park' }),
         lat: +lat.toFixed(5), lon: +lon.toFixed(5),
         ...(t.ele && !isNaN(parseFloat(t.ele)) ? { ele: Math.round(parseFloat(t.ele)) } : {}),
       });
@@ -149,10 +152,10 @@ kept.forEach(p => { if (!pois.has(p.id)) pois.set(p.id, p); });
 const list = [...pois.values()].sort((a, b) => a.id.localeCompare(b.id));
 const fetched = Object.fromEntries(Object.entries(fetchedAt).filter(([id]) => areas.some(a => a.id === id)).sort());
 mkdirSync(dirname(OUT), { recursive: true });
-if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile.fetched || {}) === JSON.stringify(fetched)) {
+if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile.fetched || {}) === JSON.stringify(fetched) && (prevFile.version || 1) === KINDS_VERSION) {
   console.log('unchanged');
 } else {
-  writeFileSync(OUT, JSON.stringify({ updated: today, count: list.length, fetched, pois: list }) + '\n');
+  writeFileSync(OUT, JSON.stringify({ updated: today, version: KINDS_VERSION, count: list.length, fetched, pois: list }) + '\n');
   const covered = Object.keys(fetched).length;
   console.log(`written ${list.length} places to ${OUT}; ${covered}/${areas.length} areas fetched so far${failed.length ? `, ${failed.length} failed this run` : ''}`);
 }
@@ -160,10 +163,12 @@ if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile
 // The hand-curated areas are not built: their landmarks go into their file.
 for (const { file, area } of curated) {
   const plaatsen = landmarksFor(list, area);
-  if (JSON.stringify(area.plaatsen || []) === JSON.stringify(plaatsen)) continue;
+  const plekken = poisFor(list, area);
+  if (JSON.stringify(area.plaatsen || []) === JSON.stringify(plaatsen) && JSON.stringify(area.plekken || []) === JSON.stringify(plekken)) continue;
   area.plaatsen = plaatsen;
+  area.plekken = plekken;
   writeFileSync(file, JSON.stringify(area, null, 2) + '\n');
-  console.log(`${file}: ${plaatsen.length} landmarks`);
+  console.log(`${file}: ${plaatsen.length} landmarks, ${plekken.length} viewpoints and snow parks`);
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────

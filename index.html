@@ -82,6 +82,11 @@
         autocomplete="off"
       >
     </form>
+    <div class="sheet-kinds" id="sheet-kinds" role="group" aria-label="Show">
+      <button type="button" class="sheet-kind on" data-kind="lifts" aria-pressed="true" onclick="setSheetKind('lifts')">🚡 Lifts</button>
+      <button type="button" class="sheet-kind" data-kind="poi" aria-pressed="false" onclick="setSheetKind('poi')">📍 POI</button>
+      <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')">🏘 Villages &amp; peaks</button>
+    </div>
     <div class="sheet-list" id="sheet-list"></div>
   </div>
 
@@ -95,9 +100,9 @@
 
       <!-- Starting point -->
       <div>
-        <label class="sel-label">Starting point – lift station</label>
+        <label class="sel-label">Starting point</label>
         <div class="sel-box" id="from-box" onclick="openSheet('from')">
-          <span class="sel-box-text" id="from-text">Choose a lift station…</span>
+          <span class="sel-box-text" id="from-text">Choose a lift or place…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="from-chosen" style="display:none" onclick="openSheet('from')">
@@ -113,9 +118,9 @@
 
       <!-- Destination -->
       <div>
-        <label class="sel-label">Destination – lift station</label>
+        <label class="sel-label">Destination</label>
         <div class="sel-box" id="to-box" onclick="openSheet('to')">
-          <span class="sel-box-text" id="to-text">Choose a lift station…</span>
+          <span class="sel-box-text" id="to-text">Choose a lift or place…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="to-chosen" style="display:none" onclick="openSheet('to')">
@@ -207,9 +212,9 @@
 
     <div class="route-inputs">
       <div>
-        <label class="sel-label" id="dstart-label">Start &amp; end – lift station</label>
+        <label class="sel-label" id="dstart-label">Start &amp; end</label>
         <div class="sel-box" id="dstart-box" onclick="openSheet('dstart')">
-          <span class="sel-box-text">Choose a lift station…</span>
+          <span class="sel-box-text">Choose a lift or place…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="dstart-chosen" style="display:none" onclick="openSheet('dstart')">
@@ -226,11 +231,11 @@
       <!-- Only there when the day ends somewhere other than where it starts -->
       <div id="end-field" style="display:none">
         <div class="sel-label-row">
-          <label class="sel-label">End of the day – lift station</label>
+          <label class="sel-label">End of the day</label>
           <button class="link-btn link-btn-inline" type="button" onclick="resetSide('dend')">Same as start</button>
         </div>
         <div class="sel-box" id="dend-box" onclick="openSheet('dend')">
-          <span class="sel-box-text">Choose a lift station…</span>
+          <span class="sel-box-text">Choose a lift or place…</span>
           <span class="sel-box-arrow">▾</span>
         </div>
         <div class="chosen" id="dend-chosen" style="display:none" onclick="openSheet('dend')">
@@ -242,6 +247,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Stops on the way, besides lunch -->
+    <details class="setting" id="stops-setting">
+      <summary class="setting-summary">
+        <span class="setting-name">📍 Stops</span>
+        <span class="setting-value" id="stops-summary">None</span>
+        <span class="setting-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stops-box">
+        <div id="day-stops"></div>
+        <button class="link-btn" type="button" onclick="openSheet('stop')">+ Add a stop</button>
+        <div class="setting-hint">A lift to ride, a restaurant, viewpoint, snow park, village or peak, in the order you want to pass them.</div>
+      </div>
+    </details>
 
     <div class="day-grid">
       <label class="day-field">

@@ -138,6 +138,28 @@ iPhone stutters when a list resizes under the finger. Picking a lift chooses its
 station. The chosen field then has a **⬇ Bottom / ⬆ Top** switch; tap **Top** to start or end at
 the top station instead.
 
+### Places: points of interest, villages and peaks
+
+At the top of the picker, **Lifts | POI | Villages & peaks** chooses what it lists; it opens on
+Lifts every time. POI are the mountain restaurants and huts, viewpoints and snow parks;
+Villages & peaks are the area's `plaatsen`. A place is not on the lift network itself: it goes
+by the nearest lift station of the area's main network (a village by the nearest bottom
+station; a practice lift on its own in a village does not count), and the route says how far
+that is ("350 m from bottom of E2 Schatzerlift"). Places further than 1.5 km from any lift are
+left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
+(`tools/lib/landmarks.mjs`: within 300 m of a lift or a run, named ones first).
+
+### Stops in the day plan
+
+Under **📍 Stops** the day plan takes places to pass, in order, besides lunch: a lift to ride (its
+top station), or any place from the picker. ↑ moves a stop earlier, ✕ removes it. The day is
+planned in legs, start → stop → … → end: each leg gets the quickest time between its ends plus a
+share of the time left (longer legs a bigger share), and the same share of the distance. Lunch
+goes in the leg around lunchtime and is planned there like a lunch day of its own. Legs are
+planned one after another, each knowing what was skied already, and the three options avoid
+each other leg by leg. A stop shows as a waypoint between the steps (not one to tick) and on
+the map; **Replan from here** keeps only the stops still ahead.
+
 ## Route map
 
 A quick route and a day plan can each be shown as a list or as a map (**☰ List | 🗺 Map**). The

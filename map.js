@@ -171,6 +171,12 @@ function routePieces(path) {
     if (cursor && distanceM(cursor, p) > 25) pieces.push({ kind: 'link', edge: { type: 'transfer' }, latlngs: [cursor, p], number: null, item: null, step: item, gap: true });
   };
   path.forEach(edge => {
+    if (edge.stop) {
+      // A stop of the day plan: at its station, not a step to tick.
+      const at = pos[edge.stop.station] || cursor;
+      if (at) pieces.push({ kind: 'stop', edge: { type: 'stop', name: edge.stop.name, place: edge.stop.kind }, latlngs: [at], number: null, item: null, step: item });
+      return;
+    }
     if (edge.lunch) {
       const r = edge.lunch;
       const at = r.lat != null && r.lon != null ? [r.lat, r.lon] : cursor;
@@ -230,6 +236,7 @@ function stepLabel(piece) {
   const e = piece.edge;
   const step = piece.number ? `Step ${piece.number} · ` : '';
   if (piece.kind === 'lunch') return `Lunch · ${e.name}`;
+  if (piece.kind === 'stop') return `Stop · ${e.name}`;
   if (piece.kind === 'lift') return `${step}${[liftCode(e.liftNr), e.name].filter(Boolean).join(' ')}`;
   if (e.pisteNr) {
     const name = hasOwnNumber(e.pisteNr) ? pisteOf(e.pisteNr)?.naam : null;
@@ -343,7 +350,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
   const bounds = [];
   pieces.forEach(piece => {
     bounds.push(...piece.latlngs);
-    if (piece.kind === 'lunch') return;
+    if (piece.kind === 'lunch' || piece.kind === 'stop') return;
     if (!piece.gap) piece.casing = L.polyline(piece.latlngs, { renderer, color: '#fff', interactive: false }).addTo(routeMapLayer);
     piece.line = L.polyline(piece.latlngs, { renderer, interactive: !piece.gap }).addTo(routeMapLayer);
     if (!piece.gap) piece.line.bindPopup(escapeHtml(stepLabel(piece)));
@@ -360,8 +367,15 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     routeMapLabels.push({ marker, rank: () => stepRank(piece), step: true });
   });
 
+  // Stops of the day plan.
+  pieces.filter(p => p.kind === 'stop').forEach(piece => {
+    const html = `<span class="map-tag map-lunch map-stop">${PLACE_ICONS[piece.edge.place] || '📍'}</span>`;
+    const marker = labelMarker(piece.latlngs[0], html, true).bindPopup(escapeHtml(stepLabel(piece))).addTo(routeMapLayer);
+    routeMapLabels.push({ marker, rank: () => 1.5, step: true });
+  });
+
   // Start and finish.
-  const drawn = pieces.filter(p => p.kind !== 'lunch');
+  const drawn = pieces.filter(p => p.kind !== 'lunch' && p.kind !== 'stop');
   const first = drawn[0]?.latlngs[0], last = drawn[drawn.length - 1]?.latlngs.slice(-1)[0];
   const roundTrip = first && last && (distanceM(first, last) < 60 || (opts.fromName && opts.fromName === opts.toName));
   if (first) {
