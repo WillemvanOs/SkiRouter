@@ -81,27 +81,22 @@ function resetDayPlan() {
   document.getElementById('day-t0').value = saved.t0 || '09:00';
   document.getElementById('day-t1').value = saved.t1 || '16:00';
   document.getElementById('day-km').value = saved.km || 25;
-  setDayPace(DAY_PACES[saved.pace] ? saved.pace : 'normal');
-  dayDiff = new Set(Array.isArray(saved.diff) ? saved.diff.filter(d => DAY_DIFF_LEVELS.includes(d)) : DAY_DIFF_LEVELS);
-  renderDayDiff();
   if (!restorePlace('dstart', saved.startPlace)) restoreStation('dstart', saved.start);
-  dayStops = (saved.stops || []).map(stopById).filter(Boolean);
-  renderDayStops();
   // The end field starts folded away ('Start & end'), unless a day that ends
   // elsewhere is being followed right now: then its end station comes back.
   if (dayInProgress() && !restorePlace('dend', saved.endPlace)) restoreStation('dend', saved.end);
 
-  document.getElementById('day-bus').checked         = saved.bus !== false;
-  document.getElementById('day-drag').checked        = saved.drag !== false;
-  // Areas without known mountain restaurants (most built from OpenSkiData
-  // so far) plan without lunch: the lunch box is not shown at all.
-  const hasFood = mountainRestaurants().length > 0;
-  document.getElementById('lunch-setting').style.display = hasFood ? '' : 'none';
-  document.getElementById('day-lunch').checked       = hasFood && saved.lunch !== false;
-  document.getElementById('day-lunch-t').value       = saved.lunchT || '13:00';
-  document.getElementById('day-lunch-min').value     = saved.lunchMin || 60;
+  // Lunch is one of the stops. Areas without known mountain restaurants
+  // (many built from OpenSkiData) plan without it: no lunch to add.
+  // Saved before lunch was a stop: lunch (when on) after the other stops.
+  document.getElementById('day-lunch-t').value   = saved.lunchT || '13:00';
+  document.getElementById('day-lunch-min').value = saved.lunchMin || 60;
   renderLunchChoices(saved.lunchAt);
-  toggleLunch();
+  const ids = saved.stops || [];
+  dayStops = ids.map(stopById).filter(Boolean);
+  if (!saved.stops && saved.lunch !== false) dayStops.push(lunchStop());
+  if (!mountainRestaurants().length) dayStops = dayStops.filter(s => s.kind !== 'lunch');
+  renderDayStops();
   restoreDayProgress();
 
   let tab = 'quick';
@@ -130,6 +125,28 @@ function restoreDayProgress() {
 // restaurant, viewpoint, snow park, village or peak (picked like a start or
 // destination). The day is planned in legs from stop to stop.
 
+// Lunch: a stop with a time (and length, and where); its fields are the
+// lunch inputs, shown in its row.
+function lunchStop() {
+  return { id: 'lunch', kind: 'lunch', name: 'Lunch', station: null, sub: '' };
+}
+
+function hasLunch() {
+  return dayStops.some(s => s.kind === 'lunch');
+}
+
+// Lunch on or off. Added after the other stops; ↑ moves it earlier.
+function setLunch(on) {
+  if (on && !hasLunch()) dayStops.push(lunchStop());
+  if (!on) dayStops = dayStops.filter(s => s.kind !== 'lunch');
+  renderDayStops();
+}
+
+// The lunch box as the rest of the code knows it (on = lunch in the stops).
+function toggleLunch() {
+  setLunch(document.getElementById('day-lunch').checked);
+}
+
 function liftStop(lift) {
   return { id: `lift:${lift.nr}`, kind: 'lift', name: [liftCode(lift.nr), lift.name].filter(Boolean).join(' '), station: lift.berg, sub: 'ride it to the top' };
 }
@@ -140,6 +157,7 @@ function placeStop(place) {
 }
 
 function stopById(id) {
+  if (id === 'lunch') return lunchStop();
   if (id?.startsWith('lift:')) {
     const lift = LIFTS.find(l => l.nr === id.slice(5));
     return lift ? liftStop(lift) : null;
@@ -169,20 +187,30 @@ function moveDayStopUp(i) {
 function renderDayStops() {
   const el = document.getElementById('day-stops');
   if (!el) return;
+  // The lunch fields live in the lunch row; out of the way while redrawing.
+  const fields = document.getElementById('lunch-fields');
+  document.getElementById('lunch-holder').appendChild(fields);
+  const lunchT = document.getElementById('day-lunch-t').value;
   el.innerHTML = dayStops.map((stop, i) => `
-    <div class="stop-row">
+    <div class="stop-row${stop.kind === 'lunch' ? ' stop-lunch' : ''}">
       <span class="stop-nr">${i + 1}</span>
-      <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || '📍'}</span>
-      <span class="stop-name">${escapeHtml(stop.name)}<span class="place-sub">${escapeHtml(stop.sub)}</span></span>
+      <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || (stop.kind === 'lunch' ? '🍽' : '📍')}</span>
+      <span class="stop-name">${escapeHtml(stop.name)}<span class="place-sub">${escapeHtml(stop.kind === 'lunch' ? `around ${lunchT}` : stop.sub)}</span></span>
       ${i ? `<button type="button" class="stop-btn" onclick="moveDayStopUp(${i})" aria-label="Earlier in the day">↑</button>` : ''}
       <button type="button" class="stop-btn" onclick="removeDayStop(${i})" aria-label="Remove this stop">✕</button>
-    </div>`).join('');
-  document.getElementById('stops-summary').textContent = dayStops.length ? `${dayStops.length} stop${dayStops.length > 1 ? 's' : ''}` : 'None';
+    </div>${stop.kind === 'lunch' ? '<div class="lunch-slot"></div>' : ''}`).join('');
+  const slot = el.querySelector('.lunch-slot');
+  if (slot) slot.appendChild(fields);
+  const lunch = hasLunch();
+  document.getElementById('day-lunch').checked = lunch;
+  document.getElementById('lunch-add').style.display = lunch || !mountainRestaurants().length ? 'none' : '';
+  const places = dayStops.filter(s => s.kind !== 'lunch').length;
+  document.getElementById('stops-summary').textContent = [
+    places ? `${places} stop${places > 1 ? 's' : ''}` : '',
+    lunch ? `lunch ${lunchT}` : '',
+  ].filter(Boolean).join(' · ') || 'None';
 }
 
-function toggleLunch() {
-  document.getElementById('lunch-fields').style.display = document.getElementById('day-lunch').checked ? 'grid' : 'none';
-}
 
 function renderLunchChoices(selectedId) {
   const select = document.getElementById('day-lunch-at');
@@ -196,25 +224,16 @@ function renderLunchChoices(selectedId) {
   select.value = mountainRestaurants().some(r => r.id === selectedId) ? selectedId : '';
 }
 
-function setDayPace(pace) {
+// Pace is one of the preferences (⚙); `save` false only shows it.
+function setDayPace(pace, save = true) {
+  if (!DAY_PACES[pace]) pace = 'normal';
   dayPace = pace;
   Object.keys(DAY_PACES).forEach(p => document.getElementById('pace-' + p).classList.toggle('on', p === pace));
-  document.getElementById('pace-summary').textContent = DAY_PACES[pace].label;
-}
-
-function setDayDiff(value) {
-  if (value === 'all') {
-    dayDiff = dayDiff.size === DAY_DIFF_LEVELS.length ? new Set() : new Set(DAY_DIFF_LEVELS);
-  } else {
-    dayDiff.has(value) ? dayDiff.delete(value) : dayDiff.add(value);
+  if (save && prefs.pace !== pace) {
+    prefs.pace = pace;
+    storePrefs();
+    renderPrefs();
   }
-  renderDayDiff();
-}
-
-function renderDayDiff() {
-  DAY_DIFF_LEVELS.forEach(d => document.getElementById('dd-' + d).classList.toggle('on', dayDiff.has(d)));
-  document.getElementById('dd-all').classList.toggle('on', dayDiff.size === DAY_DIFF_LEVELS.length);
-  document.getElementById('dd-summary').textContent = diffSummary(dayDiff);
 }
 
 function dayStorageKey() {
@@ -779,12 +798,19 @@ function daysVia(stop, ctx, random) {
 //
 // start → stop 1 → stop 2 → … → end. Each leg gets the quickest time between
 // its ends plus a share of the time left (longer legs a bigger share), and
-// the same share of the distance. Lunch goes in the leg around lunchtime,
-// planned like a lunch day of its own. Legs are planned one after another,
-// each starting when the last one ended and knowing what was skied already;
-// the three options avoid each other leg by leg.
-function planWithStops(ctx, random, stops, lunchAt) {
+// the same share of the distance. Lunch is a stop with a time: it goes in
+// the leg where it is in the list (between the stops before and after it),
+// and the time before lunch is shared out over the legs before it, the time
+// after over the legs after. That leg is planned like a lunch day of its
+// own. Legs are planned one after another, each starting when the last one
+// ended and knowing what was skied already; the three options avoid each
+// other leg by leg.
+function planWithStops(ctx, random, allStops, lunchAt) {
   const { pace } = ctx;
+  const stops = allStops.filter(s => s.kind !== 'lunch');
+  const lunchAt_ = allStops.findIndex(s => s.kind === 'lunch');
+  // Lunch in leg k: after the k-th stop that is not lunch.
+  const lunchLegIndex = ctx.withLunch && lunchAt_ >= 0 ? allStops.slice(0, lunchAt_).filter(s => s.kind !== 'lunch').length : -1;
   const legs = [];
   let from = ctx.startId;
   [...stops, null].forEach(stop => {
@@ -812,23 +838,49 @@ function planWithStops(ctx, random, stops, lunchAt) {
   if (!moving.length) moving.push(legs[legs.length - 1]);
   const weight = l => moving.includes(l) ? l.base + 20 : 0;
   const weights = legs.reduce((sum, l) => sum + weight(l), 0);
-  const free = avail - baseSum;
-  legs.forEach(l => {
-    l.len = l.base + free * weight(l) / weights;
-    l.km = ctx.targetKm * weight(l) / weights;
-  });
-  let lunchLeg = -1;
-  if (ctx.withLunch) {
-    let t = ctx.t0;
-    lunchLeg = legs.findIndex(l => (t += l.len) >= ctx.lunchT && moving.includes(l));
-    if (lunchLeg < 0) lunchLeg = legs.indexOf(moving[moving.length - 1]);
+  legs.forEach(l => { l.km = ctx.targetKm * weight(l) / weights; });
+
+  // Lunch where it is in the list; when the stops before (or after) it do not
+  // fit around its time, in the nearest place in the list where they do.
+  const sumOf = (list, f) => list.reduce((sum, l) => sum + f(l), 0);
+  const amTime = ctx.lunchT - ctx.t0, pmTime = ctx.t1 - ctx.lunchT - lunchMin;
+  const amBaseAt = k => sumOf(legs.slice(0, k), l => l.base) + legs[k].base / 2;
+  const pmBaseAt = k => sumOf(legs.slice(k + 1), l => l.base) + legs[k].base / 2;
+  const fits = k => amBaseAt(k) <= amTime && pmBaseAt(k) <= pmTime;
+  let lunchLeg = lunchLegIndex;
+  const notes = [];
+  if (lunchLeg >= 0 && !fits(lunchLeg)) {
+    const better = legs.map((l, k) => k).filter(fits).sort((a, b) => Math.abs(a - lunchLeg) - Math.abs(b - lunchLeg))[0];
+    if (better != null) {
+      notes.push(`🍽 Lunch at ${formatClock(ctx.lunchT)} does not fit ${better > lunchLeg ? 'before' : 'after'} the stops you put ${better > lunchLeg ? 'after' : 'before'} it, so it is planned ${better ? `after ${escapeHtml(stops[better - 1].name)}` : 'before the first stop'}.`);
+      lunchLeg = better;
+    }
   }
-  let t = ctx.t0;
-  legs.forEach((l, i) => {
-    l.t0 = t;
-    l.t1 = t + l.len + (i === lunchLeg ? lunchMin : 0);
-    t = l.t1;
-  });
+
+  if (lunchLeg < 0) {
+    const free = avail - baseSum;
+    let t = ctx.t0;
+    legs.forEach(l => {
+      l.t0 = t;
+      l.t1 = t + l.base + free * weight(l) / weights;
+      t = l.t1;
+    });
+  } else {
+    // Before lunch: the legs before it and the first half of its own leg
+    // share the time up to lunch; after lunch the rest.
+    const L = legs[lunchLeg];
+    const before = legs.slice(0, lunchLeg), after = legs.slice(lunchLeg + 1);
+    const amBase = amBaseAt(lunchLeg), pmBase = pmBaseAt(lunchLeg);
+    if (amBase > amTime) return { error: `The stops before lunch take about ${Math.round(amBase)} min: lunch at ${formatClock(ctx.lunchT)} is too early. Pick a later time or move lunch up in the list.` };
+    if (pmBase > pmTime) return { error: `The stops after lunch take about ${Math.round(pmBase)} min, which does not fit before ${formatClock(ctx.t1)}. Pick an earlier lunch or move lunch down in the list.` };
+    const amW = sumOf(before, weight) + weight(L) / 2 || 1, pmW = sumOf(after, weight) + weight(L) / 2 || 1;
+    let t = ctx.t0;
+    before.forEach(l => { l.t0 = t; l.t1 = t + l.base + (amTime - amBase) * weight(l) / amW; t = l.t1; });
+    L.t0 = t;
+    L.t1 = ctx.lunchT + lunchMin + L.base / 2 + (pmTime - pmBase) * (weight(L) / 2) / pmW;
+    t = L.t1;
+    after.forEach(l => { l.t0 = t; l.t1 = t + l.base + (pmTime - pmBase) * weight(l) / pmW; t = l.t1; });
+  }
 
   // Lunch: the best days through a restaurant within the lunch leg.
   if (lunchLeg >= 0) {
@@ -838,7 +890,7 @@ function planWithStops(ctx, random, stops, lunchAt) {
     const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
     l.lunchDays = pickLunchStops(lunchStops(restaurants), lctx, random).flatMap(stop => daysVia(stop, lctx, random))
       .sort((a, b) => b.score - a.score);
-    if (!l.lunchDays.length) return { error: 'No restaurant fits around lunchtime between your stops. Try another lunch time, other stops or switch lunch off.' };
+    if (!l.lunchDays.length) return { error: 'No restaurant fits around lunchtime between your stops. Try another lunch time or other stops, or remove lunch.' };
   }
 
   const perLeg = Math.max(20, Math.ceil(DAY_STOP_RUNS / moving.length));
@@ -872,7 +924,7 @@ function planWithStops(ctx, random, stops, lunchAt) {
         walk = walks.find(distinct) || walks[0];
         if (walk) usage = walk.usage;
       }
-      if (!walk) return options.length ? { options } : { error: 'No day plan found past these stops. Try a longer day, fewer stops or another order.' };
+      if (!walk) return options.length ? { options, notes } : { error: 'No day plan found past these stops. Try a longer day, fewer stops or another order.' };
       legWalks.push(walk);
       steps.push(...walk.steps);
       km += walk.km;
@@ -884,7 +936,7 @@ function planWithStops(ctx, random, stops, lunchAt) {
     day.score = scoreDay(day, ctx);
     options.push(day);
   }
-  return { options };
+  return { options, notes };
 }
 
 // ── Planning ─────────────────────────────────────────────────────────────────
@@ -924,8 +976,8 @@ function planDay(options = {}) {
   const lunchT   = parseClock(document.getElementById('day-lunch-t').value);
   const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
   const lunchAt  = document.getElementById('day-lunch-at').value;
-  dayBus = busAllowed('day-bus');
-  dayDrag = dragAllowed('day-drag');
+  dayBus = busAllowed('pref-bus');
+  dayDrag = dragAllowed('pref-drag');
 
   if (!start) { markMissing(['dstart']); return fail('Choose where your day starts.'); }
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');
@@ -954,7 +1006,7 @@ function planDay(options = {}) {
       ? (avoidedLifts.size
         ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
         : 'The end station cannot be reached from the start.')
-      : 'The end station cannot be reached without the ski bus. Switch the ski bus on.');
+      : 'The end station cannot be reached without the ski bus. Switch the ski bus on in ⚙ Preferences.');
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
@@ -975,10 +1027,11 @@ function planDay(options = {}) {
     ...[...avoidedLifts].sort(),
   ])));
 
-  if (dayStops.length) {
+  if (dayStops.some(s => s.kind !== 'lunch')) {
     const planned = planWithStops(dayCtx, random, dayStops, lunchAt);
     if (planned.error) return fail(planned.error);
     dayOptions = planned.options;
+    dayCtx.planNotes = planned.notes;
   } else if (withLunch) {
     const restaurants = lunchAt ? mountainRestaurants().filter(r => r.id === lunchAt) : mountainRestaurants();
     const stops = lunchStops(restaurants);
@@ -1039,7 +1092,7 @@ function restaurantsAlong(walk) {
 }
 
 function dayNotes(walk, ctx) {
-  const notes = [];
+  const notes = [...(ctx.planNotes || [])];
   const unwanted = unwantedWarning(walk.steps.map(s => s.edge), dayDiff, dayDrag);
   if (unwanted) notes.push(`⚠ ${unwanted}`);
   const closed = closedLiftsOn(walk.steps.map(s => s.edge));
