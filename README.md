@@ -149,13 +149,18 @@ that is ("350 m from bottom of E2 Schatzerlift"). Places further than 1.5 km fro
 left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 (`tools/lib/landmarks.mjs`: within 300 m of a lift or a run, named ones first).
 
-### Stops in the day plan
+### Stops and lunch in the day plan
 
-Under **📍 Stops** the day plan takes places to pass, in order, besides lunch: a lift to ride (its
-top station), or any place from the picker. ↑ moves a stop earlier, ✕ removes it. The day is
-planned in legs, start → stop → … → end: each leg gets the quickest time between its ends plus a
-share of the time left (longer legs a bigger share), and the same share of the distance. Lunch
-goes in the leg around lunchtime and is planned there like a lunch day of its own. Legs are
+Under **📍 Stops & lunch** the day plan takes places to pass, in order: a lift to ride (its top
+station), or any place from the picker. **Lunch** is one of the stops, the only one with a time
+(and its length, and where: best fit or one restaurant); it is there by default in areas with
+mountain restaurants, and **+ Add lunch** brings it back. ↑ moves a stop earlier, ✕ removes it.
+The day is planned in legs, start → stop → … → end: each leg gets the quickest time between its
+ends plus a share of the time left (longer legs a bigger share), and the same share of the
+distance. Lunch goes in the leg where it is in the list: the time before it is shared out over
+the stops before it, the time after over the rest. When those stops do not fit around its time,
+lunch moves to the nearest place in the list where they do, and the plan says so. Its leg is
+planned like a lunch day of its own. Legs are
 planned one after another, each knowing what was skied already, and the three options avoid
 each other leg by leg. A stop shows as a waypoint between the steps (not one to tick) and on
 the map; **Replan from here** keeps only the stops still ahead.
@@ -296,10 +301,18 @@ replanned from the next step. The closed-lifts warning has **Avoid these** for a
 the route at once. Avoided lifts show as chips in both planners; ✕ takes one off the list. If no
 route is left, the message names the avoided lifts.
 
-## Difficulty and drag lifts: preferences
+## Preferences
 
-The colours picked under **Difficulty** and the **Drag lifts** switch (shown when the area has
-T-bars, platters or rope tows) are preferences, not hard limits. A piste in another colour, or a
+Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
+line in either planner, which shows them in short): piste colours, pace (for the day plan's
+times), drag lifts, ski bus and map north up, plus the lifts avoided in this area. They are kept
+on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done goes back
+to the planner; a quick route on screen is planned again with the new preferences.
+
+### Difficulty and drag lifts
+
+The colours picked under **Difficulty** and the **Drag lifts** switch are preferences, not hard
+limits. A piste in another colour, or a
 drag lift while the switch is off, costs an extra 120 minutes in the route search
 (`UNWANTED_PENALTY`), so a route only takes one when there is no other way. It then says so
 above the steps ("Not possible with only your choices, so this uses piste 21a (black)"). The day
@@ -330,8 +343,8 @@ with a time for every step. Variety counts per marked piste: a descent through s
 every ride, and more than three on the same lift cost the day's score. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
 and piste times stretched for short stops. The code is in `dayplan.js`.
 
-With **Lunch** switched on, the day becomes start → restaurant (around the chosen time) →
-end. The planner tries every restaurant on the mountain that fits, or only the one picked
+With **Lunch** among the stops (and no other stops), the day becomes start → restaurant (around
+the chosen time) → end. The planner tries every restaurant on the mountain that fits, or only the one picked
 under *Where*, and says which one lies right on the route. It also lists other huts you pass
 around lunchtime. Restaurants come from the OpenStreetMap enrichment below; places in the
 villages are left out, as are places whose mapped opening hours do not cover your arrival.

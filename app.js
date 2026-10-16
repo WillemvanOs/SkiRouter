@@ -468,13 +468,15 @@ function applyAreaToHeader(area) {
   document.getElementById('header-stats').style.display     = 'flex';
   renderHeaderLiftStatus();
   document.getElementById('area-switch-btn').style.display  = 'inline-flex';
+  document.getElementById('prefs-btn').style.display        = 'inline-flex';
   document.body.classList.add('in-planner'); // smaller logo and button above the planner
 }
 
 // The area picker is a screen of its own: nothing about an area at the top.
 function clearAreaHeader() {
   document.getElementById('header-tagline').textContent = 'Choose a ski area to get started';
-  ['header-stats', 'header-live', 'area-switch-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+  ['header-stats', 'header-live', 'area-switch-btn', 'prefs-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+  document.getElementById('prefs-screen').style.display = 'none';
   document.body.classList.remove('in-planner');
 }
 
@@ -516,16 +518,11 @@ function resetPlanner() {
   resetSide('to');
   document.getElementById('result').classList.remove('visible');
   document.getElementById('err').classList.remove('visible');
-  allowedDiff = new Set(DIFF_LEVELS);
-  renderQuickDiff();
-  document.getElementById('q-bus').checked = true;
-  document.getElementById('q-drag').checked = true;
   // Green only where the area has green runs.
   const hasGreen = (currentArea?.pistes || []).some(p => p.kleur === 'groen');
   document.querySelectorAll('.diff-btn.green').forEach(btn => { btn.style.display = hasGreen ? '' : 'none'; });
   document.querySelectorAll('.bus-row').forEach(row => { row.style.display = areaHasBus() ? 'flex' : 'none'; });
-  const hasDrag = LIFTS.some(l => DRAG_LIFT_LABEL[l.type]);
-  document.querySelectorAll('.drag-row').forEach(row => { row.style.display = hasDrag ? 'flex' : 'none'; });
+  renderPrefs();
   loadAvoided();
   restoreQuickRoute();
   resetDayPlan();
@@ -538,12 +535,6 @@ function restoreQuickRoute() {
   if (!STATIONS[saved.from] || !STATIONS[saved.to]) return;
   restoreStation('from', saved.from);
   restoreStation('to', saved.to);
-  if (Array.isArray(saved.diff)) {
-    allowedDiff = new Set(saved.diff.filter(d => DIFF_LEVELS.includes(d)));
-    renderQuickDiff();
-  }
-  document.getElementById('q-bus').checked = saved.bus !== false;
-  document.getElementById('q-drag').checked = saved.drag !== false;
   planRoute({ silent: true });
 }
 
@@ -996,21 +987,75 @@ function swapSides() {
   ['from', 'to'].forEach(showChosen);
 }
 
-// ── Difficulty filter ────────────────────────────────────────────────────────
+// ── Preferences ──────────────────────────────────────────────────────────────
+//
+// Personal preferences, on a screen of their own (⚙) and kept on this phone
+// for every ski area: piste colours, pace, drag lifts, ski bus, map north up.
+// Both planners use them; each planner card shows them in one line.
 
-function setDiff(value) {
+const PREFS_KEY = 'skirouter:prefs';
+const prefs = { diff: [...DIFF_LEVELS], pace: 'normal', drag: true, bus: true };
+try { Object.assign(prefs, JSON.parse(localStorage.getItem(PREFS_KEY)) || {}); } catch {}
+prefs.diff = prefs.diff.filter(d => DIFF_LEVELS.includes(d));
+allowedDiff = new Set(prefs.diff);
+
+function storePrefs() {
+  try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
+}
+
+function setPrefDiff(value) {
   if (value === 'all') {
     allowedDiff = allowedDiff.size === DIFF_LEVELS.length ? new Set() : new Set(DIFF_LEVELS);
   } else {
     allowedDiff.has(value) ? allowedDiff.delete(value) : allowedDiff.add(value);
   }
-  renderQuickDiff();
+  savePrefs();
 }
 
-function renderQuickDiff() {
+// Read the switches, keep everything and show it.
+function savePrefs() {
+  prefs.diff = DIFF_LEVELS.filter(d => allowedDiff.has(d));
+  prefs.drag = document.getElementById('pref-drag').checked;
+  prefs.bus  = document.getElementById('pref-bus').checked;
+  storePrefs();
+  try { localStorage.setItem(MAP_NORTH_KEY, document.getElementById('pref-north').checked ? '1' : '0'); } catch {}
+  renderPrefs();
+}
+
+function renderPrefs() {
+  allowedDiff = new Set(prefs.diff);
+  if (typeof dayDiff !== 'undefined') dayDiff = new Set(prefs.diff);
   DIFF_LEVELS.forEach(d => document.getElementById('d-' + d).classList.toggle('on', allowedDiff.has(d)));
   document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
-  document.getElementById('d-summary').textContent = diffSummary(allowedDiff);
+  document.getElementById('pref-drag').checked = prefs.drag;
+  document.getElementById('pref-bus').checked = prefs.bus;
+  document.getElementById('pref-north').checked = mapNorthUp();
+  if (typeof setDayPace === 'function') setDayPace(prefs.pace, false);
+  const parts = [diffSummary(allowedDiff) === 'All' ? 'All pistes' : diffSummary(allowedDiff), DAY_PACE_LABELS[prefs.pace] + ' pace'];
+  if (!prefs.drag) parts.push('no drag lifts');
+  if (!prefs.bus && areaHasBus()) parts.push('no ski bus');
+  document.querySelectorAll('.prefs-summary').forEach(el => { el.textContent = parts.join(' · '); });
+}
+const DAY_PACE_LABELS = { relaxed: 'Relaxed', normal: 'Normal', sporty: 'Sporty' };
+
+// The preferences screen: instead of the planner, back with Done.
+let prefsChanged = null;
+function openPrefs() {
+  renderPrefs();
+  renderAvoided();
+  prefsChanged = JSON.stringify(prefs) + mapNorthUp();
+  document.getElementById('planner-cards').style.display = 'none';
+  document.getElementById('prefs-screen').style.display = 'block';
+  window.scrollTo({ top: 0 });
+}
+
+function closePrefs() {
+  document.getElementById('prefs-screen').style.display = 'none';
+  document.getElementById('planner-cards').style.display = 'block';
+  // A route on screen follows the new preferences (a day plan is planned again by hand).
+  if (prefsChanged !== JSON.stringify(prefs) + mapNorthUp()
+    && document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
+  window.scrollTo({ top: 0 });
 }
 
 // "All", "None" or e.g. "Blue · Red": the collapsed difficulty setting.
@@ -1047,9 +1092,9 @@ function dijkstra(startId, endId) {
     visited.add(current);
     if (current === endId) break;
 
-    const dragOk = dragAllowed('q-drag');
+    const dragOk = dragAllowed('pref-drag');
     (GRAPH[current] || []).forEach(edge => {
-      if (edge.type === 'bus' && !busAllowed('q-bus')) return;
+      if (edge.type === 'bus' && !busAllowed('pref-bus')) return;
       if (isAvoided(edge)) return;
       const newCost = dist[current] + (edge.tijd || 0)
         + (edge.descent ? RIDE_DOWN_PENALTY : 0)
@@ -1184,9 +1229,9 @@ function planRoute(options = {}) {
   if (!result || !result.path.length) {
     errorEl.textContent = avoidedLifts.size
       ? `No route without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
-      : busAllowed('q-bus')
+      : busAllowed('pref-bus')
         ? 'No route found between these two stations.'
-        : 'No route without the ski bus. Switch the ski bus on.';
+        : 'No route without the ski bus. Switch the ski bus on in ⚙ Preferences.';
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
     return;
@@ -1272,7 +1317,7 @@ function renderRoute(result) {
   });
 
   // Closed lifts first, above the steps, as in the day plan.
-  const unwanted = unwantedWarning(result.path, allowedDiff, dragAllowed('q-drag'));
+  const unwanted = unwantedWarning(result.path, allowedDiff, dragAllowed('pref-drag'));
   document.getElementById('q-closed').innerHTML =
     (unwanted ? `<div class="closed-warning unwanted-warning">⚠ ${unwanted}</div>` : '') + closedWarning(visibleSteps);
   document.getElementById('tip').innerHTML = getTip();
@@ -1282,7 +1327,7 @@ function renderRoute(result) {
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
-    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('q-bus'), drag: dragAllowed('q-drag'),
+    from: selected.from.id, to: selected.to.id, diff: [...allowedDiff], bus: busAllowed('pref-bus'), drag: dragAllowed('pref-drag'),
   });
   if (routeViews.quick === 'map') drawPlannerMap('quick');
 }
@@ -1471,7 +1516,7 @@ function avoidClosedButton(closed) {
 
 function renderAvoided() {
   const nrs = [...avoidedLifts].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-  ['q-avoid', 'day-avoid'].forEach(id => {
+  ['q-avoid', 'day-avoid', 'pref-avoid'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.style.display = nrs.length ? 'flex' : 'none';
@@ -1482,6 +1527,11 @@ function renderAvoided() {
         }).join('')
       : '';
   });
+  const prefList = document.getElementById('pref-avoid');
+  if (prefList && !nrs.length) {
+    prefList.style.display = 'block';
+    prefList.innerHTML = '<span class="setting-hint">None</span>';
+  }
 }
 
 function unavoidLift(nr) {

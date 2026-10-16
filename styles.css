@@ -2313,3 +2313,85 @@ body.map-full {
 .map-stop {
   border-color: #7d5ba6;
 }
+
+/* ── Preferences ─────────────────────────────────────────── */
+
+.header-btns {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+#prefs-btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.95rem;
+}
+
+/* One line in each planner card: what the preferences are, tap to change */
+.prefs-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.prefs-row .setting-value {
+  flex: 1;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prefs-intro {
+  margin: -4px 0 8px;
+  font-size: 0.85rem;
+  color: #6a7d92;
+}
+
+.prefs-section {
+  margin-top: 16px;
+}
+
+.prefs-label {
+  margin-bottom: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.prefs-label small {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #8a99ab;
+}
+
+.prefs-card .setting-switch {
+  padding: 11px 14px;
+}
+
+/* Lunch among the stops: its time, length and place under its row */
+.stop-lunch .ico-place {
+  background: #fdeedd;
+}
+
+.lunch-slot .lunch-grid {
+  display: grid;
+  margin: 4px 0 8px 26px;
+}
+
+.stops-add {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}

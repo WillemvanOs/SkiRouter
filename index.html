@@ -24,7 +24,10 @@
   <div class="header-inner">
     <div class="header-top">
       <div class="logo">Ski<span>Route</span>r</div>
-      <button class="area-switch" id="area-switch-btn" onclick="showAreaPicker()" style="display:none">🏔 Change ski area</button>
+      <div class="header-btns">
+        <button class="area-switch" id="prefs-btn" onclick="openPrefs()" style="display:none" aria-label="Preferences">⚙</button>
+        <button class="area-switch" id="area-switch-btn" onclick="showAreaPicker()" style="display:none">🏔 Change ski area</button>
+      </div>
     </div>
     <div class="tagline" id="header-tagline">Choose a ski area to get started</div>
     <div class="stats" id="header-stats" style="display:none">
@@ -52,6 +55,65 @@
     </div>
     <p class="area-credit">Ski area data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>
       (ODbL), via <a href="https://openskimap.org" target="_blank" rel="noopener">OpenSkiMap</a>.</p>
+  </div>
+
+  <!-- Preferences: a screen of its own, personal and kept on this phone -->
+  <div class="card prefs-card" id="prefs-screen" style="display:none">
+    <div class="card-title">⚙ Preferences</div>
+    <p class="prefs-intro">Personal, kept on this phone. The quick route and the day plan both use them.</p>
+
+    <div class="prefs-section">
+      <div class="prefs-label">⛷ Difficulty <small>pistes in other colours only when there is no other way</small></div>
+      <div class="diff-row">
+        <button class="diff-btn all on" id="d-all" onclick="setPrefDiff('all')">All</button>
+        <button class="diff-btn green on" id="d-groen" onclick="setPrefDiff('groen')" style="display:none">
+          <span class="dot" style="background:var(--green)"></span>Green
+        </button>
+        <button class="diff-btn blue on" id="d-blauw" onclick="setPrefDiff('blauw')">
+          <span class="dot" style="background:var(--blue)"></span>Blue
+        </button>
+        <button class="diff-btn red on" id="d-rood" onclick="setPrefDiff('rood')">
+          <span class="dot" style="background:var(--red)"></span>Red
+        </button>
+        <button class="diff-btn black on" id="d-zwart" onclick="setPrefDiff('zwart')">
+          <span class="dot" style="background:#333"></span>Black
+        </button>
+        <button class="diff-btn skiroute on" id="d-skiroute" onclick="setPrefDiff('skiroute')">
+          <span class="dot" style="background:var(--skiroute)"></span>Ski route
+        </button>
+      </div>
+    </div>
+
+    <div class="prefs-section">
+      <div class="prefs-label">🏂 Pace <small>for the day plan's times</small></div>
+      <div class="pace-row">
+        <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
+        <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
+        <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
+      </div>
+    </div>
+
+    <div class="setting setting-switch">
+      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
+      <label class="switch"><input type="checkbox" id="pref-drag" checked aria-label="Use drag lifts" onchange="savePrefs()"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="setting setting-switch bus-row" id="pref-bus-row">
+      <span class="setting-name">🚌 Ski bus <small class="setting-hint">in areas that have one</small></span>
+      <label class="switch"><input type="checkbox" id="pref-bus" checked aria-label="Use the ski bus" onchange="savePrefs()"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="setting setting-switch">
+      <span class="setting-name">🧭 Map north up <small class="setting-hint">off: turned like a piste map, valley down</small></span>
+      <label class="switch"><input type="checkbox" id="pref-north" aria-label="Map north up" onchange="savePrefs()"><span class="switch-track"></span></label>
+    </div>
+
+    <div class="prefs-section" id="pref-avoid-section">
+      <div class="prefs-label">🚫 Lifts you avoid <small>in this ski area; ⊘ Avoid on a lift step adds one</small></div>
+      <div class="avoid-row" id="pref-avoid"></div>
+    </div>
+
+    <button class="plan-btn" type="button" onclick="closePrefs()">DONE</button>
   </div>
 
   <!-- Planner: hidden until an area is chosen -->
@@ -134,42 +196,11 @@
 
     </div><!-- /route-inputs -->
 
-    <!-- Difficulty -->
-    <details class="setting">
-      <summary class="setting-summary">
-        <span class="setting-name">⛷ Difficulty</span>
-        <span class="setting-value" id="d-summary">—</span>
-        <span class="setting-chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="diff-row">
-        <button class="diff-btn all on" id="d-all"   onclick="setDiff('all')">All</button>
-        <button class="diff-btn green on" id="d-groen" onclick="setDiff('groen')" style="display:none">
-          <span class="dot" style="background:var(--green)"></span>Green
-        </button>
-        <button class="diff-btn blue on" id="d-blauw" onclick="setDiff('blauw')">
-          <span class="dot" style="background:var(--blue)"></span>Blue
-        </button>
-        <button class="diff-btn red on"  id="d-rood"  onclick="setDiff('rood')">
-          <span class="dot" style="background:var(--red)"></span>Red
-        </button>
-        <button class="diff-btn black on" id="d-zwart" onclick="setDiff('zwart')">
-          <span class="dot" style="background:#333"></span>Black
-        </button>
-        <button class="diff-btn skiroute on" id="d-skiroute" onclick="setDiff('skiroute')">
-          <span class="dot" style="background:var(--skiroute)"></span>Ski route
-        </button>
-      </div>
-    </details>
-
-    <div class="setting setting-switch bus-row" id="q-bus-row" style="display:none">
-      <span class="setting-name">🚌 Ski bus</span>
-      <label class="switch"><input type="checkbox" id="q-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
-    </div>
-
-    <div class="setting setting-switch drag-row" id="q-drag-row" style="display:none">
-      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
-      <label class="switch"><input type="checkbox" id="q-drag" checked aria-label="Use drag lifts"><span class="switch-track"></span></label>
-    </div>
+    <button class="prefs-row" type="button" onclick="openPrefs()">
+      <span class="setting-name">⚙ Preferences</span>
+      <span class="setting-value prefs-summary">—</span>
+      <span class="setting-chev" aria-hidden="true">›</span>
+    </button>
 
     <div class="avoid-row" id="q-avoid" style="display:none"></div>
 
@@ -248,20 +279,6 @@
       </div>
     </div>
 
-    <!-- Stops on the way, besides lunch -->
-    <details class="setting" id="stops-setting">
-      <summary class="setting-summary">
-        <span class="setting-name">📍 Stops</span>
-        <span class="setting-value" id="stops-summary">None</span>
-        <span class="setting-chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="stops-box">
-        <div id="day-stops"></div>
-        <button class="link-btn" type="button" onclick="openSheet('stop')">+ Add a stop</button>
-        <div class="setting-hint">A lift to ride, a restaurant, viewpoint, snow park, village or peak, in the order you want to pass them.</div>
-      </div>
-    </details>
-
     <div class="day-grid">
       <label class="day-field">
         <span class="sel-label">Start</span>
@@ -277,75 +294,47 @@
       </label>
     </div>
 
-    <div class="setting" id="lunch-setting">
-      <div class="setting-switch">
-        <span class="setting-name">🍽 Lunch</span>
-        <label class="switch"><input type="checkbox" id="day-lunch" checked aria-label="Lunch" onchange="toggleLunch()"><span class="switch-track"></span></label>
-      </div>
-      <div class="day-grid lunch-grid" id="lunch-fields">
-        <label class="day-field">
-          <span class="sel-label">Around</span>
-          <input class="day-input" type="time" id="day-lunch-t" value="13:00">
-        </label>
-        <label class="day-field">
-          <span class="sel-label">Minutes</span>
-          <input class="day-input" type="number" id="day-lunch-min" min="15" max="180" step="15" value="60" inputmode="numeric">
-        </label>
-        <label class="day-field day-field-wide">
-          <span class="sel-label">Where</span>
-          <select class="day-input" id="day-lunch-at"><option value="">Best fit on my route</option></select>
-        </label>
-      </div>
-    </div>
-
-    <details class="setting">
+    <!-- Stops on the way, lunch among them -->
+    <details class="setting" id="stops-setting" open>
       <summary class="setting-summary">
-        <span class="setting-name">🏂 Pace</span>
-        <span class="setting-value" id="pace-summary">—</span>
+        <span class="setting-name">📍 Stops &amp; lunch</span>
+        <span class="setting-value" id="stops-summary">None</span>
         <span class="setting-chev" aria-hidden="true">▾</span>
       </summary>
-      <div class="pace-row">
-        <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
-        <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
-        <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
+      <div class="stops-box">
+        <div id="day-stops"></div>
+        <div class="stops-add">
+          <button class="link-btn" type="button" onclick="openSheet('stop')">+ Add a stop</button>
+          <button class="link-btn" id="lunch-add" type="button" onclick="setLunch(true)">+ Add lunch</button>
+        </div>
+        <div class="setting-hint">A lift to ride, a restaurant, viewpoint, snow park, village or peak, in the order you want to pass them. Lunch gets a time.</div>
+        <!-- Lunch: on while it is in the stops; its fields sit in its row -->
+        <div id="lunch-holder" style="display:none">
+          <input type="checkbox" id="day-lunch" aria-hidden="true" tabindex="-1">
+          <div class="day-grid lunch-grid" id="lunch-fields">
+            <label class="day-field">
+              <span class="sel-label">Around</span>
+              <input class="day-input" type="time" id="day-lunch-t" value="13:00" onchange="renderDayStops()">
+            </label>
+            <label class="day-field">
+              <span class="sel-label">Minutes</span>
+              <input class="day-input" type="number" id="day-lunch-min" min="15" max="180" step="15" value="60" inputmode="numeric">
+            </label>
+            <label class="day-field day-field-wide">
+              <span class="sel-label">Where</span>
+              <select class="day-input" id="day-lunch-at"><option value="">Best fit on my route</option></select>
+            </label>
+          </div>
+        </div>
       </div>
     </details>
 
-    <details class="setting">
-      <summary class="setting-summary">
-        <span class="setting-name">⛷ Difficulty</span>
-        <span class="setting-value" id="dd-summary">—</span>
-        <span class="setting-chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="diff-row">
-        <button class="diff-btn all on" id="dd-all" onclick="setDayDiff('all')">All</button>
-        <button class="diff-btn green on" id="dd-groen" onclick="setDayDiff('groen')" style="display:none">
-          <span class="dot" style="background:var(--green)"></span>Green
-        </button>
-        <button class="diff-btn blue on" id="dd-blauw" onclick="setDayDiff('blauw')">
-          <span class="dot" style="background:var(--blue)"></span>Blue
-        </button>
-        <button class="diff-btn red on" id="dd-rood" onclick="setDayDiff('rood')">
-          <span class="dot" style="background:var(--red)"></span>Red
-        </button>
-        <button class="diff-btn black on" id="dd-zwart" onclick="setDayDiff('zwart')">
-          <span class="dot" style="background:#333"></span>Black
-        </button>
-        <button class="diff-btn skiroute on" id="dd-skiroute" onclick="setDayDiff('skiroute')">
-          <span class="dot" style="background:var(--skiroute)"></span>Ski route
-        </button>
-      </div>
-    </details>
 
-    <div class="setting setting-switch bus-row" id="day-bus-row" style="display:none">
-      <span class="setting-name">🚌 Ski bus</span>
-      <label class="switch"><input type="checkbox" id="day-bus" checked aria-label="Use the ski bus"><span class="switch-track"></span></label>
-    </div>
-
-    <div class="setting setting-switch drag-row" id="day-drag-row" style="display:none">
-      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
-      <label class="switch"><input type="checkbox" id="day-drag" checked aria-label="Use drag lifts"><span class="switch-track"></span></label>
-    </div>
+    <button class="prefs-row" type="button" onclick="openPrefs()">
+      <span class="setting-name">⚙ Preferences</span>
+      <span class="setting-value prefs-summary">—</span>
+      <span class="setting-chev" aria-hidden="true">›</span>
+    </button>
 
     <div class="avoid-row" id="day-avoid" style="display:none"></div>
 
