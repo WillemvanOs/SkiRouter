@@ -526,10 +526,14 @@ function declutterSoon() {
 // towns, the rest of the route, villages, peaks, steps done, hamlets) and
 // hide what overlaps. Zooming in brings them back.
 function declutterLabels() {
-  if (!routeMap || !routeMap._loaded) return; // no view yet
-  const box = routeMap.getContainer().getBoundingClientRect();
+  declutter(routeMap, routeMapLabels);
+}
+
+function declutter(map, labels) {
+  if (!map || !map._loaded) return; // no view yet
+  const box = map.getContainer().getBoundingClientRect();
   const placed = [];
-  routeMapLabels
+  labels
     .map((label, i) => ({ label, rank: label.rank(), i }))
     .sort((a, b) => a.rank - b.rank || a.i - b.i)
     .forEach(({ label }) => {
@@ -661,3 +665,103 @@ function stopMapGps() {
   routeMapGps = null;
   routeMap?.getContainer().querySelector('.map-gps-btn')?.classList.remove('on');
 }
+
+// ── Picking on the map ───────────────────────────────────────────────────────
+//
+// The station picker can show the area as a map instead of a list (🗺 Map):
+// every lift with its code, and the places of the list on screen (points of
+// interest, or villages and peaks). A tap on a lift asks bottom or top (or,
+// for a day plan stop, to ride it); a tap on a place picks it. Same plain map
+// as the route map: no tiles, turned like a piste map unless north up.
+
+let pickerMap = null;
+let pickerMapKey = null;
+let pickerLayer = null;
+let pickerLabels = [];
+let pickerDeclutterTimer = null;
+
+// `onLift(lift, dalBerg)` and `onPlace(place)` pick; `stopMode` asks to ride
+// a lift instead of bottom or top.
+async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
+  await loadLeaflet();
+  const turn = mapNorthUp() ? 0 : uphillTurn();
+  const key = `${currentArea?.id}|${turn}`;
+  if (!pickerMap || pickerMapKey !== key) {
+    pickerMap?.remove();
+    pickerMap = L.map(el, {
+      crs: turnedCrs(areaCentre(), turn), zoomControl: true, attributionControl: true,
+      minZoom: -9, maxZoom: 2, zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 120,
+    });
+    pickerMap.attributionControl.setPrefix('').addAttribution('© OpenStreetMap contributors');
+    pickerMap.on('moveend', () => {
+      clearTimeout(pickerDeclutterTimer);
+      pickerDeclutterTimer = setTimeout(() => declutter(pickerMap, pickerLabels), 300);
+    });
+    pickerMapKey = key;
+  }
+  pickerLayer?.remove();
+  pickerLayer = L.layerGroup().addTo(pickerMap);
+  pickerLabels = [];
+  const renderer = L.canvas({ padding: 0.5, tolerance: 12 }); // lines easy to hit with a finger
+
+  // The pistes faint, for orientation.
+  Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
+    lines.forEach(line => L.polyline(line.map(toLatLng), { renderer, color: pisteColourOf(nr), weight: 2, opacity: 0.25, interactive: false }).addTo(pickerLayer));
+  });
+  // Villages and peaks as names, unless they are what is being picked.
+  if (kind !== 'towns') {
+    (currentArea?.plaatsen || []).forEach((p, i) => {
+      const html = p.k === 'peak'
+        ? `<span class="map-tag map-peak">▲ ${escapeHtml(p.n)}</span>`
+        : `<span class="map-tag map-place is-${p.k}">${escapeHtml(p.n)}</span>`;
+      pickerLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(pickerLayer), rank: () => 8 + i / 1000 });
+    });
+  }
+
+  // Every lift: a line to tap, a dot at each station and its code.
+  const bounds = [];
+  LIFTS.forEach(lift => {
+    const l = (currentArea?.liften || []).find(x => x.liftNr === lift.nr);
+    if (!l?.coordOnder || !l?.coordBoven) return;
+    const pts = [l.coordOnder, l.coordBoven];
+    bounds.push(...pts);
+    const dim = kind !== 'lifts';
+    L.polyline(pts, { renderer, color: '#fff', weight: 8, opacity: dim ? 0.5 : 0.9, interactive: false }).addTo(pickerLayer);
+    const line = L.polyline(pts, { renderer, color: MAP_LIFT_COLOUR, weight: 4, opacity: dim ? 0.45 : 1 }).addTo(pickerLayer);
+    pts.forEach(p => L.circleMarker(p, { renderer, radius: 4, color: MAP_LIFT_COLOUR, weight: 2, fillColor: '#fff', fillOpacity: 1, opacity: dim ? 0.45 : 1, interactive: false }).addTo(pickerLayer));
+    const name = [liftCode(lift.nr), lift.name].filter(Boolean).join(' ');
+    const popup = stopMode
+      ? `<div class="pick-pop"><strong>${escapeHtml(name)}</strong><button type="button" data-pick="ride">🚡 Ride this lift</button></div>`
+      : `<div class="pick-pop"><strong>${escapeHtml(name)}</strong>
+          <button type="button" data-pick="dal">⬇ Bottom · ${escapeHtml(shortName(STATIONS[lift.dal]?.name, 28))}</button>
+          <button type="button" data-pick="berg">⬆ Top · ${escapeHtml(shortName(STATIONS[lift.berg]?.name, 28))}</button></div>`;
+    const choose = which => onLift(lift, which === 'berg' ? 'berg' : 'dal');
+    line.bindPopup(popup, { closeButton: false }).on('popupopen', e => {
+      e.popup.getElement().querySelectorAll('[data-pick]').forEach(btn => btn.addEventListener('click', () => choose(btn.dataset.pick)));
+    });
+    if (!dim) {
+      const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, true)
+        .on('click', () => line.openPopup(halfway(pts))).addTo(pickerLayer);
+      pickerLabels.push({ marker: tag, rank: () => 2 });
+    }
+  });
+
+  // The places of the list on screen, to tap.
+  if (kind !== 'lifts') {
+    areaPlaces(kind).forEach(place => {
+      if (place.lat == null || !placeStation(place)) return;
+      const icon = `<span class="map-tag map-lunch pick-place">${PLACE_ICONS[place.kind] || '📍'}</span>`;
+      const marker = labelMarker([place.lat, place.lon], icon, true).addTo(pickerLayer);
+      marker.bindTooltip(escapeHtml(place.name), { direction: 'top', offset: [0, -14] });
+      marker.on('click', () => onPlace(place));
+      pickerLabels.push({ marker, rank: () => 1 });
+      bounds.push([place.lat, place.lon]);
+    });
+  }
+
+  pickerMap.invalidateSize();
+  if (bounds.length) pickerMap.fitBounds(L.latLngBounds(bounds), { padding: [20, 20], animate: false });
+  else pickerMap.setView(areaCentre(), -3);
+  declutter(pickerMap, pickerLabels);
+}
+

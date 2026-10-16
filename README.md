@@ -149,6 +149,15 @@ that is ("350 m from bottom of E2 Schatzerlift"). Places further than 1.5 km fro
 left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 (`tools/lib/landmarks.mjs`: within 300 m of a lift or a run, named ones first).
 
+### Picking on the map
+
+**🗺 Map** at the top of the picker shows the area instead of the list (**☰ List** goes back;
+the picker remembers which one you used last until the app is closed). Every lift is a line
+with its code; tap it (or its code) and choose **⬇ Bottom** or **⬆ Top**, or, for a day plan
+stop, **Ride this lift**. With POI or Villages & peaks chosen, those places are on the map too
+(the lifts lighter); a tap picks one. Same plain map as the route map, turned like a piste map
+unless north up is on. Search works in the list only: typing goes back to it.
+
 ### Stops and lunch in the day plan
 
 Under **📍 Stops & lunch** the day plan takes places to pass, in order: a lift to ride (its top

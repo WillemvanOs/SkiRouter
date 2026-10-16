@@ -2395,3 +2395,60 @@ body.map-full {
   gap: 16px;
   flex-wrap: wrap;
 }
+
+/* Picking on the map: the area instead of the list */
+.sheet-view {
+  margin-left: auto;
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--ice);
+  border-radius: 16px;
+  background: var(--snow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--alpine);
+  cursor: pointer;
+}
+
+.sheet-map {
+  flex: 1;
+  min-height: 0;
+  margin: 0 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--ice);
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+.sheet-map.leaflet-container {
+  background: #f4f7fb;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.pick-pop {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.pick-pop button {
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1.5px solid var(--alpine);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--alpine);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pick-place {
+  cursor: pointer;
+}
+

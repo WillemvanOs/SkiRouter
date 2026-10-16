@@ -597,14 +597,17 @@ function openSheet(side) {
       : side === 'from' || side === 'dstart' ? 'Choose starting point' : 'Choose destination';
   document.getElementById('sheet-search').value = '';
   setSheetKind('lifts', false);
-  renderSheet();
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('sheet').style.display = 'flex';
+  // On screen first: the map needs its size.
+  if (sheetView === 'list') renderSheet();
+  showSheetView();
   lockPageScroll();
   fitSheetToKeyboard();
   // Focus right away, still inside the tap: iPhones only bring up the
   // keyboard for a focus that happens during the tap itself, not after a delay.
-  document.getElementById('sheet-search').focus({ preventScroll: true });
+  // Not on the map: the keyboard would cover it.
+  if (sheetView === 'list') document.getElementById('sheet-search').focus({ preventScroll: true });
 }
 
 function closeSheet() {
@@ -712,7 +715,40 @@ function setSheetKind(kind, render = true) {
   if (render) renderSheet();
 }
 
+// List or map: the picker remembers which one you used last (this visit).
+let sheetView = 'list';
+function toggleSheetView() {
+  sheetView = sheetView === 'list' ? 'map' : 'list';
+  if (sheetView === 'map') document.getElementById('sheet-search').blur();
+  showSheetView();
+}
+
+function showSheetView() {
+  const map = sheetView === 'map';
+  document.getElementById('sheet-list').style.display = map ? 'none' : '';
+  document.getElementById('sheet-map').style.display = map ? 'block' : 'none';
+  document.getElementById('sheet-view-btn').textContent = map ? '☰ List' : '🗺 Map';
+  // No search on the map: its room goes to the map.
+  document.getElementById('sheet-search').style.display = map ? 'none' : '';
+  if (map) drawPickerMap();
+}
+
+function drawPickerMap() {
+  renderPickerMap(document.getElementById('sheet-map'), sheetKind, {
+    stopMode: activeSide === 'stop',
+    onLift: (lift, dalBerg) => activeSide === 'stop' ? addDayStop(liftStop(lift)) : pickStation(lift[dalBerg], lift, dalBerg),
+    onPlace: place => activeSide === 'stop' ? addDayStop(placeStop(place)) : pickPlace(place),
+  }).catch(err => {
+    console.warn(err);
+    sheetView = 'list';
+    showSheetView();
+  });
+}
+
 function renderSheet() {
+  // Typing a search shows the list (the map has no search).
+  if (sheetView === 'map' && document.getElementById('sheet-search').value) { sheetView = 'list'; showSheetView(); }
+  if (sheetView === 'map') { drawPickerMap(); return; }
   const query = document.getElementById('sheet-search').value.toLowerCase();
   const list = document.getElementById('sheet-list');
   list.innerHTML = '';
