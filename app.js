@@ -1409,16 +1409,14 @@ function showRouteView(view, planner = 'quick') {
   }
 }
 
-// Back in the list: the step you are at, just under the sticky bar (the
-// last step once all are done), not wherever the page happened to be.
+// Back in the list: the step you are at in the middle of the screen, the
+// steps just done above it, as after ticking one (makeCheckable's
+// showNext); the last step once all are done.
 function showCurrentStep(planner) {
   const steps = document.getElementById(MAP_PARTS[planner].steps);
   steps.classList.add('no-entry'); // shown again: no fade-in a second time
   const step = steps.querySelector('.checkable.next') || [...steps.querySelectorAll('.checkable')].pop();
-  if (!step) return;
-  const sticky = steps.closest('.result')?.querySelector('.result-sticky');
-  const top = step.getBoundingClientRect().top + window.scrollY - (sticky?.offsetHeight || 0) - 12;
-  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  if (step) step.scrollIntoView({ behavior: 'auto', block: 'center' });
 }
 
 function drawPlannerMap(planner) {

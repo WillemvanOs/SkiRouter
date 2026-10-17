@@ -416,7 +416,8 @@ While you scroll through the steps, a bar stays at the top of the screen with **
 **☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
 plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
-Going back from 🗺 Map to ☰ List puts the step you are at just under that bar.
+Going back from 🗺 Map to ☰ List shows the step you are at in the middle of the screen, the steps
+just done above it, the same as after ticking a step.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.
