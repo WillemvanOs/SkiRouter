@@ -365,8 +365,11 @@ The **Day plan** tab plans a whole day: a start station and time, roughly how ma
 kilometres, and when (and where) to be back. It tries many routes through the lift and
 piste network, prefers pistes not skied yet that day, and offers up to three options
 with a time for every step. Start, back-by time and kilometres sit on one line under
-**🕘 Time & km**, folded to a summary ("09:00–16:00 · 25 km"). Choosing one of the options folds
-them into one line with the chosen one; tap it to see all three again. Above the steps there is
+**🕘 Time & km**, folded to a summary ("09:00–16:00 · 25 km"). The options are only there when
+their routes really differ (less than 60% of their pistes shared); one too much like another is
+left out, and the line above them says what sets them apart: the route, and with lunch at
+*best fit on my route* also a lunch spot of its own. Choosing one keeps them all in view;
+**Fold ▴** puts them in one line with the chosen one, tap it to see them again. Above the steps there is
 only one message, when the kilometres do not fit the time; closed lifts, lift hours, lunch and
 the stops show at the steps themselves. Variety counts per marked piste: a descent through several runs
 ("31, 52") counts for each of them, so the same slope reached a slightly different way is not

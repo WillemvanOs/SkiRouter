@@ -1409,6 +1409,12 @@ input.day-input[type="time"]::-webkit-date-and-time-value {
   color: var(--alpine);
 }
 
+.day-opt-caption {
+  flex-basis: 100%;
+  font-size: 0.78rem;
+  color: #6a7d92;
+}
+
 .day-opt-fold {
   flex-basis: 100%;
   text-align: center;
