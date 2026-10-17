@@ -194,7 +194,7 @@ function renderDayStops() {
   el.innerHTML = dayStops.map((stop, i) => `
     <div class="stop-row${stop.kind === 'lunch' ? ' stop-lunch' : ''}">
       <span class="stop-nr">${i + 1}</span>
-      <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || (stop.kind === 'lunch' ? '🍽' : '📍')}</span>
+      <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || ICONS.start}</span>
       <span class="stop-name">${escapeHtml(stop.name)}<span class="place-sub">${escapeHtml(stop.kind === 'lunch' ? `around ${lunchT}` : stop.sub)}</span></span>
       ${i ? `<button type="button" class="stop-btn" onclick="moveDayStopUp(${i})" aria-label="Earlier in the day">↑</button>` : ''}
       <button type="button" class="stop-btn" onclick="removeDayStop(${i})" aria-label="Remove this stop">✕</button>
@@ -1180,7 +1180,7 @@ function renderDayOption(index) {
   const stepsEl = document.getElementById('day-steps');
   stepsEl.innerHTML = '';
   const startStation = STATIONS[ctx.startId];
-  addWaypoint(stepsEl, escapeHtml(ctx.startName || startStation.name), startStation.alt, '📍', `Start · ${formatClock(ctx.t0)}`, 0);
+  addWaypoint(stepsEl, escapeHtml(ctx.startName || startStation.name), startStation.alt, ICONS.start, `Start · ${formatClock(ctx.t0)}`, 0);
 
   // Each tickable step records when it is planned to start (data-t), where
   // you stand when it is next (data-at, for "replan from here") and its km.
@@ -1188,7 +1188,7 @@ function renderDayOption(index) {
   walk.steps.forEach((step, stepIndex) => {
     if (step.stop) {
       // A stop you asked for: a waypoint, not a step to tick.
-      addWaypoint(stepsEl, escapeHtml(step.stop.name), null, PLACE_ICONS[step.stop.kind] || '📍',
+      addWaypoint(stepsEl, escapeHtml(step.stop.name), null, PLACE_ICONS[step.stop.kind] || ICONS.start,
         `Stop · ${formatClock(step.t)} · ${escapeHtml(step.stop.sub)}`, Math.min(number, 30) * 30);
       stepsEl.lastElementChild.classList.add('step-stop');
       stepsEl.lastElementChild.dataset.stopId = step.stop.id;
@@ -1197,7 +1197,7 @@ function renderDayOption(index) {
     if (step.lunch) {
       const r = step.lunch;
       const where = step.onPiste ? `halfway down ${pisteLabel(r.piste)}` : restaurantWhere(r);
-      addWaypoint(stepsEl, `Lunch · ${r.naam}`, null, '🍽',
+      addWaypoint(stepsEl, `Lunch · ${escapeHtml(r.naam)}`, null, ICONS.restaurant,
         `${formatClock(step.t)}–${formatClock(step.until)} · ${where}`, Math.min(number, 30) * 30);
       const el = stepsEl.lastElementChild;
       el.classList.add('step-lunch', 'checkable');
@@ -1230,7 +1230,7 @@ function renderDayOption(index) {
   });
 
   const endStation = STATIONS[ctx.endId];
-  addWaypoint(stepsEl, escapeHtml(ctx.endName || endStation.name), endStation.alt, '🏁', `Back · ${formatClock(walk.end)}`, Math.min(number, 30) * 30);
+  addWaypoint(stepsEl, escapeHtml(ctx.endName || endStation.name), endStation.alt, ICONS.finish, `Back · ${formatClock(walk.end)}`, Math.min(number, 30) * 30);
 
   document.getElementById('day-tip').innerHTML =
     `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +

@@ -19,7 +19,7 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 
 ## Published site (GitHub Pages)
 
-Only the planner files go online: `index.html`, `liftmatch.js`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
+Only the planner files go online: `index.html`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
 `manifest.webmanifest`, `icons/` and `data/`.
 
 Pages must be set to **Settings → Pages → Build and deployment → Source: GitHub Actions**.
@@ -128,6 +128,15 @@ ones you can reach by lunchtime and get back from, the same sample for the same 
 Map data © OpenStreetMap contributors (ODbL), via OpenSkiMap / OpenSkiData; the picker
 says so.
 
+## Icons
+
+All pictograms come from one set in `icons.js`: lifts (gondola, cable car, funicular, chairlift,
+drag lift, practice lift), connections (transfer, ski bus, walk), places (restaurant, viewpoint,
+snow park, village, hamlet, peak) and the route's start pin and finish flag. They are drawn alike
+(24 × 24, round strokes, `currentColor`), so the steps, the lists and the map look the same on every
+phone instead of mixing the phone's emoji with drawings of our own. The tile or class around an
+icon sets its colour (`styles.css`, `.ico-<kind>` and `.icon-<name>`).
+
 ## Picking a lift station
 
 The station picker lists each lift once with its status: by lift number where the area has them (A1, A2, A10,
@@ -155,7 +164,7 @@ left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 the picker remembers which one you used last until the app is closed). Every lift is a line
 with its code; tap it (or its code) and choose **⬇ Bottom** or **⬆ Top**, or, for a day plan
 stop, **Ride this lift**. With POI or Villages & peaks chosen, those places are on the map too
-(the lifts lighter); a tap picks one. Same plain map as the route map, turned like a piste map
+(the lifts lighter and not tappable, so a tap never picks a lift by mistake); a tap picks a place. Same plain map as the route map, turned like a piste map
 unless north up is on. Search works in the list only: typing goes back to it.
 
 ### Stops and lunch in the day plan
