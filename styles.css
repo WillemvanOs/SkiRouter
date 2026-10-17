@@ -2081,8 +2081,8 @@ select.day-input {
 .route-map {
   position: relative;
   z-index: 0; /* its own stacking: the map's buttons stay under the sticky header */
-  height: 62vh;
-  min-height: 320px;
+  height: var(--map-h, 62vh); /* set by fitRouteMap: the screen below the sticky bar */
+  min-height: 280px;
   margin-bottom: 12px;
   border-radius: 14px;
   overflow: hidden;
