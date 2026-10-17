@@ -129,6 +129,7 @@
   <div class="sheet" id="sheet" style="display:none">
     <div class="sheet-header">
       <span class="sheet-title" id="sheet-title">Choose lift station</span>
+      <button class="sheet-view" id="sheet-view-btn" type="button" onclick="toggleSheetView()">🗺 Map</button>
       <button class="sheet-close" onclick="closeSheet()">✕</button>
     </div>
     <form class="sheet-search-form" action="#" onsubmit="sheetSearchSubmit(event)">
@@ -150,6 +151,7 @@
       <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')">🏘 Villages &amp; peaks</button>
     </div>
     <div class="sheet-list" id="sheet-list"></div>
+    <div class="sheet-map" id="sheet-map" style="display:none"></div>
   </div>
 
   <div id="tab-quick">
