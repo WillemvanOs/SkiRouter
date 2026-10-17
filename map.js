@@ -679,10 +679,24 @@ let pickerMapKey = null;
 let pickerLayer = null;
 let pickerLabels = [];
 let pickerDeclutterTimer = null;
+let pickerTapNear = null; // a tap on the map itself: open the place closest to it
+const PICK_TAP_PX = 34;   // how far from a place a finger may land
 
-// `onLift(lift, dalBerg)` and `onPlace(place)` pick; `stopMode` asks to ride
-// a lift instead of bottom or top.
-async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
+// A tap shows what was tapped first (`card`, html) with one button to pick
+// it; nothing is picked until that button is pressed.
+function bindPickPopup(layer, card, action, onConfirm) {
+  layer.bindPopup(`<div class="pick-pop">${card}<button type="button" data-pick="ok">✓ ${escapeHtml(action)}</button></div>`,
+    { closeButton: false, offset: [0, -8], autoPanPadding: [16, 16] })
+    .on('popupopen', e => e.popup.getElement().querySelector('[data-pick]').addEventListener('click', () => {
+      if (layer.isPopupOpen()) onConfirm(); // not on a popup that is still fading out
+    }));
+}
+
+// `onLift(lift)` and `onPlace(place)` pick; `liftCard(lift)` and
+// `placeCard(place)` describe one; `action` names the button ("Start here").
+// A lift is always picked by its bottom station; the chosen field can switch
+// it to the top afterwards.
+async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard, action }) {
   await loadLeaflet();
   const turn = mapNorthUp() ? 0 : uphillTurn();
   const key = `${currentArea?.id}|${turn}`;
@@ -697,11 +711,13 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
       clearTimeout(pickerDeclutterTimer);
       pickerDeclutterTimer = setTimeout(() => declutter(pickerMap, pickerLabels), 300);
     });
+    pickerMap.on('click', e => pickerTapNear?.(e.containerPoint));
     pickerMapKey = key;
   }
   pickerLayer?.remove();
   pickerLayer = L.layerGroup().addTo(pickerMap);
   pickerLabels = [];
+  pickerTapNear = null;
   const renderer = L.canvas({ padding: 0.5, tolerance: 12 }); // lines easy to hit with a finger
 
   // The pistes faint, for orientation.
@@ -732,16 +748,7 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
     const line = L.polyline(pts, { renderer, color: MAP_LIFT_COLOUR, weight: 4, opacity: dim ? 0.45 : 1, interactive: !dim }).addTo(pickerLayer);
     pts.forEach(p => L.circleMarker(p, { renderer, radius: 4, color: MAP_LIFT_COLOUR, weight: 2, fillColor: '#fff', fillOpacity: 1, opacity: dim ? 0.45 : 1, interactive: false }).addTo(pickerLayer));
     if (dim) return;
-    const name = [liftCode(lift.nr), lift.name].filter(Boolean).join(' ');
-    const popup = stopMode
-      ? `<div class="pick-pop"><strong>${escapeHtml(name)}</strong><button type="button" data-pick="ride">🚡 Ride this lift</button></div>`
-      : `<div class="pick-pop"><strong>${escapeHtml(name)}</strong>
-          <button type="button" data-pick="dal">⬇ Bottom · ${escapeHtml(shortName(STATIONS[lift.dal]?.name, 28))}</button>
-          <button type="button" data-pick="berg">⬆ Top · ${escapeHtml(shortName(STATIONS[lift.berg]?.name, 28))}</button></div>`;
-    const choose = which => onLift(lift, which === 'berg' ? 'berg' : 'dal');
-    line.bindPopup(popup, { closeButton: false }).on('popupopen', e => {
-      e.popup.getElement().querySelectorAll('[data-pick]').forEach(btn => btn.addEventListener('click', () => choose(btn.dataset.pick)));
-    });
+    bindPickPopup(line, liftCard(lift), action, () => onLift(lift));
     const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, true)
       .on('click', () => line.openPopup(halfway(pts))).addTo(pickerLayer);
     pickerLabels.push({ marker: tag, rank: () => 2 });
@@ -749,15 +756,26 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
 
   // The places of the list on screen, to tap.
   if (kind !== 'lifts') {
+    const markers = [];
     areaPlaces(kind).forEach(place => {
       if (place.lat == null || !placeStation(place)) return;
-      const icon = `<span class="map-tag map-lunch pick-place">${PLACE_ICONS[place.kind] || ICONS.start}</span>`;
+      const icon = `<span class="map-tag map-lunch pick-place icon-${place.kind}">${PLACE_ICONS[place.kind] || ICONS.start}</span>`;
       const marker = labelMarker([place.lat, place.lon], icon, true).addTo(pickerLayer);
-      marker.bindTooltip(escapeHtml(place.name), { direction: 'top', offset: [0, -14] });
-      marker.on('click', () => onPlace(place));
+      bindPickPopup(marker, placeCard(place), action, () => onPlace(place));
+      markers.push(marker);
       pickerLabels.push({ marker, rank: () => 1 });
       bounds.push([place.lat, place.lon]);
     });
+    // Small icons are hard to hit: a tap close to one opens it as well.
+    pickerTapNear = point => {
+      let best = null, bestD = PICK_TAP_PX;
+      markers.forEach(m => {
+        if (m.getElement()?.style.visibility === 'hidden') return;
+        const d = pickerMap.latLngToContainerPoint(m.getLatLng()).distanceTo(point);
+        if (d < bestD) { best = m; bestD = d; }
+      });
+      best?.openPopup();
+    };
   }
 
   pickerMap.invalidateSize();
