@@ -32,6 +32,7 @@ const DAY_PRACTICE_MIN  = 1;   // magic carpets: no queue to speak of
 const DAY_RUNS          = 400; // randomised walks per plan
 const DAY_LATE_SLACK    = 10;  // minutes past "back by" a walk may plan for
 const DAY_MAX_OPTIONS   = 3;
+const DAY_OPTION_OVERLAP = 0.6; // options sharing more of their pistes are the same route
 const DAY_LUNCH_RUNS    = 30;  // morning walks per restaurant
 const DAY_LUNCH_PM_RUNS = 15;  // afternoon walks per kept morning
 const DAY_LUNCH_STOPS   = 16;  // lunch stops tried at most when no restaurant is chosen
@@ -953,7 +954,7 @@ function planWithStops(ctx, random, allStops, lunchAt) {
     for (let i = 0; i < legs.length; i++) {
       const l = legs[i];
       const before = options.map(o => o.legWalks[i]).filter(Boolean);
-      const distinct = w => before.every(p => p !== w && overlap(p, w) < 0.6);
+      const distinct = w => before.every(p => p !== w && overlap(p, w) < DAY_OPTION_OVERLAP);
       let walk;
       if (i === lunchLeg) {
         walk = l.lunchDays.find(d => distinct(d) && before.every(p => p.lunch?.restaurant.id !== d.lunch.restaurant.id))
@@ -1093,11 +1094,11 @@ function planDay(options = {}) {
         ? 'That restaurant does not fit in this day around that lunch time. Try another time, another restaurant or "Best fit".'
         : 'No restaurant fits this day. Try a different lunch time or more difficulties.');
     }
-    // Different lunch stops first, so the options are real alternatives.
-    dayOptions = distinctBest(days, DAY_MAX_OPTIONS, (a, b) => a.lunch.stop !== b.lunch.stop && a.lunch.restaurant.id !== b.lunch.restaurant.id);
+    // Another lunch spot on another route first; then other routes.
+    dayOptions = distinctBest(days, DAY_MAX_OPTIONS, (a, b) => a.lunch.stop !== b.lunch.stop && a.lunch.restaurant.id !== b.lunch.restaurant.id && overlap(a, b) < DAY_OPTION_OVERLAP);
     if (dayOptions.length < DAY_MAX_OPTIONS) {
-      distinctBest(days, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < 0.6).forEach(d => {
-        if (dayOptions.length < DAY_MAX_OPTIONS && !dayOptions.includes(d) && dayOptions.every(o => overlap(o, d) < 0.6)) dayOptions.push(d);
+      distinctBest(days, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < DAY_OPTION_OVERLAP).forEach(d => {
+        if (dayOptions.length < DAY_MAX_OPTIONS && !dayOptions.includes(d) && dayOptions.every(o => overlap(o, d) < DAY_OPTION_OVERLAP)) dayOptions.push(d);
       });
     }
   } else {
@@ -1107,9 +1108,11 @@ function planDay(options = {}) {
       if (walk) walks.push({ ...walk, score: scoreDay(walk, dayCtx) });
     }
     if (!walks.some(w => w.km > 0)) return fail('No day plan found. Try a longer time window, another end station or more difficulties.');
-    dayOptions = distinctBest(walks, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < 0.6);
+    dayOptions = distinctBest(walks, DAY_MAX_OPTIONS, (a, b) => overlap(a, b) < DAY_OPTION_OVERLAP);
   }
 
+  // Only routes that really differ: an option much like one before it goes.
+  dayOptions = dayOptions.filter((d, i) => dayOptions.slice(0, i).every(o => overlap(o, d) < DAY_OPTION_OVERLAP));
   dayOptionsOpen = !options.silent; // a day being followed comes back folded
   renderDayOption(0);
   resultEl.classList.add('visible');
@@ -1239,16 +1242,23 @@ function renderDayOption(index) {
   if (routeViews.day === 'map') drawPlannerMap('day');
 }
 
-// The options: all three until one is chosen, then folded into one line
-// (the chosen one) that opens them again.
+// The options side by side, with what sets them apart; Fold puts them away
+// in one line (the chosen one) that opens them again.
 let dayOptionsOpen = true;
 function renderDayOptions() {
   const optionsEl = document.getElementById('day-options');
   optionsEl.innerHTML = '';
   optionsEl.classList.toggle('is-folded', !dayOptionsOpen);
-  if (dayOptions.length < 2) return;
+  if (dayOptions.length < 2) {
+    if (dayOptions.length) optionsEl.innerHTML = '<div class="day-opt-caption">One route: no other route with these settings is different enough.</div>';
+    return;
+  }
+  // What sets the options apart: their route, and with lunch at the best fit
+  // also where you eat.
+  const lunchSpots = new Set(dayOptions.map(o => o.lunch?.restaurant.id).filter(Boolean));
+  const ownLunch = lunchSpots.size === dayOptions.length && !document.getElementById('day-lunch-at').value;
   const describe = (option, i) => {
-    const lunch = option.lunch ? `<span class="day-opt-lunch">🍽 ${escapeHtml(option.lunch.restaurant.naam)}</span>` : '';
+    const lunch = option.lunch && (lunchSpots.size > 1 || !dayOptionsOpen) ? `<span class="day-opt-lunch">🍽 ${escapeHtml(option.lunch.restaurant.naam)}</span>` : '';
     return `<strong>Option ${i + 1}</strong>${lunch}<span>${option.km.toFixed(1)} km · back ${formatClock(option.end)}</span>`;
   };
   if (!dayOptionsOpen) {
@@ -1260,12 +1270,16 @@ function renderDayOptions() {
     optionsEl.appendChild(btn);
     return;
   }
+  optionsEl.insertAdjacentHTML('beforeend', `<div class="day-opt-caption">${dayOptions.length} different routes${ownLunch
+    ? ', each with its own lunch spot (lunch where: best fit on my route)'
+    : lunchSpots.size > 1 ? ', lunch spot per option'
+    : lunchSpots.size ? `, lunch at ${escapeHtml(dayOptions.find(o => o.lunch).lunch.restaurant.naam)} in each` : ''}</div>`);
   dayOptions.forEach((option, i) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'day-opt' + (i === dayShown ? ' on' : '');
     btn.innerHTML = describe(option, i);
-    btn.addEventListener('click', () => { dayOptionsOpen = false; renderDayOption(i); });
+    btn.addEventListener('click', () => renderDayOption(i));
     optionsEl.appendChild(btn);
   });
   const fold = document.createElement('button');
