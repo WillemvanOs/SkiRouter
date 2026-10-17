@@ -2438,6 +2438,10 @@ body.map-full {
   cursor: pointer;
 }
 
+.prefs-row .setting-chev {
+  margin-left: auto;
+}
+
 .prefs-row .setting-value {
   flex: 1;
   text-align: right;

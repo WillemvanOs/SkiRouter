@@ -176,7 +176,7 @@ map as the route map, north up unless the compass on a route map turned it. Sear
 
 ### Stops and lunch in the day plan
 
-Under **📍 Stops & lunch** the day plan takes places to pass: a lift to ride (its top
+Under **📍 Stops & lunch** (folded by default, with a summary such as "1 stop · lunch 13:00") the day plan takes places to pass: a lift to ride (its top
 station), or any place from the picker. **Lunch** is one of the stops, the only one with a time
 (and its length, and where: best fit or one restaurant); it is there by default in areas with
 mountain restaurants, and **+ Add lunch** brings it back. ✕ removes a stop. The order they were
@@ -346,7 +346,7 @@ several pistes avoids all of them). Avoided pistes are kept per area next to the
 ## Preferences
 
 Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
-line in either planner, which shows them in short): piste colours, pace (for the day plan's
+line in either planner): piste colours, pace (for the day plan's
 times), drag lifts and ski bus, plus the lifts avoided in this area. They are kept
 on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done, or **⚙**
 again, goes back to the planner; a quick route on screen is planned again with the new preferences.

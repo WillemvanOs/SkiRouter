@@ -1107,12 +1107,7 @@ function renderPrefs() {
   document.getElementById('pref-drag').checked = prefs.drag;
   document.getElementById('pref-bus').checked = prefs.bus;
   if (typeof setDayPace === 'function') setDayPace(prefs.pace, false);
-  const parts = [diffSummary(allowedDiff) === 'All' ? 'All pistes' : diffSummary(allowedDiff), DAY_PACE_LABELS[prefs.pace] + ' pace'];
-  if (!prefs.drag) parts.push('no drag lifts');
-  if (!prefs.bus && areaHasBus()) parts.push('no ski bus');
-  document.querySelectorAll('.prefs-summary').forEach(el => { el.textContent = parts.join(' · '); });
 }
-const DAY_PACE_LABELS = { relaxed: 'Relaxed', normal: 'Normal', sporty: 'Sporty' };
 
 // The preferences screen: instead of the planner, back with Done.
 let prefsChanged = null;
@@ -1140,15 +1135,7 @@ function closePrefs() {
   window.scrollTo({ top: 0 });
 }
 
-// "All", "None" or e.g. "Blue · Red": the collapsed difficulty setting.
 const DIFF_NAMES = { groen: 'Green', blauw: 'Blue', rood: 'Red', zwart: 'Black', skiroute: 'Ski route' };
-function diffSummary(set) {
-  // Green hidden (the area has none): all the shown colours on is "All".
-  const shown = DIFF_LEVELS.filter(d => d !== 'groen' || (currentArea?.pistes || []).some(p => p.kleur === 'groen'));
-  if (shown.every(d => set.has(d))) return 'All';
-  if (!set.size) return 'None';
-  return DIFF_LEVELS.filter(d => set.has(d)).map(d => DIFF_NAMES[d]).join(' · ');
-}
 
 // ── Dijkstra routing ─────────────────────────────────────────────────────────
 
