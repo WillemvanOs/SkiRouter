@@ -1204,6 +1204,7 @@ function renderDayOption(index) {
 
   const stepsEl = document.getElementById('day-steps');
   stepsEl.innerHTML = '';
+  stepsEl.classList.remove('no-entry');
   const startStation = STATIONS[ctx.startId];
   addWaypoint(stepsEl, escapeHtml(ctx.startName || startStation.name), startStation.alt, ICONS.start, `Start · ${formatClock(ctx.t0)}`, 0);
 

@@ -2740,3 +2740,8 @@ body.map-full {
 .pace-info-row.on strong {
   color: var(--alpine);
 }
+
+/* The list shown again after the map: the steps are simply there */
+.steps.no-entry > * {
+  animation: none !important;
+}
