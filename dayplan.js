@@ -1065,8 +1065,8 @@ function planDay(options = {}) {
   const home = costsToEnd(end.id, pace);
   if (home.dist[start.id] == null) {
     return fail(dayBus
-      ? (avoidedLifts.size
-        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
+      ? (avoidedLifts.size || avoidedPistes.size
+        ? `The end station cannot be reached without the lifts and pistes you avoid. Remove one from the list.`
         : 'The end station cannot be reached from the start.')
       : 'The end station cannot be reached without the ski bus. Switch the ski bus on in ⚙ Preferences.');
   }
@@ -1087,6 +1087,7 @@ function planDay(options = {}) {
     ...(dayDrag ? [] : ['no-drag']),
     ...dayStops.map(s => s.id),
     ...[...avoidedLifts].sort(),
+    ...[...avoidedPistes].sort().map(nr => `piste:${nr}`),
   ])));
 
   if (dayStops.some(s => s.kind !== 'lunch')) {
