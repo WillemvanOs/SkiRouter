@@ -262,6 +262,12 @@ function formatClock(minutes) {
   return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
 
+// "45 min", "2 h 05".
+function formatDuration(minutes) {
+  const m = Math.round(minutes);
+  return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}`;
+}
+
 // Every plain "HH:MM-HH:MM" range in an OSM opening_hours value, in minutes.
 // Days of the week and seasons are ignored: this is a guideline.
 function clockRanges(openingstijden) {
@@ -1331,16 +1337,20 @@ function dayStatus(done, items) {
   const late = backAt != null ? Math.round(backAt - dayCtx.t1) : 0;
   const isLate = late > DAY_LATE_WARN_MIN;
 
+  // Always: steps done, and the km and time still to go (as planned, plus
+  // any delay); then ahead or behind when the plan is being followed.
   let text;
   if (done === total) {
     text = '🏁 All done — what a day!';
-  } else if (delta == null) {
-    text = done === 0 ? 'Tap a step once you have done it to see if you are on time.' : `${done} of ${total} done`;
   } else {
-    const prefix = done ? `${done} of ${total} done · ` : '';
-    if (Math.abs(delta) <= DAY_ON_TIME_MIN) text = `${prefix}✅ on schedule`;
-    else if (delta > 0)                     text = `${prefix}⏱ ${delta} min behind`;
-    else                                    text = `${prefix}⚡ ${-delta} min ahead`;
+    const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
+    const minLeft = Math.max(0, Math.round(walk.end - +items[done].dataset.t + Math.max(0, delta || 0)));
+    text = `${done} of ${total} steps · ${km.toFixed(1)} km · ${formatDuration(minLeft)} to go`;
+    if (delta != null) {
+      if (Math.abs(delta) <= DAY_ON_TIME_MIN) text += ' · ✅ on schedule';
+      else if (delta > 0)                     text += ` · ⏱ ${delta} min behind`;
+      else                                    text += ` · ⚡ ${-delta} min ahead`;
+    }
   }
 
   const replan = !isLate && done > 0 && done < total

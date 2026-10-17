@@ -390,6 +390,10 @@ it, so you can catch up after forgetting. Tap a ticked step to untick it and eve
 it. The quick route shows how many minutes are left. The day plan compares the clock with the
 plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
 the rest of the day is planned again from the next step, from now, with the km still to go.
+While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
+**☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
+plan, ahead or behind). The route's totals (km, pistes, lifts, back at) sit above it and
+scroll away.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.

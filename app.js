@@ -1358,6 +1358,7 @@ function renderRoute(result) {
     div.style.animationDelay = `${(index + 1) * 50}ms`;
     div.classList.add('checkable');
     div.dataset.min = edge.tijd || 0;
+    div.dataset.km  = edge.type === 'piste' ? edge.km || 0 : 0;
     stepsEl.appendChild(div);
 
     // The chosen destination, also when a short walk from the last step leads there.
@@ -1438,10 +1439,10 @@ function quickStatus(done, items) {
   quickDone = done;
   if (routeViews.quick === 'map') updateRouteMapProgress(done, 'quick');
   const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
-  let text;
-  if (done === 0)                 text = 'Tap a step once you have done it.';
-  else if (done === items.length) text = '🏁 Destination reached!';
-  else                            text = `${done} of ${items.length} steps done · ~${left} min to go`;
+  const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
+  // Always: steps done, and the km and time still to go.
+  const text = done === items.length ? '🏁 Destination reached!'
+    : `${done} of ${items.length} steps · ${km.toFixed(1)} km · ~${left} min to go`;
   renderProgress('p-progress', done, items.length, text);
 }
 
