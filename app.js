@@ -1506,7 +1506,7 @@ function stepElement(edge, index, clock, next) {
       <div class="step-icon ico-${cls}">${icon}</div>
       <div class="step-info">
         <div class="step-kind kind-lift">${tagLabel(edge)}${edge.descent ? ' · ride down ↓' : ''}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
-        <div class="step-actions">${liftStatusHtml(edge.liftNr)}<button class="avoid-btn" type="button" data-avoid="${edge.liftNr}" aria-label="Avoid ${edge.liftNr}">⊘ Avoid</button></div>
+        ${liftStatusHtml(edge.liftNr) ? `<div class="step-actions">${liftStatusHtml(edge.liftNr)}</div>` : ''}
         <div class="step-title"><span class="lift-code">${liftCode(edge.liftNr)}</span><span class="step-name">${edge.name}</span></div>
         ${exitHintHtml(edge, next)}
       </div>
@@ -1550,8 +1550,9 @@ function getTip() {
 
 // ── Avoiding lifts ───────────────────────────────────────────────────────────
 //
-// Any lift can be skipped by hand, open or closed: '⊘ Avoid' on a lift step
-// (or 'Avoid these' at the closed-lifts warning) adds it to a list per area,
+// Any lift can be skipped by hand, open or closed: 'Avoid lift' in the step
+// menu (hold a step or swipe it left), or 'Avoid these' at the closed-lifts
+// warning, adds it to a list per area,
 // both planners route around it, and the route is planned again. The list
 // shows as chips in the planner cards; ✕ takes a lift off it.
 
@@ -1665,6 +1666,24 @@ function avoidLifts(nrs, planner, pisteNrs = []) {
 // (touch-action: pan-y on the steps).
 
 const STEP_HOLD_MS  = 500; // held this long: the menu
+
+// A short tick in the hand. Android has navigator.vibrate; iPhone Safari
+// does not, but toggling a switch checkbox (iOS 18 and later) gives the
+// system's haptic tap, so a hidden one is flipped instead.
+let hapticSwitch = null;
+function haptic() {
+  try {
+    if (navigator.vibrate?.(20)) return;
+    if (!hapticSwitch) {
+      hapticSwitch = document.createElement('label');
+      hapticSwitch.setAttribute('aria-hidden', 'true');
+      hapticSwitch.style.cssText = 'position:fixed;left:-100px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
+      hapticSwitch.innerHTML = '<input type="checkbox" switch tabindex="-1">';
+      document.body.appendChild(hapticSwitch);
+    }
+    hapticSwitch.click();
+  } catch {}
+}
 const STEP_SWIPE_PX = 70;  // swiped this far left: the menu
 const STEP_MENU_GUARD_MS = 450; // the click from lifting the finger lands here: ignore it
 let stepGesture = null;
@@ -1687,7 +1706,7 @@ function stepMenuOptions(step, planner) {
   return options;
 }
 
-function openStepMenu(step, planner) {
+function openStepMenu(step, planner, held = false) {
   const options = stepMenuOptions(step, planner);
   if (!options.length) return;
   let menu = document.getElementById('step-menu');
@@ -1714,7 +1733,8 @@ function openStepMenu(step, planner) {
     options[+btn.dataset.option].run();
   }));
   menu.querySelector('.step-menu-cancel').addEventListener('click', closeStepMenu);
-  stepMenuOpenedAt = Date.now();
+  // Only a hold leaves a click to come when the finger lifts; a swipe does not.
+  stepMenuOpenedAt = held ? Date.now() : 0;
   menu.classList.add('open');
 }
 
@@ -1748,9 +1768,9 @@ function suppressStepClick() {
     gesture.timer = setTimeout(() => {
       if (stepGesture !== gesture || gesture.swiping) return;
       stepGesture = null;
-      navigator.vibrate?.(15);
+      haptic();
       suppressStepClick();
-      openStepMenu(step, planner);
+      openStepMenu(step, planner, true);
     }, STEP_HOLD_MS);
     stepGesture = gesture;
   });

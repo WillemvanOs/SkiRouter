@@ -1935,7 +1935,7 @@ select.day-input {
   row-gap: 2px;
 }
 
-/* ── Avoiding lifts ───────────────────────────────────────── */
+/* ── A lift step's status line ────────────────────────────── */
 
 .step-actions {
   display: flex;
@@ -1947,27 +1947,6 @@ select.day-input {
 
 .step-actions .lift-status {
   margin-top: 0;
-}
-
-.avoid-btn {
-  padding: 2px 8px;
-  border: 1px solid #d5dde8;
-  border-radius: 6px;
-  background: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #6a7d92;
-  cursor: pointer;
-}
-
-.avoid-btn:hover {
-  border-color: #c0392b;
-  color: #c0392b;
-}
-
-.checkable.done .avoid-btn {
-  display: none;
 }
 
 .avoid-row {
@@ -2032,12 +2011,6 @@ select.day-input {
 
 .tab-btn {
   min-height: 44px;
-}
-
-.avoid-btn {
-  min-height: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .chosen-reset {
