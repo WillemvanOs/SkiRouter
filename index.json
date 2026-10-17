@@ -1,0 +1,430 @@
+{
+ "updated": "2026-10-17T17:56:23.541Z",
+ "areas": {
+  "albiez-montrond-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 8
+  },
+  "bad-kleinkirchheim-at-2": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 24
+  },
+  "arosa-lenzerheide-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 11,
+   "lifts": 47
+  },
+  "bergeralm-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 7
+  },
+  "braunwald-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 4,
+   "lifts": 10
+  },
+  "berwang-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 12
+  },
+  "confin-san-bernardino-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 11
+  },
+  "brandnertal-brand-burserberg-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 5,
+   "lifts": 14
+  },
+  "dreilandereck-arnoldstein-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 7
+  },
+  "font-d-urle-chaud-clapier-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 11
+  },
+  "drei-zinnen-tre-cime-drei-zinnen-tre-cim-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 4,
+   "lifts": 30
+  },
+  "forni-di-sopra-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 8
+  },
+  "galtur-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 9
+  },
+  "gargellen-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 8
+  },
+  "gerlitzen-alpe-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 21
+  },
+  "flumserberg-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 17
+  },
+  "gletscher-skigebiet-zugspitze-ski-resort-de": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 7
+  },
+  "glacier-3000-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 7,
+   "lifts": 40
+  },
+  "glungezer-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 6
+  },
+  "golm-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 9
+  },
+  "grebenzen-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 6,
+   "lifts": 8
+  },
+  "grossglockner-heiligenblut-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 12
+  },
+  "grachen-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 12
+  },
+  "hoch-ybrig-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 11
+  },
+  "hintertuxer-gletscher-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 10,
+   "lifts": 21
+  },
+  "hochkar-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 8
+  },
+  "hochkossen-unterberghorn-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 11
+  },
+  "hochrindl-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 7
+  },
+  "innerkrems-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 8
+  },
+  "hochzeiger-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 9
+  },
+  "kals-matrei-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 18
+  },
+  "kappl-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 20
+  },
+  "kaprun-kitzsteinhorn-maiskogel-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 10,
+   "lifts": 23
+  },
+  "kreischberg-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 13
+  },
+  "kronplatz-plan-de-corones-kronplatz-plan-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 31
+  },
+  "lachtal-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 10
+  },
+  "lauchernalp-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 5
+  },
+  "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 70
+  },
+  "lech-zurs-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 85
+  },
+  "la-norma-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 13
+  },
+  "les-contamines-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 57
+  },
+  "les-menuires-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 30
+  },
+  "malbun-li": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 4
+  },
+  "leukerbad-torrent-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 12
+  },
+  "molltaler-gletscher-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 8
+  },
+  "nassfeld-mokrine-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 29
+  },
+  "nauders-bergkastel-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 22
+  },
+  "obergurgl-hochgurgl-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 26
+  },
+  "ofterschwang-gunzesried-de": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 7
+  },
+  "obertauern-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 26
+  },
+  "passo-stelvio-stilfserjoch-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 6
+  },
+  "pitztaler-gletscher-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 13
+  },
+  "piancavallo-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 12
+  },
+  "les-arcs-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 52
+  },
+  "planneralm-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 6
+  },
+  "ramsau-am-dachstein-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 1,
+   "lifts": 9
+  },
+  "ratschings-jaufen-it": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 8
+  },
+  "pizol-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 12
+  },
+  "reiteralm-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 6,
+   "lifts": 79
+  },
+  "schmittenhohe-zell-am-see-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 20,
+   "lifts": 118
+  },
+  "sillian-hochpustertal-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 6
+  },
+  "saas-fee-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 8,
+   "lifts": 23
+  },
+  "ski-gastein-schlossalm-angertal-stubnerk-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 15,
+   "lifts": 59
+  },
+  "silvretta-arena-ischgl-samnaun-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 92
+  },
+  "skigebiet-garmisch-classic-de": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 5,
+   "lifts": 19
+  },
+  "skigebiet-petzen-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 5
+  },
+  "skigebiet-damuls-mellau-faschina-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 28
+  },
+  "skipisten-titlis-bergbahnen-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 4,
+   "lifts": 24
+  },
+  "silvretta-montafon-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 13,
+   "lifts": 75
+  },
+  "skiliftkarussell-winterberg-de-2": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 4,
+   "lifts": 43
+  },
+  "skiregion-dachstein-west-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 22
+  },
+  "sonnenkopf-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 9
+  },
+  "skiwelt-wilder-kaiser-brixental-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 11,
+   "lifts": 83
+  },
+  "stubaier-gletscher-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 5,
+   "lifts": 26
+  },
+  "sudelfeld-bayrischzell-de": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 13
+  },
+  "station-du-col-de-rousset-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 11
+  },
+  "tauplitz-bad-mitterndorf-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 2,
+   "lifts": 16
+  },
+  "venet-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 7
+  },
+  "weinebene-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 7,
+   "lifts": 8
+  },
+  "weisssee-gletscherwelt-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 7
+  },
+  "steinplatte-waidring-tirol-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 0,
+   "lifts": 14
+  },
+  "wagrain-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 3,
+   "lifts": 94
+  },
+  "les-gets-morzine-fr": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 10,
+   "lifts": 182
+  },
+  "zillertal-arena-at": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 17,
+   "lifts": 168
+  },
+  "wildhaus-ch": {
+   "sourceUpdate": "2026-10-17T17:56:23.541Z",
+   "open": 6,
+   "lifts": 12
+  }
+ }
+}
