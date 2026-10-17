@@ -1368,7 +1368,15 @@ input.day-input[type="time"]::-webkit-date-and-time-value {
 /* Start, back by and km: always one line */
 .day-grid.day-grid-one {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.8fr);
-  margin-top: 4px;
+  gap: 8px;
+  margin-top: 0;
+  padding: 10px 14px 14px; /* in line with the row above it */
+}
+
+/* Each label straight above the value in its field */
+.day-grid-one .sel-label {
+  padding-left: 10px;
+  white-space: nowrap;
 }
 
 .day-grid.day-grid-one .day-field:last-child {
@@ -1376,7 +1384,7 @@ input.day-input[type="time"]::-webkit-date-and-time-value {
 }
 
 .day-grid-one .day-input {
-  padding-left: 8px;
+  padding-left: 8.5px;
   padding-right: 6px;
 }
 
