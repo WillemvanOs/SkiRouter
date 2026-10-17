@@ -2470,6 +2470,16 @@ body.map-full {
   height: 22px;
 }
 
+/* Picker map: a village or peak being picked has its name under its icon */
+.map-tag.under-pick {
+  transform: translate(-50%, 20px);
+}
+
+/* Lift codes while places are picked: there for orientation, not to tap */
+.map-lift.is-dim {
+  opacity: 0.7;
+}
+
 /* What was tapped, shown before it is picked */
 .pick-pop {
   min-width: 220px;

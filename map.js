@@ -725,15 +725,16 @@ async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard,
   Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
     lines.forEach(line => L.polyline(line.map(toLatLng), { renderer, color: pisteColourOf(nr), weight: 2, opacity: 0.25, interactive: false }).addTo(pickerLayer));
   });
-  // Villages and peaks as names, unless they are what is being picked.
-  if (kind !== 'towns') {
-    (currentArea?.plaatsen || []).forEach((p, i) => {
-      const html = p.k === 'peak'
-        ? `<span class="map-tag map-peak">▲ ${escapeHtml(p.n)}</span>`
-        : `<span class="map-tag map-place is-${p.k}">${escapeHtml(p.n)}</span>`;
-      pickerLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(pickerLayer), rank: () => 8 + i / 1000 });
-    });
-  }
+  // Villages and peaks as names in every list, the same orientation whatever
+  // is being picked; while they are the ones picked, the name sits under
+  // their icon.
+  const under = kind === 'towns' ? ' under-pick' : '';
+  (currentArea?.plaatsen || []).forEach((p, i) => {
+    const html = p.k === 'peak'
+      ? `<span class="map-tag map-peak${under}">${under ? '' : '▲ '}${escapeHtml(p.n)}</span>`
+      : `<span class="map-tag map-place is-${p.k}${under}">${escapeHtml(p.n)}</span>`;
+    pickerLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(pickerLayer), rank: () => 8 + i / 1000 });
+  });
 
   // Every lift: a line to tap, a dot at each station and its code.
   const bounds = [];
@@ -748,11 +749,13 @@ async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard,
     // tappable, so a tap near a place never picks a lift by mistake.
     const line = L.polyline(pts, { renderer, color: MAP_LIFT_COLOUR, weight: 4, opacity: dim ? 0.45 : 1, interactive: !dim }).addTo(pickerLayer);
     pts.forEach(p => L.circleMarker(p, { renderer, radius: 4, color: MAP_LIFT_COLOUR, weight: 2, fillColor: '#fff', fillOpacity: 1, opacity: dim ? 0.45 : 1, interactive: false }).addTo(pickerLayer));
+    // Its code in every list, for orientation; tappable only among the lifts.
+    const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift${dim ? ' is-dim' : ''}">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, !dim)
+      .addTo(pickerLayer);
+    pickerLabels.push({ marker: tag, rank: () => dim ? 6 : 2 });
     if (dim) return;
     bindPickPopup(line, liftCard(lift), action, () => onLift(lift));
-    const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, true)
-      .on('click', () => line.openPopup(halfway(pts))).addTo(pickerLayer);
-    pickerLabels.push({ marker: tag, rank: () => 2 });
+    tag.on('click', () => line.openPopup(halfway(pts)));
   });
 
   // The places of the list on screen, to tap.
