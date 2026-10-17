@@ -20606,5 +20606,71 @@
       "lon": 12.33526,
       "ele": 2156
     }
+  ],
+  "plekken": [
+    {
+      "id": "node/5894443525",
+      "n": "Panorama Kneipp Weg",
+      "k": "viewpoint",
+      "lat": 47.46496,
+      "lon": 12.4366
+    },
+    {
+      "id": "node/1562316320",
+      "k": "viewpoint",
+      "lat": 47.4749,
+      "lon": 12.42651
+    },
+    {
+      "id": "node/2588605114",
+      "k": "viewpoint",
+      "lat": 47.48447,
+      "lon": 12.42773
+    },
+    {
+      "id": "node/2588605125",
+      "k": "viewpoint",
+      "lat": 47.48457,
+      "lon": 12.4282
+    },
+    {
+      "id": "node/4416178133",
+      "k": "viewpoint",
+      "lat": 47.4273,
+      "lon": 12.37276
+    },
+    {
+      "id": "node/5940434775",
+      "k": "viewpoint",
+      "lat": 47.30821,
+      "lon": 12.37934
+    },
+    {
+      "id": "way/1346657607",
+      "n": "Bärenland",
+      "k": "snowpark",
+      "lat": 47.34125,
+      "lon": 12.38965
+    },
+    {
+      "id": "way/364619016",
+      "n": "Snowpark",
+      "k": "snowpark",
+      "lat": 47.31895,
+      "lon": 12.37436
+    },
+    {
+      "id": "way/383085484",
+      "n": "Snowpark",
+      "k": "snowpark",
+      "lat": 47.31875,
+      "lon": 12.37511
+    },
+    {
+      "id": "way/568686172",
+      "k": "snowpark",
+      "lat": 47.34119,
+      "lon": 12.38978
+    }
   ]
 }
