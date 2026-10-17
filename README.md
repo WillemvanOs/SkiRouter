@@ -392,7 +392,7 @@ plan, shows whether you are on schedule, ahead or behind, and offers **Replan fr
 the rest of the day is planned again from the next step, from now, with the km still to go.
 While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
 **☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
-plan, ahead or behind). The route's totals (km, pistes, lifts, back at) sit above it and
+plan, ahead or behind, and **↻ Replan from here** until the day is done). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when

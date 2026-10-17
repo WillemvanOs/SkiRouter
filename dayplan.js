@@ -1353,7 +1353,9 @@ function dayStatus(done, items) {
     }
   }
 
-  const replan = !isLate && done > 0 && done < total
+  // Always at hand while the day is not done (the red late bar is the same
+  // button when running late).
+  const replan = !isLate && done < total
     ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
     : '';
   renderProgress('dp-progress', done, total, text, replan);
