@@ -802,7 +802,10 @@ function renderSheet() {
 // station (a village by the nearest bottom station), and the route says how
 // far that is. Restaurants at a station go by that station.
 
-const PLACE_ICONS = { restaurant: '🍽', viewpoint: '🔭', snowpark: '🏂', town: '🏘', village: '🏘', hamlet: '🏠', peak: '⛰', lift: '🚡' };
+const PLACE_ICONS = {
+  restaurant: ICONS.restaurant, lunch: ICONS.restaurant, viewpoint: ICONS.viewpoint, snowpark: ICONS.snowpark,
+  town: ICONS.town, village: ICONS.town, hamlet: ICONS.hamlet, peak: ICONS.peak, lift: ICONS.gondola,
+};
 const PLACE_GROUPS = {
   poi: [['restaurant', 'Restaurants & huts'], ['viewpoint', 'Viewpoints'], ['snowpark', 'Snow parks']],
   towns: [['town', 'Villages'], ['peak', 'Peaks']],
@@ -893,7 +896,7 @@ function renderPlaceList(list, query) {
       const btn = document.createElement('button');
       btn.className = 'station-item place-item';
       btn.innerHTML = `
-        <span class="lift-ico ico-place">${PLACE_ICONS[place.kind] || '📍'}</span>
+        <span class="lift-ico ico-place">${PLACE_ICONS[place.kind] || ICONS.start}</span>
         <span class="station-item-name">${escapeHtml(place.name)}${place.kind === 'peak' && place.ele ? ` <small>${place.ele} m</small>` : ''}
           <span class="place-sub">${escapeHtml(placeSub(place, place.at))}</span></span>
       `;
@@ -940,7 +943,7 @@ function showChosen(side) {
   document.getElementById(`${side}-box`).style.display    = 'none';
   document.getElementById(`${side}-chosen`).style.display = 'flex';
   document.getElementById(`${side}-icon`).innerHTML       = s.gps ? GPS_ICON
-    : s.place ? `<span class="lift-ico ico-place">${PLACE_ICONS[s.place.kind] || '📍'}</span>` : liftIcon(s.lift);
+    : s.place ? `<span class="lift-ico ico-place">${PLACE_ICONS[s.place.kind] || ICONS.start}</span>` : liftIcon(s.lift);
   document.getElementById(`${side}-nr`).textContent       = s.gps ? s.liftNr : s.place ? '' : liftCode(s.liftNr);
   document.getElementById(`${side}-liftname`).textContent = s.liftName;
   if (s.gps) document.getElementById(`${side}-side`).textContent = '';
@@ -952,7 +955,7 @@ function showChosen(side) {
 // the same icon the route steps use.
 function liftIcon(lift) {
   const cls = stepClass({ type: lift.type, echteLift: lift.echteLift });
-  return `<span class="lift-ico ico-${cls}" title="${tagLabel({ type: lift.type, echteLift: lift.echteLift })}">${STEP_ICONS[cls] || '🚡'}</span>`;
+  return `<span class="lift-ico ico-${cls}" title="${tagLabel({ type: lift.type, echteLift: lift.echteLift })}">${STEP_ICONS[cls] || ICONS.gondola}</span>`;
 }
 
 function pickStation(stationId, lift, dalBerg) {
@@ -1158,50 +1161,27 @@ function dijkstra(startId, endId) {
 
 // ── Route rendering ──────────────────────────────────────────────────────────
 
-// There is no chairlift emoji (🪑 is just a chair), so draw a pictogram:
-// a sloping cable, the hanger curving into the seat, and a skier sitting on
-// it with skis on. Solid shapes so it reads as clearly as the emoji icons.
-const CHAIRLIFT_ICON = `<svg class="icon-svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Chairlift" role="img">
-  <path d="M2.5 6.2 L21.5 1.5" stroke-width="2"/>
-  <path d="M7 5.1 V16.2 Q7 19 9.8 19 H12.5" stroke-width="1.9"/>
-  <circle cx="11.4" cy="6.4" r="2" fill="currentColor" stroke="none"/>
-  <rect x="9.3" y="9.2" width="3.4" height="7.4" rx="1.7" fill="currentColor" stroke="none"/>
-  <path d="M12.3 12.2 L15.6 11" stroke-width="1.8"/>
-  <path d="M11.2 15.4 H14.3 L16.6 19.6" stroke-width="3"/>
-  <path d="M13.4 22.3 L21.2 18.4 V16.4" stroke-width="1.8"/>
-</svg>`;
-
-// Drag lift pictogram in the same style: an upright skier holding the tow
-// pole that runs diagonally up to the right, skis on the slope with the tips
-// curled up.
-const TBAR_ICON = `<svg class="icon-svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-label="Drag lift" role="img">
-  <circle cx="6.4" cy="4.4" r="2.1" fill="currentColor" stroke="none"/>
-  <path d="M6.3 8 L6.7 14.2" stroke-width="3.6"/>
-  <path d="M7.2 9.4 H13" stroke-width="1.8"/>
-  <path d="M21.5 1.8 L9.2 15.6" stroke-width="1.8"/>
-  <path d="M6.7 14.2 L11.2 20.3" stroke-width="3"/>
-  <path d="M4.2 22.6 L20.3 17.4 L20.7 15.4" stroke-width="1.8"/>
-</svg>`;
+// The pictograms themselves are in icons.js, one set for the whole app.
 
 // OSM drag-lift types: shown with the T-bar pictogram and their own label.
 const DRAG_LIFT_LABEL = { 't-bar': 'T-bar', 'j-bar': 'J-bar', platter: 'Platter lift', drag_lift: 'Drag lift', rope_tow: 'Rope tow' };
 
 const STEP_ICONS = {
-  gondola:          '🚡',
-  mixed_lift:       '🚡',
-  cable_car:        '🚠',
-  funicular:        '🚞',
-  chair_lift:       CHAIRLIFT_ICON,
-  draglift:         TBAR_ICON,
-  oefenlift:        '🎿',
-  'piste-groen':    '🟢',
-  'piste-blauw':    '🔵',
-  'piste-rood':     '🔴',
-  'piste-zwart':    '⚫',
-  'piste-skiroute': '🟡',
-  transfer:         '🔄',
-  bus:              '🚌',
-  walk:             '🚶',
+  gondola:          ICONS.gondola,
+  mixed_lift:       ICONS.gondola,
+  cable_car:        ICONS.cable_car,
+  funicular:        ICONS.funicular,
+  chair_lift:       ICONS.chair_lift,
+  draglift:         ICONS.draglift,
+  oefenlift:        ICONS.oefenlift,
+  'piste-groen':    ICONS.skier,
+  'piste-blauw':    ICONS.skier,
+  'piste-rood':     ICONS.skier,
+  'piste-zwart':    ICONS.skier,
+  'piste-skiroute': ICONS.skier,
+  transfer:         ICONS.transfer,
+  bus:              ICONS.bus,
+  walk:             ICONS.walk,
 };
 
 const LIFT_TYPE_LABEL = { gondola: 'Gondola', mixed_lift: 'Gondola', cable_car: 'Cable car', funicular: 'Funicular', chair_lift: 'Chairlift' };
@@ -1331,7 +1311,7 @@ function renderRoute(result) {
   const stepsEl = document.getElementById('steps');
   stepsEl.innerHTML = '';
 
-  addWaypoint(stepsEl, escapeHtml(selected.from.name), selected.from.alt, selected.from.place ? PLACE_ICONS[selected.from.place.kind] || '📍' : '📍',
+  addWaypoint(stepsEl, escapeHtml(selected.from.name), selected.from.alt, selected.from.place ? PLACE_ICONS[selected.from.place.kind] || ICONS.start : ICONS.start,
     selected.from.place ? `Start · ${escapeHtml(selected.from.place.sub)}` : 'Start', 0);
 
   // What comes after each lift (a transfer included), for the exit hint.
@@ -1347,7 +1327,7 @@ function renderRoute(result) {
     // The chosen destination, also when a short walk from the last step leads there.
     const isLast = index === visibleSteps.length - 1;
     if (isLast && selected.to) {
-      addWaypoint(stepsEl, escapeHtml(selected.to.name), selected.to.alt, '🏁',
+      addWaypoint(stepsEl, escapeHtml(selected.to.name), selected.to.alt, ICONS.finish,
         selected.to.place ? `Destination reached! · ${escapeHtml(selected.to.place.sub)}` : 'Destination reached!', (index + 1.5) * 50);
     }
   });
@@ -1447,7 +1427,7 @@ function stepElement(edge, index, clock, next) {
     div.className = `step step-piste piste-${diff}`;
     div.innerHTML = `
       <span class="step-number">${index + 1}</span>
-      <div class="piste-sign sign-${diff}${short ? (nr.replace(/\s+/g, '').length === 3 ? ' sign-long' : '') : ' sign-noname'}" aria-label="Piste ${escapeHtml(nr)}"><span>${short ? escapeHtml(nr.replace(/\s+/g, '')) : '⛷'}</span></div>
+      <div class="piste-sign sign-${diff}${short ? (nr.replace(/\s+/g, '').length === 3 ? ' sign-long' : '') : ' sign-noname'}" aria-label="Piste ${escapeHtml(nr)}"><span>${short ? escapeHtml(nr.replace(/\s+/g, '')) : ICONS.skier}</span></div>
       <div class="step-info">
         <div class="step-kind kind-${diff}">${PISTE_KIND[diff] || 'Piste'}</div>
         <div class="step-name">${edge.name}</div>
@@ -1472,7 +1452,7 @@ function stepElement(edge, index, clock, next) {
   } else {
     // Lift: its own tinted block, with the lift code large next to the pictogram.
     const cls  = stepClass(edge);
-    const icon = STEP_ICONS[cls] || '🚡';
+    const icon = STEP_ICONS[cls] || ICONS.gondola;
     div.className = 'step step-lift';
     div.innerHTML = `
       <span class="step-number">${index + 1}</span>
@@ -1792,7 +1772,7 @@ function closedLiftsOn(steps) {
 // enrichment (liften[].coordOnder/coordBoven, pisteLijnen).
 
 const GPS_NODE           = 'gps';
-const GPS_ICON           = '<span class="lift-ico ico-gps">📍</span>';
+const GPS_ICON           = `<span class="lift-ico ico-gps">${ICONS.gps}</span>`;
 const GPS_STATION_RADIUS = 300; // walk to a lift station this close (m)
 const GPS_PISTE_RADIUS   = 80;  // this close to a piste's course: you are on it (m)
 const GPS_WALK_M_PER_MIN = 60;  // walking in ski boots

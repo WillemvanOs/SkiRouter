@@ -249,7 +249,7 @@ function stepLabel(piece) {
 // The label a step carries on the map.
 function stepTagHtml(piece) {
   const e = piece.edge;
-  if (piece.kind === 'lunch') return '<span class="map-tag map-lunch">🍽</span>';
+  if (piece.kind === 'lunch') return `<span class="map-tag map-lunch">${ICONS.restaurant}</span>`;
   if (piece.kind === 'lift') {
     return `<span class="map-tag map-lift">${escapeHtml(liftCode(e.liftNr) || shortName(e.name) || '▲')}</span>`;
   }
@@ -258,7 +258,7 @@ function stepTagHtml(piece) {
     const text = own ? e.pisteNr : shortName(pisteOf(e.pisteNr)?.naam) || '•';
     return `<span class="map-tag map-piste${own ? '' : ' is-name'}" style="background:${pisteColourOf(e.pisteNr)}">${escapeHtml(text)}</span>`;
   }
-  return `<span class="map-tag map-link">${e.type === 'bus' ? '🚌' : '🚶'}</span>`;
+  return `<span class="map-tag map-link">${e.type === 'bus' ? ICONS.bus : ICONS.walk}</span>`;
 }
 
 // The point halfway along a line, where its label goes.
@@ -369,7 +369,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
 
   // Stops of the day plan.
   pieces.filter(p => p.kind === 'stop').forEach(piece => {
-    const html = `<span class="map-tag map-lunch map-stop">${PLACE_ICONS[piece.edge.place] || '📍'}</span>`;
+    const html = `<span class="map-tag map-lunch map-stop">${PLACE_ICONS[piece.edge.place] || ICONS.start}</span>`;
     const marker = labelMarker(piece.latlngs[0], html, true).bindPopup(escapeHtml(stepLabel(piece))).addTo(routeMapLayer);
     routeMapLabels.push({ marker, rank: () => 1.5, step: true });
   });
@@ -385,7 +385,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     routeMapLabels.push({ marker: labelMarker(first, html).addTo(routeMapLayer), rank: () => 3 });
   }
   if (last) {
-    L.marker(last, { icon: L.divIcon({ className: 'map-step-icon', html: '<span class="map-flag">🏁</span>', iconSize: [28, 28], iconAnchor: [6, 26] }) })
+    L.marker(last, { icon: L.divIcon({ className: 'map-step-icon', html: `<span class="map-flag">${ICONS.finish}</span>`, iconSize: [28, 28], iconAnchor: [6, 26] }) })
       .bindPopup(escapeHtml(opts.toName || 'Destination')).addTo(routeMapLayer);
     if (!roundTrip) {
       const html = `<span class="map-tag map-end"><b>Finish</b> ${escapeHtml(shortName(opts.toName, 24))}</span>`;
@@ -571,7 +571,7 @@ function mapButton(map, position, className, html, title, onClick) {
 
 function addMapControls(map, turn) {
   mapButton(map, 'topleft', 'map-full-btn', '⛶', 'Full screen', btn => toggleMapFull(btn));
-  mapButton(map, 'topright', 'map-gps-btn', '📍', 'Show my location', btn => toggleMapGps(map, btn));
+  mapButton(map, 'topright', 'map-gps-btn', ICONS.gps, 'Show my location', btn => toggleMapGps(map, btn));
   // The compass: its needle points north. Tap for north up, or back.
   const deg = -turn * 180 / Math.PI;
   mapButton(map, 'topright', 'map-compass-btn',
@@ -750,7 +750,7 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
   if (kind !== 'lifts') {
     areaPlaces(kind).forEach(place => {
       if (place.lat == null || !placeStation(place)) return;
-      const icon = `<span class="map-tag map-lunch pick-place">${PLACE_ICONS[place.kind] || '📍'}</span>`;
+      const icon = `<span class="map-tag map-lunch pick-place">${PLACE_ICONS[place.kind] || ICONS.start}</span>`;
       const marker = labelMarker([place.lat, place.lon], icon, true).addTo(pickerLayer);
       marker.bindTooltip(escapeHtml(place.name), { direction: 'top', offset: [0, -14] });
       marker.on('click', () => onPlace(place));

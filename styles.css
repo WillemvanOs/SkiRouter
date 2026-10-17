@@ -2452,3 +2452,33 @@ body.map-full {
   cursor: pointer;
 }
 
+/* ── One icon set (icons.js) ─────────────────────────────── */
+
+/* Lifts and connections take the colour of their tile */
+.ico-gondola, .ico-mixed_lift, .ico-cable_car, .ico-funicular { color: #1a7a3c; }
+.ico-chair_lift, .ico-draglift, .ico-oefenlift { color: #6a3d8f; }
+.ico-transfer { color: #6a7d92; }
+.ico-bus, .ico-walk { color: #2e7d32; }
+.ico-gps { color: #d63b2f; }
+
+/* Places and waypoints have a colour of their own */
+.icon-restaurant { color: #b5651d; }
+.icon-viewpoint  { color: #2f80ed; }
+.icon-snowpark   { color: #7d5ba6; }
+.icon-town, .icon-hamlet { color: #2c3e50; }
+.icon-peak       { color: #5a4632; }
+.icon-start      { color: #27ae60; }
+.icon-finish     { color: #1d1d1f; }
+
+.step-icon svg { width: 24px; height: 24px; }
+.step-lift .step-icon svg { width: 28px; height: 28px; }
+
+/* A piste without a number: the skier in white on its sign */
+.piste-sign svg { width: 26px; height: 26px; color: #fff; }
+.piste-sign .icon-skier { color: #fff; }
+
+/* On the map: small in their round tags */
+.map-tag svg { width: 16px; height: 16px; }
+.map-flag svg { width: 26px; height: 26px; }
+.map-btn svg { width: 22px; height: 22px; }
+
