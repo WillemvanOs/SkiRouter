@@ -231,7 +231,9 @@ export function compileArea(input, meta = {}) {
   }
 
   // Walks between stations a little further apart on the same level, e.g.
-  // two valley stations in one village.
+  // two valley stations in one village. Only where skiing does not already
+  // get you there (see keepWalk): never to a top station (a lift or a piste
+  // goes there), and from a top only to a bottom no run from that top reaches.
   const lopen = [];
   for (let i = 0; i < stations.length; i++) {
     for (let j = i + 1; j < stations.length; j++) {
@@ -239,8 +241,11 @@ export function compileArea(input, meta = {}) {
       if (a.liftNr === b.liftNr || a.e == null || b.e == null || Math.abs(a.e - b.e) > WALK_ELE_M) continue;
       const d = dist(a, b);
       if (d > WALK_M || overstappen.some(([x, y]) => (x === a.id && y === b.id) || (x === b.id && y === a.id))) continue;
-      lopen.push({ van: a.id, naar: b.id, soort: 'lopen', tijd: Math.max(2, Math.round(d / WALK_M_PER_MIN)),
-        naam: 'Walk', info: `About ${Math.round(d / 10) * 10} m on foot.` });
+      const walk = { soort: 'lopen', tijd: Math.max(2, Math.round(d / WALK_M_PER_MIN)), naam: 'Walk', info: `About ${Math.round(d / 10) * 10} m on foot.` };
+      const there = keepWalk(a.id, b.id, descents), back = keepWalk(b.id, a.id, descents);
+      if (there && back) lopen.push({ van: a.id, naar: b.id, ...walk });
+      else if (there) lopen.push({ van: a.id, naar: b.id, ...walk, beideRichtingen: false });
+      else if (back) lopen.push({ van: b.id, naar: a.id, ...walk, beideRichtingen: false });
     }
   }
 
@@ -316,6 +321,19 @@ export function compileArea(input, meta = {}) {
 const FOOD_PISTE_M   = 80;  // this close to a run's course
 const HUT_PISTE_M    = 100; // a mountain hut may sit a little further off
 const FOOD_TOP_M     = 130; // …or this close to a top station
+// A walk from station `from` to station `to` (ids like "A1-onder") is only
+// worth having where skiing does not get you there: walking to a top station
+// never is (its lift, or a run past it, does), and from a top only to the
+// bottom of a lift that no run from that top leads to. Bottom to bottom
+// (valley stations in one village) always is. `descents` maps "A1>B2" to the
+// ways down from the top of A1 to the bottom of B2.
+export function keepWalk(from, to, descents) {
+  if (to.endsWith('-boven')) return false;
+  if (from.endsWith('-onder')) return true;
+  const fromNr = from.slice(0, -'-boven'.length), toNr = to.slice(0, -'-onder'.length);
+  return !descents.has(`${fromNr}>${toNr}`);
+}
+
 const FOOD_STATION_M = 130; // this close to a station: lunch is "at" that station
 
 export function foodKind(poi) {

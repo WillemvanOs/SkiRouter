@@ -584,7 +584,12 @@ function dayWalk(ctx, random, initialUsage) {
       if (edge.echteLift === false) weight *= 0.2;
       if (edge.liftNr && !move.piste) weight *= [1, 0.7, 0.35, 0.15][liftRides.get(edge.liftNr) || 0] ?? 0.08;
       if (edge.descent) weight *= 0.3;
-      if (isConnection(edge)) weight *= 0.3;
+      // A walk is a last resort: you came to ski. Never two in a row, and
+      // only when the lifts and runs here really do not suit.
+      if (edge.type === 'walk') {
+        if (isConnection(prevEdge || {}) || prevEdge?.type === 'transfer') return;
+        weight *= 0.02;
+      } else if (isConnection(edge)) weight *= 0.3;
       candidates.push({ edge, weight: weight ** 3 });
     });
     if (!candidates.length) break;

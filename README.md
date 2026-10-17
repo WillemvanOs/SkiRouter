@@ -266,6 +266,15 @@ Some lift stations are only linked through the valley, such as Hahnenkammbahn (A
 - When an area has a ski bus link, both planners show a **🚌 Ski bus** switch; switched off,
   routes and day plans use lifts and pistes only.
 
+Areas built from OpenSkiData get walks generated between stations up to 500 m apart on the same
+level, but only where skiing does not already get you there: between two bottom stations (valley
+stations in one village), and from a top station to the bottom of a lift that no run from that
+top reaches (one way). Never to a top station: its lift, or a run past it, gets you there. The
+app applies the same rule when it loads an area, also to data built before it. The day planner
+treats a walk as a last resort: it hardly ever picks one while lifts and runs are on offer, and
+never two in a row (on the way back to the end station a walk is still taken when it is the
+quickest).
+
 The OSM enrichment stores every station's coordinates (`coordOnder` / `coordBoven`) and the
 nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
 

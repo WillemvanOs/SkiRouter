@@ -135,8 +135,15 @@ function buildFromSkimapData(area) {
 
   // verbindingen: a ski bus or a walk between two stations that no lift or
   // piste links (e.g. Hahnenkammbahn ↔ Hornbahn through Kitzbühel).
+  // Areas built from the run network (afdalingen) keep a walk only where
+  // skiing does not get you there, the same rule as tools/lib/compile-area.mjs
+  // (keepWalk), also for data built before that rule.
+  const descents = Array.isArray(area.afdalingen) ? new Set(area.afdalingen.map(d => `${d.van}>${d.naar}`)) : null;
+  const keepWalk = (from, to) => !descents || (!to.endsWith('-boven')
+    && (from.endsWith('-onder') || !descents.has(`${from.slice(0, -'-boven'.length)}>${to.slice(0, -'-onder'.length)}`)));
   (area.verbindingen || []).forEach(v => {
     if (!stations[v.van] || !stations[v.naar]) return;
+    const walk = v.soort === 'lopen';
     const edge = {
       type: v.soort === 'lopen' ? 'walk' : 'bus',
       name: v.naam || (v.soort === 'lopen' ? 'Walk' : 'Ski bus'),
@@ -145,8 +152,8 @@ function buildFromSkimapData(area) {
     };
     // The nearest bus stop of a bottom station, from the OSM enrichment.
     const stopAt = id => id.endsWith('-onder') ? liftByNr.get(id.slice(0, -'-onder'.length))?.bushalte?.naam : undefined;
-    addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
-    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
+    if (!walk || keepWalk(v.van, v.naar)) addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
+    if (v.beideRichtingen !== false && (!walk || keepWalk(v.naar, v.van))) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
   });
 
   // aansluitendeLiften: reachable from the top of this lift without a
