@@ -1415,24 +1415,53 @@ function showRouteView(view, planner = 'quick') {
 // the progress), whatever the size of the phone: the bar goes to the top
 // of the screen and the map takes the rest, so neither scrolls away.
 const MAP_GAP_PX = 12; // the sticky bar's margin below it, and room at the bottom
-function fitRouteMap(planner) {
-  const el = document.getElementById(MAP_PARTS[planner].el);
+const MAP_SETTLE_MS = [60, 250, 600]; // put the page right again after these
+let mapScrollTarget = null;           // where the page should stay, until you scroll
+
+function routeMapTop(el) {
   const sticky = el.closest('.result')?.querySelector('.result-sticky');
-  if (!sticky || el.classList.contains('is-full')) return;
-  const height = Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - 2 * MAP_GAP_PX));
-  el.style.setProperty('--map-h', `${height}px`);
-  const top = el.getBoundingClientRect().top + window.scrollY - sticky.offsetHeight - MAP_GAP_PX;
-  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  return Math.max(0, el.getBoundingClientRect().top + window.scrollY - (sticky?.offsetHeight || 0) - MAP_GAP_PX);
 }
 
-// A turned phone or a resized window: the map keeps filling the screen.
+function sizeRouteMap(el) {
+  const sticky = el.closest('.result')?.querySelector('.result-sticky');
+  if (!sticky || el.classList.contains('is-full')) return false;
+  el.style.setProperty('--map-h', `${Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - 2 * MAP_GAP_PX))}px`);
+  return true;
+}
+
+function fitRouteMap(planner) {
+  const el = document.getElementById(MAP_PARTS[planner].el);
+  if (!sizeRouteMap(el)) return;
+  // A smooth scroll still running (after ticking a step, or after
+  // planning) would carry on to a spot in the hidden list and leave the
+  // page at its bottom: stop it, go to the map, and check again shortly.
+  window.scrollTo({ top: window.scrollY, behavior: 'instant' });
+  mapScrollTarget = routeMapTop(el);
+  window.scrollTo({ top: mapScrollTarget, behavior: 'instant' });
+  MAP_SETTLE_MS.forEach(ms => setTimeout(() => {
+    if (mapScrollTarget == null || routeViews[planner] !== 'map') return;
+    mapScrollTarget = routeMapTop(el);
+    if (Math.abs(window.scrollY - mapScrollTarget) > 2) window.scrollTo({ top: mapScrollTarget, behavior: 'instant' });
+  }, ms));
+}
+
+// Your own scrolling wins: stop putting the page back.
+['touchstart', 'wheel', 'keydown'].forEach(type => window.addEventListener(type, () => { mapScrollTarget = null; }, { passive: true }));
+
+// Safari's toolbar folding in or out changes the height: the map follows,
+// the page stays where it is. Turning the phone fits it all again.
 let mapFitTimer = null;
+let mapFitWidth = window.innerWidth;
 window.addEventListener('resize', () => {
   clearTimeout(mapFitTimer);
   mapFitTimer = setTimeout(() => {
+    const turned = window.innerWidth !== mapFitWidth;
+    mapFitWidth = window.innerWidth;
     const planner = ['quick', 'day'].find(p => routeViews[p] === 'map' && document.getElementById(MAP_PARTS[p].el).offsetParent);
     if (!planner) return;
-    fitRouteMap(planner);
+    if (turned) fitRouteMap(planner);
+    else sizeRouteMap(document.getElementById(MAP_PARTS[planner].el));
     routeMap?.invalidateSize();
   }, 200);
 });
@@ -1444,7 +1473,9 @@ function showCurrentStep(planner) {
   const steps = document.getElementById(MAP_PARTS[planner].steps);
   steps.classList.add('no-entry'); // shown again: no fade-in a second time
   const step = steps.querySelector('.checkable.next') || [...steps.querySelectorAll('.checkable')].pop();
-  if (step) step.scrollIntoView({ behavior: 'auto', block: 'center' });
+  mapScrollTarget = null;
+  window.scrollTo({ top: window.scrollY, behavior: 'instant' }); // stop any scroll still running
+  if (step) step.scrollIntoView({ behavior: 'instant', block: 'center' });
 }
 
 function drawPlannerMap(planner) {
