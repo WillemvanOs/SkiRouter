@@ -1286,8 +1286,8 @@ function planRoute(options = {}) {
 
   const result = dijkstra(selected.from.id, selected.to.id);
   if (!result || !result.path.length) {
-    errorEl.textContent = avoidedLifts.size
-      ? `No route without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
+    errorEl.textContent = avoidedLifts.size || avoidedPistes.size
+      ? 'No route without the lifts and pistes you avoid. Remove one from the list.'
       : busAllowed('pref-bus')
         ? 'No route found between these two stations.'
         : 'No route without the ski bus. Switch the ski bus on in ⚙ Preferences.';
@@ -1510,6 +1510,9 @@ function stepElement(edge, index, clock, next) {
     `;
   }
   if (clockHtml) div.querySelector('.step-info').insertAdjacentHTML('afterbegin', clockHtml);
+  // What the step menu (swipe left or hold) can avoid.
+  if (edge.type === 'piste') div.dataset.pistes = JSON.stringify(edge.trajecten ? edge.trajecten.map(t => t.pisteNr) : [edge.pisteNr]);
+  else if (edge.liftNr && !isConnection(edge) && edge.type !== 'transfer') div.dataset.lift = edge.liftNr;
   return div;
 }
 
@@ -1550,7 +1553,9 @@ function getTip() {
 // shows as chips in the planner cards; ✕ takes a lift off it.
 
 const AVOID_KEY_PREFIX = 'skiplanner:avoid:';
+const AVOID_PISTE_KEY_PREFIX = 'skiplanner:avoidpiste:';
 let avoidedLifts = new Set();
+let avoidedPistes = new Set(); // piste numbers (pisteNr), per area like the lifts
 
 function avoidKey() {
   return AVOID_KEY_PREFIX + (currentArea?.id || '');
@@ -1558,16 +1563,28 @@ function avoidKey() {
 
 function loadAvoided() {
   try { avoidedLifts = new Set(JSON.parse(localStorage.getItem(avoidKey())) || []); } catch { avoidedLifts = new Set(); }
+  try { avoidedPistes = new Set(JSON.parse(localStorage.getItem(AVOID_PISTE_KEY_PREFIX + (currentArea?.id || ''))) || []); } catch { avoidedPistes = new Set(); }
   renderAvoided();
 }
 
 function saveAvoided() {
   try { localStorage.setItem(avoidKey(), JSON.stringify([...avoidedLifts])); } catch {}
+  try { localStorage.setItem(AVOID_PISTE_KEY_PREFIX + (currentArea?.id || ''), JSON.stringify([...avoidedPistes])); } catch {}
 }
 
-// A lift ride (up, or down in a gondola) on the avoid list.
+// A lift ride (up, or down in a gondola) on the avoid list, or a run over a
+// piste on it (a descent through several pistes: any of them).
 function isAvoided(edge) {
-  return !!edge.liftNr && edge.type !== 'piste' && !isConnection(edge) && avoidedLifts.has(edge.liftNr);
+  if (edge.type === 'piste') {
+    return avoidedPistes.size > 0 && (edge.trajecten ? edge.trajecten.some(t => avoidedPistes.has(t.pisteNr)) : avoidedPistes.has(edge.pisteNr));
+  }
+  return !!edge.liftNr && !isConnection(edge) && avoidedLifts.has(edge.liftNr);
+}
+
+// "24 Jufen", or just the name for a run without a number of its own.
+function pisteTitle(nr) {
+  const piste = (currentArea?.pistes || []).find(p => p.pisteNr === nr);
+  return hasOwnNumber(nr) ? [nr, piste?.naam].filter(Boolean).join(' ') : piste?.naam || nr;
 }
 
 function avoidClosedButton(closed) {
@@ -1576,19 +1593,22 @@ function avoidClosedButton(closed) {
 
 function renderAvoided() {
   const nrs = [...avoidedLifts].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const pistes = [...avoidedPistes].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const any = nrs.length + pistes.length;
   ['q-avoid', 'day-avoid', 'pref-avoid'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    el.style.display = nrs.length ? 'flex' : 'none';
-    el.innerHTML = nrs.length
+    el.style.display = any ? 'flex' : 'none';
+    el.innerHTML = any
       ? '<span class="avoid-label">🚫 Avoiding</span>' + nrs.map(nr => {
           const lift = LIFTS.find(l => l.nr === nr);
-          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${nr}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${[liftCode(nr), lift?.name].filter(Boolean).join(' ')} ✕</button>`;
-        }).join('')
+          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${escapeHtml(nr)}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${escapeHtml([liftCode(nr), lift?.name].filter(Boolean).join(' '))} ✕</button>`;
+        }).join('') + pistes.map((nr, i) => `<button class="avoid-chip avoid-chip-piste" type="button" data-unavoid-piste="${i}" aria-label="Stop avoiding piste ${escapeHtml(pisteTitle(nr))}">⛷ ${escapeHtml(pisteTitle(nr))} ✕</button>`).join('')
       : '';
+    el.querySelectorAll('[data-unavoid-piste]').forEach(btn => btn.addEventListener('click', () => unavoidPiste(pistes[+btn.dataset.unavoidPiste])));
   });
   const prefList = document.getElementById('pref-avoid');
-  if (prefList && !nrs.length) {
+  if (prefList && !any) {
     prefList.style.display = 'block';
     prefList.innerHTML = '<span class="setting-hint">None</span>';
   }
@@ -1600,10 +1620,17 @@ function unavoidLift(nr) {
   renderAvoided();
 }
 
+function unavoidPiste(nr) {
+  avoidedPistes.delete(nr);
+  saveAvoided();
+  renderAvoided();
+}
+
 // Add lifts to the list and plan the route again without them. A day being
 // followed is replanned from the next step; otherwise the whole day.
-function avoidLifts(nrs, planner) {
+function avoidLifts(nrs, planner, pisteNrs = []) {
   nrs.filter(Boolean).forEach(nr => avoidedLifts.add(nr));
+  pisteNrs.filter(Boolean).forEach(nr => avoidedPistes.add(nr));
   saveAvoided();
   renderAvoided();
   if (planner === 'day') {
@@ -1625,6 +1652,129 @@ function avoidLifts(nrs, planner) {
     event.stopPropagation();
     event.preventDefault();
     avoidLifts(btn.dataset.avoid.split(','), planner);
+  }, true);
+});
+
+// ── Step menu: swipe a step left, or hold it ─────────────────────────────────
+//
+// Replan from here (day plan), Avoid this lift, Avoid this piste. A tap
+// still ticks the step; scrolling up and down is left to the browser
+// (touch-action: pan-y on the steps).
+
+const STEP_HOLD_MS  = 500; // held this long: the menu
+const STEP_SWIPE_PX = 70;  // swiped this far left: the menu
+const STEP_MENU_GUARD_MS = 450; // the click from lifting the finger lands here: ignore it
+let stepGesture = null;
+let stepMenuOpenedAt = 0;
+let stepClickSuppressed = false;
+
+function stepMenuOptions(step, planner) {
+  const options = [];
+  const items = planner === 'day' ? dayTracker?.items : null;
+  const index = items ? items.indexOf(step) : -1;
+  if (index >= 0) options.push({ label: '↻ Replan from here', run: () => { dayTracker.setDone(index); replanFromHere(); } });
+  const lift = step.dataset.lift && LIFTS.find(l => l.nr === step.dataset.lift);
+  if (step.dataset.lift) {
+    options.push({ label: `⊘ Avoid lift ${[liftCode(step.dataset.lift), lift?.name].filter(Boolean).join(' ')}`, run: () => avoidLifts([step.dataset.lift], planner) });
+  }
+  if (step.dataset.pistes) {
+    const nrs = JSON.parse(step.dataset.pistes).filter(Boolean);
+    if (nrs.length) options.push({ label: `⊘ Avoid piste ${nrs.map(pisteTitle).join(', ')}`, run: () => avoidLifts([], planner, nrs) });
+  }
+  return options;
+}
+
+function openStepMenu(step, planner) {
+  const options = stepMenuOptions(step, planner);
+  if (!options.length) return;
+  let menu = document.getElementById('step-menu');
+  if (!menu) {
+    menu = document.createElement('div');
+    menu.id = 'step-menu';
+    menu.className = 'step-menu';
+    // Capture: the click from lifting the finger off the held step lands on
+    // the menu that just opened; it must not close it or pick an option.
+    menu.addEventListener('click', event => {
+      if (Date.now() - stepMenuOpenedAt < STEP_MENU_GUARD_MS) { event.stopPropagation(); event.preventDefault(); return; }
+      if (event.target === menu) closeStepMenu();
+    }, true);
+    document.body.appendChild(menu);
+  }
+  const title = step.querySelector('.step-title')?.textContent || step.querySelector('.step-name')?.textContent || '';
+  menu.innerHTML = `<div class="step-menu-panel" role="menu">
+    <div class="step-menu-title">${escapeHtml(title.replace(/\s+/g, ' ').trim())}</div>
+    ${options.map((o, i) => `<button type="button" class="step-menu-btn" role="menuitem" data-option="${i}">${escapeHtml(o.label)}</button>`).join('')}
+    <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button>
+  </div>`;
+  menu.querySelectorAll('[data-option]').forEach(btn => btn.addEventListener('click', () => {
+    closeStepMenu();
+    options[+btn.dataset.option].run();
+  }));
+  menu.querySelector('.step-menu-cancel').addEventListener('click', closeStepMenu);
+  stepMenuOpenedAt = Date.now();
+  menu.classList.add('open');
+}
+
+function closeStepMenu() {
+  document.getElementById('step-menu')?.classList.remove('open');
+}
+
+// After a hold or a swipe, the click that follows must not tick the step.
+function suppressStepClick() {
+  stepClickSuppressed = true;
+  setTimeout(() => { stepClickSuppressed = false; }, 500);
+}
+
+[['result', 'quick'], ['day-result', 'day']].forEach(([id, planner]) => {
+  const card = document.getElementById(id);
+  const end = () => {
+    if (!stepGesture) return;
+    const { step, dx, swiping, timer } = stepGesture;
+    clearTimeout(timer);
+    stepGesture = null;
+    if (!swiping) return;
+    step.classList.remove('swiping');
+    step.style.transform = '';
+    suppressStepClick();
+    if (dx <= -STEP_SWIPE_PX) openStepMenu(step, planner);
+  };
+  card.addEventListener('pointerdown', event => {
+    const step = event.target.closest('.checkable');
+    if (!step || event.target.closest('button:not(.step-check)') || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    const gesture = { step, x: event.clientX, y: event.clientY, dx: 0, swiping: false };
+    gesture.timer = setTimeout(() => {
+      if (stepGesture !== gesture || gesture.swiping) return;
+      stepGesture = null;
+      navigator.vibrate?.(15);
+      suppressStepClick();
+      openStepMenu(step, planner);
+    }, STEP_HOLD_MS);
+    stepGesture = gesture;
+  });
+  card.addEventListener('pointermove', event => {
+    const g = stepGesture;
+    if (!g) return;
+    const dx = event.clientX - g.x, dy = event.clientY - g.y;
+    if (!g.swiping && Math.hypot(dx, dy) > 10) {
+      clearTimeout(g.timer);
+      if (dx < 0 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        g.swiping = true;
+        g.step.classList.add('swiping');
+      } else { stepGesture = null; return; } // scrolling
+    }
+    if (g.swiping) {
+      g.dx = Math.min(0, dx);
+      g.step.style.transform = `translateX(${Math.max(g.dx, -120)}px)`;
+    }
+  });
+  card.addEventListener('pointerup', end);
+  card.addEventListener('pointercancel', end);
+  card.addEventListener('contextmenu', event => { if (event.target.closest('.checkable')) event.preventDefault(); });
+  card.addEventListener('click', event => {
+    if (!stepClickSuppressed || !event.target.closest('.checkable')) return;
+    event.stopPropagation();
+    event.preventDefault();
+    stepClickSuppressed = false;
   }, true);
 });
 
@@ -2130,7 +2280,11 @@ function makeCheckable(container, kind, signature, onChange, extra = {}) {
   });
 
   apply(false);
-  return { get done() { return done; }, items, refresh: () => apply(false) };
+  return {
+    get done() { return done; }, items, refresh: () => apply(false),
+    // Everything before step `n` done (the step menu's Replan from here).
+    setDone(n) { done = Math.max(0, Math.min(n, items.length)); apply(true); },
+  };
 }
 
 function renderProgress(id, done, total, text, extraHtml = '') {

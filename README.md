@@ -329,13 +329,19 @@ The parsers are in `tools/lib/liftstatus-providers.mjs`.
   everything works as for KitzSki: status in the station picker, warnings, avoiding and the day planner's lift
   hours.
 
-## Avoiding lifts
+## Avoiding lifts and pistes
 
 Any lift can be skipped by hand, open or closed: **⊘ Avoid** on a lift step adds it to a list
 (per ski area, kept on the phone) and plans the route again without it; a day being followed is
 replanned from the next step. The closed-lifts warning has **Avoid these** for all closed lifts on
-the route at once. Avoided lifts show as chips in both planners; ✕ takes one off the list. If no
-route is left, the message names the avoided lifts.
+the route at once. Avoided lifts and pistes show as chips in both planners; ✕ takes one off the
+list. If no route is left, the message says so.
+
+**Swipe a step left, or hold it**, for a short menu: **↻ Replan from here** (day plan: the
+steps before it count as done and the rest of the day is planned again from there),
+**⊘ Avoid lift** on a lift step and **⊘ Avoid piste** on a piste step (a descent through
+several pistes avoids all of them). Avoided pistes are kept per area next to the lifts
+(`skiplanner:avoidpiste:<area>`). A tap still ticks a step; scrolling up and down is untouched.
 
 ## Preferences
 

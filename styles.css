@@ -2636,3 +2636,77 @@ body.map-full {
 .map-flag svg { width: 26px; height: 26px; }
 .map-btn svg { width: 22px; height: 22px; }
 
+
+/* ── Step menu (swipe a step left, or hold it) ───────────── */
+
+.steps .checkable {
+  touch-action: pan-y; /* up and down scrolls; sideways is the swipe */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.steps .checkable.swiping {
+  transition: none;
+  box-shadow: 8px 0 0 -2px #c0392b;
+}
+
+.steps .checkable:not(.swiping) {
+  transition: transform 0.2s;
+}
+
+.step-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(13, 27, 42, 0.45);
+}
+
+.step-menu.open {
+  display: flex;
+}
+
+.step-menu-panel {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.step-menu-title {
+  padding: 0 4px 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6a7d92;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.step-menu-btn {
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  background: var(--snow);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--alpine);
+  text-align: left;
+  cursor: pointer;
+}
+
+.step-menu-btn.step-menu-cancel {
+  text-align: center;
+  background: #fff;
+  color: #6a7d92;
+}

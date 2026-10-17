@@ -1065,8 +1065,8 @@ function planDay(options = {}) {
   const home = costsToEnd(end.id, pace);
   if (home.dist[start.id] == null) {
     return fail(dayBus
-      ? (avoidedLifts.size
-        ? `The end station cannot be reached without the lifts you avoid (${[...avoidedLifts].join(', ')}). Remove one from the list.`
+      ? (avoidedLifts.size || avoidedPistes.size
+        ? `The end station cannot be reached without the lifts and pistes you avoid. Remove one from the list.`
         : 'The end station cannot be reached from the start.')
       : 'The end station cannot be reached without the ski bus. Switch the ski bus on in ⚙ Preferences.');
   }
@@ -1087,6 +1087,7 @@ function planDay(options = {}) {
     ...(dayDrag ? [] : ['no-drag']),
     ...dayStops.map(s => s.id),
     ...[...avoidedLifts].sort(),
+    ...[...avoidedPistes].sort().map(nr => `piste:${nr}`),
   ])));
 
   if (dayStops.some(s => s.kind !== 'lunch')) {
@@ -1241,12 +1242,6 @@ function renderDayOption(index) {
 
   const endStation = STATIONS[ctx.endId];
   addWaypoint(stepsEl, escapeHtml(ctx.endName || endStation.name), endStation.alt, ICONS.finish, `Back · ${formatClock(walk.end)}`, Math.min(number, 30) * 30);
-
-  document.getElementById('day-tip').innerHTML =
-    `💡 <strong>Guideline times:</strong> ${pace.label.toLowerCase()} pace — about ${pace.wait} min queueing per lift, ` +
-    `piste times ×${pace.piste}. Short breaks are not included; check the last lift times locally. ` +
-    `Restaurants come from OpenStreetMap and may be missing or closed.` +
-    (LIFT_STATUS ? ` Lift hours ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}.` : '');
 
   const signature = [ctx.startId, ctx.t0, ...walk.steps.map(s => s.stop ? `S:${s.stop.id}` : s.lunch ? `L:${s.lunch.id}` : s.edge.liftNr || s.edge.pisteNr || s.edge.type), ctx.endId].join('>');
   dayTracker = makeCheckable(stepsEl, 'day', signature, dayStatus, { option: index });
