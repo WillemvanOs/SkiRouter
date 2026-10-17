@@ -1402,12 +1402,40 @@ function showRouteView(view, planner = 'quick') {
   });
   document.getElementById(ids.steps).style.display = view === 'map' ? 'none' : '';
   document.getElementById(ids.el).style.display = view === 'map' ? 'block' : 'none';
-  if (view === 'map') drawPlannerMap(planner);
-  else {
+  if (view === 'map') {
+    fitRouteMap(planner);
+    drawPlannerMap(planner);
+  } else {
     leaveRouteMap();
     showCurrentStep(planner);
   }
 }
+
+// The map fills the screen below the sticky bar (Settings, List | Map and
+// the progress), whatever the size of the phone: the bar goes to the top
+// of the screen and the map takes the rest, so neither scrolls away.
+const MAP_GAP_PX = 12; // the sticky bar's margin below it, and room at the bottom
+function fitRouteMap(planner) {
+  const el = document.getElementById(MAP_PARTS[planner].el);
+  const sticky = el.closest('.result')?.querySelector('.result-sticky');
+  if (!sticky || el.classList.contains('is-full')) return;
+  const height = Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - 2 * MAP_GAP_PX));
+  el.style.setProperty('--map-h', `${height}px`);
+  const top = el.getBoundingClientRect().top + window.scrollY - sticky.offsetHeight - MAP_GAP_PX;
+  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+}
+
+// A turned phone or a resized window: the map keeps filling the screen.
+let mapFitTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(mapFitTimer);
+  mapFitTimer = setTimeout(() => {
+    const planner = ['quick', 'day'].find(p => routeViews[p] === 'map' && document.getElementById(MAP_PARTS[p].el).offsetParent);
+    if (!planner) return;
+    fitRouteMap(planner);
+    routeMap?.invalidateSize();
+  }, 200);
+});
 
 // Back in the list: the step you are at in the middle of the screen, the
 // steps just done above it, as after ticking one (makeCheckable's
