@@ -135,8 +135,15 @@ function buildFromSkimapData(area) {
 
   // verbindingen: a ski bus or a walk between two stations that no lift or
   // piste links (e.g. Hahnenkammbahn ↔ Hornbahn through Kitzbühel).
+  // Areas built from the run network (afdalingen) keep a walk only where
+  // skiing does not get you there, the same rule as tools/lib/compile-area.mjs
+  // (keepWalk), also for data built before that rule.
+  const descents = Array.isArray(area.afdalingen) ? new Set(area.afdalingen.map(d => `${d.van}>${d.naar}`)) : null;
+  const keepWalk = (from, to) => !descents || (!to.endsWith('-boven')
+    && (from.endsWith('-onder') || !descents.has(`${from.slice(0, -'-boven'.length)}>${to.slice(0, -'-onder'.length)}`)));
   (area.verbindingen || []).forEach(v => {
     if (!stations[v.van] || !stations[v.naar]) return;
+    const walk = v.soort === 'lopen';
     const edge = {
       type: v.soort === 'lopen' ? 'walk' : 'bus',
       name: v.naam || (v.soort === 'lopen' ? 'Walk' : 'Ski bus'),
@@ -145,8 +152,8 @@ function buildFromSkimapData(area) {
     };
     // The nearest bus stop of a bottom station, from the OSM enrichment.
     const stopAt = id => id.endsWith('-onder') ? liftByNr.get(id.slice(0, -'-onder'.length))?.bushalte?.naam : undefined;
-    addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
-    if (v.beideRichtingen !== false) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
+    if (!walk || keepWalk(v.van, v.naar)) addEdge({ ...edge, from: v.van, to: v.naar, stopFrom: stopAt(v.van), stopTo: stopAt(v.naar) });
+    if (v.beideRichtingen !== false && (!walk || keepWalk(v.naar, v.van))) addEdge({ ...edge, from: v.naar, to: v.van, stopFrom: stopAt(v.naar), stopTo: stopAt(v.van) });
   });
 
   // aansluitendeLiften: reachable from the top of this lift without a
@@ -1358,6 +1365,7 @@ function renderRoute(result) {
     div.style.animationDelay = `${(index + 1) * 50}ms`;
     div.classList.add('checkable');
     div.dataset.min = edge.tijd || 0;
+    div.dataset.km  = edge.type === 'piste' ? edge.km || 0 : 0;
     stepsEl.appendChild(div);
 
     // The chosen destination, also when a short walk from the last step leads there.
@@ -1438,10 +1446,10 @@ function quickStatus(done, items) {
   quickDone = done;
   if (routeViews.quick === 'map') updateRouteMapProgress(done, 'quick');
   const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
-  let text;
-  if (done === 0)                 text = 'Tap a step once you have done it.';
-  else if (done === items.length) text = '🏁 Destination reached!';
-  else                            text = `${done} of ${items.length} steps done · ~${left} min to go`;
+  const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
+  // Always: steps done, and the km and time still to go.
+  const text = done === items.length ? '🏁 Destination reached!'
+    : `${done} of ${items.length} steps · ${km.toFixed(1)} km · ~${left} min to go`;
   renderProgress('p-progress', done, items.length, text);
 }
 

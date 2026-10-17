@@ -1669,16 +1669,21 @@ select.day-input {
   margin-bottom: 8px;
 }
 
-/* The route's key facts and the way back to the planner stay in view while
-   scrolling through a long route (within the result card only). */
+/* The way back to the planner, list or map, and how far along you are stay
+   in view while scrolling through a long route (within the result card
+   only); the route's key facts above them scroll away. */
+.result-pills {
+  margin-bottom: 12px;
+}
+
 .result-sticky {
   position: sticky;
   top: 0;
   z-index: 20;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 8px;
-  flex-wrap: wrap;
   margin: 0 -20px 12px;
   padding: 10px 20px;
   background: #fff;
@@ -1686,9 +1691,32 @@ select.day-input {
   box-shadow: 0 4px 10px -8px rgba(30, 75, 122, 0.35);
 }
 
-.result-sticky .pills {
+.sticky-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-sticky .view-toggle {
   flex: 1;
-  justify-content: flex-end;
+  margin: 0;
+}
+
+.result-sticky .progress {
+  margin-bottom: 0;
+}
+
+.result-sticky .progress-row {
+  margin-top: 5px;
+}
+
+.result-sticky .progress-text {
+  font-size: 0.76rem;
+}
+
+.result-sticky .replan-btn {
+  padding: 4px 10px;
+  font-size: 0.75rem;
 }
 
 .back-btn {

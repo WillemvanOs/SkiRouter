@@ -209,23 +209,27 @@
   <!-- Route result card -->
   <div class="card result" id="result">
     <div class="card-title result-title">📍 Your Route</div>
-    <!-- Stays at the top of the screen while scrolling through the route -->
-    <div class="result-sticky">
-      <button class="back-btn" type="button" onclick="backToPlanner('quick-card')">↑ Settings</button>
-      <div class="pills">
-        <span class="pill" id="p-steps">—</span>
-        <span class="pill" id="p-km">—</span>
-        <span class="pill" id="p-time">—</span>
-      </div>
+    <div class="pills result-pills">
+      <span class="pill" id="p-steps">—</span>
+      <span class="pill" id="p-km">—</span>
+      <span class="pill" id="p-time">—</span>
     </div>
 
-    <div class="view-toggle" role="group" aria-label="Show the route as">
-      <button type="button" class="view-btn active" id="q-view-list" aria-pressed="true" onclick="showRouteView('list')">☰ List</button>
-      <button type="button" class="view-btn" id="q-view-map" aria-pressed="false" onclick="showRouteView('map')">🗺 Map</button>
+    <!-- Stays at the top of the screen while scrolling through the route:
+         back to the settings, list or map, and how far along you are -->
+    <div class="result-sticky">
+      <div class="sticky-row">
+        <button class="back-btn" type="button" onclick="backToPlanner('quick-card')">↑ Settings</button>
+        <div class="view-toggle" role="group" aria-label="Show the route as">
+          <button type="button" class="view-btn active" id="q-view-list" aria-pressed="true" onclick="showRouteView('list')">☰ List</button>
+          <button type="button" class="view-btn" id="q-view-map" aria-pressed="false" onclick="showRouteView('map')">🗺 Map</button>
+        </div>
+      </div>
+      <div class="progress" id="p-progress"></div>
     </div>
+
     <div class="route-map" id="q-map" style="display:none"></div>
     <div id="q-closed"></div>
-    <div class="progress" id="p-progress"></div>
     <div class="steps" id="steps"></div>
 
     <div class="tip" id="tip"></div>
@@ -351,26 +355,31 @@
   <!-- Day plan result card -->
   <div class="card result" id="day-result">
     <div class="card-title result-title">📅 Your Day</div>
-    <!-- Stays at the top of the screen while scrolling through the day -->
-    <div class="result-sticky">
-      <button class="back-btn" type="button" onclick="backToPlanner('day-card')">↑ Settings</button>
-      <div class="pills">
-        <span class="pill" id="dp-km">—</span>
-        <span class="pill" id="dp-pistes">—</span>
-        <span class="pill" id="dp-lifts">—</span>
-        <span class="pill" id="dp-end">—</span>
-      </div>
-      <button class="late-btn" id="dp-late" type="button" style="display:none" onclick="replanFromHere()"></button>
+    <div class="pills result-pills">
+      <span class="pill" id="dp-km">—</span>
+      <span class="pill" id="dp-pistes">—</span>
+      <span class="pill" id="dp-lifts">—</span>
+      <span class="pill" id="dp-end">—</span>
     </div>
 
     <div class="day-options" id="day-options"></div>
     <div class="day-notes" id="day-notes"></div>
-    <div class="view-toggle" role="group" aria-label="Show the day as">
-      <button type="button" class="view-btn active" id="d-view-list" aria-pressed="true" onclick="showRouteView('list', 'day')">☰ List</button>
-      <button type="button" class="view-btn" id="d-view-map" aria-pressed="false" onclick="showRouteView('map', 'day')">🗺 Map</button>
+
+    <!-- Stays at the top of the screen while scrolling through the day:
+         back to the settings, list or map, and how far along you are -->
+    <div class="result-sticky">
+      <div class="sticky-row">
+        <button class="back-btn" type="button" onclick="backToPlanner('day-card')">↑ Settings</button>
+        <div class="view-toggle" role="group" aria-label="Show the day as">
+          <button type="button" class="view-btn active" id="d-view-list" aria-pressed="true" onclick="showRouteView('list', 'day')">☰ List</button>
+          <button type="button" class="view-btn" id="d-view-map" aria-pressed="false" onclick="showRouteView('map', 'day')">🗺 Map</button>
+        </div>
+      </div>
+      <button class="late-btn" id="dp-late" type="button" style="display:none" onclick="replanFromHere()"></button>
+      <div class="progress" id="dp-progress"></div>
     </div>
+
     <div class="route-map" id="d-map" style="display:none"></div>
-    <div class="progress" id="dp-progress"></div>
     <div class="steps" id="day-steps"></div>
 
     <div class="tip" id="day-tip"></div>

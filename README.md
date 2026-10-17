@@ -266,6 +266,15 @@ Some lift stations are only linked through the valley, such as Hahnenkammbahn (A
 - When an area has a ski bus link, both planners show a **🚌 Ski bus** switch; switched off,
   routes and day plans use lifts and pistes only.
 
+Areas built from OpenSkiData get walks generated between stations up to 500 m apart on the same
+level, but only where skiing does not already get you there: between two bottom stations (valley
+stations in one village), and from a top station to the bottom of a lift that no run from that
+top reaches (one way). Never to a top station: its lift, or a run past it, gets you there. The
+app applies the same rule when it loads an area, also to data built before it. The day planner
+treats a walk as a last resort: it hardly ever picks one while lifts and runs are on offer, and
+never two in a row (on the way back to the end station a walk is still taken when it is the
+quickest).
+
 The OSM enrichment stores every station's coordinates (`coordOnder` / `coordBoven`) and the
 nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
 
@@ -390,6 +399,10 @@ it, so you can catch up after forgetting. Tap a ticked step to untick it and eve
 it. The quick route shows how many minutes are left. The day plan compares the clock with the
 plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
 the rest of the day is planned again from the next step, from now, with the km still to go.
+While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
+**☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
+plan, ahead or behind, and **↻ Replan from here** until the day is done). The route's totals (km, pistes, lifts, back at) sit above it and
+scroll away.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.

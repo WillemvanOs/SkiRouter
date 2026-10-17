@@ -262,6 +262,12 @@ function formatClock(minutes) {
   return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
 
+// "45 min", "2 h 05".
+function formatDuration(minutes) {
+  const m = Math.round(minutes);
+  return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}`;
+}
+
 // Every plain "HH:MM-HH:MM" range in an OSM opening_hours value, in minutes.
 // Days of the week and seasons are ignored: this is a guideline.
 function clockRanges(openingstijden) {
@@ -578,7 +584,12 @@ function dayWalk(ctx, random, initialUsage) {
       if (edge.echteLift === false) weight *= 0.2;
       if (edge.liftNr && !move.piste) weight *= [1, 0.7, 0.35, 0.15][liftRides.get(edge.liftNr) || 0] ?? 0.08;
       if (edge.descent) weight *= 0.3;
-      if (isConnection(edge)) weight *= 0.3;
+      // A walk is a last resort: you came to ski. Never two in a row, and
+      // only when the lifts and runs here really do not suit.
+      if (edge.type === 'walk') {
+        if (isConnection(prevEdge || {}) || prevEdge?.type === 'transfer') return;
+        weight *= 0.02;
+      } else if (isConnection(edge)) weight *= 0.3;
       candidates.push({ edge, weight: weight ** 3 });
     });
     if (!candidates.length) break;
@@ -1331,19 +1342,25 @@ function dayStatus(done, items) {
   const late = backAt != null ? Math.round(backAt - dayCtx.t1) : 0;
   const isLate = late > DAY_LATE_WARN_MIN;
 
+  // Always: steps done, and the km and time still to go (as planned, plus
+  // any delay); then ahead or behind when the plan is being followed.
   let text;
   if (done === total) {
     text = '🏁 All done — what a day!';
-  } else if (delta == null) {
-    text = done === 0 ? 'Tap a step once you have done it to see if you are on time.' : `${done} of ${total} done`;
   } else {
-    const prefix = done ? `${done} of ${total} done · ` : '';
-    if (Math.abs(delta) <= DAY_ON_TIME_MIN) text = `${prefix}✅ on schedule`;
-    else if (delta > 0)                     text = `${prefix}⏱ ${delta} min behind`;
-    else                                    text = `${prefix}⚡ ${-delta} min ahead`;
+    const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
+    const minLeft = Math.max(0, Math.round(walk.end - +items[done].dataset.t + Math.max(0, delta || 0)));
+    text = `${done} of ${total} steps · ${km.toFixed(1)} km · ${formatDuration(minLeft)} to go`;
+    if (delta != null) {
+      if (Math.abs(delta) <= DAY_ON_TIME_MIN) text += ' · ✅ on schedule';
+      else if (delta > 0)                     text += ` · ⏱ ${delta} min behind`;
+      else                                    text += ` · ⚡ ${-delta} min ahead`;
+    }
   }
 
-  const replan = !isLate && done > 0 && done < total
+  // Always at hand while the day is not done (the red late bar is the same
+  // button when running late).
+  const replan = !isLate && done < total
     ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
     : '';
   renderProgress('dp-progress', done, total, text, replan);
