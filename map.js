@@ -25,7 +25,6 @@ const MAP_DONE_COLOUR = '#a3afbd';
 const MAP_LINK_COLOUR = '#6a7d92';
 const MAP_FOCUS_STEPS = 4;      // the step you are at and the next three
 const MAP_ARROW_EVERY_PX = 80;  // arrows along the route, this far apart on screen
-const MAP_NORTH_KEY = 'skirouter:mapNorthUp';
 
 let leafletLoading = null;
 let routeMap = null;       // the Leaflet map, kept while the page lives
@@ -65,8 +64,13 @@ const toLatLng = p => [p[0], p[1]];
 
 // ── Orientation ──────────────────────────────────────────────────────────────
 
+// Every map opens north up; the compass turns it like a piste map (valley
+// down) until the app is closed.
+let mapTurned = false;
+try { localStorage.removeItem('skirouter:mapNorthUp'); } catch {} // the old setting
+
 function mapNorthUp() {
-  try { return localStorage.getItem(MAP_NORTH_KEY) === '1'; } catch { return false; }
+  return !mapTurned;
 }
 
 // How far to turn the map so the mountain is up: lifts go uphill, so their
@@ -579,7 +583,7 @@ function addMapControls(map, turn) {
       `<span class="map-compass-n" style="left:${(50 + 36 * Math.sin(deg * Math.PI / 180)).toFixed(0)}%;top:${(50 - 36 * Math.cos(deg * Math.PI / 180)).toFixed(0)}%">N</span>`,
     mapNorthUp() ? 'North up: tap to turn the map like a piste map' : turn ? 'Turned like a piste map: tap for north up' : 'North up',
     () => {
-      try { localStorage.setItem(MAP_NORTH_KEY, mapNorthUp() ? '0' : '1'); } catch {}
+      mapTurned = !mapTurned;
       if (routeMapLast) renderRouteMap(routeMapLast.el, routeMapLast.path, routeMapDone, routeMapLast.opts);
     });
   mapButton(map, 'bottomleft', 'map-follow-btn', '', '', () => {

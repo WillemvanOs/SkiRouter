@@ -172,20 +172,21 @@ keeps its zoom and spot when you switch between Lifts, POI and Villages & peaks,
 same orientation in all three: the pistes, every lift with its code, and the names of villages and
 peaks (under their icon while those are what you pick). A chosen place
 shows its name with where it is underneath. Same plain
-map as the route map, turned like a piste map unless north up is on. Search works in the list only: typing goes back to it.
+map as the route map, north up unless the compass on a route map turned it. Search works in the list only: typing goes back to it.
 
 ### Stops and lunch in the day plan
 
-Under **📍 Stops & lunch** the day plan takes places to pass, in order: a lift to ride (its top
+Under **📍 Stops & lunch** the day plan takes places to pass: a lift to ride (its top
 station), or any place from the picker. **Lunch** is one of the stops, the only one with a time
 (and its length, and where: best fit or one restaurant); it is there by default in areas with
-mountain restaurants, and **+ Add lunch** brings it back. ↑ moves a stop earlier, ✕ removes it.
-The day is planned in legs, start → stop → … → end: each leg gets the quickest time between its
-ends plus a share of the time left (longer legs a bigger share), and the same share of the
-distance. Lunch goes in the leg where it is in the list: the time before it is shared out over
-the stops before it, the time after over the rest. When those stops do not fit around its time,
-lunch moves to the nearest place in the list where they do, and the plan says so. Its leg is
-planned like a lunch day of its own. Legs are
+mountain restaurants, and **+ Add lunch** brings it back. ✕ removes a stop. The order they were
+added in does not matter: the plan passes them in the order that is quickest to get past them
+all (every order is tried for up to seven stops; with more, the nearest next and then pairs
+swapped while it helps). The day is planned in legs, start → stop → … → end: each leg gets the
+quickest time between its ends plus a share of the time left (longer legs a bigger share), and
+the same share of the distance. Lunch goes in the leg that is under way around its time, where
+the stops before and after it fit; the time before it is shared out over the stops before it,
+the time after over the rest. Its leg is planned like a lunch day of its own. Legs are
 planned one after another, each knowing what was skied already, and the three options avoid
 each other leg by leg. A stop shows as a waypoint between the steps (not one to tick) and on
 the map; **Replan from here** keeps only the stops still ahead.
@@ -197,7 +198,8 @@ map is drawn the way a paper piste map is, but flat and plain: no map tiles, jus
 data on a light background, so it works offline and is easy to read.
 - **Valley down, mountain up.** The map is turned so the lifts, on average, go up the screen,
   as on a piste map seen from the valley. Where lifts go every which way (around a valley), it
-  stays north up. The compass shows where north is; tap it for north up (remembered).
+  stays north up. Every map opens north up; tap the compass to turn it like a piste map (until
+  the app is closed), and again for north up.
 - **The route on top of a faint area.** Pistes are thick lines in their colour, lifts thin dark
   lines with a dot at each station, and arrows show which way you go. The lifts and pistes of the
   route carry their number, as on a piste map: a lift's code in a dark box, a piste's number in a
@@ -330,9 +332,9 @@ route is left, the message names the avoided lifts.
 
 Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
 line in either planner, which shows them in short): piste colours, pace (for the day plan's
-times), drag lifts, ski bus and map north up, plus the lifts avoided in this area. They are kept
-on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done goes back
-to the planner; a quick route on screen is planned again with the new preferences.
+times), drag lifts and ski bus, plus the lifts avoided in this area. They are kept
+on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done, or **⚙**
+again, goes back to the planner; a quick route on screen is planned again with the new preferences.
 
 ### Difficulty and drag lifts
 
@@ -362,7 +364,11 @@ ski area. Station positions and piste courses come from the OSM enrichment (`coo
 The **Day plan** tab plans a whole day: a start station and time, roughly how many
 kilometres, and when (and where) to be back. It tries many routes through the lift and
 piste network, prefers pistes not skied yet that day, and offers up to three options
-with a time for every step. Variety counts per marked piste: a descent through several runs
+with a time for every step. Start, back-by time and kilometres sit on one line under
+**🕘 Time & km**, folded to a summary ("09:00–16:00 · 25 km"). Choosing one of the options folds
+them into one line with the chosen one; tap it to see all three again. Above the steps there is
+only one message, when the kilometres do not fit the time; closed lifts, lift hours, lunch and
+the stops show at the steps themselves. Variety counts per marked piste: a descent through several runs
 ("31, 52") counts for each of them, so the same slope reached a slightly different way is not
 "new" again, and runs without a number go by their name. Laps on one lift get less likely with
 every ride, and more than three on the same lift cost the day's score. Times are a guideline: lift ride plus a queue that depends on the chosen pace,
