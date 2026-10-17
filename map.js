@@ -727,8 +727,11 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
     bounds.push(...pts);
     const dim = kind !== 'lifts';
     L.polyline(pts, { renderer, color: '#fff', weight: 8, opacity: dim ? 0.5 : 0.9, interactive: false }).addTo(pickerLayer);
-    const line = L.polyline(pts, { renderer, color: MAP_LIFT_COLOUR, weight: 4, opacity: dim ? 0.45 : 1 }).addTo(pickerLayer);
+    // While places are picked the lifts are only for orientation: not
+    // tappable, so a tap near a place never picks a lift by mistake.
+    const line = L.polyline(pts, { renderer, color: MAP_LIFT_COLOUR, weight: 4, opacity: dim ? 0.45 : 1, interactive: !dim }).addTo(pickerLayer);
     pts.forEach(p => L.circleMarker(p, { renderer, radius: 4, color: MAP_LIFT_COLOUR, weight: 2, fillColor: '#fff', fillOpacity: 1, opacity: dim ? 0.45 : 1, interactive: false }).addTo(pickerLayer));
+    if (dim) return;
     const name = [liftCode(lift.nr), lift.name].filter(Boolean).join(' ');
     const popup = stopMode
       ? `<div class="pick-pop"><strong>${escapeHtml(name)}</strong><button type="button" data-pick="ride">🚡 Ride this lift</button></div>`
@@ -739,11 +742,9 @@ async function renderPickerMap(el, kind, { onLift, onPlace, stopMode }) {
     line.bindPopup(popup, { closeButton: false }).on('popupopen', e => {
       e.popup.getElement().querySelectorAll('[data-pick]').forEach(btn => btn.addEventListener('click', () => choose(btn.dataset.pick)));
     });
-    if (!dim) {
-      const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, true)
-        .on('click', () => line.openPopup(halfway(pts))).addTo(pickerLayer);
-      pickerLabels.push({ marker: tag, rank: () => 2 });
-    }
+    const tag = labelMarker(halfway(pts), `<span class="map-tag map-lift">${escapeHtml(liftCode(lift.nr) || shortName(lift.name, 12))}</span>`, true)
+      .on('click', () => line.openPopup(halfway(pts))).addTo(pickerLayer);
+    pickerLabels.push({ marker: tag, rank: () => 2 });
   });
 
   // The places of the list on screen, to tap.

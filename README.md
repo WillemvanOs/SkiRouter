@@ -164,7 +164,7 @@ left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 the picker remembers which one you used last until the app is closed). Every lift is a line
 with its code; tap it (or its code) and choose **⬇ Bottom** or **⬆ Top**, or, for a day plan
 stop, **Ride this lift**. With POI or Villages & peaks chosen, those places are on the map too
-(the lifts lighter); a tap picks one. Same plain map as the route map, turned like a piste map
+(the lifts lighter and not tappable, so a tap never picks a lift by mistake); a tap picks a place. Same plain map as the route map, turned like a piste map
 unless north up is on. Search works in the list only: typing goes back to it.
 
 ### Stops and lunch in the day plan
