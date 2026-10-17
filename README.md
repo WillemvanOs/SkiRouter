@@ -409,11 +409,12 @@ villages are left out, as are places whose mapped opening hours do not cover you
 In both planners you tap a step once you have done it. A tap also ticks every step before
 it, so you can catch up after forgetting. Tap a ticked step to untick it and everything after
 it. The quick route shows how many minutes are left. The day plan compares the clock with the
-plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
-the rest of the day is planned again from the next step, from now, with the km still to go.
+plan and shows whether you are on schedule, ahead or behind. **Replan from here** (hold a step
+or swipe it left) plans the rest of the day again from that step, from now, with the km still
+to go.
 While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
 **☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
-plan, ahead or behind, and **↻ Replan from here** until the day is done). The route's totals (km, pistes, lifts, back at) sit above it and
+plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
 Going back from 🗺 Map to ☰ List puts the step you are at just under that bar.
 Progress is stored on the phone, so a route being followed comes back when the app is

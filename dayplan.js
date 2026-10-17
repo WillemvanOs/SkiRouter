@@ -1368,12 +1368,9 @@ function dayStatus(done, items) {
     }
   }
 
-  // Always at hand while the day is not done (the red late bar is the same
-  // button when running late).
-  const replan = !isLate && done < total
-    ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
-    : '';
-  renderProgress('dp-progress', done, total, text, replan);
+  // Replanning is in the step menu (hold a step or swipe it left); only
+  // running late brings a button of its own (the red bar).
+  renderProgress('dp-progress', done, total, text);
 
   const lateBtn = document.getElementById('dp-late');
   if (isLate) {
