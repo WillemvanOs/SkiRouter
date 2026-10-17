@@ -700,7 +700,8 @@ async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard,
   await loadLeaflet();
   const turn = mapNorthUp() ? 0 : uphillTurn();
   const key = `${currentArea?.id}|${turn}`;
-  if (!pickerMap || pickerMapKey !== key) {
+  const fresh = !pickerMap || pickerMapKey !== key;
+  if (fresh) {
     pickerMap?.remove();
     pickerMap = L.map(el, {
       crs: turnedCrs(areaCentre(), turn), zoomControl: true, attributionControl: true,
@@ -779,8 +780,12 @@ async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard,
   }
 
   pickerMap.invalidateSize();
-  if (bounds.length) pickerMap.fitBounds(L.latLngBounds(bounds), { padding: [20, 20], animate: false });
-  else pickerMap.setView(areaCentre(), -3);
+  // Fit the area once; after that switching Lifts / POI / Villages & peaks
+  // (or opening the picker again) keeps the zoom and the spot you were at.
+  if (fresh) {
+    if (bounds.length) pickerMap.fitBounds(L.latLngBounds(bounds), { padding: [20, 20], animate: false });
+    else pickerMap.setView(areaCentre(), -3);
+  }
   declutter(pickerMap, pickerLabels);
 }
 

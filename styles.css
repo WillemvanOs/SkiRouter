@@ -734,6 +734,16 @@ main {
   color: #8a99ab;
 }
 
+.chosen-name .place-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chosen-side:empty {
+  display: none;
+}
+
 .sheet-list {
   overflow-y: auto;
   padding: 4px 8px 24px;
