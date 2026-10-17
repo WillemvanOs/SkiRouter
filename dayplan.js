@@ -23,10 +23,11 @@ const DAY_TAB_KEY     = 'skiplanner:tab';
 // Piste times in the data are pure skiing at ~12 km/h; a real day has short
 // stops on the way down, so even "normal" stretches them.
 const DAY_PACES = {
-  relaxed: { label: 'Relaxed', piste: 1.7, wait: 7 },
-  normal:  { label: 'Normal',  piste: 1.3, wait: 5 },
-  sporty:  { label: 'Sporty',  piste: 1.0, wait: 3 },
+  relaxed: { label: 'Relaxed', piste: 1.7, wait: 7, who: 'Easy cruising with stops for photos and breathers, or skiing with children.' },
+  normal:  { label: 'Normal',  piste: 1.3, wait: 5, who: 'A steady day with the odd short stop.' },
+  sporty:  { label: 'Sporty',  piste: 1.0, wait: 3, who: 'Skiing the runs in one go, little queueing.' },
 };
+const PISTE_KMH = 12; // piste times in the data: 200 m a minute
 const DAY_TRANSFER_MIN  = 2;   // walking between two stations
 const DAY_PRACTICE_MIN  = 1;   // magic carpets: no queue to speak of
 const DAY_RUNS          = 400; // randomised walks per plan
@@ -231,11 +232,24 @@ function setDayPace(pace, save = true) {
   if (!DAY_PACES[pace]) pace = 'normal';
   dayPace = pace;
   Object.keys(DAY_PACES).forEach(p => document.getElementById('pace-' + p).classList.toggle('on', p === pace));
+  renderPaceInfo();
   if (save && prefs.pace !== pace) {
     prefs.pace = pace;
     storePrefs();
     renderPrefs();
   }
+}
+
+// What each pace means, under the switch: how fast down the runs and how
+// long a queue at each lift, the chosen one first in bold.
+function renderPaceInfo() {
+  const el = document.getElementById('pace-info');
+  if (!el) return;
+  el.innerHTML = Object.entries(DAY_PACES).map(([key, p]) => `
+    <div class="pace-info-row${key === dayPace ? ' on' : ''}">
+      <strong>${p.label}</strong>
+      <span>~${Math.round(PISTE_KMH / p.piste)} km/h on average down the runs${p.piste > 1 ? ` (piste times ×${p.piste})` : ''} · ~${p.wait} min queueing per lift. ${p.who}</span>
+    </div>`).join('');
 }
 
 function dayStorageKey() {
@@ -1190,6 +1204,7 @@ function renderDayOption(index) {
 
   const stepsEl = document.getElementById('day-steps');
   stepsEl.innerHTML = '';
+  stepsEl.classList.remove('no-entry');
   const startStation = STATIONS[ctx.startId];
   addWaypoint(stepsEl, escapeHtml(ctx.startName || startStation.name), startStation.alt, ICONS.start, `Start · ${formatClock(ctx.t0)}`, 0);
 
@@ -1353,12 +1368,9 @@ function dayStatus(done, items) {
     }
   }
 
-  // Always at hand while the day is not done (the red late bar is the same
-  // button when running late).
-  const replan = !isLate && done < total
-    ? '<button class="replan-btn" type="button" onclick="replanFromHere()">↻ Replan from here</button>'
-    : '';
-  renderProgress('dp-progress', done, total, text, replan);
+  // Replanning is in the step menu (hold a step or swipe it left); only
+  // running late brings a button of its own (the red bar).
+  renderProgress('dp-progress', done, total, text);
 
   const lateBtn = document.getElementById('dp-late');
   if (isLate) {

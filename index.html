@@ -91,6 +91,7 @@
         <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
         <button class="pace-btn" id="pace-sporty" onclick="setDayPace('sporty')">Sporty</button>
       </div>
+      <div class="pace-info" id="pace-info"></div>
     </div>
 
     <div class="setting setting-switch">
@@ -196,7 +197,6 @@
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
       <span class="setting-name">⚙ Preferences</span>
-      <span class="setting-value prefs-summary">—</span>
       <span class="setting-chev" aria-hidden="true">›</span>
     </button>
 
@@ -305,7 +305,7 @@
     </details>
 
     <!-- Stops on the way, lunch among them -->
-    <details class="setting" id="stops-setting" open>
+    <details class="setting" id="stops-setting">
       <summary class="setting-summary">
         <span class="setting-name">📍 Stops &amp; lunch</span>
         <span class="setting-value" id="stops-summary">None</span>
@@ -342,7 +342,6 @@
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
       <span class="setting-name">⚙ Preferences</span>
-      <span class="setting-value prefs-summary">—</span>
       <span class="setting-chev" aria-hidden="true">›</span>
     </button>
 

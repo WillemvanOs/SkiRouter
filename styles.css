@@ -1935,7 +1935,7 @@ select.day-input {
   row-gap: 2px;
 }
 
-/* ── Avoiding lifts ───────────────────────────────────────── */
+/* ── A lift step's status line ────────────────────────────── */
 
 .step-actions {
   display: flex;
@@ -1947,27 +1947,6 @@ select.day-input {
 
 .step-actions .lift-status {
   margin-top: 0;
-}
-
-.avoid-btn {
-  padding: 2px 8px;
-  border: 1px solid #d5dde8;
-  border-radius: 6px;
-  background: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #6a7d92;
-  cursor: pointer;
-}
-
-.avoid-btn:hover {
-  border-color: #c0392b;
-  color: #c0392b;
-}
-
-.checkable.done .avoid-btn {
-  display: none;
 }
 
 .avoid-row {
@@ -2032,12 +2011,6 @@ select.day-input {
 
 .tab-btn {
   min-height: 44px;
-}
-
-.avoid-btn {
-  min-height: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .chosen-reset {
@@ -2438,6 +2411,10 @@ body.map-full {
   cursor: pointer;
 }
 
+.prefs-row .setting-chev {
+  margin-left: auto;
+}
+
 .prefs-row .setting-value {
   flex: 1;
   text-align: right;
@@ -2709,4 +2686,39 @@ body.map-full {
   text-align: center;
   background: #fff;
   color: #6a7d92;
+}
+
+/* What the paces mean, under the pace switch */
+.pace-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pace-info-row {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #6a7d92;
+}
+
+.pace-info-row strong {
+  margin-right: 4px;
+  color: var(--midnight);
+}
+
+.pace-info-row.on {
+  background: var(--ice);
+  color: var(--alpine);
+}
+
+.pace-info-row.on strong {
+  color: var(--alpine);
+}
+
+/* The list shown again after the map: the steps are simply there */
+.steps.no-entry > * {
+  animation: none !important;
 }

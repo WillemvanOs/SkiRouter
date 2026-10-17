@@ -176,7 +176,7 @@ map as the route map, north up unless the compass on a route map turned it. Sear
 
 ### Stops and lunch in the day plan
 
-Under **📍 Stops & lunch** the day plan takes places to pass: a lift to ride (its top
+Under **📍 Stops & lunch** (folded by default, with a summary such as "1 stop · lunch 13:00") the day plan takes places to pass: a lift to ride (its top
 station), or any place from the picker. **Lunch** is one of the stops, the only one with a time
 (and its length, and where: best fit or one restaurant); it is there by default in areas with
 mountain restaurants, and **+ Add lunch** brings it back. ✕ removes a stop. The order they were
@@ -331,13 +331,14 @@ The parsers are in `tools/lib/liftstatus-providers.mjs`.
 
 ## Avoiding lifts and pistes
 
-Any lift can be skipped by hand, open or closed: **⊘ Avoid** on a lift step adds it to a list
-(per ski area, kept on the phone) and plans the route again without it; a day being followed is
+Any lift can be skipped by hand, open or closed: **⊘ Avoid lift** in the step menu (below)
+adds it to a list (per ski area, kept on the phone) and plans the route again without it; a day being followed is
 replanned from the next step. The closed-lifts warning has **Avoid these** for all closed lifts on
 the route at once. Avoided lifts and pistes show as chips in both planners; ✕ takes one off the
 list. If no route is left, the message says so.
 
-**Swipe a step left, or hold it**, for a short menu: **↻ Replan from here** (day plan: the
+**Swipe a step left, or hold it** (the phone gives a short tick when the hold opens the menu;
+on an iPhone that needs iOS 18, as Safari has no vibration API), for a short menu: **↻ Replan from here** (day plan: the
 steps before it count as done and the rest of the day is planned again from there),
 **⊘ Avoid lift** on a lift step and **⊘ Avoid piste** on a piste step (a descent through
 several pistes avoids all of them). Avoided pistes are kept per area next to the lifts
@@ -346,10 +347,15 @@ several pistes avoids all of them). Avoided pistes are kept per area next to the
 ## Preferences
 
 Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
-line in either planner, which shows them in short): piste colours, pace (for the day plan's
+line in either planner): piste colours, pace (for the day plan's
 times), drag lifts and ski bus, plus the lifts avoided in this area. They are kept
 on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done, or **⚙**
 again, goes back to the planner; a quick route on screen is planned again with the new preferences.
+
+Under the **Pace** switch each pace says what it means, the chosen one highlighted:
+**Relaxed** about 7 km/h down the runs (piste times ×1.7) and ~7 min queueing per lift,
+**Normal** about 9 km/h (×1.3) and ~5 min, **Sporty** about 12 km/h and ~3 min. The text is
+worked out from `DAY_PACES` in `dayplan.js`, so it follows any change there.
 
 ### Difficulty and drag lifts
 
@@ -403,12 +409,14 @@ villages are left out, as are places whose mapped opening hours do not cover you
 In both planners you tap a step once you have done it. A tap also ticks every step before
 it, so you can catch up after forgetting. Tap a ticked step to untick it and everything after
 it. The quick route shows how many minutes are left. The day plan compares the clock with the
-plan, shows whether you are on schedule, ahead or behind, and offers **Replan from here**:
-the rest of the day is planned again from the next step, from now, with the km still to go.
+plan and shows whether you are on schedule, ahead or behind. **Replan from here** (hold a step
+or swipe it left) plans the rest of the day again from that step, from now, with the km still
+to go.
 While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
 **☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
-plan, ahead or behind, and **↻ Replan from here** until the day is done). The route's totals (km, pistes, lifts, back at) sit above it and
+plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
+Going back from 🗺 Map to ☰ List puts the step you are at just under that bar.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.
