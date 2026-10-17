@@ -351,6 +351,11 @@ times), drag lifts and ski bus, plus the lifts avoided in this area. They are ke
 on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done, or **⚙**
 again, goes back to the planner; a quick route on screen is planned again with the new preferences.
 
+Under the **Pace** switch each pace says what it means, the chosen one highlighted:
+**Relaxed** about 7 km/h down the runs (piste times ×1.7) and ~7 min queueing per lift,
+**Normal** about 9 km/h (×1.3) and ~5 min, **Sporty** about 12 km/h and ~3 min. The text is
+worked out from `DAY_PACES` in `dayplan.js`, so it follows any change there.
+
 ### Difficulty and drag lifts
 
 The colours picked under **Difficulty** and the **Drag lifts** switch are preferences, not hard

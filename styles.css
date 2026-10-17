@@ -2710,3 +2710,33 @@ body.map-full {
   background: #fff;
   color: #6a7d92;
 }
+
+/* What the paces mean, under the pace switch */
+.pace-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pace-info-row {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #6a7d92;
+}
+
+.pace-info-row strong {
+  margin-right: 4px;
+  color: var(--midnight);
+}
+
+.pace-info-row.on {
+  background: var(--ice);
+  color: var(--alpine);
+}
+
+.pace-info-row.on strong {
+  color: var(--alpine);
+}
