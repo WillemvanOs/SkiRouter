@@ -735,8 +735,8 @@ function showSheetView() {
 
 function drawPickerMap() {
   renderPickerMap(document.getElementById('sheet-map'), sheetKind, {
-    stopMode: activeSide === 'stop',
-    onLift: (lift, dalBerg) => activeSide === 'stop' ? addDayStop(liftStop(lift)) : pickStation(lift[dalBerg], lift, dalBerg),
+    action: pickActionLabel(), liftCard: liftCardHtml, placeCard: placeCardHtml,
+    onLift: lift => activeSide === 'stop' ? addDayStop(liftStop(lift)) : pickStation(lift.dal, lift, 'dal'),
     onPlace: place => activeSide === 'stop' ? addDayStop(placeStop(place)) : pickPlace(place),
   }).catch(err => {
     console.warn(err);
@@ -956,6 +956,35 @@ function showChosen(side) {
 function liftIcon(lift) {
   const cls = stepClass({ type: lift.type, echteLift: lift.echteLift });
   return `<span class="lift-ico ico-${cls}" title="${tagLabel({ type: lift.type, echteLift: lift.echteLift })}">${STEP_ICONS[cls] || ICONS.gondola}</span>`;
+}
+
+// What a tap on the picker map shows before anything is picked: what was
+// tapped, a few facts, and one button that picks it (map.js adds the button).
+const PLACE_KIND_LABEL = { restaurant: 'Restaurant', viewpoint: 'Viewpoint', snowpark: 'Snow park', town: 'Town', village: 'Village', hamlet: 'Hamlet', peak: 'Peak' };
+
+function pickActionLabel() {
+  return { from: 'Start here', dstart: 'Start here', to: 'Go here', dend: 'End here', stop: 'Add as stop' }[activeSide] || 'Choose';
+}
+
+function liftCardHtml(lift) {
+  const data = (currentArea?.liften || []).find(l => l.liftNr === lift.nr);
+  const status = liftStatusHtml(lift.nr);
+  const facts = [tagLabel({ type: lift.type, echteLift: lift.echteLift }), data?.tijd ? `${data.tijd} min ride` : ''].filter(Boolean).join(' · ');
+  const from = activeSide === 'stop' ? '' : `<span class="pick-card-at">From the bottom: ${escapeHtml(shortName(STATIONS[lift.dal]?.name, 34))}</span>`;
+  return `<div class="pick-card">${liftIcon(lift)}<span class="pick-card-text">
+      <strong>${escapeHtml([liftCode(lift.nr), lift.name].filter(Boolean).join(' '))}</strong>
+      <span class="pick-card-facts">${escapeHtml(facts)}</span>
+      ${status ? `<span>${status}</span>` : '<span class="pick-card-facts">No opening hours known</span>'}
+      ${from}</span></div>`;
+}
+
+function placeCardHtml(place) {
+  const at = placeStation(place);
+  const facts = [PLACE_KIND_LABEL[place.kind] || 'Place', place.ele ? `${place.ele} m` : ''].filter(Boolean).join(' · ');
+  return `<div class="pick-card"><span class="lift-ico ico-place">${PLACE_ICONS[place.kind] || ICONS.start}</span><span class="pick-card-text">
+      <strong>${escapeHtml(place.name)}</strong>
+      <span class="pick-card-facts">${escapeHtml(facts)}</span>
+      ${at ? `<span class="pick-card-at">${escapeHtml(placeSub(place, at))}</span>` : ''}</span></div>`;
 }
 
 function pickStation(stationId, lift, dalBerg) {

@@ -162,10 +162,13 @@ left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 
 **🗺 Map** at the top of the picker shows the area instead of the list (**☰ List** goes back;
 the picker remembers which one you used last until the app is closed). Every lift is a line
-with its code; tap it (or its code) and choose **⬇ Bottom** or **⬆ Top**, or, for a day plan
-stop, **Ride this lift**. With POI or Villages & peaks chosen, those places are on the map too
-(the lifts lighter and not tappable, so a tap never picks a lift by mistake); a tap picks a place. Same plain map as the route map, turned like a piste map
-unless north up is on. Search works in the list only: typing goes back to it.
+with its code. A tap never picks straight away: it first shows what was tapped (for a lift its
+type, ride time and opening hours; for a place what it is, its height and the lift it goes by)
+with one button to confirm (**Start here**, **Go here**, **Add as stop**). A lift is always
+picked by its bottom station; the **⬇ Bottom / ⬆ Top** switch on the chosen field changes that
+afterwards. With POI or Villages & peaks chosen, those places are on the map too as bigger
+icons (the lifts lighter and not tappable); a tap close to an icon counts as well. Same plain
+map as the route map, turned like a piste map unless north up is on. Search works in the list only: typing goes back to it.
 
 ### Stops and lunch in the day plan
 
