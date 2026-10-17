@@ -1089,7 +1089,6 @@ function savePrefs() {
   prefs.drag = document.getElementById('pref-drag').checked;
   prefs.bus  = document.getElementById('pref-bus').checked;
   storePrefs();
-  try { localStorage.setItem(MAP_NORTH_KEY, document.getElementById('pref-north').checked ? '1' : '0'); } catch {}
   renderPrefs();
 }
 
@@ -1100,7 +1099,6 @@ function renderPrefs() {
   document.getElementById('d-all').classList.toggle('on', allowedDiff.size === DIFF_LEVELS.length);
   document.getElementById('pref-drag').checked = prefs.drag;
   document.getElementById('pref-bus').checked = prefs.bus;
-  document.getElementById('pref-north').checked = mapNorthUp();
   if (typeof setDayPace === 'function') setDayPace(prefs.pace, false);
   const parts = [diffSummary(allowedDiff) === 'All' ? 'All pistes' : diffSummary(allowedDiff), DAY_PACE_LABELS[prefs.pace] + ' pace'];
   if (!prefs.drag) parts.push('no drag lifts');
@@ -1114,17 +1112,23 @@ let prefsChanged = null;
 function openPrefs() {
   renderPrefs();
   renderAvoided();
-  prefsChanged = JSON.stringify(prefs) + mapNorthUp();
+  prefsChanged = JSON.stringify(prefs);
   document.getElementById('planner-cards').style.display = 'none';
   document.getElementById('prefs-screen').style.display = 'block';
   window.scrollTo({ top: 0 });
+}
+
+// The ⚙ in the header: a second tap closes the screen again.
+function togglePrefs() {
+  if (document.getElementById('prefs-screen').style.display === 'block') closePrefs();
+  else openPrefs();
 }
 
 function closePrefs() {
   document.getElementById('prefs-screen').style.display = 'none';
   document.getElementById('planner-cards').style.display = 'block';
   // A route on screen follows the new preferences (a day plan is planned again by hand).
-  if (prefsChanged !== JSON.stringify(prefs) + mapNorthUp()
+  if (prefsChanged !== JSON.stringify(prefs)
     && document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
   window.scrollTo({ top: 0 });
 }
