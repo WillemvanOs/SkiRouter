@@ -167,7 +167,11 @@ type, ride time and opening hours; for a place what it is, its height and the li
 with one button to confirm (**Start here**, **Go here**, **Add as stop**). A lift is always
 picked by its bottom station; the **⬇ Bottom / ⬆ Top** switch on the chosen field changes that
 afterwards. With POI or Villages & peaks chosen, those places are on the map too as bigger
-icons (the lifts lighter and not tappable); a tap close to an icon counts as well. Same plain
+icons (the lifts lighter and not tappable); a tap close to an icon counts as well. The map
+keeps its zoom and spot when you switch between Lifts, POI and Villages & peaks, and shows the
+same orientation in all three: the pistes, every lift with its code, and the names of villages and
+peaks (under their icon while those are what you pick). A chosen place
+shows its name with where it is underneath. Same plain
 map as the route map, turned like a piste map unless north up is on. Search works in the list only: typing goes back to it.
 
 ### Stops and lunch in the day plan

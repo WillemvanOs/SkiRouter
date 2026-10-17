@@ -947,8 +947,11 @@ function showChosen(side) {
   document.getElementById(`${side}-nr`).textContent       = s.gps ? s.liftNr : s.place ? '' : liftCode(s.liftNr);
   document.getElementById(`${side}-liftname`).textContent = s.liftName;
   if (s.gps) document.getElementById(`${side}-side`).textContent = '';
-  else if (s.place) document.getElementById(`${side}-side`).innerHTML = `<span class="place-sub">${escapeHtml(s.place.sub)}</span>`;
-  else setChosenSide(side);
+  else if (s.place) {
+    // Where it is goes under the name, so a long line never pushes the name out.
+    document.getElementById(`${side}-liftname`).innerHTML = `${escapeHtml(s.liftName)}<span class="place-sub">${escapeHtml(s.place.sub)}</span>`;
+    document.getElementById(`${side}-side`).textContent = '';
+  } else setChosenSide(side);
 }
 
 // Small lift-type pictogram for the station picker and the chosen start/destination,
