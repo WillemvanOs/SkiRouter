@@ -9,17 +9,20 @@
 //   - pisteLijnen: { pisteNr: [[[lat, lon], …], …] } — each piste's course,
 //     thinned to a point every ~60 m, for "where am I" (GPS) in the app.
 //
-// Runs in GitHub Actions (.github/workflows/osm-enrich.yml), which has open
-// internet access. No dependencies: Node 20+ only.
+// The data comes from our own OpenStreetMap extract (tools/osm-extract.sh,
+// read by tools/lib/osm-local.mjs), not the public Overpass API. Runs in
+// GitHub Actions (.github/workflows/osm-enrich.yml). No dependencies: Node 20+.
 //
-//   node tools/osm-enrich.mjs
+//   tools/osm-extract.sh build/osm.geojsonseq
+//   node tools/osm-enrich.mjs --osm build/osm.geojsonseq
 
 import { readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { osmElements } from './lib/osm-local.mjs';
 
-const OVERPASS_URLS = [
-  'https://overpass-api.de/api/interpreter',
-  'https://overpass.kumi.systems/api/interpreter',
-];
+const OSM = process.argv[process.argv.indexOf('--osm') + 1];
+if (!process.argv.includes('--osm') || !existsSync(OSM)) throw new Error('--osm <extract.geojsonseq> is needed (tools/osm-extract.sh makes it)');
+const AREA_PAD = 0.01; // around the area's lift stations and runs
 // A place counts as "on the piste" when it is this close to a piste's course
 // (OSM maps a piste's centre line, so a wide piste reaches further than this):
 const PISTE_RADIUS_M     = 80;
@@ -29,29 +32,6 @@ const STATION_LINK_M     = 130; // this close to a station, lunch is "at" that s
 const NETWORK_RADIUS_M   = 1500; // piste ways further than this from every lift
                                  // station belong to a neighbouring ski area
 const FOOD = /^(restaurant|cafe|fast_food|bar|pub|biergarten)$/;
-
-async function overpass(query) {
-  let lastErr;
-  for (const url of OVERPASS_URLS) {
-    for (let attempt = 0; attempt < 3; attempt++) {
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)' },
-          body: 'data=' + encodeURIComponent(query),
-          signal: AbortSignal.timeout(240000),
-        });
-        if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-        return await res.json();
-      } catch (err) {
-        lastErr = err;
-        console.warn(`  overpass failed (${err.message}), retrying…`);
-        await new Promise(r => setTimeout(r, 5000 * (attempt + 1)));
-      }
-    }
-  }
-  throw lastErr;
-}
 
 function distM(a, b) {
   const R = 6371000, rad = Math.PI / 180;
@@ -83,26 +63,22 @@ function foodKind(tags) {
 async function enrichArea(meta) {
   const path = meta.file;
   const area = JSON.parse(await readFile(path, 'utf8'));
-  const relMatch = /relatie (\d+)/.exec(area.bron || '');
-  if (!relMatch) { console.log(`- ${area.id}: no OSM relation in "bron", skipped`); return; }
-  const relId = relMatch[1];
-  console.log(`- ${area.id}: OSM relation ${relId}`);
+  // The area: around its lift stations (and runs) as the dataset has them.
+  const points = [
+    ...(area.liften || []).flatMap(l => [l.coordOnder, l.coordBoven]),
+    ...Object.values(area.pisteLijnen || {}).flat(2),
+  ].filter(Boolean);
+  if (!points.length) { console.log(`- ${area.id}: no station or run positions to place it, skipped`); return; }
+  const lats = points.map(p => p[0]), lons = points.map(p => p[1]);
+  const box = [Math.min(...lats) - AREA_PAD, Math.min(...lons) - AREA_PAD, Math.max(...lats) + AREA_PAD, Math.max(...lons) + AREA_PAD];
+  console.log(`- ${area.id}: ${box.map(v => v.toFixed(3)).join(',')}`);
 
-  const bb = (await overpass(`[out:json][timeout:60];rel(${relId});out bb;`)).elements[0]?.bounds;
-  if (!bb) throw new Error(`relation ${relId} has no bounds`);
-  const pad = 0.01;
-  const bbox = `${bb.minlat - pad},${bb.minlon - pad},${bb.maxlat + pad},${bb.maxlon + pad}`;
-
-  const data = await overpass(`[out:json][timeout:180][bbox:${bbox}];
-    way[aerialway]; out tags geom;
-    way["piste:type"="downhill"]; out tags geom;
-    nwr[amenity~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"][name]; out tags center;
-    nwr[tourism=alpine_hut][name]; out tags center;
-    node[highway=bus_stop][name]; out;`);
+  // Lines that pass through the box count too (a long piste, a lift).
+  const data = { elements: await osmElements(OSM, [box], { anyPoint: true }) };
 
   const aerialways = data.elements.filter(e => e.type === 'way' && e.tags?.aerialway && e.geometry?.length >= 2);
   const pisteWays  = data.elements.filter(e => e.type === 'way' && e.tags?.['piste:type'] === 'downhill' && e.geometry?.length >= 2);
-  const busStops   = data.elements.filter(e => e.type === 'node' && e.tags?.highway === 'bus_stop');
+  const busStops   = data.elements.filter(e => e.type === 'node' && e.tags?.highway === 'bus_stop' && e.tags.name);
   const foods      = data.elements.filter(e => e.tags?.name && (FOOD.test(e.tags.amenity || '') || e.tags.tourism === 'alpine_hut'));
   console.log(`  ${aerialways.length} aerialways, ${pisteWays.length} piste ways, ${foods.length} food places`);
 

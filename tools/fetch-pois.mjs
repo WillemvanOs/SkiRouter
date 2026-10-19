@@ -11,17 +11,18 @@
 // theirs written into their own file (`plaatsen`), as they are not built.
 //
 //   node tools/build-areas.mjs --europe --out build/europe
-//   node tools/fetch-pois.mjs [--kind restaurants|landmarks] [--areas build/europe/areas] [--out data/pois/europe.json]
+//   tools/osm-extract.sh build/osm.geojsonseq
+//   node tools/fetch-pois.mjs --osm build/osm.geojsonseq [--kind restaurants|landmarks] [--areas build/europe/areas] [--out data/pois/europe.json]
 //
-// The Overpass API is free and shared: areas are asked in batches of bounding
-// boxes, one batch at a time with a pause in between. A run stops after
-// BUDGET_MIN minutes and saves what it has; the next run carries on with the
-// areas fetched longest ago. Runs daily in GitHub Actions
-// (.github/workflows/pois.yml); areas fetched in the last few days are skipped.
+// The places come from our own OpenStreetMap extract (tools/osm-extract.sh,
+// read by tools/lib/osm-local.mjs), not the public Overpass API, so every
+// area is done in every run. Runs daily in GitHub Actions
+// (.github/workflows/pois.yml); the extract is made again once a week.
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { LANDMARK_PAD, areaPoints, boxOf, landmarksFor, poisFor } from './lib/landmarks.mjs';
+import { osmElements } from './lib/osm-local.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
   a.startsWith('--') ? [...acc, [a.slice(2), all[i + 1]?.startsWith('--') ? true : all[i + 1] ?? true]] : acc, []));
@@ -29,19 +30,11 @@ const LANDMARKS = args.kind === 'landmarks';
 const AREAS_DIR = args.areas || 'build/europe/areas';
 const OUT = args.out || (LANDMARKS ? 'data/pois/landmarks.json' : 'data/pois/europe.json');
 const CURATED = 'data/areas.json'; // hand-curated areas, for landmarks
-const BATCH = Number(process.env.BATCH || 6);           // bounding boxes per Overpass query (halved when one times out)
-const PAUSE_MS = 3000;     // between queries
+const OSM = args.osm;
+if (!OSM || !existsSync(OSM)) throw new Error('--osm <extract.geojsonseq> is needed (tools/osm-extract.sh makes it)');
 const PAD = LANDMARKS ? LANDMARK_PAD : 0.004; // ~400 m around an area's lifts and runs (landmarks: ~1.5 km)
 const KEEP_RUN_M = 100;    // keep a place this close to a run's course…
 const KEEP_TOP_M = 130;    // …or to a top station (the build applies the exact rules)
-const OVERPASS = [
-  'https://overpass-api.de/api/interpreter',
-  'https://overpass.private.coffee/api/interpreter',
-  'https://overpass.kumi.systems/api/interpreter',
-];
-const FRESH_DAYS = LANDMARKS ? 30 : 6; // an area fetched this recently is skipped (peaks and villages hardly change)
-const BUDGET_MIN = Number(process.env.BUDGET_MIN || 80); // then stop and save what we have
-const UA = 'SkiRouter/1.0 (github.com/WillemvanOs/SkiRouter)';
 
 // Every built area: its bounding box, run courses and top stations. For
 // landmarks also the hand-curated areas.
@@ -60,67 +53,33 @@ const areas = [
 })).filter(a => a.lines.length);
 console.log(`${areas.length} areas`);
 
-// Batches of nearby areas, one Overpass query each. The public Overpass
-// servers are often busy, so a run does what it can within BUDGET_MIN and
-// saves it: areas never fetched (or fetched longest ago) go first, and the
-// next run carries on from there. A batch that keeps failing is split in
-// halves, down to single areas; an area that still fails keeps the places it
-// had before.
+// Every area, every run: the extract is on disk. What an area had before is
+// replaced by what the extract has now.
 const prevFile = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {};
 const previous = prevFile.pois || [];
 // What a landmarks fetch asks for; when that changes, every area is fetched again.
 const KINDS_VERSION = LANDMARKS ? 2 : 1; // 2: viewpoints and snow parks
 const fetchedAt = { ...((prevFile.version || 1) === KINDS_VERSION ? prevFile.fetched || {} : {}) };
-const today = new Date().toISOString().slice(0, 10);
-const fresh = id => fetchedAt[id] && (Date.now() - Date.parse(fetchedAt[id])) / 864e5 < FRESH_DAYS;
-const deadline = Date.now() + BUDGET_MIN * 60e3;
-// The hand-curated areas first (one query each, so they are not held up by a busy batch).
-const todo = areas.filter(a => !fresh(a.id))
-  .sort((a, b) => b.curated - a.curated || (fetchedAt[a.id] || '').localeCompare(fetchedAt[b.id] || '') || a.bbox[1] - b.bbox[1]);
-console.log(`${todo.length} to fetch (${areas.length - todo.length} fetched in the last ${FRESH_DAYS} days)`);
+// The day the extract was made (tools/osm-extract.sh notes it next to the
+// file; a restored cache gives the file a new date): the output only changes
+// when the data does.
+const today = existsSync(`${OSM}.date`) ? readFileSync(`${OSM}.date`, 'utf8').trim() : statSync(OSM).mtime.toISOString().slice(0, 10);
 const pois = new Map();
 const done = [];
-const failed = [];
-const batches = [];
-todo.filter(a => a.curated).forEach(a => batches.push([a]));
-const rest = todo.filter(a => !a.curated);
-for (let i = 0; i < rest.length; i += BATCH) batches.push(rest.slice(i, i + BATCH));
-for (let b = 0; b < batches.length; b++) {
-  if (Date.now() > deadline) { console.log(`Time is up: ${batches.length - b} batches left for the next run.`); break; }
-  await fetchBatch(batches[b], `${b + 1}/${batches.length}`);
-}
-for (const area of failed) console.log(`- ${area.id}: not fetched, keeps its previous places`);
 
-async function fetchBatch(batch, label) {
-  const boxes = batch.map(a => a.bbox.map(v => v.toFixed(4)).join(','));
-  const query = LANDMARKS
-    ? `[out:json][timeout:90];(${boxes.map(b =>
-      `node["natural"="peak"]["name"](${b});node["place"~"^(town|village|hamlet)$"]["name"](${b});node["tourism"="viewpoint"](${b});nwr["piste:type"="snow_park"](${b});`).join('')})->.all;node.all;out body;(way.all;relation.all;);out tags center;`
-    : `[out:json][timeout:90];(${boxes.map(b =>
-      `nwr["amenity"~"^(restaurant|cafe|fast_food|bar|pub|biergarten)$"]["name"](${b});nwr["tourism"="alpine_hut"]["name"](${b});`).join('')});out tags center;`;
-  let data;
-  try {
-    data = await overpass(query, 2);
-  } catch (err) {
-    if (batch.length > 1 && Date.now() < deadline) {
-      console.log(`batch ${label}: ${err.message}; splitting it`);
-      const half = Math.ceil(batch.length / 2);
-      await fetchBatch(batch.slice(0, half), `${label}a`);
-      await fetchBatch(batch.slice(half), `${label}b`);
-    } else {
-      console.log(`batch ${label} (${batch.map(a => a.id).join(', ')}): ${err.message}; skipped`);
-      failed.push(...batch);
-    }
-    return;
-  }
-  batch.forEach(a => { fetchedAt[a.id] = today; done.push(a); });
+const wanted = LANDMARKS
+  ? t => (t.natural === 'peak' && t.name) || (/^(town|village|hamlet)$/.test(t.place || '') && t.name) || t.tourism === 'viewpoint' || t['piste:type'] === 'snow_park'
+  : t => t.name && (/^(restaurant|cafe|fast_food|bar|pub|biergarten)$/.test(t.amenity || '') || t.tourism === 'alpine_hut');
+const elements = (await osmElements(OSM, areas.map(a => a.bbox))).filter(e => wanted(e.tags || {}));
+console.log(`${elements.length} ${LANDMARKS ? 'landmarks' : 'places to eat'} in the extract around the areas`);
+
+for (const area of areas) {
   let kept = 0;
-  for (const e of data.elements || []) {
+  for (const e of elements) {
     const lat = e.lat ?? e.center?.lat, lon = e.lon ?? e.center?.lon;
-    if (lat == null || pois.has(`${e.type}/${e.id}`)) continue;
+    if (lat == null || pois.has(`${e.type}/${e.id}`) || !inBox(area.bbox, [lat, lon])) continue;
     const t = e.tags || {};
     if (LANDMARKS) {
-      if (!batch.some(a => inBox(a.bbox, [lat, lon]))) continue;
       pois.set(`${e.type}/${e.id}`, {
         id: `${e.type}/${e.id}`, ...(t.name ? { name: t.name } : {}),
         ...(t.natural ? { natural: t.natural } : t.place ? { place: t.place } : t.tourism === 'viewpoint' ? { tourism: 'viewpoint' } : { piste: 'snow_park' }),
@@ -130,7 +89,7 @@ async function fetchBatch(batch, label) {
       kept++;
       continue;
     }
-    if (!batch.some(a => nearArea(a, [lat, lon]))) continue;
+    if (!nearArea(area, [lat, lon])) continue;
     pois.set(`${e.type}/${e.id}`, {
       id: `${e.type}/${e.id}`, name: t.name, amenity: t.amenity || null, tourism: t.tourism || null,
       lat: +lat.toFixed(5), lon: +lon.toFixed(5),
@@ -141,9 +100,10 @@ async function fetchBatch(batch, label) {
     });
     kept++;
   }
-  console.log(`batch ${label}: ${(data.elements || []).length} places, ${kept} ${LANDMARKS ? 'kept' : 'on the piste'}`);
-  await new Promise(r => setTimeout(r, PAUSE_MS));
+  fetchedAt[area.id] = today;
+  done.push(area);
 }
+console.log(`${pois.size} ${LANDMARKS ? 'kept' : 'on the piste'} in ${done.length} areas`);
 
 // Places of the areas fetched now replace what they had; every other area
 // keeps its places from before.
@@ -157,7 +117,7 @@ if (JSON.stringify(previous) === JSON.stringify(list) && JSON.stringify(prevFile
 } else {
   writeFileSync(OUT, JSON.stringify({ updated: today, version: KINDS_VERSION, count: list.length, fetched, pois: list }) + '\n');
   const covered = Object.keys(fetched).length;
-  console.log(`written ${list.length} places to ${OUT}; ${covered}/${areas.length} areas fetched so far${failed.length ? `, ${failed.length} failed this run` : ''}`);
+  console.log(`written ${list.length} places to ${OUT}; ${covered}/${areas.length} areas`);
 }
 
 // The hand-curated areas are not built: their landmarks go into their file.
@@ -194,26 +154,4 @@ function segDistM(p, a, b) {
   const dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy;
   const t = len2 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / len2)) : 0;
   return Math.hypot(ax + t * dx, ay + t * dy);
-}
-
-async function overpass(query, attempts = 3) {
-  let lastErr;
-  for (let attempt = 0; attempt < attempts; attempt++) {
-    const url = OVERPASS[attempt % OVERPASS.length];
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': UA },
-        body: 'data=' + encodeURIComponent(query),
-        signal: AbortSignal.timeout(120000),
-      });
-      if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-      return await res.json();
-    } catch (err) {
-      lastErr = err;
-      console.warn(`  overpass failed (${err.message}), retrying…`);
-      await new Promise(r => setTimeout(r, 8000));
-    }
-  }
-  throw lastErr;
 }

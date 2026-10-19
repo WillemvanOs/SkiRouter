@@ -1,16 +1,19 @@
-# Daily: fetch mountain restaurants and huts for European ski areas from
-# OpenStreetMap (tools/fetch-pois.mjs) into data/pois/europe.json, and the
-# peaks, towns and villages for the route map into data/pois/landmarks.json
-# (and into the hand-curated area files), and commit them when they changed.
-# The public Overpass servers are often busy, so each run works for a limited
-# time (restaurants up to 70 minutes, landmarks the rest) on the areas fetched longest ago
-# (restaurants fetched in the last 6 days and landmarks in the last 30 are
-# skipped) and saves what it got. On main the site is then redeployed, so the
-# areas built at deploy time get the new data. A commit made with
-# GITHUB_TOKEN does not start other workflows, hence the explicit deploy job.
+# Daily: pick the mountain restaurants and huts for European ski areas out
+# of our own OpenStreetMap extract (tools/fetch-pois.mjs) into
+# data/pois/europe.json, and the peaks, towns and villages for the route map
+# into data/pois/landmarks.json (and into the hand-curated area files), and
+# commit them when they changed.
+#
+# The extract (tools/osm-extract.sh) holds the Geofabrik regions with ski
+# areas, cut down with osmium to what SkiRouter uses. It is made once a week
+# and kept in the Actions cache in between, so Geofabrik is asked once a
+# week and the public Overpass API not at all (it asks commercial users to
+# run their own). On main the site is then redeployed, so the areas built at
+# deploy time get the new data. A commit made with GITHUB_TOKEN does not
+# start other workflows, hence the explicit deploy job.
 #
 # Runs by hand too (Actions → "Fetch mountain restaurants" → Run workflow),
-# and on a push to another branch that changes the script or this workflow:
+# and on a push to another branch that changes the scripts or this workflow:
 # then it commits there, without a deploy.
 name: Fetch mountain restaurants
 
@@ -22,6 +25,9 @@ on:
     branches-ignore: [main]
     paths:
       - tools/fetch-pois.mjs
+      - tools/osm-extract.sh
+      - tools/osm-regions.mjs
+      - tools/lib/osm-local.mjs
       - tools/lib/landmarks.mjs
       - .github/workflows/pois.yml
 
@@ -47,7 +53,9 @@ jobs:
 
       - name: Date
         id: date
-        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          echo "week=$(date -u +%G-W%V)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         with:
@@ -57,18 +65,25 @@ jobs:
       - name: Build the areas (for their runs and stations)
         run: node tools/build-areas.mjs --europe --out build/europe
 
-      - name: Fetch restaurants and huts
-        env:
-          BUDGET_MIN: 70
-        run: |
-          echo "POIS_START=$(date +%s)" >> "$GITHUB_ENV"
-          node tools/fetch-pois.mjs --areas build/europe/areas --out data/pois/europe.json
+      # The OpenStreetMap extract: made again once a week.
+      - uses: actions/cache@v4
+        id: osm
+        with:
+          path: /tmp/osm
+          key: osm-extract-${{ steps.date.outputs.week }}
 
-      # The time the restaurants left (at least 20 minutes).
-      - name: Fetch peaks, towns and villages
+      - name: Make the OpenStreetMap extract
+        if: steps.osm.outputs.cache-hit != 'true'
         run: |
-          left=$(( 88 - ($(date +%s) - POIS_START) / 60 ))
-          BUDGET_MIN=$(( left > 20 ? left : 20 )) node tools/fetch-pois.mjs --kind landmarks --areas build/europe/areas
+          sudo apt-get update -q
+          sudo apt-get install -y -q osmium-tool
+          tools/osm-extract.sh /tmp/osm/europe.geojsonseq build/europe/areas
+
+      - name: Restaurants and huts
+        run: node tools/fetch-pois.mjs --osm /tmp/osm/europe.geojsonseq --areas build/europe/areas --out data/pois/europe.json
+
+      - name: Peaks, towns and villages
+        run: node tools/fetch-pois.mjs --kind landmarks --osm /tmp/osm/europe.geojsonseq --areas build/europe/areas
 
       - name: Commit when changed
         id: commit
