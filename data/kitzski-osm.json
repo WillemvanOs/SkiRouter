@@ -19136,6 +19136,13 @@
       "lon": 12.4366
     },
     {
+      "id": "way/519011274",
+      "n": "Aussichtsplattform Kitzbüheler Horn",
+      "k": "viewpoint",
+      "lat": 47.47561,
+      "lon": 12.42962
+    },
+    {
       "id": "node/1562316320",
       "k": "viewpoint",
       "lat": 47.4749,
@@ -19164,20 +19171,6 @@
       "k": "viewpoint",
       "lat": 47.30821,
       "lon": 12.37934
-    },
-    {
-      "id": "way/1346657607",
-      "n": "Bärenland",
-      "k": "snowpark",
-      "lat": 47.34125,
-      "lon": 12.38965
-    },
-    {
-      "id": "way/364619016",
-      "n": "Snowpark",
-      "k": "snowpark",
-      "lat": 47.31895,
-      "lon": 12.37436
     },
     {
       "id": "way/383085484",
