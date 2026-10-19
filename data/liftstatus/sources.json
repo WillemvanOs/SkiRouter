@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12",
+ "updated": "2026-10-19",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
@@ -837,7 +837,7 @@
   "skiliftkarussell-winterberg-de-2": {
    "name": "Skiliftkarussell Winterberg",
    "country": "DE",
-   "share": 96,
+   "share": 100,
    "bron": "intermaps.com",
    "sources": [
     {

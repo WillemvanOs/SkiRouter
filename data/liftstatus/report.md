@@ -1,6 +1,6 @@
 # Live lift status: sources
 
-Run 2026-10-12T05:04 UTC, 9 min. 2165 candidate sources, 115 with lifts.
+Run 2026-10-19T05:18 UTC, 8 min. 2162 candidate sources, 117 with lifts.
 
 **85 areas with live lift status** (at least 75 % of their named lifts matched).
 
@@ -46,6 +46,7 @@ Run 2026-10-12T05:04 UTC, 9 min. 2165 candidate sources, 115 with lifts.
 | Wildhaus | CH | infosnow pid 154 | 100 % | yes |
 | Ofterschwang/​Gunzesried | DE | intermaps winter.intermaps.com/ofterschwang | 100 % | yes |
 | Skigebiet Garmisch-Classic | DE | intermaps winter.intermaps.com/zugspitzbahn_garmisch | 100 % | yes |
+| Skiliftkarussell Winterberg | DE | intermaps winter.intermaps.com/winterberg | 100 % | yes |
 | Albiez-Montrond | FR | lumiplan albiez-montrond | 100 % | yes |
 | Font d'Urle Chaud Clapier | FR | lumiplan font-d-urle | 100 % | yes |
 | La Norma | FR | lumiplan la-norma | 100 % | yes |
@@ -58,7 +59,7 @@ Run 2026-10-12T05:04 UTC, 9 min. 2165 candidate sources, 115 with lifts.
 | SkiWelt Wilder Kaiser - Brixental | AT | micado www.skiwelt.at skiwelt | 96 % | yes |
 | Arosa Lenzerheide | CH | intermaps winter.intermaps.com/arosa_lenzerheide | 96 % | yes |
 | Saas Fee | CH | intermaps winter.intermaps.com/saas_fee | 96 % | yes |
-| Skiliftkarussell Winterberg | DE | intermaps winter.intermaps.com/winterberg | 96 % | yes |
+| Les Contamines | FR | lumiplan megeve | 96 % | yes |
 | Les Ménuires | FR | lumiplan les-menuires | 96 % | yes |
 | Kronplatz - Plan de Corones, Kronplatz, Plan de Corones | IT | intermaps winter.intermaps.com/kronplatz | 96 % | yes |
 | Stubaier Gletscher | AT | intermaps winter.intermaps.com/stubaier_gletscher | 94 % | yes |
@@ -99,11 +100,11 @@ Run 2026-10-12T05:04 UTC, 9 min. 2165 candidate sources, 115 with lifts.
 | Brauneck | DE | intermaps winter.intermaps.com/brauneck | 71 % | no |
 | Skigebiet Oberwiesenthal | DE | intermaps winter.intermaps.com/fichtelberg | 71 % | no |
 | Annaberg | AT | intermaps winter.intermaps.com/annaberg | 67 % | no |
-| Méribel | FR | lumiplan meribel | 64 % | no |
 | Raurisertal | AT | intermaps winter.intermaps.com/rauris | 60 % | no |
 | Sulden | IT | intermaps winter.intermaps.com/sulden | 60 % | no |
+| Méribel | FR | lumiplan meribel | 59 % | no |
 | Goldeck | AT | intermaps winter.intermaps.com/goldeck | 40 % | no |
 | Forêt Blanche : Vars/Risoul | FR | lumiplan risoul | 39 % | no |
 | Balme - Vallorcine | FR | lumiplan chamonix | 33 % | no |
-| Cauterets Cirque du Lys | FR | lumiplan cauterets | 25 % | no |
+| Le Grand Massif | FR | lumiplan les-carroz | 21 % | no |
 | Tarvisio, Tarvis | IT | intermaps winter.intermaps.com/tarvisio | 20 % | no |
