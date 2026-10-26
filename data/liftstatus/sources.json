@@ -1,11 +1,11 @@
 {
- "updated": "2026-10-19",
+ "updated": "2026-10-26",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
    "name": "4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon",
    "country": "CH",
-   "share": 92,
+   "share": 95,
    "bron": "infosnow.ch",
    "sources": [
     {
@@ -173,7 +173,7 @@
   "galtur-at": {
    "name": "Galtür",
    "country": "AT",
-   "share": 78,
+   "share": 89,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -197,7 +197,7 @@
   "gerlitzen-alpe-at": {
    "name": "Gerlitzen Alpe",
    "country": "AT",
-   "share": 93,
+   "share": 100,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -410,15 +410,15 @@
     }
    ]
   },
-  "kreischberg-at": {
-   "name": "Kreischberg",
+  "katschberg-aineck-at": {
+   "name": "Katschberg-Aineck",
    "country": "AT",
-   "share": 75,
+   "share": 94,
    "bron": "intermaps.com",
    "sources": [
     {
      "provider": "intermaps",
-     "project": "https://winter.intermaps.com/kreischberg"
+     "project": "https://winter.intermaps.com/katschberg"
     }
    ]
   },
@@ -431,6 +431,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/kronplatz"
+    }
+   ]
+  },
+  "kuhtai-at": {
+   "name": "Kühtai",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/hochoetz_kuehtai"
     }
    ]
   },
@@ -551,6 +563,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/malbun"
+    }
+   ]
+  },
+  "meribel-fr": {
+   "name": "Méribel",
+   "country": "FR",
+   "share": 92,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "meribel"
     }
    ]
   },
@@ -686,6 +710,18 @@
     }
    ]
   },
+  "puy-saint-vincent-fr": {
+   "name": "Puy-Saint-Vincent",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "puy-saint-vincent"
+    }
+   ]
+  },
   "ramsau-am-dachstein-at": {
    "name": "Ramsau am Dachstein",
    "country": "AT",
@@ -783,6 +819,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/montafon"
+    }
+   ]
+  },
+  "ski-amade-flachau-wagrain-at": {
+   "name": "Ski amadé: Flachau, Wagrain",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/salzburger_sportwelt"
     }
    ]
   },
@@ -967,18 +1015,6 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/venet"
-    }
-   ]
-  },
-  "wagrain-at": {
-   "name": "Wagrain",
-   "country": "AT",
-   "share": 100,
-   "bron": "intermaps.com",
-   "sources": [
-    {
-     "provider": "intermaps",
-     "project": "https://winter.intermaps.com/salzburger_sportwelt"
     }
    ]
   },
