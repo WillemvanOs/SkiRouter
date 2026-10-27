@@ -12,7 +12,7 @@ Why lifts fall outside their area's main network: runs attached, no way into/out
 
 Areas made of several separate parts (ski passes covering several domains): 0
 
-In the app: **curated elsewhere** 1
+In the app: **ok** 1
 
 ## The 40 biggest areas
 
