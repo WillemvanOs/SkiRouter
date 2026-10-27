@@ -287,6 +287,7 @@ function toggleFavourite(id) {
   const ids = favouriteAreaIds();
   const next = ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id];
   try { localStorage.setItem(FAVOURITE_AREAS_KEY, JSON.stringify(next)); } catch {}
+  accountPrefsChanged();
   renderAreaList();
 }
 
@@ -501,6 +502,7 @@ function renderHeaderLiftStatus() {
 }
 
 function showAreaPicker() {
+  closeAccount();
   document.getElementById('area-search').value = '';
   renderAreaList();
   clearAreaHeader();
@@ -1079,6 +1081,19 @@ allowedDiff = new Set(prefs.diff);
 
 function storePrefs() {
   try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {}
+  accountPrefsChanged();
+}
+
+// The account's preferences arrived (signed in on this phone, or changed on
+// another): read them again and show them.
+function reloadLocalPrefs() {
+  const stored = { diff: [...DIFF_LEVELS], pace: 'normal', drag: true, bus: true };
+  try { Object.assign(stored, JSON.parse(localStorage.getItem(PREFS_KEY)) || {}); } catch {}
+  Object.assign(prefs, stored);
+  prefs.diff = prefs.diff.filter(d => DIFF_LEVELS.includes(d));
+  renderPrefs();
+  if (currentArea) loadAvoided();
+  renderAreaList();
 }
 
 function setPrefDiff(value) {
@@ -1112,6 +1127,7 @@ function renderPrefs() {
 // The preferences screen: instead of the planner, back with Done.
 let prefsChanged = null;
 function openPrefs() {
+  closeAccount();
   renderPrefs();
   renderAvoided();
   prefsChanged = JSON.stringify(prefs);
@@ -1631,6 +1647,7 @@ function loadAvoided() {
 function saveAvoided() {
   try { localStorage.setItem(avoidKey(), JSON.stringify([...avoidedLifts])); } catch {}
   try { localStorage.setItem(AVOID_PISTE_KEY_PREFIX + (currentArea?.id || ''), JSON.stringify([...avoidedPistes])); } catch {}
+  accountPrefsChanged();
 }
 
 // A lift ride (up, or down in a gondola) on the avoid list, or a run over a
@@ -2377,6 +2394,7 @@ function renderProgress(id, done, total, text, extraHtml = '') {
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 
+initAccount();
 initApp();
 
 // Offline: the service worker keeps the app and all area data on the device.

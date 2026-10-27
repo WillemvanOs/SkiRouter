@@ -1,0 +1,42 @@
+/* The privacy policy and terms: plain reading pages. */
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: #eef4fb;
+  color: #0d1b2a;
+  line-height: 1.55;
+}
+
+.legal {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.legal h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #1a3a5c;
+}
+
+.legal h2 {
+  margin-top: 1.6em;
+  font-size: 1.05rem;
+  color: #1a3a5c;
+}
+
+.legal ul {
+  padding-left: 1.2em;
+}
+
+.legal a {
+  color: #2980b9;
+}
+
+.legal-draft {
+  background: #fff4d6;
+  border-left: 4px solid #d4a017;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
