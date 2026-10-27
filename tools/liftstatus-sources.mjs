@@ -15,7 +15,7 @@
 // 2. Intermaps maps guessed from area and village names;
 // 3. every Infosnow page id up to INFOSNOW_MAX;
 // 4. Lumiplan stations: known ones and guesses from area and village names;
-// 5. Micado: the site's "sgm." client with a few region guesses.
+// 5. Micado: the site's "sgm." client with a few region guesses (SkiWelt and KitzSki known).
 // A source belongs to the area whose lift names it matches best
 // (liftmatch.js); an area keeps its sources when together they cover at
 // least MIN_SHARE % of its named lifts. When a source cannot be read this
@@ -153,8 +153,9 @@ for (const a of areas) {
 }
 // 3. Infosnow.
 for (let pid = 1; pid <= INFOSNOW_MAX; pid++) add({ provider: 'infosnow', pid });
-// 5. Micado: SkiWelt is known.
+// 5. Micado: SkiWelt and KitzSki are known.
 add({ provider: 'micado', base: 'https://www.skiwelt.at', client: 'https://sgm.skiwelt.at', region: 'skiwelt' }, 'skiwelt-wilder-kaiser-brixental-at');
+add({ provider: 'micado', base: 'https://www.kitzski.at', client: 'https://sgm.kitzski.at', region: 'kitzski' }, 'kitzski');
 log(`${candidates.size} candidate sources`);
 
 // ── Read every candidate ─────────────────────────────────────────────────────

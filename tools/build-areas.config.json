@@ -5,11 +5,9 @@
       "osd": [
         "1eeb56a80185ff1dff644357f9f747842d0f620c"
       ],
-      "name": "KitzSki",
-      "listed": false
+      "name": "KitzSki"
     }
   ],
-  "_comment": "\"listed\": false keeps an area out of the Europe index (KitzSki: the app uses its curated file in data/areas.json).",
   "splits": [
     {
       "parent": "dolomiti-superski-it",

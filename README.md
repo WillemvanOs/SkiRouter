@@ -4,7 +4,7 @@ Route planner for ski areas: pick a lift station, pick a destination, get the li
 Works on phone, tablet and laptop, and offline on the mountain once it has been opened.
 
 The planner is a static site: no server, no build step, no dependencies.
-It fetches `data/areas.json` and plans routes entirely in the browser.
+It fetches the list of ski areas and plans routes entirely in the browser.
 
 ## How development works
 
@@ -37,11 +37,10 @@ Open it once with a connection; after that the planner and all ski areas work wi
 
 ## Adding, updating or removing a ski area
 
-Ask Claude in a cloud session (for example "add Saalbach"). It generates the dataset
-from OpenStreetMap as `data/<id>.json` and registers it in `data/areas.json`.
-You can also upload a photo of the piste map: Claude converts it with the `skimap-reader`
-skill, which produces the same `data/<id>.json` format. The skill is also used for
-updates to a single zone.
+Every European ski area in OpenSkiData is built automatically on each deploy (see below), KitzSki
+included; fixes for one area (a bus link, a name) go in `overrides/<id>.json`.
+Only for an area that is not in the map data: upload a photo of the piste map and Claude converts it
+with the `skimap-reader` skill into `data/<id>.json`, registered in `data/areas.json`.
 To remove an area, delete its file and its entry in `data/areas.json`.
 
 Each entry in `data/areas.json` points to its data file via `file`; the service worker
@@ -71,15 +70,10 @@ does this run reach" lists of format 1, which it still reads for areas not yet m
 Lifts that link two summits (long, under 150 m of climb, like the 3S Bahn) get a return
 lift of their own (`D9r`).
 
-**KitzSki** (`data/kitzski-osm.json`, curated: lift status, restaurants, places, ski bus) runs on
-this compiled network too. Its old format-1 lists ("the lifts whose top a piste starts at" and
-"every lift whose bottom it reaches", with one length for all) made a route over several pistes
-look like one short piste — Resterkogel (G4) to Hanglalm (G5) came out as "76, 80 m, 1 min"
-instead of 71b + 72, 2 km — and had some lifts in the wrong place (E1 Gaisberg, E4, H2 near
-St. Johann). `tools/curated-from-build.mjs` puts the curated file onto `data/build/kitzski.json`:
-lifts, pistes, descents, transfers, walks and piste lines from the build; names, bus stops,
-the bus link, places and restaurants (linked again where a lift moved, left out when no longer
-next to a piste) from the curated file. The build workflow runs it after every build.
+Every area is built the same way, KitzSki included: the config only gives it the id `kitzski`
+and its name, and `overrides/kitzski.json` adds the ski bus through Kitzbühel. (Until October 2026
+KitzSki was a hand-made format-1 file whose "lifts a piste reaches" lists, with one length for all,
+made a route over several pistes look like one short piste, and had some lifts in the wrong place.)
 
 Which areas are built: `tools/build-areas.config.json`. Hand-made additions per area —
 bus links, display names, lift number fixes, dropping a bad descent — go in
@@ -98,13 +92,13 @@ the index and the report.
 Each deploy (`.github/workflows/pages.yml`) builds every European ski area into
 `data/europe/` on the site: `index.json` for the area picker and one file per area under
 `areas/`. These files are not in the repository. The OpenSkiData download is cached for a
-day; if the Europe build fails, the site still goes out with the curated areas only.
+day; if the Europe build fails, the site still goes out with the hand-made areas only.
 
 Which areas are listed: at least 5 lifts and 10 km of pistes, and at least half of the
 lifts in one connected network. Areas with 50–75 % connected are shown with "Not all lifts
 are connected". Ski passes made of several separate domains (Dolomiti Superski, Ski
 amadé, …) are left out; their parts (Alta Badia, Kronplatz, …) are listed on their own.
-Areas in `data/areas.json` (KitzSki, with lift status and restaurants) are not listed twice.
+Hand-made areas in `data/areas.json` (from a piste map photo) are not listed twice.
 
 Some valleys have no ski area of their own in OpenSkiData, only the pass they are part of. Val
 Gardena, for example, is only in "Dolomiti Superski", which is hidden as a pass of separate
@@ -127,7 +121,7 @@ box. Lifts without a number in the map data show their name only.
 `tools/fetch-pois.mjs` takes the restaurants, cafés, bars and huts around every built area
 from our own OpenStreetMap extract (see *Our own OpenStreetMap extract* below) and keeps the ones within 100 m of a run or 130 m of a top
 station in `data/pois/europe.json`. The build links them to the area with the same rules
-as the KitzSki enrichment below (80 m of a piste, huts 100 m, 130 m of a top station;
+as the OSM enrichment below (80 m of a piste, huts 100 m, 130 m of a top station;
 within 130 m of a station it is linked to that station, else to its run).
 
 `.github/workflows/pois.yml` runs daily and does every area each time (the extract is on
@@ -268,8 +262,8 @@ line from the station you board to the one you leave. The next piste is followed
 (up to 500 m, at the end of a connecting path), its nearest point is used instead. When the
 route goes on with another lift, the hint points to that lift's bottom station. Both
 directions come from the map data (`coordOnder`/`coordBoven`, `pisteLijnen`). There is no
-hint when the piste is further away, or when the data has no course for it: about 6 in 10
-lift–piste pairs in KitzSki and nearly all in the areas built from OpenSkiData get one.
+hint when the piste is further away, or when the data has no course for it: nearly all
+lift–piste pairs in the areas built from OpenSkiData get one.
 
 ## Riding a lift down
 
@@ -281,7 +275,7 @@ there: the planners count riding down as an extra hour of cost, while showing th
 ## Bus and walking connections
 
 Some lift stations are only linked through the valley, such as Hahnenkammbahn (A1) and Hornbahn
-(H1) in Kitzbühel. These links go in the area file as `verbindingen`, curated by hand:
+(H1) in Kitzbühel. These links go in `overrides/<id>.json` (the build adds them to the area) as `verbindingen`, by hand:
 
 ```json
 "verbindingen": [
@@ -311,20 +305,11 @@ nearest named bus stop (`bushalte`), which help to work out a sensible `tijd`.
 
 ## Lift status and opening hours
 
-Every 30 minutes, `.github/workflows/lift-status.yml` runs `tools/lift-status.mjs`, which reads
-each area's own lift list and writes `data/<area>-liftstatus.json`: per lift whether it is open,
-today's operating hours, the operating period and weekdays. The file is only committed when
-something changed; the workflow then redeploys the site. For KitzSki the source is the API behind
-kitzski.at's lift status page (Micado SkigebieteManager). An area opts in with a `liftstatus`
-entry in `data/areas.json`.
-
-The app shows "open 08:30–17:00" or "closed" in the station picker and at every lift step, warns
-about closed lifts on a route or day plan, and the day planner uses today's hours as lift windows.
-GitHub runs scheduled workflows on a best-effort basis, so an update can now and then be a little
-later than 30 minutes. That is why the app also fetches the status live, straight from kitzski.at
-(its API allows requests from other sites), when an area opens and every 5 minutes while the app is
-on screen. The latest live result is kept on the phone. Without a connection the app uses whichever
-is newer, that stored result or the file from GitHub Actions. The tip then says "live" or not.
+Per lift whether it is open and, where the source says, today's operating hours: from the area's
+lift status provider, every 30 minutes (below). The app shows "open 08:30–17:00" or "closed" in
+the station picker and at every lift step, warns about closed lifts on a route or day plan, and the
+day planner uses today's hours as lift windows. The app fetches the status again every 5 minutes
+while it is on screen and keeps the latest on the phone, so it is there offline too.
 
 ### Live lift status for European ski areas
 
@@ -334,7 +319,7 @@ four of them:
   Every map has a JSON feed at `<map>/data`.
 - **Infosnow:** Switzerland.
 - **Lumiplan:** French snow bulletins, with opening hours.
-- **Micado:** SkiWelt.
+- **Micado:** SkiWelt and KitzSki.
 
 The parsers are in `tools/lib/liftstatus-providers.mjs`.
 
@@ -357,7 +342,7 @@ The parsers are in `tools/lib/liftstatus-providers.mjs`.
   numerals as digits; two lifts whose numbers differ are never matched. In the area picker
   every area says "● Live lift status" or "○ No live lift status". Once an area is open, the
   same line sits under its facts at the top, with the time of the last update. From there,
-  everything works as for KitzSki: status in the station picker, warnings, avoiding and the day planner's lift
+  everything works the same in every area: status in the station picker, warnings, avoiding and the day planner's lift
   hours.
 
 ## Avoiding lifts and pistes
@@ -514,7 +499,7 @@ without tapping): a red bar in the sticky header and a warning above the steps, 
 ## OpenStreetMap enrichment
 
 `tools/osm-enrich.mjs` adds restaurants and huts and lift opening hours, where mapped, to every
-dataset in `data/areas.json`. Only places on the piste are kept: within 80 m of a piste's course
+hand-made dataset in `data/areas.json` (built areas get theirs from the build). Only places on the piste are kept: within 80 m of a piste's course
 (huts 100 m) or 130 m of a top station. A place within 130 m of a lift station is linked to that
 station, otherwise to its piste. Piste ways more than 1.5 km from every lift belong to a
 neighbouring area and are ignored.
