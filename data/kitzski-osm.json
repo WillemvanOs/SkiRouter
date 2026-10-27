@@ -18846,22 +18846,17 @@
       "lon": 12.39115
     },
     {
+      "n": "St. Johann in Tirol",
+      "k": "town",
+      "lat": 47.52241,
+      "lon": 12.42868,
+      "ele": 659
+    },
+    {
       "n": "Filzen",
       "k": "village",
       "lat": 47.38824,
       "lon": 12.41577
-    },
-    {
-      "n": "Jochberg",
-      "k": "village",
-      "lat": 47.38046,
-      "lon": 12.418
-    },
-    {
-      "n": "Hütte",
-      "k": "village",
-      "lat": 47.39004,
-      "lon": 12.42426
     },
     {
       "n": "Wiesenegg",
@@ -18870,16 +18865,28 @@
       "lon": 12.42426
     },
     {
-      "n": "Einath",
+      "n": "Hütte",
       "k": "village",
-      "lat": 47.40812,
-      "lon": 12.43138
+      "lat": 47.39004,
+      "lon": 12.42426
+    },
+    {
+      "n": "Jochberg",
+      "k": "village",
+      "lat": 47.38046,
+      "lon": 12.418
     },
     {
       "n": "Unteraurach",
       "k": "village",
       "lat": 47.42079,
       "lon": 12.41787
+    },
+    {
+      "n": "Einath",
+      "k": "village",
+      "lat": 47.40812,
+      "lon": 12.43138
     },
     {
       "n": "Aurach bei Kitzbühel",
@@ -18942,22 +18949,16 @@
       "lon": 12.37577
     },
     {
+      "n": "Going",
+      "k": "village",
+      "lat": 47.51422,
+      "lon": 12.32757
+    },
+    {
       "n": "Hollersbach im Pinzgau",
       "k": "village",
       "lat": 47.2752,
       "lon": 12.41947
-    },
-    {
-      "n": "Bramberg am Wildkogel",
-      "k": "village",
-      "lat": 47.27279,
-      "lon": 12.3474
-    },
-    {
-      "n": "Reitlehen",
-      "k": "village",
-      "lat": 47.27115,
-      "lon": 12.42142
     },
     {
       "n": "Zweitausender",
@@ -19142,6 +19143,13 @@
       "k": "viewpoint",
       "lat": 47.46496,
       "lon": 12.4366
+    },
+    {
+      "id": "node/7776089875",
+      "n": "Eiffersbacher Wasserfall",
+      "k": "viewpoint",
+      "lat": 47.50131,
+      "lon": 12.44949
     },
     {
       "id": "way/519011274",
