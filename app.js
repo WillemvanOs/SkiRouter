@@ -224,7 +224,7 @@ function addDescents(area, liftByNr, addEdge) {
 // an area fetches data/<area>.json, builds the routing graph from its
 // liften/pistes, and only then reveals the route planner UI.
 
-const AREA_REGISTRY_URL = 'data/areas.json';         // hand-curated areas (KitzSki)
+const AREA_REGISTRY_URL = 'data/areas.json';         // hand-made areas (from a piste map photo)
 const EUROPE_INDEX_URL  = 'data/europe/index.json';  // every European area, built at deploy
 const LAST_AREA_KEY      = 'skiplanner:lastArea';
 const FAVOURITE_AREAS_KEY = 'skiplanner:favouriteAreas';
@@ -251,7 +251,35 @@ const SEARCH_ALIASES = {
   savoie: 'savoy', piemonte: 'piedmont', lombardia: 'lombardy', bayern: 'bavaria',
 };
 
+// Areas with a new id: what this phone kept under the old one (last area,
+// favourite, avoided lifts and pistes, day plan, progress) moves along.
+// KitzSki was a hand-made file until it was built like every other area.
+const RENAMED_AREAS = { 'kitzski-osm': 'kitzski' };
+const areaIdNow = id => RENAMED_AREAS[id] || id;
+
+function moveRenamedAreas() {
+  try {
+    let moved = false;
+    for (const [from, to] of Object.entries(RENAMED_AREAS)) {
+      if (localStorage.getItem(LAST_AREA_KEY) === from) localStorage.setItem(LAST_AREA_KEY, to);
+      const favourites = favouriteAreaIds();
+      if (favourites.includes(from)) {
+        localStorage.setItem(FAVOURITE_AREAS_KEY, JSON.stringify(favourites.map(areaIdNow)));
+        moved = true;
+      }
+      Object.keys(localStorage).filter(key => key.endsWith(`:${from}`) || key.includes(`:${from}:`)).forEach(key => {
+        const next = key.replace(`:${from}`, `:${to}`);
+        if (localStorage.getItem(next) == null) localStorage.setItem(next, localStorage.getItem(key));
+        localStorage.removeItem(key);
+        moved = true;
+      });
+    }
+    if (moved) accountPrefsChanged();
+  } catch {}
+}
+
 async function initApp() {
+  moveRenamedAreas();
   const listEl = document.getElementById('area-list');
   // The curated list is needed; the Europe index is a bonus (offline, or a
   // deploy whose Europe build failed, still leaves the curated areas).
@@ -1877,18 +1905,18 @@ function suppressStepClick() {
 
 // ── Lift status (open/closed, operating hours) ───────────────────────────────
 //
-// Fetched every 30 minutes from the ski area's website by
-// tools/lift-status.mjs into data/<area>-liftstatus.json (see areas.json).
+// Fetched every 30 minutes from the ski area's provider by
+// tools/liftstatus-europe.mjs into a file per area on the `liftstatus`
+// branch; the area index says where (`liftstatus.file`).
 
 let LIFT_STATUS = null; // { bron, sourceUpdate, changed, lifts: { A1: { open, hours, from, to, … } } }
 
-// Live from the area's own API, straight from the browser (kitzski.at sends
-// 'Access-Control-Allow-Origin: *'). Falls back to the last live result kept
-// on the phone, then to the file GitHub Actions refreshes in data/.
+// Fetched again while the app is open; the last result is kept on the phone
+// for offline use.
 const LIFT_STATUS_LIVE_KEY = 'skiplanner:liftstatus:';
 const LIFT_STATUS_REFRESH_MS = 5 * 60 * 1000;
 const LIFT_STATUS_TIMEOUT_MS = 8000;
-let liftStatusMeta = null; // the area's liftstatus config from areas.json
+let liftStatusMeta = null; // the area's liftstatus entry from the area index
 
 async function loadLiftStatus(areaMeta) {
   LIFT_STATUS = null;
@@ -1927,28 +1955,11 @@ function europeLiftStatus(data) {
   return { bron: data.bron, sourceUpdate: data.sourceUpdate, lifts };
 }
 
-// Fetch the live status; on success redraw whatever route is on screen.
+// Fetch the status again; on success redraw whatever route is on screen.
 async function refreshLiftStatusLive() {
   const cfg = liftStatusMeta;
-  const areaId = currentArea?.id;
-  if (!cfg || !navigator.onLine) return;
-  if (cfg.europe) return refreshEuropeLiftStatus(cfg, areaId);
-  if (cfg.bron !== 'micado-skigebietemanager') return;
-  try {
-    const params = new URLSearchParams({ client: cfg.client, lang: 'de', region: cfg.region, season: 'winter', type: 'lift' });
-    const url = `${cfg.base}/micadoapi/SkigebieteManager/Micado.SkigebieteManager.Plugin.FacilityApi/ListFacilities.api?${params}`;
-    const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(LIFT_STATUS_TIMEOUT_MS) });
-    if (!response.ok) return;
-    const data = await response.json();
-    if (currentArea?.id !== areaId) return; // switched area meanwhile
-    const live = liveLiftStatus(data, cfg);
-    if (!Object.keys(live.lifts).length) return;
-    LIFT_STATUS = live;
-    try { localStorage.setItem(LIFT_STATUS_LIVE_KEY + areaId, JSON.stringify(live)); } catch {}
-    redrawLiftStatus();
-  } catch (err) {
-    console.warn('Live lift status unavailable:', err);
-  }
+  if (!cfg?.europe || !navigator.onLine) return;
+  return refreshEuropeLiftStatus(cfg, currentArea?.id);
 }
 
 // A European area: fetch its status file again (GitHub Actions writes it
@@ -1966,30 +1977,6 @@ async function refreshEuropeLiftStatus(cfg, areaId) {
   } catch (err) {
     console.warn('Lift status unavailable:', err);
   }
-}
-
-// The Micado lift list in the same shape as data/<area>-liftstatus.json
-// (tools/lift-status.mjs does the same on the server side).
-function liveLiftStatus(data, cfg) {
-  const hours = value => {
-    const m = /(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})/.exec(value || '');
-    return m ? `${m[1].padStart(2, '0')}:${m[2]}-${m[3].padStart(2, '0')}:${m[4]}` : null;
-  };
-  const byId = new Map((data.facilities || []).map(f => [f.identifier, f]));
-  const lifts = {};
-  (currentArea.liften || []).forEach(lift => {
-    const f = byId.get(lift.liftNr) || byId.get(lift.liftNr.replace(/[a-z]+$/, ''));
-    if (!f) return;
-    lifts[lift.liftNr] = {
-      open: f.status === 1,
-      hours: hours(f.operatingTimePeriod || f.openingHours),
-      from: (f.operatingDateFrom || '').slice(0, 10) || null,
-      to: (f.operatingDateTo || '').slice(0, 10) || null,
-      weekdays: f.operatingWeekdays ?? null,
-      text: f.operatingText || '',
-    };
-  });
-  return { bron: new URL(cfg.base).hostname, sourceUpdate: data.meta?.lastUpdate || null, live: true, lifts };
 }
 
 // New status in: redraw an open station list and any route or day on screen.

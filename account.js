@@ -398,13 +398,13 @@ async function loadSavedDays() {
 async function openSavedDay(id) {
   const day = savedDays.find(d => d.id === id);
   if (!day) return;
-  const meta = AREAS.find(a => a.id === day.area_id);
+  const meta = AREAS.find(a => a.id === areaIdNow(day.area_id));
   if (!meta) { showAccountNotice(`"${day.area_name}" is not in the ski area list any more.`); return; }
-  try { localStorage.setItem(DAY_KEY_PREFIX + day.area_id, JSON.stringify(day.inputs)); } catch {}
+  try { localStorage.setItem(DAY_KEY_PREFIX + meta.id, JSON.stringify(day.inputs)); } catch {}
   closeAccount();
-  if (currentArea?.id !== day.area_id) await selectArea(meta);
+  if (currentArea?.id !== meta.id) await selectArea(meta);
   else resetDayPlan();
-  if (currentArea?.id !== day.area_id) return;
+  if (currentArea?.id !== meta.id) return;
   const inputs = day.inputs || {};
   if (inputs.end && !restorePlace('dend', inputs.endPlace)) restoreStation('dend', inputs.end);
   showTab('day');

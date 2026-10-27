@@ -13,7 +13,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Called by lift-status.yml after it commits new lift data (a commit made
+  # Called by other workflows after they commit new data (a commit made
   # with GITHUB_TOKEN does not trigger the push event above).
   workflow_call:
 
