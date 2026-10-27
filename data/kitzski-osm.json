@@ -552,7 +552,11 @@
       "coordBoven": [
         47.50625,
         12.44633
-      ]
+      ],
+      "bushalte": {
+        "naam": "St. Johann i.T. Eichenhof",
+        "afstandM": 211
+      }
     },
     {
       "liftNr": "E2",
@@ -610,7 +614,11 @@
       "coordBoven": [
         47.51211,
         12.44766
-      ]
+      ],
+      "bushalte": {
+        "naam": "St. Johann i.T. Eichenhof",
+        "afstandM": 189
+      }
     },
     {
       "liftNr": "F1a",
