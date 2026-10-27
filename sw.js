@@ -8,10 +8,16 @@
 //
 // Bump CACHE_VERSION when the list of shell files changes.
 
-const CACHE_VERSION = 'skirouter-v73';
+const CACHE_VERSION = 'skirouter-v74';
 const SHELL = [
   './',
   'index.html',
+  'config.js',
+  'vendor/supabase/supabase.js',
+  'account.js',
+  'privacy.html',
+  'terms.html',
+  'legal.css',
   'icons.js',
   'liftmatch.js',
   'map.js',

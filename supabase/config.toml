@@ -1,0 +1,11 @@
+# Supabase CLI settings for SkiRouter's project (see README: Accounts).
+
+[functions.checkout]
+verify_jwt = true
+
+[functions.delete-account]
+verify_jwt = true
+
+# Mollie calls this one, without a Supabase token.
+[functions.mollie-webhook]
+verify_jwt = false

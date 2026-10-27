@@ -2721,3 +2721,277 @@ body.map-full {
 .steps.no-entry > * {
   animation: none !important;
 }
+
+/* ── Accounts: sign in, account screen, season pass ───────── */
+
+#account-gate {
+  display: none;
+}
+
+html.gated #account-gate {
+  display: block;
+}
+
+html.gated main > :not(#account-gate):not(#account-notice),
+html.gated .header-btns,
+html.gated #header-stats,
+html.gated #header-live {
+  display: none !important;
+}
+
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gate-intro {
+  font-size: 0.85rem;
+  color: #6a7d92;
+}
+
+.gate-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gate-field .day-input {
+  width: 100%;
+}
+
+.gate-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.8rem;
+  color: #4a5d72;
+}
+
+.gate-check input {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.gate-check a,
+.acc-legal a,
+.paywall-note a {
+  color: var(--blue);
+}
+
+.gate-msg {
+  display: none;
+  background: #ffe0de;
+  color: #c0392b;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.gate-msg.visible {
+  display: block;
+}
+
+.gate-msg.ok {
+  background: #e3f5ea;
+  color: #1e7a45;
+}
+
+.gate-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.account-notice {
+  background: #fff;
+  border: 1px solid #dde8f4;
+  border-left: 4px solid var(--blue);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+}
+
+.account-notice.ok {
+  border-left-color: var(--green);
+}
+
+.acc-rows {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.acc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  font-size: 0.85rem;
+  color: #6a7d92;
+}
+
+.acc-row + .acc-row {
+  border-top: 1.5px solid var(--ice);
+}
+
+.acc-row strong {
+  color: var(--midnight);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.acc-country {
+  max-width: 60%;
+}
+
+.acc-pass {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  background: var(--snow);
+  border-radius: 12px;
+  font-size: 0.82rem;
+  color: #4a5d72;
+  margin-bottom: 4px;
+}
+
+.acc-pass strong {
+  font-size: 0.95rem;
+  color: var(--alpine);
+}
+
+.acc-days {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acc-empty {
+  font-size: 0.82rem;
+  color: #8a99ab;
+}
+
+.acc-day {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  overflow: hidden;
+}
+
+.acc-day-open {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.acc-day-open strong {
+  font-size: 0.9rem;
+  color: var(--midnight);
+}
+
+.acc-day-open span {
+  font-size: 0.75rem;
+  color: #6a7d92;
+}
+
+.acc-day-del {
+  border: none;
+  background: none;
+  padding: 0 14px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.acc-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.acc-delete {
+  color: #c0392b;
+}
+
+.acc-legal {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #8a99ab;
+}
+
+.paywall-list {
+  margin: 0 0 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+
+.paywall-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: var(--alpine);
+}
+
+.paywall-note {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #8a99ab;
+}
+
+.save-day {
+  margin: 4px 0 10px;
+}
+
+.save-day-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.save-day-form .day-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.save-day-ok {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: var(--alpine);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-day-msg {
+  font-size: 0.8rem;
+  color: #c0392b;
+}

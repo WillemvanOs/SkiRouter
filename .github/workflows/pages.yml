@@ -40,7 +40,8 @@ jobs:
       - name: Collect the static site
         run: |
           mkdir _site
-          cp index.html icons.js liftmatch.js map.js dayplan.js app.js styles.css sw.js manifest.webmanifest _site/
+          cp index.html config.js account.js icons.js liftmatch.js map.js dayplan.js app.js styles.css sw.js manifest.webmanifest _site/
+          cp privacy.html terms.html legal.css _site/
           cp -r icons data vendor _site/
           touch _site/.nojekyll
 

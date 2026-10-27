@@ -19,8 +19,8 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 
 ## Published site (GitHub Pages)
 
-Only the planner files go online: `index.html`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
-`manifest.webmanifest`, `icons/`, `vendor/` and `data/`.
+Only the planner files go online: `index.html`, `config.js`, `account.js`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`,
+`app.js`, `styles.css`, `sw.js`, `manifest.webmanifest`, `privacy.html`, `terms.html`, `legal.css`, `icons/`, `vendor/` and `data/`.
 
 The typefaces (Bebas Neue and DM Sans, SIL Open Font License, `vendor/fonts/OFL.txt`) are
 served from the site itself (`vendor/fonts/`, from Fontsource), not from Google Fonts, so
@@ -362,12 +362,63 @@ steps before it count as done and the rest of the day is planned again from ther
 several pistes avoids all of them). Avoided pistes are kept per area next to the lifts
 (`skiplanner:avoidpiste:<area>`). A tap still ticks a step; scrolling up and down is untouched.
 
+## Accounts and the season pass
+
+Everyone signs in: email address, password, date of birth (16 and over, GDPR art. 8) and
+country. The preferences (`skirouter:prefs`, favourite areas, avoided lifts and pistes) go
+with the account, so they follow you to another phone. A free account plans quick routes;
+the **season pass** (one payment per winter, valid until 30 June; bought from May on it is
+for the coming season) adds the **day planner** and **saving days** in the account. 👤 in the
+header opens the account: season pass, saved days (tap one to plan it again in its area, with
+the settings it was saved with), country, sign out and delete account. Without the pass the
+Day plan tab shows what the pass offers and a button to buy it.
+
+How it fits together:
+
+- **Supabase** (auth + Postgres + Edge Functions). `supabase/migrations/` makes the tables
+  `profiles`, `payments` and `routes`, with row level security: everyone reads and changes
+  only their own rows; the season pass (`profiles.paid_until`) and payments are written by
+  the functions alone; saving a day needs a valid pass (checked in the database, not only in
+  the app). Signing up creates the profile in the same step and fails under 16.
+- **Mollie** (`supabase/functions/checkout`): makes a payment for the signed-in user and sends
+  them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
+  Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
+  app (`?paid=1`) the app asks for the profile until the pass is there.
+- **The app** (`account.js`, `config.js`, `vendor/supabase/` = supabase-js 2.118.0, MIT): the
+  sign-in screen before anything else, the account screen, the day planner behind the pass.
+  The day planner itself still runs in the browser, so the pass is checked by the app; saved
+  days are checked by the database. The signed-in account is kept on the phone, so the app
+  opens offline on the mountain; preference changes made offline are sent once online.
+- With `config.js` left empty, accounts are off and the app works as before, all free.
+
+**Setting it up** (once):
+
+1. Create a project at [supabase.com](https://supabase.com), region **EU (Frankfurt)**. Sign
+   the data processing agreement (Settings → Legal).
+2. Install the [Supabase CLI](https://supabase.com/docs/guides/cli), then in this repository:
+   `supabase login`, `supabase link --project-ref <ref>`, `supabase db push` (the tables).
+3. Mollie: make an account at [mollie.com](https://www.mollie.com) and copy the API key (test
+   key `test_…` first, live key `live_…` once Mollie has approved you). Then:
+   `supabase secrets set MOLLIE_API_KEY=test_… APP_URL=https://<where the app is> SEASON_PRICE=9.99`
+   and `supabase functions deploy checkout delete-account` plus
+   `supabase functions deploy mollie-webhook --no-verify-jwt`.
+4. Supabase → Authentication → URL Configuration: **Site URL** = the app's address, and add it
+   under Redirect URLs (the links in the confirmation and password emails go there).
+   Authentication → Emails: set up your own SMTP sender (Supabase's own is for testing only,
+   a few emails an hour) and the email texts.
+5. Fill in `config.js`: the project URL and the anon key (Settings → API). Both are public by
+   design; what they can do is limited by the row level security.
+6. Fill in the `[brackets]` in `privacy.html` and `terms.html` and have them checked.
+
+Testing payments: with the `test_` key Mollie's checkout lets you choose the outcome (paid,
+failed, …); the pass appears within seconds after "paid".
+
 ## Preferences
 
 Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
 line in either planner): piste colours, pace (for the day plan's
 times), drag lifts and ski bus, plus the lifts avoided in this area. They are kept
-on the phone for every ski area (`skirouter:prefs`) and both planners use them. Done, or **⚙**
+on the phone for every ski area (`skirouter:prefs`), and with the account when accounts are on, and both planners use them. Done, or **⚙**
 again, goes back to the planner; a quick route on screen is planned again with the new preferences.
 
 Under the **Pace** switch each pace says what it means, the chosen one highlighted:

@@ -64,6 +64,7 @@ function showTab(tab) {
   document.getElementById('tabbtn-quick').classList.toggle('on', tab === 'quick');
   document.getElementById('tabbtn-day').classList.toggle('on', tab === 'day');
   try { localStorage.setItem(DAY_TAB_KEY, tab); } catch {}
+  renderAccountAccess();
   // One map for both planners: draw it again in the one now on screen.
   leaveRouteMap();
   if (routeViews[tab] === 'map') drawPlannerMap(tab);
@@ -117,8 +118,9 @@ function dayInProgress() {
 function restoreDayProgress() {
   dayTracker = null;
   const saved = loadProgress('day');
-  if (!dayInProgress() || !selected.dstart) return;
-  planDay({ silent: true });
+  if (!dayInProgress() || !selected.dstart || !hasSeasonPass()) return;
+  // With the settings it was planned with, so it comes out the same.
+  planDay({ silent: true, override: loadDayInputs() });
   if (dayOptions.length && saved.option > 0 && saved.option < dayOptions.length) renderDayOption(saved.option);
 }
 
@@ -1033,7 +1035,24 @@ function planDayClicked(button) {
   }, 30);
 }
 
+// `override`: plan with these saved settings (pace, difficulties, ski bus,
+// drag lifts) instead of the preferences — a saved day, or the day being
+// followed — and leave the preferences as they are.
 function planDay(options = {}) {
+  const o = options.override;
+  if (!o) return planDayNow(options);
+  const keep = { pace: dayPace, diff: dayDiff };
+  if (DAY_PACES[o.pace]) dayPace = o.pace;
+  if (Array.isArray(o.diff) && o.diff.length) dayDiff = new Set(o.diff.filter(d => DAY_DIFF_LEVELS.includes(d)));
+  try {
+    return planDayNow(options);
+  } finally {
+    dayPace = keep.pace;
+    dayDiff = keep.diff;
+  }
+}
+
+function planDayNow(options = {}) {
   const errorEl  = document.getElementById('day-err');
   const resultEl = document.getElementById('day-result');
   errorEl.classList.remove('visible');
@@ -1052,8 +1071,11 @@ function planDay(options = {}) {
   const lunchT   = parseClock(document.getElementById('day-lunch-t').value);
   const lunchMin = parseFloat(document.getElementById('day-lunch-min').value) || 0;
   const lunchAt  = document.getElementById('day-lunch-at').value;
-  dayBus = busAllowed('pref-bus');
-  dayDrag = dragAllowed('pref-drag');
+  const o = options.override || {};
+  dayBus  = typeof o.bus  === 'boolean' ? o.bus  : busAllowed('pref-bus');
+  dayDrag = typeof o.drag === 'boolean' ? o.drag : dragAllowed('pref-drag');
+
+  if (!hasSeasonPass()) return fail('The day planner comes with the season pass.');
 
   if (!start) { markMissing(['dstart']); return fail('Choose where your day starts.'); }
   if (t0 == null || t1 == null)     return fail('Enter a start time and a time to be back.');

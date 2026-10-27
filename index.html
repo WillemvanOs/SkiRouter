@@ -26,6 +26,7 @@
     <div class="header-top">
       <div class="logo">Ski<span>Route</span>r</div>
       <div class="header-btns">
+        <button class="area-switch" id="account-btn" onclick="toggleAccount()" style="display:none" aria-label="Account">👤</button>
         <button class="area-switch" id="prefs-btn" onclick="togglePrefs()" style="display:none" aria-label="Preferences">⚙</button>
         <button class="area-switch" id="area-switch-btn" onclick="showAreaPicker()" style="display:none">🏔 Change ski area</button>
       </div>
@@ -41,6 +42,80 @@
 </header>
 
 <main>
+
+  <div class="account-notice" id="account-notice" style="display:none"></div>
+
+  <!-- Sign in / create an account: before anything else, when accounts are on -->
+  <div class="card gate-card" id="account-gate" data-mode="signin">
+    <div class="card-title" id="gate-title">Sign in</div>
+    <form class="gate-form" onsubmit="gateSubmit(event)" novalidate>
+      <p class="gate-intro" data-for="signin">Sign in to plan your routes. Your preferences come with your account, on every phone.</p>
+      <p class="gate-intro" data-for="signup">Free: quick routes in every ski area. The season pass adds the day planner and saving your days.</p>
+      <p class="gate-intro" data-for="reset">We email you a link to choose a new password.</p>
+      <label class="gate-field" data-for="signin signup reset">
+        <span class="sel-label">Email address</span>
+        <input class="day-input" id="gate-email" type="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <label class="gate-field" data-for="signin signup newpassword">
+        <span class="sel-label">Password</span>
+        <input class="day-input" id="gate-password" type="password" autocomplete="current-password" minlength="8" required>
+      </label>
+      <label class="gate-field" data-for="signup">
+        <span class="sel-label">Date of birth</span>
+        <input class="day-input" id="gate-birthdate" type="date" autocomplete="bday" min="1900-01-01" required>
+      </label>
+      <label class="gate-field" data-for="signup">
+        <span class="sel-label">Country</span>
+        <select class="day-input" id="gate-country" autocomplete="country" required></select>
+      </label>
+      <label class="gate-check" data-for="signup">
+        <input type="checkbox" id="gate-terms">
+        <span>I agree to the <a href="terms.html" target="_blank">terms</a> and the <a href="privacy.html" target="_blank">privacy policy</a>. I am 16 or older.</span>
+      </label>
+      <div class="gate-msg" id="gate-msg"></div>
+      <button class="plan-btn" id="gate-submit" type="submit">SIGN IN</button>
+    </form>
+    <div class="gate-links">
+      <button class="link-btn" type="button" data-for="signin" onclick="renderGate('signup')">No account yet? Create one</button>
+      <button class="link-btn" type="button" data-for="signin" onclick="renderGate('reset')">Forgot your password?</button>
+      <button class="link-btn" type="button" data-for="signup reset sent" onclick="renderGate('signin')">← Back to sign in</button>
+    </div>
+  </div>
+
+  <!-- Account: season pass, saved days, sign out -->
+  <div class="card prefs-card" id="account-screen" style="display:none">
+    <div class="card-title">👤 Your account</div>
+
+    <div class="acc-rows">
+      <div class="acc-row"><span>Email</span><strong id="acc-email"></strong></div>
+      <div class="acc-row"><span>Date of birth</span><strong id="acc-birthdate"></strong></div>
+      <label class="acc-row"><span>Country</span>
+        <select class="day-input acc-country" id="acc-country" onchange="saveCountry(this.value)"></select>
+      </label>
+    </div>
+
+    <div class="prefs-section">
+      <div class="prefs-label">🎟 Season pass</div>
+      <div class="acc-pass" id="acc-pass"></div>
+      <div id="acc-buy">
+        <button class="plan-btn" type="button" onclick="buySeasonPass(this)">GET THE SEASON PASS</button>
+        <div class="paywall-msg error-msg" style="display:none"></div>
+      </div>
+    </div>
+
+    <div class="prefs-section" id="acc-days-section">
+      <div class="prefs-label">☆ Saved days <small>tap one to plan it again in its ski area, with today's lift status</small></div>
+      <div class="acc-days" id="acc-days"></div>
+    </div>
+
+    <div class="acc-actions">
+      <button class="link-btn" type="button" onclick="signOutClicked()">Sign out</button>
+      <button class="link-btn acc-delete" type="button" onclick="deleteAccountClicked()">Delete my account</button>
+    </div>
+    <p class="acc-legal"><a href="terms.html" target="_blank">Terms</a> · <a href="privacy.html" target="_blank">Privacy</a></p>
+
+    <button class="plan-btn" type="button" onclick="closeAccount()">DONE</button>
+  </div>
 
   <!-- Area picker: shown first, hidden once a gebied is chosen -->
   <div class="card" id="area-picker">
@@ -61,7 +136,7 @@
   <!-- Preferences: a screen of its own, personal and kept on this phone -->
   <div class="card prefs-card" id="prefs-screen" style="display:none">
     <div class="card-title">⚙ Preferences</div>
-    <p class="prefs-intro">Personal, kept on this phone. The quick route and the day plan both use them.</p>
+    <p class="prefs-intro" id="prefs-intro">Personal, kept on this phone. The quick route and the day plan both use them.</p>
 
     <div class="prefs-section">
       <div class="prefs-label">⛷ Difficulty <small>pistes in other colours only when there is no other way</small></div>
@@ -240,6 +315,21 @@
 
   <div id="tab-day" style="display:none">
 
+  <!-- Without the season pass: what the day planner does, and the pass -->
+  <div class="card paywall" id="day-paywall" style="display:none">
+    <div class="card-title">📅 Plan your whole day</div>
+    <ul class="paywall-list">
+      <li>A full day from first lift to last run, with the km you want to ski</li>
+      <li>Lunch at a mountain restaurant and stops along the way</li>
+      <li>Several routes to choose from, at your pace</li>
+      <li>Save your days in your account and plan them again any time</li>
+    </ul>
+    <div class="paywall-price" id="paywall-price"></div>
+    <button class="plan-btn" type="button" onclick="buySeasonPass(this)">GET THE SEASON PASS</button>
+    <div class="paywall-msg error-msg" style="display:none"></div>
+    <p class="paywall-note">One payment per season, no subscription. iDEAL, Bancontact, card and more via Mollie.</p>
+  </div>
+
   <!-- Day planner card -->
   <div class="card" id="day-card">
     <div class="card-title">📅 Plan your day</div>
@@ -365,6 +455,16 @@
     <div class="day-options" id="day-options"></div>
     <div class="day-notes" id="day-notes"></div>
 
+    <div class="save-day" id="save-day" style="display:none">
+      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()">☆ Save this day</button>
+      <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
+        <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
+        <button class="save-day-ok" type="submit">Save</button>
+        <button class="link-btn" type="button" onclick="saveDayCancel()">Cancel</button>
+      </form>
+      <div class="save-day-msg" id="save-day-msg"></div>
+    </div>
+
     <!-- Stays at the top of the screen while scrolling through the day:
          back to the settings, list or map, and how far along you are -->
     <div class="result-sticky">
@@ -389,6 +489,9 @@
 
 </main>
 
+<script src="config.js"></script>
+<script src="vendor/supabase/supabase.js"></script>
+<script src="account.js"></script>
 <script src="icons.js"></script>
 <script src="liftmatch.js"></script>
 <script src="map.js"></script>
