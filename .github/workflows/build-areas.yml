@@ -30,6 +30,7 @@ on:
     paths:
       - tools/build-areas.mjs
       - tools/build-areas.config.json
+      - tools/curated-from-build.mjs
       - tools/lib/**
       - overrides/**
       - .github/workflows/build-areas.yml
@@ -63,7 +64,10 @@ jobs:
 
       - name: Build (configured areas)
         if: inputs.scope != 'europe'
-        run: node tools/build-areas.mjs --out data/build
+        run: |
+          node tools/build-areas.mjs --out data/build
+          # KitzSki in the app: the compiled network, with its curated extras.
+          node tools/curated-from-build.mjs --build data/build/kitzski.json --curated data/kitzski-osm.json
 
       - name: Build (Europe)
         if: inputs.scope == 'europe'
@@ -85,13 +89,13 @@ jobs:
 
       - name: Commit result
         run: |
-          if [ -z "$(git status --porcelain -- data/build)" ]; then
+          if [ -z "$(git status --porcelain -- data/build data/kitzski-osm.json)" ]; then
             echo "No changes."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
-          git add data/build
+          git add data/build data/kitzski-osm.json
           git commit -m "Build ski areas from OpenSkiData"
           git pull --rebase
           git push

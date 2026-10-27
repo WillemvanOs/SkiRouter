@@ -71,6 +71,16 @@ does this run reach" lists of format 1, which it still reads for areas not yet m
 Lifts that link two summits (long, under 150 m of climb, like the 3S Bahn) get a return
 lift of their own (`D9r`).
 
+**KitzSki** (`data/kitzski-osm.json`, curated: lift status, restaurants, places, ski bus) runs on
+this compiled network too. Its old format-1 lists ("the lifts whose top a piste starts at" and
+"every lift whose bottom it reaches", with one length for all) made a route over several pistes
+look like one short piste — Resterkogel (G4) to Hanglalm (G5) came out as "76, 80 m, 1 min"
+instead of 71b + 72, 2 km — and had some lifts in the wrong place (E1 Gaisberg, E4, H2 near
+St. Johann). `tools/curated-from-build.mjs` puts the curated file onto `data/build/kitzski.json`:
+lifts, pistes, descents, transfers, walks and piste lines from the build; names, bus stops,
+the bus link, places and restaurants (linked again where a lift moved, left out when no longer
+next to a piste) from the curated file. The build workflow runs it after every build.
+
 Which areas are built: `tools/build-areas.config.json`. Hand-made additions per area —
 bus links, display names, lift number fixes, dropping a bad descent — go in
 `overrides/<id>.json` and are applied on every build. The build also writes
