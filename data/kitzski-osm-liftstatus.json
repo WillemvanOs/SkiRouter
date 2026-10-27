@@ -1,7 +1,7 @@
 {
   "bron": "www.kitzski.at",
-  "sourceUpdate": "2026-10-16T16:57:24",
-  "changed": "2026-10-16T15:00:05.020Z",
+  "sourceUpdate": "2026-10-27T08:12:33",
+  "changed": "2026-10-27T07:39:03.897Z",
   "lifts": {
     "A1": {
       "open": true,
@@ -228,12 +228,12 @@
       "text": ""
     },
     "E1": {
-      "open": true,
-      "hours": "08:30-17:00",
-      "from": "2026-05-09",
-      "to": "2026-10-26",
-      "weekdays": 127,
-      "text": "Sommer WE 3"
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     },
     "E2": {
       "open": false,
@@ -476,12 +476,12 @@
       "text": ""
     },
     "H11": {
-      "open": true,
-      "hours": "09:00-17:30",
-      "from": "2026-10-17",
-      "to": "2026-10-18",
-      "weekdays": 96,
-      "text": "Wochenendbetrieb Oktober"
+      "open": false,
+      "hours": null,
+      "from": null,
+      "to": null,
+      "weekdays": null,
+      "text": ""
     }
   }
 }
