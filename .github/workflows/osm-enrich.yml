@@ -1,5 +1,5 @@
-# Adds restaurants and lift opening hours from OpenStreetMap to the ski area
-# datasets (tools/osm-enrich.mjs) and commits the result to the same branch.
+# Adds restaurants and lift opening hours from OpenStreetMap (our own extract,
+# tools/osm-extract.sh) to the ski area datasets (tools/osm-enrich.mjs) and commits the result to the same branch.
 # Runs by hand (Actions → "Enrich ski areas from OSM" → Run workflow), or on a
 # push to a branch other than main that changes the script or this workflow.
 name: Enrich ski areas from OSM
@@ -10,6 +10,9 @@ on:
     branches-ignore: [main]
     paths:
       - tools/osm-enrich.mjs
+      - tools/osm-extract.sh
+      - tools/osm-regions.mjs
+      - tools/lib/osm-local.mjs
       - .github/workflows/osm-enrich.yml
 
 permissions:
@@ -29,8 +32,16 @@ jobs:
         with:
           node-version: 22
 
-      - name: Fetch OSM data
-        run: node tools/osm-enrich.mjs
+      # Our own OpenStreetMap extract of the regions with the hand-curated
+      # areas, not the public Overpass API.
+      - name: Make the OpenStreetMap extract
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q osmium-tool
+          tools/osm-extract.sh /tmp/osm/curated.geojsonseq build/none
+
+      - name: Enrich from OSM
+        run: node tools/osm-enrich.mjs --osm /tmp/osm/curated.geojsonseq
 
       - name: Commit changed datasets
         run: |
@@ -42,4 +53,5 @@ jobs:
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
           git add data
           git commit -m "Enrich ski area data from OpenStreetMap"
+          git pull --rebase
           git push

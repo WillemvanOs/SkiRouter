@@ -20,7 +20,11 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 ## Published site (GitHub Pages)
 
 Only the planner files go online: `index.html`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`, `app.js`, `styles.css`, `sw.js`,
-`manifest.webmanifest`, `icons/` and `data/`.
+`manifest.webmanifest`, `icons/`, `vendor/` and `data/`.
+
+The typefaces (Bebas Neue and DM Sans, SIL Open Font License, `vendor/fonts/OFL.txt`) are
+served from the site itself (`vendor/fonts/`, from Fontsource), not from Google Fonts, so
+opening the app sends nobody's IP address to Google; the service worker keeps them offline.
 
 Pages must be set to **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 The site is at `https://<your-username>.github.io/<repository>/`.
@@ -110,17 +114,31 @@ box. Lifts without a number in the map data show their name only.
 
 ### Mountain restaurants for every area
 
-`tools/fetch-pois.mjs` asks OpenStreetMap (Overpass API) for restaurants, cafés, bars and
-huts around every built area and keeps the ones within 100 m of a run or 130 m of a top
+`tools/fetch-pois.mjs` takes the restaurants, cafés, bars and huts around every built area
+from our own OpenStreetMap extract (see *Our own OpenStreetMap extract* below) and keeps the ones within 100 m of a run or 130 m of a top
 station in `data/pois/europe.json`. The build links them to the area with the same rules
 as the KitzSki enrichment below (80 m of a piste, huts 100 m, 130 m of a top station;
 within 130 m of a station it is linked to that station, else to its run).
 
-The public Overpass servers are often busy, so `.github/workflows/pois.yml` runs daily:
-each run spends at most about 80 minutes, starts with the areas never fetched (or fetched
-longest ago), skips areas fetched in the last 6 days, and commits the file when it changed,
-after which it redeploys the site. An area whose query keeps failing keeps the places it
-had. Start it by hand from **Actions → Fetch mountain restaurants → Run workflow**.
+`.github/workflows/pois.yml` runs daily and does every area each time (the extract is on
+disk, so that takes seconds); it commits the file when it changed, after which it redeploys
+the site. Start it by hand from **Actions → Fetch mountain restaurants → Run workflow**.
+
+### Our own OpenStreetMap extract
+
+The public Overpass API asks commercial users to run their own server, so SkiRouter does not
+use it. `tools/osm-extract.sh` makes an extract instead:
+- `tools/osm-regions.mjs` picks, from Geofabrik's region list, the smallest regions that hold
+  the ski areas (Tirol rather than Austria), so as little as possible is downloaded;
+- each region is downloaded from Geofabrik, cut down with `osmium tags-filter` to what the
+  app uses (places to eat, huts, peaks, villages, viewpoints, snow parks, lifts, pistes and
+  bus stops) and exported as GeoJSON, one feature per line, one region on disk at a time;
+- `tools/lib/osm-local.mjs` reads that back as Overpass-style elements for
+  `tools/fetch-pois.mjs` and `tools/osm-enrich.mjs` (`--osm <file>`).
+
+`pois.yml` makes the extract once a week and keeps it in the Actions cache in between, so
+Geofabrik is asked once a week. Locally: `tools/osm-extract.sh build/osm.geojsonseq` (needs
+`osmium-tool`).
 
 In big areas the day planner tries at most 16 lunch stops when no restaurant is chosen:
 ones you can reach by lunchtime and get back from, the same sample for the same inputs.
@@ -436,8 +454,9 @@ dataset in `data/areas.json`. Only places on the piste are kept: within 80 m of 
 (huts 100 m) or 130 m of a top station. A place within 130 m of a lift station is linked to that
 station, otherwise to its piste. Piste ways more than 1.5 km from every lift belong to a
 neighbouring area and are ignored.
-It runs in GitHub Actions (`.github/workflows/osm-enrich.yml`) because cloud sessions
-cannot reach OpenStreetMap: start it from **Actions → Enrich ski areas from OSM → Run
+It reads our own OpenStreetMap extract (`--osm`, see above), placed by the area's lift
+stations and runs, and runs in GitHub Actions (`.github/workflows/osm-enrich.yml`) because
+cloud sessions cannot reach Geofabrik: start it from **Actions → Enrich ski areas from OSM → Run
 workflow**, or push a change to the script on a branch. The workflow commits the
 updated data back to that branch.
 

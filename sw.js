@@ -5,11 +5,10 @@
 //   lists, and the Europe index. A Europe area is cached when first opened.
 // - Same-origin requests: network first (so updates arrive when there is a
 //   connection), falling back to the cache after a short timeout or when offline.
-// - Google Fonts: cache first — they never change.
 //
 // Bump CACHE_VERSION when the list of shell files changes.
 
-const CACHE_VERSION = 'skirouter-v72';
+const CACHE_VERSION = 'skirouter-v73';
 const SHELL = [
   './',
   'index.html',
@@ -18,6 +17,17 @@ const SHELL = [
   'map.js',
   'vendor/leaflet/leaflet.js',
   'vendor/leaflet/leaflet.css',
+  'vendor/fonts/fonts.css',
+  'vendor/fonts/bebas-neue-latin-400-normal.woff2',
+  'vendor/fonts/bebas-neue-latin-ext-400-normal.woff2',
+  'vendor/fonts/dm-sans-latin-300-normal.woff2',
+  'vendor/fonts/dm-sans-latin-400-normal.woff2',
+  'vendor/fonts/dm-sans-latin-500-normal.woff2',
+  'vendor/fonts/dm-sans-latin-600-normal.woff2',
+  'vendor/fonts/dm-sans-latin-ext-300-normal.woff2',
+  'vendor/fonts/dm-sans-latin-ext-400-normal.woff2',
+  'vendor/fonts/dm-sans-latin-ext-500-normal.woff2',
+  'vendor/fonts/dm-sans-latin-ext-600-normal.woff2',
   'dayplan.js',
   'app.js',
   'styles.css',
@@ -64,21 +74,10 @@ self.addEventListener('fetch', event => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
 
-  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
-    event.respondWith(cacheFirst(req));
-  } else if (url.origin === self.location.origin) {
+  if (url.origin === self.location.origin) {
     event.respondWith(networkFirst(req));
   }
 });
-
-async function cacheFirst(req) {
-  const cache = await caches.open(CACHE_VERSION);
-  const hit = await cache.match(req);
-  if (hit) return hit;
-  const res = await fetch(req);
-  if (res.ok || res.type === 'opaque') cache.put(req, res.clone());
-  return res;
-}
 
 async function networkFirst(req) {
   const cache = await caches.open(CACHE_VERSION);
