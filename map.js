@@ -128,10 +128,17 @@ function nearestIndex(line, p) {
 }
 
 // The part of a piste's mapped course between two points (either may be
-// missing), or null when the piste has no course in the data.
+// missing), or null when the piste has no course in the data. A piste is
+// often mapped as several ways that meet (a fork, a later stretch), so the
+// course is followed over all of them: the shortest way along the piste's
+// lines from the point nearest `from` to the point nearest `to`.
 function pisteSegment(nr, from, to) {
   const lines = currentArea?.pisteLijnen?.[nr];
   if (!lines?.length) return null;
+  if (lines.length > 1 && from && to) {
+    const seg = pisteNetworkPath(pisteNetwork(nr, lines), from, to);
+    if (seg) return seg;
+  }
   let best = null;
   for (const line of lines) {
     if (line.length < 2) continue;
@@ -144,6 +151,54 @@ function pisteSegment(nr, from, to) {
   const { line, i, j } = best;
   const seg = i <= j ? line.slice(i, j + 1) : line.slice(j, i + 1).reverse();
   return seg.length >= 2 ? seg : null;
+}
+
+// A piste's ways as one network: every point, linked to the next point of
+// its way and to points of its other ways close enough to be where they join.
+// Kept per area and piste: the map asks for the same pistes again and again.
+const PISTE_JOIN_M = 50; // ways of one piste closer than this meet (OSM often leaves a small gap)
+const pisteNetworks = new WeakMap();
+function pisteNetwork(nr, lines) {
+  let byNr = pisteNetworks.get(currentArea);
+  if (!byNr) pisteNetworks.set(currentArea, byNr = new Map());
+  if (byNr.has(nr)) return byNr.get(nr);
+  const points = [], links = [];
+  const link = (a, b, d) => { links[a].push([b, d]); links[b].push([a, d]); };
+  lines.forEach((line, w) => line.forEach((p, k) => {
+    const id = points.length;
+    points.push({ p, w });
+    links.push([]);
+    if (k > 0) link(id - 1, id, distanceM(line[k - 1], p));
+  }));
+  for (let a = 0; a < points.length; a++) {
+    for (let b = a + 1; b < points.length; b++) {
+      if (points[a].w === points[b].w) continue;
+      const d = distanceM(points[a].p, points[b].p);
+      if (d <= PISTE_JOIN_M) link(a, b, d);
+    }
+  }
+  const network = { points: points.map(x => x.p), links };
+  byNr.set(nr, network);
+  return network;
+}
+
+// Dijkstra over a piste network; null when the two ends are not connected.
+function pisteNetworkPath({ points, links }, from, to) {
+  const start = nearestIndex(points, from).i, goal = nearestIndex(points, to).i;
+  if (start === goal) return null;
+  const dist = new Array(points.length).fill(Infinity), prev = new Array(points.length).fill(-1), done = new Array(points.length).fill(false);
+  dist[start] = 0;
+  for (;;) {
+    let u = -1;
+    for (let i = 0; i < points.length; i++) if (!done[i] && dist[i] < Infinity && (u < 0 || dist[i] < dist[u])) u = i;
+    if (u < 0) return null;
+    if (u === goal) break;
+    done[u] = true;
+    for (const [v, d] of links[u]) if (dist[u] + d < dist[v]) { dist[v] = dist[u] + d; prev[v] = u; }
+  }
+  const seg = [];
+  for (let i = goal; i >= 0; i = prev[i]) seg.push(points[i]);
+  return seg.reverse();
 }
 
 // Where two pistes meet: the point of `nr` closest to piste `next`.
