@@ -1,4 +1,4 @@
-# Europe build — 2026-10-27
+# Europe build — 2026-10-28
 
 Built **1** ski areas (at least 5 lifts and 10 km of pistes); 0 smaller or empty areas left out.
 
