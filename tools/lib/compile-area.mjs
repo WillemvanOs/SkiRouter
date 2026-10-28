@@ -94,7 +94,8 @@ export function compileArea(input, meta = {}) {
     const drop = first != null && last != null ? Math.abs(first - last) : null;
     return { ...r, pts: densify(pts, DENSIFY_M), flat: drop != null && drop < FLAT_RUN_M };
   });
-  const runKeys = assignRunKeys(runs);
+  const runPistes = assignRunKeys(runs); // per run: the pistes it is part of
+  const runKeys = runPistes.map(keys => keys[0]); // one piste per run where one is enough
 
   // ── Network: every densified point is a vertex; junctions become nodes ────
   const V = []; // { x, y, e, run, i }
@@ -201,7 +202,7 @@ export function compileArea(input, meta = {}) {
         e => allowed.has(runs[e.run].difficulty), search.firstRun);
       for (const [bottomId, path] of reached) {
         const bottomNr = bottomId.slice(0, -'-onder'.length);
-        const parts = toParts(path, runs, runKeys);
+        const parts = toParts(path, runs, runPistes);
         if (!parts.length) continue;
         const key = `${lift.liftNr}>${bottomNr}`;
         if (!descents.has(key)) descents.set(key, []);
@@ -272,25 +273,30 @@ export function compileArea(input, meta = {}) {
     };
   });
 
+  // A way shared by several pistes counts for each of them; a piste is named
+  // after its own ways first (a shared way often carries another's name).
   const pisteInfo = new Map();
-  runs.forEach((run, r) => {
-    const key = runKeys[r];
-    const info = pisteInfo.get(key) || { pisteNr: key, naam: run.name || defaultRunName(run, key), kleur: run.difficulty, lengteM: 0 };
-    info.lengteM += Math.round(polylineLength(run.pts));
-    if (DIFF_ORDER.indexOf(run.difficulty) > DIFF_ORDER.indexOf(info.kleur)) info.kleur = run.difficulty;
-    pisteInfo.set(key, info);
-  });
+  const order = runs.map((run, r) => r).sort((a, b) => runPistes[a].length - runPistes[b].length);
+  for (const r of order) {
+    const run = runs[r];
+    for (const key of runPistes[r]) {
+      const info = pisteInfo.get(key) || { pisteNr: key, naam: run.name || defaultRunName(run, key), kleur: run.difficulty, lengteM: 0 };
+      info.lengteM += Math.round(polylineLength(run.pts));
+      if (DIFF_ORDER.indexOf(run.difficulty) > DIFF_ORDER.indexOf(info.kleur)) info.kleur = run.difficulty;
+      pisteInfo.set(key, info);
+    }
+  }
   const pisteLijnen = {};
   runs.forEach((run, r) => {
-    const pts = thin(run.pts, 60).map(p => proj.back(p));
-    (pisteLijnen[runKeys[r]] = pisteLijnen[runKeys[r]] || []).push(pts.map(([lon, lat]) => [+lat.toFixed(5), +lon.toFixed(5)]));
+    const pts = thin(run.pts, 60).map(p => proj.back(p)).map(([lon, lat]) => [+lat.toFixed(5), +lon.toFixed(5)]);
+    for (const key of runPistes[r]) (pisteLijnen[key] = pisteLijnen[key] || []).push(pts);
   });
 
   const restaurants = linkRestaurants(input.pois || [], { proj, V, grid, runs, runKeys, stations });
 
   const eles = [...lifts.flatMap(l => [l.bottom.e, l.top.e])].filter(e => e != null);
   const realLifts = liften.filter(l => l.echteLift).length;
-  const pistesKm = Math.round([...pisteInfo.values()].reduce((s, p) => s + p.lengteM, 0) / 1000);
+  const pistesKm = Math.round(runs.reduce((s, run) => s + polylineLength(run.pts), 0) / 1000);
 
   const area = {
     format: 2,
@@ -448,15 +454,30 @@ function shortestDescents(out, startNodes, bottomAt, edgeAllowed, firstRun) {
 // stretch between two parts of one piste (where it crosses another piste)
 // counts as that piste. When a folded piece is harder, the neighbour keeps
 // its colour as a third element, so the difficulty filter still sees it.
-function toParts(path, runs, runKeys) {
+function toParts(path, runs, runPistes) {
   const rank = d => DIFF_ORDER.indexOf(d);
+  // A way shared by several pistes is the one you are on already, or else
+  // the one that goes on furthest after it.
+  const pistesOf = path.map(e => runPistes[e.run]);
+  const keys = [];
+  pistesOf.forEach((options, i) => {
+    if (options.length === 1) return keys.push(options[0]);
+    if (keys.length && options.includes(keys[keys.length - 1])) return keys.push(keys[keys.length - 1]);
+    let left = options;
+    for (let j = i + 1; j < pistesOf.length; j++) {
+      const next = left.filter(k => pistesOf[j].includes(k));
+      if (!next.length) break;
+      left = next;
+    }
+    keys.push(left[0]);
+  });
   let parts = [];
-  for (const e of path) {
-    const key = runKeys[e.run], diff = runs[e.run].difficulty;
+  path.forEach((e, i) => {
+    const key = keys[i], diff = runs[e.run].difficulty;
     const last = parts[parts.length - 1];
     if (last && last.key === key) last.len += e.len;
     else parts.push({ key, diff, len: e.len, also: null, numbered: !!(runs[e.run].ref || '').trim() });
-  }
+  });
   const minor = (p, nb) => p.len < TINY_PART_M
     || (p.key.startsWith('~') && p.len < UNNAMED_PART_M)
     || (!p.numbered && nb.numbered && p.len < UNNAMED_PART_M && rank(p.diff) <= rank(nb.diff))
@@ -635,19 +656,25 @@ function assignLiftNumbers(lifts) {
 
 // Run keys: the mapped ref (21, 21a), else the name, else a generated one.
 // Pieces of one run (same ref and name) share their key.
+// Per run the keys of the pistes it belongs to: its number (or name), one
+// key per number and colour. A way shared by several pistes carries all
+// their numbers ("16a;28a;38") and so gets several keys.
 function assignRunKeys(runs) {
   let n = 0;
   const byLabel = new Map();
-  return runs.map(r => {
-    const ref = (r.ref || '').trim();
-    const label = ref || (r.name || '').trim();
-    if (!label) return `~${++n}`;
-    const id = `${label}|${r.difficulty}`;
+  const keyOf = (label, difficulty) => {
+    const id = `${label}|${difficulty}`;
     if (!byLabel.has(id)) {
       const taken = [...byLabel.values()].includes(label);
-      byLabel.set(id, taken ? `${label} (${r.difficulty})` : label);
+      byLabel.set(id, taken ? `${label} (${difficulty})` : label);
     }
     return byLabel.get(id);
+  };
+  return runs.map(r => {
+    const refs = (r.ref || '').split(';').map(x => x.trim()).filter(Boolean);
+    if (refs.length) return [...new Set(refs)].map(ref => keyOf(ref, r.difficulty));
+    const name = (r.name || '').trim();
+    return [name ? keyOf(name, r.difficulty) : `~${++n}`];
   });
 }
 
