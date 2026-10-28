@@ -41,6 +41,7 @@ const CONNECTOR_MIN_M  = 1000; // it runs both ways as a normal lift (like the 3
 const TINY_PART_M      = 60;  // run pieces shorter than this always fold into a neighbour
 const UNNAMED_PART_M   = 300; // …and unnamed connectors shorter than this
 const SHORT_PART_M     = 150; // shorter run pieces fold into their neighbour when no harder
+const DETOUR_M         = 200; // a stretch this short between two parts of one piste (a crossing) is that piste
 const MAX_PER_PAIR     = 4;   // alternatives kept per lift top → lift bottom
 
 const DIFF_ORDER = ['groen', 'blauw', 'rood', 'zwart', 'skiroute'];
@@ -205,8 +206,12 @@ export function compileArea(input, meta = {}) {
         const key = `${lift.liftNr}>${bottomNr}`;
         if (!descents.has(key)) descents.set(key, []);
         const list = descents.get(key);
-        const sig = parts.map(p => p[0]).join('|');
-        if (!list.some(d => d.sig === sig)) list.push({ sig, parts, len: parts.reduce((s, p) => s + p[1], 0) });
+        // The same pistes, also in the same colours: one descent (the shorter).
+        const sig = parts.map(p => `${p[0]}:${p[2] || ''}`).join('|');
+        const len = parts.reduce((s, p) => s + p[1], 0);
+        const same = list.find(d => d.sig === sig);
+        if (!same) list.push({ sig, parts, len });
+        else if (len < same.len) Object.assign(same, { parts, len });
       }
     }
   }
@@ -436,10 +441,13 @@ function shortestDescents(out, startNodes, bottomAt, edgeAllowed, firstRun) {
 // Edges -> [[runKey, metres], …] (or [runKey, metres, colour] — see below),
 // merging consecutive pieces of one run. Minor pieces fold into a
 // neighbouring run so the app does not show a step for every few metres:
-// unnamed connectors under 300 m, anything under 60 m, and pieces under
-// 150 m that are no harder than their neighbour. When a folded piece is
-// harder, the neighbour keeps its colour as a third element, so the
-// difficulty filter still sees it.
+// unnamed connectors under 300 m, pieces without a piste number under 300 m
+// next to a numbered piste no easier than them (a stretch mapped under the
+// lift's name, like "Hahnenkamm" before piste 37), anything under 60 m,
+// and pieces under 150 m that are no harder than their neighbour. A short
+// stretch between two parts of one piste (where it crosses another piste)
+// counts as that piste. When a folded piece is harder, the neighbour keeps
+// its colour as a third element, so the difficulty filter still sees it.
 function toParts(path, runs, runKeys) {
   const rank = d => DIFF_ORDER.indexOf(d);
   let parts = [];
@@ -447,13 +455,32 @@ function toParts(path, runs, runKeys) {
     const key = runKeys[e.run], diff = runs[e.run].difficulty;
     const last = parts[parts.length - 1];
     if (last && last.key === key) last.len += e.len;
-    else parts.push({ key, diff, len: e.len, also: null });
+    else parts.push({ key, diff, len: e.len, also: null, numbered: !!(runs[e.run].ref || '').trim() });
   }
   const minor = (p, nb) => p.len < TINY_PART_M
     || (p.key.startsWith('~') && p.len < UNNAMED_PART_M)
+    || (!p.numbered && nb.numbered && p.len < UNNAMED_PART_M && rank(p.diff) <= rank(nb.diff))
     || (p.len < SHORT_PART_M && rank(p.diff) <= rank(nb.diff));
+  const hardestOf = (base, pieces) => [base.also, ...pieces.flatMap(p => [p.also, rank(p.diff) > rank(base.diff) ? p.diff : null])]
+    .filter(Boolean).sort((x, y) => rank(y) - rank(x))[0] || null;
   for (let changed = true; changed && parts.length > 1;) {
     changed = false;
+    // A short crossing: 37, 80 m of one piste, 69 m of another, 37 again.
+    for (let i = 0; i < parts.length && !changed; i++) {
+      for (let j = i + 2; j < parts.length; j++) {
+        const between = parts.slice(i + 1, j);
+        if (between.reduce((sum, p) => sum + p.len, 0) >= DETOUR_M) break;
+        if (parts[j].key !== parts[i].key) continue;
+        const p = parts[i];
+        const hardest = hardestOf(p, [...between, parts[j]]);
+        p.len += [...between, parts[j]].reduce((sum, q) => sum + q.len, 0);
+        if (hardest && rank(hardest) > rank(p.diff)) p.also = hardest;
+        parts.splice(i + 1, j - i);
+        changed = true;
+        break;
+      }
+    }
+    if (changed) continue;
     for (let i = 0; i < parts.length && parts.length > 1; i++) {
       const p = parts[i];
       const prev = parts[i - 1], next = parts[i + 1];

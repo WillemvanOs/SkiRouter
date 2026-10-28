@@ -1,11 +1,11 @@
 # Live lift status: sources
 
-Run 2026-10-26T05:18 UTC, 6 min. 2162 candidate sources, 118 with lifts.
+Run 2026-10-27T21:37 UTC, 6 min. 2168 candidate sources, 120 with lifts.
 
-**88 areas with live lift status** (at least 75 % of their named lifts matched).
+**89 areas with live lift status** (at least 75 % of their named lifts matched).
 
-- Per country: AT 51, CH 14, FR 10, IT 7, DE 5, LI 1
-- Per provider: intermaps 72, lumiplan 9, infosnow 6, micado 2
+- Per country: AT 52, CH 14, FR 10, IT 7, DE 5, LI 1
+- Per provider: intermaps 72, lumiplan 9, infosnow 6, micado 3
 
 | Area | Country | Source | Match | Live |
 |---|---|---|---:|---|
@@ -58,11 +58,11 @@ Run 2026-10-26T05:18 UTC, 6 min. 2162 candidate sources, 118 with lifts.
 | Passo Stelvio - Stilfserjoch | IT | intermaps winter.intermaps.com/passo_stelvio | 100 % | yes |
 | Piancavallo | IT | intermaps winter.intermaps.com/piancavallo | 100 % | yes |
 | Ratschings-Jaufen | IT | intermaps winter.intermaps.com/ratschings_jaufen | 100 % | yes |
+| KitzSki | AT | micado www.kitzski.at kitzski | 96 % | yes |
 | Obertauern | AT | intermaps winter.intermaps.com/obertauern | 96 % | yes |
 | SkiWelt Wilder Kaiser - Brixental | AT | micado www.skiwelt.at skiwelt | 96 % | yes |
 | Arosa Lenzerheide | CH | intermaps winter.intermaps.com/arosa_lenzerheide | 96 % | yes |
 | Saas Fee | CH | intermaps winter.intermaps.com/saas_fee | 96 % | yes |
-| Les Contamines | FR | lumiplan megeve | 96 % | yes |
 | Les Ménuires | FR | lumiplan les-menuires | 96 % | yes |
 | Kronplatz - Plan de Corones, Kronplatz, Plan de Corones | IT | intermaps winter.intermaps.com/kronplatz | 96 % | yes |
 | 4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon | CH | infosnow pid 36 | 95 % | yes |
@@ -109,4 +109,5 @@ Run 2026-10-26T05:18 UTC, 6 min. 2162 candidate sources, 118 with lifts.
 | Goldeck | AT | intermaps winter.intermaps.com/goldeck | 40 % | no |
 | Forêt Blanche : Vars/Risoul | FR | lumiplan risoul | 39 % | no |
 | Balme - Vallorcine | FR | lumiplan chamonix | 33 % | no |
+| Le Grand Massif | FR | lumiplan les-carroz | 21 % | no |
 | Tarvisio, Tarvis | IT | intermaps winter.intermaps.com/tarvisio | 20 % | no |

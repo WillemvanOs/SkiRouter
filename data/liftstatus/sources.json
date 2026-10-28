@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26",
+ "updated": "2026-10-27",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
@@ -419,6 +419,20 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/katschberg"
+    }
+   ]
+  },
+  "kitzski": {
+   "name": "KitzSki",
+   "country": "AT",
+   "share": 96,
+   "bron": "kitzski.at",
+   "sources": [
+    {
+     "provider": "micado",
+     "base": "https://www.kitzski.at",
+     "client": "https://sgm.kitzski.at",
+     "region": "kitzski"
     }
    ]
   },

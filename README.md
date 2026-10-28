@@ -62,6 +62,11 @@ elevation, lifts and runs already grouped per ski area) and compiles each area i
   runs on the way with their metres (`{ "van": "A1", "naar": "B2", "delen": [["21", 800], ["21a", 300]] }`).
   These are worked out from the run network itself — runs oriented downhill by elevation
   and joined where they meet — once per difficulty ceiling and once per run leaving the top.
+  Small pieces fold into the piste around them, so a step is a piste you would name: pieces
+  under 60 m, unnamed connectors and unnumbered stretches (mapped under a lift's name) under
+  300 m next to a numbered piste, and a stretch under 200 m between two parts of one piste
+  where it crosses another (A1 → C1 is one step "37", not 37 – Kapellenabfahrt – 19 – 37).
+  A folded piece that is harder keeps its colour for the difficulty filter.
 - `overstappen`: stations next to each other (within 150 m, about level) — a short walk.
 - `pisteLijnen`, `verbindingen`, `restaurants`: as before.
 
