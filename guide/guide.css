@@ -115,11 +115,6 @@
   letter-spacing: 0;
 }
 
-.guide-cta {
-  text-align: center;
-  margin: 8px 0 40px;
-}
-
 @media (max-width: 820px) {
   .guide { grid-template-columns: 1fr; gap: 24px; }
   .toc { position: static; }
