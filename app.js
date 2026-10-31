@@ -288,7 +288,7 @@ async function initApp() {
     fetch(EUROPE_INDEX_URL).then(r => r.ok ? r.json() : []).catch(() => []),
   ]);
   if (!curated && !europe.length) {
-    listEl.innerHTML = '<div class="area-error">⚠ The ski area list could not be loaded.</div>';
+    listEl.innerHTML = `<div class="area-error">${ui('warn')} The ski area list could not be loaded.</div>`;
     return;
   }
   AREAS = [
@@ -364,11 +364,11 @@ function renderAreaList() {
 
   const favourites = favouriteAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean)
     .sort((x, y) => x.name.localeCompare(y.name));
-  if (favourites.length) section('★ Favourites', favourites);
+  if (favourites.length) section('Favourites', favourites);
   else {
     const hint = document.createElement('div');
     hint.className = 'area-hint';
-    hint.textContent = 'Tap ☆ next to a ski area to keep it here, on top.';
+    hint.innerHTML = `Tap ${ui('star')} next to a ski area to keep it here, on top.`;
     listEl.appendChild(hint);
   }
   if (areaHere) {
@@ -431,18 +431,18 @@ function areaButton(area) {
     area.distance != null ? `${Math.round(area.distance / 1000)} km away` : '',
   ].filter(Boolean).join(' · ');
   btn.innerHTML = `
-    <span class="area-btn-name">🏔 ${escapeHtml(area.name)}</span>
+    <span class="area-btn-name">${escapeHtml(area.name)}</span>
     <span class="area-btn-sub">${escapeHtml(where)}</span>
     ${facts ? `<span class="area-btn-facts">${facts}</span>` : ''}
-    ${area.liftstatus ? '<span class="area-btn-live">● Live lift status</span>' : '<span class="area-btn-nolive">○ No live lift status</span>'}
-    ${area.status === 'deels' ? '<span class="area-btn-warn">⚠ Not all lifts are connected</span>' : ''}
+    ${area.liftstatus ? '<span class="area-btn-live"><span class="live-dot"></span>Live lift status</span>' : '<span class="area-btn-nolive"><span class="live-dot"></span>No live lift status</span>'}
+    ${area.status === 'deels' ? `<span class="area-btn-warn">${ui('warn')} Not all lifts are connected</span>` : ''}
   `;
   btn.addEventListener('click', () => selectArea(area));
   const fav = isFavourite(area.id);
   const star = document.createElement('button');
   star.type = 'button';
   star.className = `area-fav${fav ? ' on' : ''}`;
-  star.textContent = fav ? '★' : '☆';
+  star.innerHTML = ui('star');
   star.setAttribute('aria-pressed', String(fav));
   star.setAttribute('aria-label', `${fav ? 'Remove' : 'Add'} ${area.name} ${fav ? 'from' : 'to'} favourites`);
   star.addEventListener('click', () => toggleFavourite(area.id));
@@ -453,17 +453,18 @@ function areaButton(area) {
 // "Ski areas near me": sort by distance from where the user is.
 function findAreasNearMe() {
   const btn = document.getElementById('area-near-btn');
-  if (!navigator.geolocation) { btn.textContent = '📍 Location is not available on this device'; return; }
-  btn.textContent = '📍 Finding you…';
+  const say = text => { btn.innerHTML = `${ui('locate')} <span>${text}</span>`; };
+  if (!navigator.geolocation) { say('Location is not available on this device'); return; }
+  say('Finding you…');
   navigator.geolocation.getCurrentPosition(pos => {
     areaHere = [pos.coords.latitude, pos.coords.longitude];
-    btn.textContent = '📍 Ski areas near me';
+    say('Ski areas near me');
     document.getElementById('area-search').value = '';
     renderAreaList();
   }, err => {
-    btn.textContent = err.code === err.PERMISSION_DENIED
-      ? '📍 Location access is off — allow it in your settings'
-      : '📍 Could not find your location — try again';
+    say(err.code === err.PERMISSION_DENIED
+      ? 'Location access is off — allow it in your settings'
+      : 'Could not find your location — try again');
   }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 });
 }
 
@@ -482,37 +483,33 @@ async function selectArea(areaMeta) {
     applyAreaToHeader(area);
     resetPlanner();
 
-    document.getElementById('area-picker').style.display   = 'none';
-    document.getElementById('planner-cards').style.display = 'block';
+    showScreen('planner');
+    navTo(navPlanner);
   } catch (err) {
     console.error(`Could not load area "${areaMeta.id}":`, err);
     const note = document.createElement('div');
     note.className = 'area-error';
-    note.textContent = `⚠ "${areaMeta.name}" could not be loaded${navigator.onLine ? '' : ' — you are offline and it was not opened before'}.`;
+    note.innerHTML = `${ui('warn')} ${escapeHtml(`"${areaMeta.name}" could not be loaded${navigator.onLine ? '' : ' — you are offline and it was not opened before'}.`)}`;
     listEl.prepend(note);
   }
 }
 
+// The header holds the area's name (tap it to change area) and its lift
+// status; its facts (km, lifts, altitude) sit above the area map.
 function applyAreaToHeader(area) {
-  // Just the name: the compact header above the planner has room for one line.
-  document.getElementById('header-tagline').textContent = area.name;
-
+  document.getElementById('header-area').textContent = area.name;
   const stats = area.stats || {};
   document.getElementById('stat-km').textContent      = stats.pistesKm != null ? `${stats.pistesKm} km` : '—';
   document.getElementById('stat-liften').textContent  = stats.liften  != null ? `${stats.liften}`       : '—';
   document.getElementById('stat-hoogte').textContent  = stats.hoogte  || '—';
-  document.getElementById('header-stats').style.display     = 'flex';
   renderHeaderLiftStatus();
-  document.getElementById('area-switch-btn').style.display  = 'inline-flex';
-  document.getElementById('prefs-btn').style.display        = 'inline-flex';
-  document.body.classList.add('in-planner'); // smaller logo and button above the planner
+  document.getElementById('area-switch-btn').style.display = 'inline-flex';
+  document.body.classList.add('in-planner', 'has-area');
 }
 
 // The area picker is a screen of its own: nothing about an area at the top.
 function clearAreaHeader() {
-  document.getElementById('header-tagline').textContent = 'Choose a ski area to get started';
-  ['header-stats', 'header-live', 'area-switch-btn', 'prefs-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
-  document.getElementById('prefs-screen').style.display = 'none';
+  ['header-live', 'area-switch-btn'].forEach(id => { document.getElementById(id).style.display = 'none'; });
   document.body.classList.remove('in-planner');
 }
 
@@ -520,34 +517,119 @@ function clearAreaHeader() {
 function renderHeaderLiftStatus() {
   const el = document.getElementById('header-live');
   if (!el) return;
-  el.style.display = currentArea ? 'block' : 'none';
+  el.style.display = currentArea ? '' : 'none';
   const stale = liftStatusMeta && LIFT_STATUS && liftStatusStale();
   el.className = `header-live ${!liftStatusMeta ? 'not-live' : stale || !LIFT_STATUS ? 'is-stale' : 'is-live'}`;
-  el.textContent = !liftStatusMeta ? '○ No live lift status'
-    : !LIFT_STATUS ? '● Live lift status · not available right now'
-    : stale ? `● Lift status from ${liftStatusAge().replace(/^updated /, '')} · not yet updated today`
-    : `● Live lift status · ${liftStatusAge()}`;
+  el.innerHTML = '<span class="live-dot"></span>' + escapeHtml(!liftStatusMeta ? 'No live lift status'
+    : !LIFT_STATUS ? 'Live lift status · not available right now'
+    : stale ? `Lift status from ${liftStatusAge().replace(/^updated /, '')} · not yet updated today`
+    : `Live lift status · ${liftStatusAge()}`);
 }
 
 function showAreaPicker() {
-  closeAccount();
+  leaveRouteMap();
   document.getElementById('area-search').value = '';
   renderAreaList();
   clearAreaHeader();
   const back = document.getElementById('area-back-btn');
-  back.style.display = currentArea ? 'block' : 'none';
-  back.textContent = currentArea ? `← Back to ${currentArea.name}` : '';
-  document.getElementById('planner-cards').style.display = 'none';
-  document.getElementById('area-picker').style.display   = 'block';
+  back.style.display = currentArea ? 'flex' : 'none';
+  back.innerHTML = currentArea ? `${ui('back')} Back to ${escapeHtml(currentArea.name)}` : '';
+  showScreen('picker');
+  setNav(null);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Back from the area picker to the area that was open, as it was.
 function backToArea() {
+  if (currentArea) navTo(navPlanner);
+}
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+//
+// One screen at a time: the area picker, the planner (quick route, day plan
+// or the area map), the preferences or the account. The tab bar at the
+// bottom (Route · Day plan · Map · Account, or Settings without accounts)
+// switches between them, within reach of a thumb. Map shows the route of
+// the planner you were in, following your steps, or the whole area when
+// there is no route yet.
+
+const SCREENS = { picker: 'area-picker', planner: 'planner-cards', prefs: 'prefs-screen', account: 'account-screen' };
+let navPlanner = 'quick'; // the planner on screen, or the one the map shows
+
+function showScreen(name) {
+  Object.entries(SCREENS).forEach(([key, id]) => { document.getElementById(id).style.display = key === name ? 'block' : 'none'; });
+}
+
+function currentScreen() {
+  return Object.keys(SCREENS).find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
+}
+
+function setNav(tab) {
+  ['quick', 'day', 'map', 'account'].forEach(t => {
+    const btn = document.getElementById(`nav-${t}`);
+    btn.classList.toggle('on', t === tab);
+    if (t === tab) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
+  });
+}
+
+function plannerHasRoute(planner) {
+  return planner === 'quick'
+    ? document.getElementById('result').classList.contains('visible') && !!lastQuickPath
+    : document.getElementById('day-result').classList.contains('visible') && dayOptions.length > 0;
+}
+
+function navTo(tab) {
   if (!currentArea) return;
-  applyAreaToHeader(currentArea);
-  document.getElementById('area-picker').style.display   = 'none';
-  document.getElementById('planner-cards').style.display = 'block';
+  const from = currentScreen();
+  if (from === 'prefs') applyPrefsChanges();
+  if (tab === 'account') {
+    if (accountsOn && account) openAccount();
+    else openPrefs('planner');
+    setNav('account');
+    return;
+  }
+  if (from !== 'planner') {
+    if (from === 'picker') applyAreaToHeader(currentArea);
+    showScreen('planner');
+  }
+  if (tab === 'map') {
+    if (plannerHasRoute(navPlanner)) {
+      showTab(navPlanner);
+      showRouteView('map', navPlanner);
+    } else showAreaMap();
+    return;
+  }
+  const again = from === 'planner' && navPlanner === tab && routeViews[tab] !== 'map'
+    && document.getElementById('area-map-card').style.display === 'none';
+  showTab(tab);
+  if (routeViews[tab] === 'map') showRouteView('list', tab);
+  else window.scrollTo({ top: 0, behavior: again ? 'smooth' : 'instant' }); // the tab again: back to the top
+}
+
+// Map without a route: the whole area, its facts above it.
+function showAreaMap() {
+  leaveRouteMap();
+  document.getElementById('tab-quick').style.display = 'none';
+  document.getElementById('tab-day').style.display = 'none';
+  const card = document.getElementById('area-map-card');
+  card.style.display = 'block';
+  setNav('map');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  const el = document.getElementById('a-map');
+  sizeAreaMap();
+  renderRouteMap(el, [], 0, { owner: 'area' }).catch(err => mapFailed(err, el));
+}
+
+function sizeAreaMap() {
+  const el = document.getElementById('a-map');
+  if (!el.offsetParent || el.classList.contains('is-full')) return;
+  const below = document.querySelector('.map-card-hint').offsetHeight + 40;
+  el.style.height = `${Math.max(280, Math.round(window.innerHeight - el.getBoundingClientRect().top - tabbarHeight() - below))}px`;
+}
+
+function tabbarHeight() {
+  const bar = document.getElementById('tabbar');
+  return bar && getComputedStyle(bar).display !== 'none' ? bar.offsetHeight : 0;
 }
 
 function resetPlanner() {
@@ -764,7 +846,7 @@ function showSheetView() {
   const map = sheetView === 'map';
   document.getElementById('sheet-list').style.display = map ? 'none' : '';
   document.getElementById('sheet-map').style.display = map ? 'block' : 'none';
-  document.getElementById('sheet-view-btn').textContent = map ? '☰ List' : '🗺 Map';
+  document.getElementById('sheet-view-btn').innerHTML = map ? `${ui('list')} List` : `${ui('map')} Map`;
   // No search on the map: its room goes to the map.
   document.getElementById('sheet-search').style.display = map ? 'none' : '';
   if (map) drawPickerMap();
@@ -808,7 +890,7 @@ function renderSheet() {
     const gps = document.createElement('button');
     gps.className = 'gps-btn';
     gps.id = 'gps-btn';
-    gps.innerHTML = '<span>📍</span><span>Use my location</span><span class="gps-status" id="gps-status"></span>';
+    gps.innerHTML = `<span class="gps-ico">${ui('locate')}</span><span>Use my location</span><span class="gps-status" id="gps-status"></span>`;
     gps.addEventListener('click', locateMe);
     list.appendChild(gps);
   }
@@ -1150,33 +1232,58 @@ function renderPrefs() {
   document.getElementById('pref-drag').checked = prefs.drag;
   document.getElementById('pref-bus').checked = prefs.bus;
   if (typeof setDayPace === 'function') setDayPace(prefs.pace, false);
+  applyTheme();
 }
 
-// The preferences screen: instead of the planner, back with Done.
+// The preferences screen: from a planner or the account, back with Done.
 let prefsChanged = null;
-function openPrefs() {
-  closeAccount();
+let prefsFrom = 'planner';
+function openPrefs(from) {
+  prefsFrom = from || (currentScreen() === 'account' ? 'account' : 'planner');
+  leaveRouteMap();
   renderPrefs();
   renderAvoided();
   prefsChanged = JSON.stringify(prefs);
-  document.getElementById('planner-cards').style.display = 'none';
-  document.getElementById('prefs-screen').style.display = 'block';
+  showScreen('prefs');
   window.scrollTo({ top: 0 });
 }
 
-// The ⚙ in the header: a second tap closes the screen again.
-function togglePrefs() {
-  if (document.getElementById('prefs-screen').style.display === 'block') closePrefs();
-  else openPrefs();
+// A route on screen follows the new preferences (a day plan is planned again by hand).
+function applyPrefsChanges() {
+  if (prefsChanged != null && prefsChanged !== JSON.stringify(prefs)
+    && document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
+  prefsChanged = null;
 }
 
 function closePrefs() {
-  document.getElementById('prefs-screen').style.display = 'none';
-  document.getElementById('planner-cards').style.display = 'block';
-  // A route on screen follows the new preferences (a day plan is planned again by hand).
-  if (prefsChanged !== JSON.stringify(prefs)
-    && document.getElementById('result').classList.contains('visible') && selected.from && selected.to) planRoute({ silent: true });
-  window.scrollTo({ top: 0 });
+  applyPrefsChanges();
+  if (prefsFrom === 'account' && accountsOn && account) {
+    showScreen('account');
+    window.scrollTo({ top: 0 });
+  } else navTo(navPlanner);
+}
+
+// Appearance: auto (the phone's light or dark), light, dark, or sun — extra
+// contrast and bolder lines for reading in bright snow. Kept with the other
+// preferences; index.html sets it before the first paint.
+const THEMES = ['auto', 'light', 'dark', 'sun'];
+const THEME_COLOURS = { light: '#081629', dark: '#05101e', sun: '#000000' };
+
+function applyTheme() {
+  const theme = THEMES.includes(prefs.theme) ? prefs.theme : 'auto';
+  document.documentElement.dataset.theme = theme;
+  const dark = theme === 'dark' || (theme === 'auto' && window.matchMedia?.('(prefers-color-scheme: dark)').matches);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLOURS[theme === 'sun' ? 'sun' : dark ? 'dark' : 'light']);
+  document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+    btn.classList.toggle('on', btn.dataset.themeBtn === theme);
+    btn.setAttribute('aria-pressed', String(btn.dataset.themeBtn === theme));
+  });
+}
+
+function setTheme(theme) {
+  prefs.theme = theme;
+  storePrefs();
+  applyTheme();
 }
 
 const DIFF_NAMES = { groen: 'Green', blauw: 'Blue', rood: 'Red', zwart: 'Black', skiroute: 'Ski route' };
@@ -1321,7 +1428,7 @@ function planRoute(options = {}) {
       ? 'No route without the lifts and pistes you avoid. Remove one from the list.'
       : busAllowed('pref-bus')
         ? 'No route found between these two stations.'
-        : 'No route without the ski bus. Switch the ski bus on in ⚙ Preferences.';
+        : 'No route without the ski bus. Switch the ski bus on in Preferences.';
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
     return;
@@ -1411,7 +1518,7 @@ function renderRoute(result) {
   // Closed lifts first, above the steps, as in the day plan.
   const unwanted = unwantedWarning(result.path, allowedDiff, dragAllowed('pref-drag'));
   document.getElementById('q-closed').innerHTML =
-    (unwanted ? `<div class="closed-warning unwanted-warning">⚠ ${unwanted}</div>` : '') + closedWarning(visibleSteps);
+    (unwanted ? `<div class="closed-warning unwanted-warning">${ui('warn')} <span>${unwanted}</span></div>` : '') + closedWarning(visibleSteps);
   document.getElementById('tip').innerHTML = getTip();
 
   // For the map view: the route as planned, transfers included.
@@ -1429,21 +1536,17 @@ function renderRoute(result) {
 let lastQuickPath = null; // the route on screen, for the map
 let quickDone = 0;        // steps ticked, for the map's current step
 
-// Each planner has its own List | Map switch (routeViews, in map.js); the
-// one map is drawn into the planner on screen.
+// Each planner shows its route as a list or, from the Map tab, as a map
+// (routeViews, in map.js); the one map is drawn into the planner on screen.
 const MAP_PARTS = {
-  quick: { list: 'q-view-list', map: 'q-view-map', el: 'q-map', steps: 'steps' },
-  day:   { list: 'd-view-list', map: 'd-view-map', el: 'd-map', steps: 'day-steps' },
+  quick: { el: 'q-map', steps: 'steps' },
+  day:   { el: 'd-map', steps: 'day-steps' },
 };
 
 function showRouteView(view, planner = 'quick') {
   routeViews[planner] = view;
   const ids = MAP_PARTS[planner];
-  ['list', 'map'].forEach(v => {
-    const btn = document.getElementById(ids[v]);
-    btn.classList.toggle('active', v === view);
-    btn.setAttribute('aria-pressed', String(v === view));
-  });
+  setNav(view === 'map' ? 'map' : planner);
   document.getElementById(ids.steps).style.display = view === 'map' ? 'none' : '';
   document.getElementById(ids.el).style.display = view === 'map' ? 'block' : 'none';
   if (view === 'map') {
@@ -1455,8 +1558,8 @@ function showRouteView(view, planner = 'quick') {
   }
 }
 
-// The map fills the screen below the sticky bar (Settings, List | Map and
-// the progress), whatever the size of the phone: the bar goes to the top
+// The map fills the screen between the sticky bar (Settings and the
+// progress) and the tab bar, whatever the size of the phone: the bar goes to the top
 // of the screen and the map takes the rest, so neither scrolls away.
 const MAP_GAP_PX = 12; // the sticky bar's margin below it, and room at the bottom
 const MAP_SETTLE_MS = [60, 250, 600]; // put the page right again after these
@@ -1470,7 +1573,7 @@ function routeMapTop(el) {
 function sizeRouteMap(el) {
   const sticky = el.closest('.result')?.querySelector('.result-sticky');
   if (!sticky || el.classList.contains('is-full')) return false;
-  el.style.setProperty('--map-h', `${Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - 2 * MAP_GAP_PX))}px`);
+  el.style.setProperty('--map-h', `${Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - tabbarHeight() - 2 * MAP_GAP_PX))}px`);
   return true;
 }
 
@@ -1502,8 +1605,9 @@ window.addEventListener('resize', () => {
   mapFitTimer = setTimeout(() => {
     const turned = window.innerWidth !== mapFitWidth;
     mapFitWidth = window.innerWidth;
+    sizeAreaMap();
     const planner = ['quick', 'day'].find(p => routeViews[p] === 'map' && document.getElementById(MAP_PARTS[p].el).offsetParent);
-    if (!planner) return;
+    if (!planner) { routeMap?.invalidateSize(); return; }
     if (turned) fitRouteMap(planner);
     else sizeRouteMap(document.getElementById(MAP_PARTS[planner].el));
     routeMap?.invalidateSize();
@@ -1552,7 +1656,7 @@ function quickStatus(done, items) {
   const left = items.slice(done).reduce((sum, item) => sum + (+item.dataset.min || 0), 0);
   const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
   // Always: steps done, and the km and time still to go.
-  const text = done === items.length ? '🏁 Destination reached!'
+  const text = done === items.length ? 'Destination reached!'
     : `${done} of ${items.length} steps · ${km.toFixed(1)} km · ~${left} min to go`;
   renderProgress('p-progress', done, items.length, text);
 }
@@ -1593,7 +1697,7 @@ function stepElement(edge, index, clock, next) {
       <div class="step-info">
         <div class="step-kind kind-connection">${tagLabel(edge)}${edge.tijd ? ` · ~${edge.tijd} min` : ''}</div>
         <div class="step-name">${from} → ${to}</div>
-        ${edge.type === 'bus' && edge.stopFrom && edge.stopTo ? `<div class="step-sub">🚏 ${edge.stopFrom} → ${edge.stopTo}</div>` : ''}
+        ${edge.type === 'bus' && edge.stopFrom && edge.stopTo ? `<div class="step-sub">${ui('bus')} ${edge.stopFrom} → ${edge.stopTo}</div>` : ''}
         ${edge.info ? `<div class="step-sub">${edge.info}</div>` : ''}
       </div>
     `;
@@ -1639,14 +1743,14 @@ function addWaypoint(parent, name, alt, icon, subtitle, delay) {
 function closedWarning(steps = []) {
   const closed = closedLiftsOn(steps);
   return closed.length
-    ? `<div class="closed-warning">⚠ ${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</div>`
+    ? `<div class="closed-warning">${ui('warn')} <span>${closedLabel()}: ${closed.map(e => `${e.liftNr} ${e.name}`).join(', ')}. ${avoidClosedButton(closed)}</span></div>`
     : '';
 }
 
 function getTip() {
-  return '💡 <strong>Tip:</strong> ' + (LIFT_STATUS
+  return `${ui('info')} <span><strong>Tip:</strong> ` + (LIFT_STATUS
     ? `Lift status ${LIFT_STATUS.live ? 'live ' : ''}from ${LIFT_STATUS.bron}, ${liftStatusAge()}. Things can change during the day.`
-    : 'Check the current opening times of your ski area before you set off.');
+    : 'Check the current opening times of your ski area before you set off.') + '</span>';
 }
 
 // ── Avoiding lifts ───────────────────────────────────────────────────────────
@@ -1706,10 +1810,10 @@ function renderAvoided() {
     if (!el) return;
     el.style.display = any ? 'flex' : 'none';
     el.innerHTML = any
-      ? '<span class="avoid-label">🚫 Avoiding</span>' + nrs.map(nr => {
+      ? `<span class="avoid-label">${ui('ban')} Avoiding</span>` + nrs.map(nr => {
           const lift = LIFTS.find(l => l.nr === nr);
-          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${escapeHtml(nr)}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${escapeHtml([liftCode(nr), lift?.name].filter(Boolean).join(' '))} ✕</button>`;
-        }).join('') + pistes.map((nr, i) => `<button class="avoid-chip avoid-chip-piste" type="button" data-unavoid-piste="${i}" aria-label="Stop avoiding piste ${escapeHtml(pisteTitle(nr))}">⛷ ${escapeHtml(pisteTitle(nr))} ✕</button>`).join('')
+          return `<button class="avoid-chip" type="button" onclick="unavoidLift('${escapeHtml(nr)}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${escapeHtml([liftCode(nr), lift?.name].filter(Boolean).join(' '))} ${ui('x')}</button>`;
+        }).join('') + pistes.map((nr, i) => `<button class="avoid-chip avoid-chip-piste" type="button" data-unavoid-piste="${i}" aria-label="Stop avoiding piste ${escapeHtml(pisteTitle(nr))}">Piste ${escapeHtml(pisteTitle(nr))} ${ui('x')}</button>`).join('')
       : '';
     el.querySelectorAll('[data-unavoid-piste]').forEach(btn => btn.addEventListener('click', () => unavoidPiste(pistes[+btn.dataset.unavoidPiste])));
   });
@@ -1796,14 +1900,14 @@ function stepMenuOptions(step, planner) {
   const options = [];
   const items = planner === 'day' ? dayTracker?.items : null;
   const index = items ? items.indexOf(step) : -1;
-  if (index >= 0) options.push({ label: '↻ Replan from here', run: () => { dayTracker.setDone(index); replanFromHere(); } });
+  if (index >= 0) options.push({ label: 'Replan from here', icon: 'replan', run: () => { dayTracker.setDone(index); replanFromHere(); } });
   const lift = step.dataset.lift && LIFTS.find(l => l.nr === step.dataset.lift);
   if (step.dataset.lift) {
-    options.push({ label: `⊘ Avoid lift ${[liftCode(step.dataset.lift), lift?.name].filter(Boolean).join(' ')}`, run: () => avoidLifts([step.dataset.lift], planner) });
+    options.push({ icon: 'ban', label: `Avoid lift ${[liftCode(step.dataset.lift), lift?.name].filter(Boolean).join(' ')}`, run: () => avoidLifts([step.dataset.lift], planner) });
   }
   if (step.dataset.pistes) {
     const nrs = JSON.parse(step.dataset.pistes).filter(Boolean);
-    if (nrs.length) options.push({ label: `⊘ Avoid piste ${nrs.map(pisteTitle).join(', ')}`, run: () => avoidLifts([], planner, nrs) });
+    if (nrs.length) options.push({ icon: 'ban', label: `Avoid piste ${nrs.map(pisteTitle).join(', ')}`, run: () => avoidLifts([], planner, nrs) });
   }
   return options;
 }
@@ -1827,7 +1931,7 @@ function openStepMenu(step, planner, held = false) {
   const title = step.querySelector('.step-title')?.textContent || step.querySelector('.step-name')?.textContent || '';
   menu.innerHTML = `<div class="step-menu-panel" role="menu">
     <div class="step-menu-title">${escapeHtml(title.replace(/\s+/g, ' ').trim())}</div>
-    ${options.map((o, i) => `<button type="button" class="step-menu-btn" role="menuitem" data-option="${i}">${escapeHtml(o.label)}</button>`).join('')}
+    ${options.map((o, i) => `<button type="button" class="step-menu-btn" role="menuitem" data-option="${i}">${ui(o.icon)} ${escapeHtml(o.label)}</button>`).join('')}
     <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button>
   </div>`;
   menu.querySelectorAll('[data-option]').forEach(btn => btn.addEventListener('click', () => {
@@ -2242,7 +2346,7 @@ function placeMe(side, here, accuracy) {
     });
   }
 
-  const accuracyNote = accuracy > GPS_POOR_ACCURACY ? ` · ⚠ ±${Math.round(accuracy)} m` : '';
+  const accuracyNote = accuracy > GPS_POOR_ACCURACY ? ` · rough, ±${Math.round(accuracy)} m` : '';
   // Nearest station of a real lift (not a magic carpet), for the fallback.
   const nearest = near.find(n => LIFTS.find(l => l.dal === n.id || l.berg === n.id)?.echteLift);
   if (!edges.length && (!nearest || nearest.d > GPS_MAX_DISTANCE)) {
@@ -2258,7 +2362,7 @@ function placeMe(side, here, accuracy) {
     activeSide = side;
     pickStation(nearest.id, lift, lift.dal === nearest.id ? 'dal' : 'berg');
     const km = nearest.d >= 1000 ? `${(nearest.d / 1000).toFixed(1)} km` : `${Math.round(nearest.d)} m`;
-    document.getElementById(`${side}-side`).textContent = `📍 ${km} away${accuracyNote}`;
+    document.getElementById(`${side}-side`).textContent = `${km} away${accuracyNote}`;
     return;
   }
 
@@ -2274,7 +2378,7 @@ function placeMe(side, here, accuracy) {
   document.getElementById(`${side}-icon`).innerHTML       = GPS_ICON;
   document.getElementById(`${side}-nr`).textContent       = 'GPS';
   document.getElementById(`${side}-liftname`).textContent = onPiste ? `On ${pisteLabel(onPiste)}` : `Near ${STATIONS[near[0].id].name}`;
-  document.getElementById(`${side}-side`).textContent     = `±${Math.round(accuracy)} m${accuracyNote ? ' ⚠' : ''}`;
+  document.getElementById(`${side}-side`).textContent     = `±${Math.round(accuracy)} m${accuracyNote ? ' (rough)' : ''}`;
 }
 
 // ── Progress: ticking off steps ──────────────────────────────────────────────
@@ -2381,6 +2485,10 @@ function renderProgress(id, done, total, text, extraHtml = '') {
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 
+showScreen('picker');
+hydrateIcons();
+applyTheme();
+window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
 initAccount();
 initApp();
 

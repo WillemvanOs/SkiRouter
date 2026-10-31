@@ -20,7 +20,13 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 ## Published site (GitHub Pages)
 
 Only the planner files go online: `index.html`, `config.js`, `account.js`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`,
-`app.js`, `styles.css`, `sw.js`, `manifest.webmanifest`, `privacy.html`, `terms.html`, `legal.css`, `icons/`, `vendor/` and `data/`.
+`app.js`, `styles.css`, `sw.js`, `manifest.webmanifest`, `privacy.html`, `terms.html`, `legal.css`, `icons/`, `vendor/`, `about/` and `data/`.
+
+**The landing page** is `about/` (on the site: `…/about/`): what SkiRouter does, screenshots,
+free versus the season pass, how to put it on the home screen (iPhone, Android, laptop — the
+steps for the device you visit with open first), and questions. The app links to it from the
+area picker and the account screen. The screenshots in `about/img/` are of the app itself;
+make new ones when the look changes.
 
 The typefaces (Bebas Neue and DM Sans, SIL Open Font License, `vendor/fonts/OFL.txt`) are
 served from the site itself (`vendor/fonts/`, from Fontsource), not from Google Fonts, so
@@ -158,6 +164,28 @@ ones you can reach by lunchtime and get back from, the same sample for the same 
 Map data © OpenStreetMap contributors (ODbL), via OpenSkiMap / OpenSkiData; the picker
 says so.
 
+## Navigation and look
+
+**Tab bar.** At the bottom, as in a native app and within reach of a thumb (with gloves on):
+**Route** (quick route), **Day plan**, **Map** and **Account** (**Settings** when accounts are
+off). Map shows the route of the planner you were in, following the step you are at, or the
+whole area with its km, lifts and altitude when there is no route yet. Route or Day plan brings
+the list back with the step you are at in view; the tab you are on again scrolls to the top. The
+tab bar shows once an area is open, never over the sign-in screen or a full screen map.
+
+**Header.** One slim line: the logo and the open ski area (tap it to choose another), with its
+lift status underneath.
+
+**Look.** Card titles in Bebas Neue; everything else, buttons included, in DM Sans, without
+capitals. Every screen has one solid main button (Calculate route, Plan my day, Sign in); the
+others are quieter.
+
+**Appearance** (Preferences): **Auto** (the phone's light or dark), **Light**, **Dark**, or
+**Sun** — white, black and heavier lines, for reading in bright snow. It is kept with the other
+preferences (`prefs.theme`, also with the account) and set in `index.html` before the first
+paint, so the page never flashes light first. `styles.css` has every colour as a variable per
+role (`--bg-*` backgrounds, `--fg-*` text, `--bd-*` borders) with a light, dark and sun value.
+
 ## Icons
 
 All pictograms come from one set in `icons.js`: lifts (gondola, cable car, funicular, chairlift,
@@ -166,6 +194,10 @@ snow park, village, hamlet, peak) and the route's start pin and finish flag. The
 (24 × 24, round strokes, `currentColor`), so the steps, the lists and the map look the same on every
 phone instead of mixing the phone's emoji with drawings of our own. The tile or class around an
 icon sets its colour (`styles.css`, `.ico-<kind>` and `.icon-<name>`).
+
+Buttons, tabs and notes use line icons from [Lucide](https://lucide.dev) (ISC licence,
+`vendor/LUCIDE-LICENSE.txt`), also in `icons.js` (`UI_ICONS`): `ui('map')` gives the SVG, and in
+the HTML an empty `<i data-i="map"></i>` is filled in at start. No emoji anywhere in the app.
 
 ## Picking a lift station
 
@@ -190,7 +222,7 @@ left out. Viewpoints and snow parks (`plekken`) come with the landmarks fetch
 
 ### Picking on the map
 
-**🗺 Map** at the top of the picker shows the area instead of the list (**☰ List** goes back;
+**Map** at the top of the picker shows the area instead of the list (**List** goes back;
 the picker remembers which one you used last until the app is closed). Every lift is a line
 with its code. A tap never picks straight away: it first shows what was tapped (for a lift its
 type, ride time and opening hours; for a place what it is, its height and the lift it goes by)
@@ -206,7 +238,7 @@ map as the route map, north up unless the compass on a route map turned it. Sear
 
 ### Stops and lunch in the day plan
 
-Under **📍 Stops & lunch** (folded by default, with a summary such as "1 stop · lunch 13:00") the day plan takes places to pass: a lift to ride (its top
+Under **Stops & lunch** (folded by default, with a summary such as "1 stop · lunch 13:00") the day plan takes places to pass: a lift to ride (its top
 station), or any place from the picker. **Lunch** is one of the stops, the only one with a time
 (and its length, and where: best fit or one restaurant); it is there by default in areas with
 mountain restaurants, and **+ Add lunch** brings it back. ✕ removes a stop. The order they were
@@ -223,7 +255,7 @@ the map; **Replan from here** keeps only the stops still ahead.
 
 ## Route map
 
-A quick route and a day plan can each be shown as a list or as a map (**☰ List | 🗺 Map**). The
+A quick route and a day plan can each be shown as a list or, with the **Map** tab, as a map. The
 map is drawn the way a paper piste map is, but flat and plain: no map tiles, just the area's own
 data on a light background, so it works offline and is easy to read.
 - **Valley down, mountain up.** The map is turned so the lifts, on average, go up the screen,
@@ -247,7 +279,7 @@ data on a light background, so it works offline and is easy to read.
 - Labels that would overlap are hidden, the least important first (the step you are at, lunch,
   the next steps, start and finish, towns, the rest of the route, villages, peaks, steps done,
   hamlets); zooming in brings them back.
-- ⛶ shows the map full screen (also on iPhone), 📍 shows and follows your position, and a tap on a
+- The full screen button shows the map full screen (also on iPhone), the location button shows and follows your position, and a tap on a
   line or label gives its name.
 
 The map uses Leaflet (`vendor/leaflet`, BSD-2-Clause), loaded the first time the map is opened
@@ -421,11 +453,10 @@ failed, …); the pass appears within seconds after "paid".
 
 ## Preferences
 
-Personal preferences are on a screen of their own (**⚙** in the header, or the **Preferences**
-line in either planner): piste colours, pace (for the day plan's
-times), drag lifts and ski bus, plus the lifts avoided in this area. They are kept
-on the phone for every ski area (`skirouter:prefs`), and with the account when accounts are on, and both planners use them. Done, or **⚙**
-again, goes back to the planner; a quick route on screen is planned again with the new preferences.
+Personal preferences are on a screen of their own (the **Settings** tab, **Preferences** on the
+account screen, or the **Preferences** line in either planner): piste colours, pace (for the day plan's
+times), drag lifts and ski bus, the lifts avoided in this area, and the appearance. They are kept
+on the phone for every ski area (`skirouter:prefs`), and with the account when accounts are on, and both planners use them. Done goes back to where you came from; a quick route on screen is planned again with the new preferences.
 
 Under the **Pace** switch each pace says what it means, the chosen one highlighted:
 **Relaxed** about 7 km/h down the runs (piste times ×1.7) and ~7 min queueing per lift,
@@ -487,12 +518,12 @@ it. The quick route shows how many minutes are left. The day plan compares the c
 plan and shows whether you are on schedule, ahead or behind. **Replan from here** (hold a step
 or swipe it left) plans the rest of the day again from that step, from now, with the km still
 to go.
-While you scroll through the steps, a bar stays at the top of the screen with **↑ Settings**,
-**☰ List | 🗺 Map** and the progress: steps done, km and time still to go (and, in the day
+While you scroll through the steps, a bar stays at the top of the screen with **Settings** (back
+to the planner's settings) and the progress: steps done, km and time still to go (and, in the day
 plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
-🗺 Map fills the screen below that bar, whatever the size of the phone: the bar goes to the top and
-the map takes the rest (also after turning the phone). Going back from 🗺 Map to ☰ List shows the step you are at in the middle of the screen, the steps
+The map (Map tab) fills the screen between that bar and the tab bar, whatever the size of the phone: the bar goes to the top and
+the map takes the rest (also after turning the phone). Going back to the list (Route or Day plan tab) shows the step you are at in the middle of the screen, the steps
 just done above it, the same as after ticking a step.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
