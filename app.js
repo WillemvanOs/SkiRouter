@@ -648,8 +648,13 @@ function navTo(tab) {
 
 // The menu at the top of Route and Map: the route on screen, and the
 // others to switch to — the other recent route, and saved days.
-// "Bottom station Hahnenkammbahn" → "Hahnenkammbahn": the menu has one line.
-const shortStation = name => String(name || '').replace(/^(Bottom|Top) station /, '');
+// A start or destination as in its field: a lift with its code ("A1
+// Hahnenkammbahn"), or a place or your location by name.
+function pointLabel(s) {
+  if (!s) return '';
+  if (s.gps || s.place) return s.liftName || s.name || '';
+  return [liftCode(s.liftNr), s.liftName].filter(Boolean).join(' ');
+}
 
 function routeTitle(kind) {
   if (kind === 'quick') {
@@ -658,7 +663,7 @@ function routeTitle(kind) {
   const walk = dayOptions?.[dayShown];
   return {
     kind: 'Day plan',
-    title: [shortStation(dayCtx?.startName), dayOptions.length > 1 ? `option ${dayShown + 1}` : '', walk ? `${walk.km.toFixed(1)} km` : '']
+    title: [dayCtx?.startLabel || dayCtx?.startName, dayOptions.length > 1 ? `option ${dayShown + 1}` : '', walk ? `${walk.km.toFixed(1)} km` : '']
       .filter(Boolean).join(' · '),
   };
 }
@@ -1647,7 +1652,7 @@ function renderRoute(result) {
 
   // For the map view: the route as planned, transfers included.
   lastQuickPath = result.path;
-  lastQuickTitle = `${shortStation(selected.from.name)} → ${shortStation(selected.to.name)}`;
+  lastQuickTitle = `${pointLabel(selected.from)} → ${pointLabel(selected.to)}`;
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
