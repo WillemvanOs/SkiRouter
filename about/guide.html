@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How SkiRouter works — the full guide</title>
+  <meta name="description" content="Every feature of SkiRouter explained: planning a route or a whole day, following it step by step and on the map, live lift status, preferences, your account and using it offline.">
+  <meta name="theme-color" content="#081629">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+
+<header class="hero hero-slim">
+  <div class="snow" aria-hidden="true"></div>
+  <nav class="top">
+    <a class="logo" href="./">Ski<span>Route</span>r</a>
+    <span class="top-links"><a class="top-link" href="./">Home</a><a class="top-open" href="../">Open the app</a></span>
+  </nav>
+  <div class="hero-body hero-body-slim">
+    <div>
+      <h1>How SkiRouter works</h1>
+      <p class="lead">Every tab, every button, and what SkiRouter does behind them — from choosing your ski area to
+        following a whole day on the mountain.</p>
+    </div>
+  </div>
+</header>
+
+<div class="guide">
+
+  <nav class="toc" aria-label="Contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#start">Getting started</a></li>
+      <li><a href="#screen">The screen at a glance</a></li>
+      <li><a href="#destination">Plan a route to a destination</a></li>
+      <li><a href="#picking">Picking a start, destination or stop</a></li>
+      <li><a href="#day">Plan a whole day</a></li>
+      <li><a href="#route">Route: following it step by step</a></li>
+      <li><a href="#map">Map</a></li>
+      <li><a href="#switch">Switching routes and saved days</a></li>
+      <li><a href="#status">Live lift status and opening hours</a></li>
+      <li><a href="#avoid">Avoiding lifts and pistes</a></li>
+      <li><a href="#prefs">Route preferences</a></li>
+      <li><a href="#settings">Settings and appearance</a></li>
+      <li><a href="#account">Your account and the season pass</a></li>
+      <li><a href="#offline">On the mountain without a signal</a></li>
+      <li><a href="#data">Where the data comes from</a></li>
+    </ol>
+  </nav>
+
+  <main class="guide-body">
+
+    <section id="start">
+      <h2>1. Getting started</h2>
+      <figure class="shot"><img src="img/areas.jpg" alt="The list of ski areas, by country" loading="lazy"></figure>
+      <p><strong>Open SkiRouter</strong> in your phone's browser, or from your home screen once you have added it (see
+        <a href="./#install">Put SkiRouter on your home screen</a>).</p>
+      <p><strong>Choose your ski area.</strong> Search by the name of the area, a village or a region ("Kitzbühel", "Tirol",
+        "Val Gardena"), or tap <em>Ski areas near me</em> to see the closest ones. All areas are listed per country.</p>
+      <ul>
+        <li>Tap the <strong>star</strong> next to an area to keep it at the top of the list as a favourite.</li>
+        <li>Under each area you see whether it has <strong>live lift status</strong> (a filled dot) or not (an open dot).</li>
+        <li>An area marked <em>Not all lifts are connected</em> has gaps in the map data: some lifts cannot be reached
+          from the others.</li>
+      </ul>
+      <p>SkiRouter opens the area you used last the next time you start it. To choose another, tap the area's name at the
+        top of the screen, or go to <em>Settings → Ski area</em>.</p>
+    </section>
+
+    <section id="screen">
+      <h2>2. The screen at a glance</h2>
+      <p><strong>At the top</strong> is the name of your ski area (tap it to change area) and, under it, the lift status:
+        <em>Live lift status · updated 08:12</em>, or that there is none for this area.</p>
+      <p><strong>At the bottom</strong> are four tabs, within reach of your thumb — also with gloves on:</p>
+      <dl class="tabs-list">
+        <dt>Plan</dt><dd>Plan a route to a destination, or a whole day.</dd>
+        <dt>Route</dt><dd>The route you are following, step by step.</dd>
+        <dt>Map</dt><dd>The same route on the map — or the whole ski area when you have not planned one yet.</dd>
+        <dt>Settings</dt><dd>Your account, route preferences, ski area and how the app looks.</dd>
+      </dl>
+      <p>Tapping the tab you are already on takes you back to the top of the screen.</p>
+    </section>
+
+    <section id="destination">
+      <h2>3. Plan a route to a destination</h2>
+      <figure class="shot"><img src="img/plan.jpg" alt="The Plan tab with a starting point and a destination" loading="lazy"></figure>
+      <ol>
+        <li>Go to <strong>Plan</strong> and choose <strong>To a destination</strong> at the top.</li>
+        <li>Tap <strong>Starting point</strong> and pick a lift, a place or your location (see the next section).</li>
+        <li>Tap <strong>Destination</strong> and pick where you want to go.</li>
+        <li>Tap <strong>Calculate route</strong>. The route opens in the <strong>Route</strong> tab.</li>
+      </ol>
+      <ul>
+        <li>A lift is picked at its <strong>bottom station</strong>. The <em>Bottom / Top</em> switch under it changes
+          that — for example to start at the top of the lift you just rode.</li>
+        <li>The <strong>arrows</strong> between the two fields swap start and destination.</li>
+        <li>The <strong>✕</strong> clears a field.</li>
+        <li><strong>Route preferences</strong> (piste colours, drag lifts, ski bus) are one tap away under the fields; see
+          <a href="#prefs">Route preferences</a>.</li>
+      </ul>
+      <p>SkiRouter takes the quickest way that fits your preferences: lift ride time plus the time down the pistes. Where
+        a valley station has no piste down to it, it may take a gondola down ("ride down"). Where lift stations are only
+        linked through the village, it uses the ski bus or a short walk.</p>
+    </section>
+
+    <section id="picking">
+      <h2>4. Picking a start, destination or stop</h2>
+      <figure class="shot"><img src="img/picker.jpg" alt="The picker with Lifts, Food &amp; spots and Towns &amp; peaks" loading="lazy"></figure>
+      <p>The picker opens from the bottom of the screen. At its top you choose what to pick from:</p>
+      <dl class="tabs-list">
+        <dt>Lifts</dt><dd>Every lift by its code (A1, A2, …) and name, with its type and whether it is open.</dd>
+        <dt>Food &amp; spots</dt><dd>Mountain restaurants and huts, viewpoints and snow parks.</dd>
+        <dt>Towns &amp; peaks</dt><dd>The towns, villages and peaks in and around the area.</dd>
+      </dl>
+      <ul>
+        <li><strong>Search</strong> by typing; typing a lift's code ("d5") and tapping Go picks it straight away.</li>
+        <li><strong>Map</strong> (top right) shows the area instead of the list. Tap a lift or place: SkiRouter first shows
+          what you tapped — type, ride time, opening hours — with one button to confirm (<em>Start here</em>, <em>Go
+          here</em>, <em>Add as stop</em>).</li>
+        <li><strong>Use my location</strong> (for a starting point) starts where you are: from the nearest lift station, or,
+          when you are on a piste, from the rest of that piste.</li>
+        <li>A place is not on the lift network itself: the route goes by its nearest lift station and says how far that is
+          ("350 m from bottom of E2").</li>
+      </ul>
+    </section>
+
+    <section id="day">
+      <h2>5. Plan a whole day <span class="badge-pass">season pass</span></h2>
+      <figure class="shot"><img src="img/dayplan.jpg" alt="The day planner: start, time and km, stops and lunch" loading="lazy"></figure>
+      <ol>
+        <li>Go to <strong>Plan</strong> and choose <strong>Whole day</strong>.</li>
+        <li>Pick where the day <strong>starts</strong>. It ends there too, unless you tap <em>+ End somewhere else</em>.</li>
+        <li>Under <strong>Time &amp; km</strong>: when you start, when you want to be back, and roughly how many kilometres
+          you want to ski.</li>
+        <li>Under <strong>Stops &amp; lunch</strong>, add what you want to pass (optional, see below).</li>
+        <li>Tap <strong>Plan my day</strong>.</li>
+      </ol>
+      <h3>Stops and lunch</h3>
+      <ul>
+        <li><strong>+ Add a stop</strong>: a lift you want to ride, a restaurant, a viewpoint, a snow park, a village or a
+          peak. SkiRouter passes your stops in the order that works best — you do not have to put them in order.</li>
+        <li><strong>Lunch</strong> is a stop with a time: around when, for how long, and where — the best fit on your
+          route, or one restaurant you choose. In areas with mountain restaurants lunch is there by default; <em>+ Add
+          lunch</em> brings it back after removing it.</li>
+        <li>The <strong>✕</strong> on a stop removes it.</li>
+      </ul>
+      <h3>Choose your day</h3>
+      <figure class="shot"><img src="img/day.jpg" alt="Three options for the day, each with its lunch spot" loading="lazy"></figure>
+      <p>SkiRouter tries hundreds of routes and offers up to <strong>three options</strong> that really differ — each with
+        its kilometres, its time back and, with lunch, its own lunch spot. It prefers pistes you have not skied yet that day,
+        and avoids riding the same lift over and over.</p>
+      <ul>
+        <li>Tap an option to choose it. <em>Fold</em> puts the options on one line.</li>
+        <li>When the kilometres do not fit in the time, a note above the options says so — start earlier, stay later, ski
+          fewer km or pick a faster pace.</li>
+        <li><strong>Save this day</strong> keeps it in your account, to plan it again any time (see <a href="#switch">saved
+          days</a>).</li>
+        <li><strong>Show the steps</strong> opens the chosen day in the Route tab.</li>
+      </ul>
+      <p>Times are a guide: the lift ride plus a wait that depends on your pace, and the piste time stretched for short
+        stops on the way down. Where the lift status is known, the planner uses today's opening hours.</p>
+    </section>
+
+    <section id="route">
+      <h2>6. Route: following it step by step</h2>
+      <figure class="shot"><img src="img/route.jpg" alt="The Route tab with the gondola and the pistes in order" loading="lazy"></figure>
+      <p>The <strong>Route</strong> tab lists every step in order:</p>
+      <ul>
+        <li><strong>A lift</strong>: its code and name, its type and ride time, and whether it is open. On the step you are
+          at, SkiRouter says which way to go when you get off: <em>Off the lift, turn right to piste 21</em>.</li>
+        <li><strong>A piste</strong>: its number in its colour, its name, its length and time. A long descent over several
+          pistes shows each of them.</li>
+        <li><strong>The ski bus or a walk</strong>, where the route goes through the village.</li>
+        <li>In a day plan: the <strong>time</strong> of every step, your <strong>stops</strong>, and <strong>lunch</strong>.</li>
+      </ul>
+      <h3>Ticking off</h3>
+      <p>Tap a step when you have done it. The bar at the top shows how far along you are and what is left: steps, km and
+        time. Forgot a few? Tapping a later step ticks the ones before it too. Tapping a ticked step unticks it.</p>
+      <p>In a day plan the bar also says whether you are <strong>on schedule, ahead or behind</strong>. When you would get
+        back more than 10 minutes after the time you set, a red bar appears with <strong>Replan from here</strong>.</p>
+      <h3>The step menu</h3>
+      <p><strong>Swipe a step to the left, or hold it</strong>, for a short menu:</p>
+      <ul>
+        <li><strong>Replan from here</strong> (day plan): the steps before it count as done, and the rest of the day is
+          planned again from there, from now, with the kilometres still to go.</li>
+        <li><strong>Avoid lift</strong> / <strong>Avoid piste</strong>: plan again without it (see
+          <a href="#avoid">Avoiding lifts and pistes</a>).</li>
+      </ul>
+      <p>Your progress is kept on your phone: close the app and open it again, and you are where you were.</p>
+    </section>
+
+    <section id="map">
+      <h2>7. Map</h2>
+      <figure class="shot"><img src="img/map.jpg" alt="The route on the map, the current step in yellow" loading="lazy"></figure>
+      <p>The <strong>Map</strong> tab shows the same route as the Route tab, drawn like a piste map: pistes in their colour,
+        lifts as dark lines, and every lift and piste of your route labelled with its number. Arrows show which way you go.</p>
+      <ul>
+        <li>The map follows <strong>the step you are at</strong> (its label in yellow) and the next three; steps you have done
+          turn grey. <em>Whole route</em> shows all of it, <em>My step</em> goes back.</li>
+        <li>The <strong>compass</strong> turns the map like the area's piste map (valley at the bottom, lifts going up) or
+          back to north up.</li>
+        <li>The <strong>location</strong> button shows where you are, and follows you.</li>
+        <li>The <strong>full screen</strong> button gives the map the whole screen; tap ✕ to close it.</li>
+        <li>Pinch or use + and − to zoom; tap a line for its name.</li>
+      </ul>
+      <p>Without a route, the Map tab shows the whole ski area with its kilometres of pistes, number of lifts and altitude.</p>
+    </section>
+
+    <section id="switch">
+      <h2>8. Switching routes and saved days</h2>
+      <figure class="shot"><img src="img/routemenu.jpg" alt="The menu with recent routes and saved days" loading="lazy"></figure>
+      <p>At the top of the Route and Map tabs a bar says which route you are looking at, for example <em>A1 Hahnenkammbahn
+        → D5 Kasereck</em> or <em>Day plan · A1 Hahnenkammbahn · option 2 · 25.4 km</em>. Tap it for:</p>
+      <ul>
+        <li><strong>Recent</strong>: your last route to a destination and your last day plan. A quick detour to a hut
+          during the day does not lose the day you are following: switch back with one tap, with your ticks still there.</li>
+        <li><strong>Saved days</strong>: the days you saved. Opening one plans it again in its ski area, with the settings
+          it was saved with and today's lift status. One from another ski area switches area first.</li>
+        <li><strong>Plan a new route</strong>.</li>
+      </ul>
+    </section>
+
+    <section id="status">
+      <h2>9. Live lift status and opening hours</h2>
+      <p>For many ski areas SkiRouter reads which lifts are open from the area's own lift information, updated every 30
+        minutes and refreshed every 5 minutes while the app is open.</p>
+      <ul>
+        <li>The picker and every lift step show <strong>open 08:30–17:00</strong> or <strong>closed</strong>.</li>
+        <li>A route over a closed lift gets a warning above the steps, with a button to <strong>avoid</strong> those lifts.</li>
+        <li>The day planner only uses lifts while they are open today.</li>
+        <li>The top of the screen says how fresh the status is. Without a connection you see the last status you had.</li>
+      </ul>
+      <p>Lifts and pistes can close during the day for wind, snow or events: always follow the signs and the staff on the
+        mountain.</p>
+    </section>
+
+    <section id="avoid">
+      <h2>10. Avoiding lifts and pistes</h2>
+      <p>Any lift or piste can be left out, open or not — a long queue, a lift you do not like, an icy piste:</p>
+      <ul>
+        <li>In the Route tab, swipe the step left or hold it, and choose <strong>Avoid lift</strong> or <strong>Avoid
+          piste</strong>. The route is planned again without it; a day you are following is planned again from the next step.</li>
+        <li>At a closed-lift warning, <strong>Avoid these</strong> leaves out all closed lifts on the route at once.</li>
+        <li>Avoided lifts and pistes show as chips in the planner and in Route preferences; the ✕ on a chip brings it back.</li>
+      </ul>
+      <p>They are kept per ski area. If there is no way left without them, SkiRouter says so.</p>
+    </section>
+
+    <section id="prefs">
+      <h2>11. Route preferences</h2>
+      <figure class="shot"><img src="img/prefs.jpg" alt="Route preferences: difficulty, pace, drag lifts, ski bus" loading="lazy"></figure>
+      <p>Open them from <em>Settings → Route preferences</em>, or from the <em>Route preferences</em> line in the Plan tab.
+        Both kinds of planning use them.</p>
+      <dl class="tabs-list">
+        <dt>Difficulty</dt><dd>The piste colours you want: green (where the area has them), blue, red, black and ski routes.
+          Other colours are only used when there is no other way — and the route then says so.</dd>
+        <dt>Pace</dt><dd><strong>Relaxed</strong> — about 7 km/h down the runs and ~7 minutes queueing per lift, for easy
+          cruising or skiing with children. <strong>Normal</strong> — about 9 km/h and ~5 minutes. <strong>Sporty</strong> —
+          about 12 km/h and ~3 minutes. Used for the day plan's times.</dd>
+        <dt>Drag lifts</dt><dd>Off: T-bars and button lifts only when there is no other way.</dd>
+        <dt>Ski bus</dt><dd>In areas with a ski bus link: off plans with lifts and pistes only.</dd>
+        <dt>Lifts and pistes you avoid</dt><dd>The ones you left out in this ski area (see above).</dd>
+      </dl>
+      <p><em>Back to planning</em> takes you back to the Plan tab; a route on screen is planned again with your new
+        preferences.</p>
+    </section>
+
+    <section id="settings">
+      <h2>12. Settings and appearance</h2>
+      <figure class="shot"><img src="img/settings.jpg" alt="The Settings menu" loading="lazy"></figure>
+      <p>The <strong>Settings</strong> tab is a menu; each part opens on its own screen with <em>‹ Settings</em> at the top.</p>
+      <ul>
+        <li><strong>Account</strong> (when you are signed in): your season pass and saved days.</li>
+        <li><strong>Planning</strong>: <em>Route preferences</em> and <em>Ski area</em>.</li>
+        <li><strong>App</strong>: <em>App settings</em> and <em>About SkiRouter</em> (this website, in your browser).</li>
+      </ul>
+      <h3>Appearance</h3>
+      <p>Under <em>App settings</em>: <strong>Auto</strong> follows your phone's light or dark mode; <strong>Light</strong>
+        and <strong>Dark</strong> keep one; <strong>Sun</strong> is white, black and heavier lines — made for reading the
+        screen in bright sunshine on the snow.</p>
+    </section>
+
+    <section id="account">
+      <h2>13. Your account and the season pass</h2>
+      <ul>
+        <li><strong>Creating an account</strong> takes your email address, a password, your date of birth (SkiRouter is for
+          16 and over) and your country. You confirm your address with a link we email you.</li>
+        <li><strong>Your preferences go with your account</strong>: sign in on another phone and they are there.</li>
+        <li><strong>Free</strong>: routes to a destination in every ski area, the map, live lift status and offline use.</li>
+        <li><strong>The season pass</strong> adds the day planner and saving your days. It is one payment per winter
+          (iDEAL, Bancontact, card and more), valid until 30 June — no subscription, nothing to cancel. Bought from May on,
+          it is for the coming season.</li>
+        <li><strong>Forgot your password?</strong> Tap it on the sign-in screen for a link to choose a new one.</li>
+        <li><strong>Delete my account</strong> (in Settings → Account) removes your account, preferences and saved days.</li>
+      </ul>
+    </section>
+
+    <section id="offline">
+      <h2>14. On the mountain without a signal</h2>
+      <p>SkiRouter keeps what it needs on your phone:</p>
+      <ul>
+        <li>the app itself, once opened with a connection;</li>
+        <li>every ski area you opened before;</li>
+        <li>your account, preferences, saved days and the route you are following;</li>
+        <li>the last lift status it had.</li>
+      </ul>
+      <p><strong>Before you go:</strong> open the app once with a connection and open your ski area. Then planning, the
+        route and the map all work without a signal. Signing in, paying and saving a day need a connection.</p>
+    </section>
+
+    <section id="data">
+      <h2>15. Where the data comes from</h2>
+      <p>Lifts, pistes, restaurants, peaks and villages come from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>,
+        made by volunteers, via <a href="https://openskimap.org">OpenSkiMap</a>, and are updated regularly. Lift status
+        comes from the ski areas' own lift information. Map data can be incomplete or out of date — where something looks
+        wrong, the map on the slope is right.</p>
+      <p>SkiRouter is a guide: always follow the signs, piste markings, closures and the instructions of the ski area and
+        its staff, and ski within your ability.</p>
+    </section>
+
+    <p class="guide-cta"><a class="btn btn-primary" href="../">Open SkiRouter</a></p>
+
+  </main>
+</div>
+
+<footer class="foot">
+  <p><a href="./">Home</a> · <a href="../">Open the app</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></p>
+  <p>Ski area data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL), via
+    <a href="https://openskimap.org">OpenSkiMap</a>. Icons: <a href="https://lucide.dev">Lucide</a> (ISC).</p>
+</footer>
+
+</body>
+</html>
