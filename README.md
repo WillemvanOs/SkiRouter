@@ -449,6 +449,12 @@ How it fits together:
   them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
   Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
   app (`?paid=1`) the app asks for the profile until the pass is there.
+- **Changing a saved day**: the ✎ beside a saved day (route menu, account screen) opens its own
+  menu: **Rename**, **Change the route** and **Delete this day**. Change the route plans the day
+  again in the Plan tab with its saved settings and shows "Changing <name>": plan it again as you
+  like, then **Update this day** (stores the new settings, option and summary in the same saved
+  day; migration `20261101000000_change_saved_days.sql` lets users update those columns) or
+  **Save as a new day**. Works the same for days kept on the phone without an account.
 - **The app** (`account.js`, `config.js`, `vendor/supabase/` = supabase-js 2.118.0, MIT): the
   sign-in screen before anything else, the account screen, the day planner behind the pass.
   The day planner itself still runs in the browser, so the pass is checked by the app; saved
@@ -456,7 +462,7 @@ How it fits together:
   opens offline on the mountain; preference changes made offline are sent once online.
 - With `config.js` left empty, accounts are off and the app works as before, all free. **Save
   this day** then keeps the day on the phone only (`skirouter:local-days`), in the route menu's
-  Saved days (🗑 beside one deletes it) and on the empty Route tab. Once accounts are on, the
+  Saved days and on the empty Route tab. Once accounts are on, the
   first sign-in moves these days into the account.
 
 **Test phase** (now): accounts are on, payments are not. `payments: false` in `config.js`
@@ -566,11 +572,11 @@ plan and shows whether you are on schedule, ahead or behind. **Replan from here*
 or swipe it left) plans the rest of the day again from that step, from now, with the km still
 to go.
 While you scroll through the steps, a bar stays at the top of the screen with the progress: steps done, km and time still to go (and, in the day
-plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
-scroll away.
-The map (Map tab) fills the screen between that bar and the tab bar, whatever the size of the phone: the bar goes to the top and
-the map takes the rest (also after turning the phone). Going back to the list (Route tab) shows the step you are at in the middle of the screen, the steps
-just done above it, the same as after ticking a step.
+plan, ahead or behind, or before starting when you are back; **↻ Replan from here** is in the step menu, see below). There is
+no title or separate totals above it: the bar opens the card, to keep it compact.
+The Route and Map tabs show no SkiRouter header (logo, ski area, live lift status): the route bar is at the top of the screen, so the route gets all the room; closed lifts on the route still show in the route itself. They always open at the top of the page. The map (Map tab) then takes the height from where it starts down to the
+tab bar, whatever the size of the phone, so the whole map is in view without scrolling (also after turning the phone). The step you
+are at is marked in the list; ticking one still brings the next into view.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.

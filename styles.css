@@ -2019,17 +2019,6 @@ select.day-input {
 
 /* ── Back to the planner ──────────────────────────────────── */
 
-.result-title {
-  margin-bottom: 8px;
-}
-
-/* The way back to the planner, list or map, and how far along you are stay
-   in view while scrolling through a long route (within the result card
-   only); the route's key facts above them scroll away. */
-.result-pills {
-  margin-bottom: 12px;
-}
-
 .result-sticky {
   position: sticky;
   top: 0;
@@ -2408,7 +2397,7 @@ select.day-input {
 .route-map {
   position: relative;
   z-index: 0; /* its own stacking: the map's buttons stay under the sticky header */
-  height: var(--map-h, 62vh); /* set by fitRouteMap: the screen below the sticky bar */
+  height: var(--map-h, 62vh); /* set by sizeRouteMap: from the map down to the tab bar */
   min-height: 280px;
   margin-bottom: 12px;
   border-radius: 14px;
@@ -3988,3 +3977,60 @@ body.map-full .tabbar {
 }
 
 .mode-lock[hidden] { display: none; }
+
+/* Changing a saved day (Plan tab), and its own menu */
+.save-day-edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  background: var(--snow);
+}
+
+.save-day-editing {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--accent);
+}
+
+.save-day-editing span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.step-menu-btn.step-menu-danger {
+  color: var(--fg-c0392b);
+}
+
+#day-edit-menu .save-day-form .day-input {
+  font-size: 1rem;
+}
+
+/* No title or key figures above the route any more: the progress bar
+   opens the card, without a gap above it */
+.card.result {
+  padding-top: 4px;
+}
+
+.card.result > .result-sticky {
+  border-radius: 16px 16px 0 0; /* follows the card's rounded top */
+}
+
+/* Route and Map tabs: without the header (logo, ski area, lift status),
+   so the route has the whole screen; clear of the notch and status bar */
+body.no-header > header {
+  display: none;
+}
+
+body.no-header main {
+  padding-top: calc(12px + env(safe-area-inset-top));
+}

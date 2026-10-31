@@ -496,6 +496,12 @@
     <div class="day-notes" id="day-notes"></div>
     <button class="plan-btn" type="button" onclick="followDay()"><i data-i="list"></i> Show the steps</button>
     <div class="save-day" id="save-day" style="display:none">
+      <!-- Changing a saved day: update it, or keep the old one and save this as a new day -->
+      <div class="save-day-edit" id="save-day-edit" style="display:none">
+        <div class="save-day-editing"><i data-i="edit"></i> <span>Changing <strong id="save-day-edit-name"></strong></span></div>
+        <button class="save-day-ok" type="button" onclick="saveDayUpdate()">Update this day</button>
+        <button class="link-btn" type="button" onclick="stopEditingDay()">Stop changing</button>
+      </div>
       <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this day</button>
       <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
         <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
@@ -536,13 +542,6 @@
 
   <!-- Route result card -->
   <div class="card result" id="result">
-    <div class="card-title result-title"><i data-i="route"></i> Your route</div>
-    <div class="pills result-pills">
-      <span class="pill" id="p-steps">—</span>
-      <span class="pill" id="p-km">—</span>
-      <span class="pill" id="p-time">—</span>
-    </div>
-
     <!-- Stays at the top of the screen while scrolling through the route:
          how far along you are -->
     <div class="result-sticky">
@@ -558,14 +557,6 @@
 
   <!-- Day plan result card -->
   <div class="card result" id="day-result">
-    <div class="card-title result-title"><i data-i="day"></i> Your day</div>
-    <div class="pills result-pills">
-      <span class="pill" id="dp-km">—</span>
-      <span class="pill" id="dp-pistes">—</span>
-      <span class="pill" id="dp-lifts">—</span>
-      <span class="pill" id="dp-end">—</span>
-    </div>
-
 
     <!-- Stays at the top of the screen while scrolling through the day:
          how far along you are, and a red bar when running late -->
