@@ -42,7 +42,7 @@ jobs:
           mkdir _site
           cp index.html config.js account.js icons.js liftmatch.js map.js dayplan.js app.js styles.css sw.js manifest.webmanifest _site/
           cp privacy.html terms.html legal.css _site/
-          cp -r icons data vendor about _site/
+          cp -r icons data vendor about guide _site/
           touch _site/.nojekyll
 
       - uses: actions/setup-node@v4
