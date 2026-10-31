@@ -186,8 +186,8 @@ says so.
   your **account** first (with accounts on: email, season pass, saved days); **Planning**:
   **Route preferences** (colours, pace, drag lifts, ski bus, avoided lifts and pistes; the
   **Route preferences** line in the Plan tab opens the same screen, with **Back to planning**)
-  and **Ski area**; **App**: **App settings** (appearance, terms, privacy, credits) and **About
-  SkiRouter** (the landing page). Each line says what is set, e.g. "Blue, Red · sporty pace".
+  and **Ski area**; **App**: **App settings** (appearance, terms, privacy, credits), **Guide**
+  (`about/guide.html`) and **About SkiRouter** (the landing page); both open in the browser. Each line says what is set, e.g. "Blue, Red · sporty pace".
 
 Route and Map always show the same route, the active one. The bar at their top says which, and
 opens a menu: **Recent** (the last route to a destination and the last day, so a quick detour
