@@ -56,19 +56,27 @@ let dayShown   = 0;    // index of the option on screen
 let dayDone    = 0;    // steps ticked, for the map's current step
 let dayStops   = [];   // stops on the way, in order: { id, kind, name, station, sub }
 
-// ── Tabs ─────────────────────────────────────────────────────────────────────
+// ── What to plan ─────────────────────────────────────────────────────────────
 
-function showTab(tab) {
-  navPlanner = tab;
-  document.getElementById('area-map-card').style.display = 'none';
-  document.getElementById('tab-quick').style.display = tab === 'quick' ? 'block' : 'none';
-  document.getElementById('tab-day').style.display   = tab === 'day'   ? 'block' : 'none';
-  setNav(routeViews[tab] === 'map' ? 'map' : tab);
-  try { localStorage.setItem(DAY_TAB_KEY, tab); } catch {}
+// The Plan tab: a route to a destination, or a whole day. Remembered.
+let planMode = 'quick';
+function setPlanMode(mode) {
+  planMode = mode === 'day' ? 'day' : 'quick';
+  document.getElementById('plan-screen').dataset.mode = planMode;
+  ['quick', 'day'].forEach(m => {
+    const btn = document.getElementById(`mode-${m}`);
+    btn.classList.toggle('on', m === planMode);
+    btn.setAttribute('aria-selected', String(m === planMode));
+  });
+  try { localStorage.setItem(DAY_TAB_KEY, planMode); } catch {}
   renderAccountAccess();
-  // One map for both planners: draw it again in the one now on screen.
-  leaveRouteMap();
-  if (routeViews[tab] === 'map') drawPlannerMap(tab);
+}
+
+// The option chosen: follow it, in Route (and Map).
+function followDay() {
+  if (!plannerHasRoute('day')) return;
+  setActiveRoute('day');
+  navTo('route');
 }
 
 // ── Form ─────────────────────────────────────────────────────────────────────
@@ -79,6 +87,7 @@ function resetDayPlan() {
   resetSide('dend');
   dayOptions = [];
   document.getElementById('day-result').classList.remove('visible');
+  document.getElementById('day-choice').style.display = 'none';
   document.getElementById('day-err').classList.remove('visible');
 
   const saved = loadDayInputs();
@@ -104,9 +113,9 @@ function resetDayPlan() {
   renderDayStops();
   restoreDayProgress();
 
-  let tab = 'quick';
-  try { tab = localStorage.getItem(DAY_TAB_KEY) || 'quick'; } catch {}
-  showTab(tab === 'day' ? 'day' : 'quick');
+  let mode = 'quick';
+  try { mode = localStorage.getItem(DAY_TAB_KEY) || 'quick'; } catch {}
+  setPlanMode(mode);
 }
 
 // Reopened during the day: plan the same day again (planning is seeded, so
@@ -1061,6 +1070,8 @@ function planDayNow(options = {}) {
     errorEl.textContent = message;
     errorEl.classList.add('visible');
     resultEl.classList.remove('visible');
+    document.getElementById('day-choice').style.display = 'none';
+    if (activeRoute === 'day') setActiveRoute(null);
   };
 
   const start = selected.dstart;
@@ -1163,9 +1174,16 @@ function planDayNow(options = {}) {
   // Only routes that really differ: an option much like one before it goes.
   dayOptions = dayOptions.filter((d, i) => dayOptions.slice(0, i).every(o => overlap(o, d) < DAY_OPTION_OVERLAP));
   dayOptionsOpen = !options.silent; // a day being followed comes back folded
-  renderDayOption(0);
   resultEl.classList.add('visible');
-  if (!options.silent) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderDayOption(0);
+  document.getElementById('day-choice').style.display = hasSeasonPass() ? 'block' : 'none';
+  if (!options.silent) {
+    // Planned in the Plan tab: the options to choose from. Replanned while
+    // following it (Route): the new day, from its top.
+    if (currentScreen() === 'route') resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else document.getElementById('day-choice').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActiveRoute('day');
+  }
 }
 
 // ── Rendering ────────────────────────────────────────────────────────────────
@@ -1290,6 +1308,7 @@ function renderDayOption(index) {
 // in one line (the chosen one) that opens them again.
 let dayOptionsOpen = true;
 function renderDayOptions() {
+  renderRoutePicker();
   const optionsEl = document.getElementById('day-options');
   optionsEl.innerHTML = '';
   optionsEl.classList.toggle('is-folded', !dayOptionsOpen);

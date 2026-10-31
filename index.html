@@ -204,16 +204,6 @@
   <!-- Planner: hidden until an area is chosen -->
   <div id="planner-cards" style="display:none">
 
-  <!-- Map tab without a route: the whole area and its facts -->
-  <div class="card map-card" id="area-map-card" style="display:none">
-    <div class="area-facts">
-      <div class="stat"><strong id="stat-km">—</strong> pistes</div>
-      <div class="stat"><strong id="stat-liften">—</strong> lifts</div>
-      <div class="stat"><strong id="stat-hoogte">—</strong> altitude</div>
-    </div>
-    <div class="route-map" id="a-map"></div>
-    <p class="map-card-hint">Plan a route or a day and it shows here, step by step.</p>
-  </div>
 
   <!-- Station picker overlay + sheet -->
   <div class="overlay" id="overlay" onclick="closeSheet()" style="display:none"></div>
@@ -248,7 +238,14 @@
     <div class="sheet-map" id="sheet-map" style="display:none"></div>
   </div>
 
-  <div id="tab-quick">
+  <!-- Plan: a route to a destination, or a whole day -->
+  <div id="plan-screen" data-mode="quick">
+  <div class="plan-mode" role="tablist" aria-label="What to plan">
+    <button type="button" role="tab" class="plan-mode-btn" id="mode-quick" onclick="setPlanMode('quick')"><i data-i="flag"></i><span>To a destination</span></button>
+    <button type="button" role="tab" class="plan-mode-btn" id="mode-day" onclick="setPlanMode('day')"><i data-i="day"></i><span>Whole day</span><span class="mode-lock" id="mode-day-lock" hidden><i data-i="ticket"></i></span></button>
+  </div>
+
+  <div id="plan-quick">
 
   <!-- Route planner card -->
   <div class="card" id="quick-card">
@@ -303,34 +300,10 @@
     <div class="error-msg" id="err"></div>
   </div><!-- /card -->
 
-  <!-- Route result card -->
-  <div class="card result" id="result">
-    <div class="card-title result-title"><i data-i="route"></i> Your route</div>
-    <div class="pills result-pills">
-      <span class="pill" id="p-steps">—</span>
-      <span class="pill" id="p-km">—</span>
-      <span class="pill" id="p-time">—</span>
-    </div>
 
-    <!-- Stays at the top of the screen while scrolling through the route:
-         back to the settings, list or map, and how far along you are -->
-    <div class="result-sticky">
-      <div class="sticky-row">
-        <button class="back-btn" type="button" onclick="backToPlanner('quick-card')"><i data-i="up"></i> Settings</button>
-      </div>
-      <div class="progress" id="p-progress"></div>
-    </div>
+  </div><!-- /plan-quick -->
 
-    <div class="route-map" id="q-map" style="display:none"></div>
-    <div id="q-closed"></div>
-    <div class="steps" id="steps"></div>
-
-    <div class="tip" id="tip"></div>
-  </div>
-
-  </div><!-- /tab-quick -->
-
-  <div id="tab-day" style="display:none">
+  <div id="plan-day">
 
   <!-- Without the season pass: what the day planner does, and the pass -->
   <div class="card paywall" id="day-paywall" style="display:none">
@@ -459,6 +432,74 @@
     <div class="error-msg" id="day-err"></div>
   </div><!-- /card -->
 
+
+  <!-- The day's routes to choose from; the one chosen is followed in Route and Map -->
+  <div class="card day-choice" id="day-choice" style="display:none">
+    <div class="card-title"><i data-i="route"></i> Choose your day</div>
+    <div class="day-options" id="day-options"></div>
+    <div class="day-notes" id="day-notes"></div>
+    <button class="plan-btn" type="button" onclick="followDay()"><i data-i="list"></i> Show the steps</button>
+    <div class="save-day" id="save-day" style="display:none">
+      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this day</button>
+      <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
+        <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
+        <button class="save-day-ok" type="submit">Save</button>
+        <button class="link-btn" type="button" onclick="saveDayCancel()">Cancel</button>
+      </form>
+      <div class="save-day-msg" id="save-day-msg"></div>
+    </div>
+  </div>
+
+  </div><!-- /plan-day -->
+  </div><!-- /plan-screen -->
+
+  <!-- Route and Map: the route being followed, as steps or on the map -->
+  <div id="route-screen" data-active="" data-view="route">
+  <button class="route-picker" id="route-picker" type="button" onclick="openRoutePicker()">
+    <span class="route-picker-text"><small id="route-picker-kind">No route yet</small><strong id="route-picker-title">Plan a route</strong></span>
+    <i data-i="down"></i>
+  </button>
+
+  <div class="card route-empty" id="route-empty" style="display:none">
+    <div class="card-title"><i data-i="list"></i> No route yet</div>
+    <p>Plan a route to a destination or a whole day: it shows here step by step, and on the map.</p>
+    <button class="plan-btn" type="button" onclick="navTo('plan')"><i data-i="route"></i> Plan a route</button>
+    <div class="route-empty-saved" id="route-empty-saved"></div>
+  </div>
+
+  <!-- Map tab without a route: the whole area and its facts -->
+  <div class="card map-card" id="area-map-card" style="display:none">
+    <div class="area-facts">
+      <div class="stat"><strong id="stat-km">—</strong> pistes</div>
+      <div class="stat"><strong id="stat-liften">—</strong> lifts</div>
+      <div class="stat"><strong id="stat-hoogte">—</strong> altitude</div>
+    </div>
+    <div class="route-map" id="a-map"></div>
+    <p class="map-card-hint">Plan a route or a day and it shows here, step by step.</p>
+  </div>
+
+  <!-- Route result card -->
+  <div class="card result" id="result">
+    <div class="card-title result-title"><i data-i="route"></i> Your route</div>
+    <div class="pills result-pills">
+      <span class="pill" id="p-steps">—</span>
+      <span class="pill" id="p-km">—</span>
+      <span class="pill" id="p-time">—</span>
+    </div>
+
+    <!-- Stays at the top of the screen while scrolling through the route:
+         how far along you are -->
+    <div class="result-sticky">
+      <div class="progress" id="p-progress"></div>
+    </div>
+
+    <div class="route-map" id="q-map" style="display:none"></div>
+    <div id="q-closed"></div>
+    <div class="steps" id="steps"></div>
+
+    <div class="tip" id="tip"></div>
+  </div>
+
   <!-- Day plan result card -->
   <div class="card result" id="day-result">
     <div class="card-title result-title"><i data-i="day"></i> Your day</div>
@@ -469,25 +510,10 @@
       <span class="pill" id="dp-end">—</span>
     </div>
 
-    <div class="day-options" id="day-options"></div>
-    <div class="day-notes" id="day-notes"></div>
-
-    <div class="save-day" id="save-day" style="display:none">
-      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this day</button>
-      <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
-        <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
-        <button class="save-day-ok" type="submit">Save</button>
-        <button class="link-btn" type="button" onclick="saveDayCancel()">Cancel</button>
-      </form>
-      <div class="save-day-msg" id="save-day-msg"></div>
-    </div>
 
     <!-- Stays at the top of the screen while scrolling through the day:
-         back to the settings, list or map, and how far along you are -->
+         how far along you are, and a red bar when running late -->
     <div class="result-sticky">
-      <div class="sticky-row">
-        <button class="back-btn" type="button" onclick="backToPlanner('day-card')"><i data-i="up"></i> Settings</button>
-      </div>
       <button class="late-btn" id="dp-late" type="button" style="display:none" onclick="replanFromHere()"></button>
       <div class="progress" id="dp-progress"></div>
     </div>
@@ -496,7 +522,7 @@
     <div class="steps" id="day-steps"></div>
   </div>
 
-  </div><!-- /tab-day -->
+  </div><!-- /route-screen -->
 
   </div><!-- /planner-cards -->
 
@@ -505,8 +531,8 @@
 <!-- The app's main navigation, at the bottom like a native app: within
      reach of a thumb, also with gloves on -->
 <nav class="tabbar" id="tabbar" aria-label="Main">
-  <button class="tabbar-btn" id="nav-quick" type="button" onclick="navTo('quick')"><i data-i="route"></i><span>Route</span></button>
-  <button class="tabbar-btn" id="nav-day" type="button" onclick="navTo('day')"><i data-i="day"></i><span>Day plan</span></button>
+  <button class="tabbar-btn" id="nav-plan" type="button" onclick="navTo('plan')"><i data-i="route"></i><span>Plan</span></button>
+  <button class="tabbar-btn" id="nav-route" type="button" onclick="navTo('route')"><i data-i="list"></i><span>Route</span></button>
   <button class="tabbar-btn" id="nav-map" type="button" onclick="navTo('map')"><i data-i="map"></i><span>Map</span></button>
   <button class="tabbar-btn" id="nav-account" type="button" onclick="navTo('account')"><i data-i="settings"></i><span>Settings</span></button>
 </nav>

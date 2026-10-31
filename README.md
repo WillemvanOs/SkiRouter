@@ -167,11 +167,21 @@ says so.
 ## Navigation and look
 
 **Tab bar.** At the bottom, as in a native app and within reach of a thumb (with gloves on):
-**Route** (quick route), **Day plan**, **Map** and **Account** (**Settings** when accounts are
-off). Map shows the route of the planner you were in, following the step you are at, or the
-whole area with its km, lifts and altitude when there is no route yet. Route or Day plan brings
-the list back with the step you are at in view; the tab you are on again scrolls to the top. The
-tab bar shows once an area is open, never over the sign-in screen or a full screen map.
+- **Plan** — what to plan, with a switch at the top: **To a destination** (A to B) or **Whole
+  day** (with a season pass; a ticket mark shows it). A route to a destination opens in Route as
+  soon as it is calculated. A day shows its options right there (Option 1, 2, 3, under
+  **Choose your day**), with **Save this day** and **Show the steps**.
+- **Route** — the route being followed, step by step: ticking off, replan from here, the late
+  warning. Without a route: a button to plan one and your saved days.
+- **Map** — the same route on the map, following the step you are at; without a route the whole
+  area with its km, lifts and altitude.
+- **Account** (**Settings** when accounts are off).
+
+Route and Map always show the same route, the active one. The bar at their top says which, and
+opens a menu: **Recent** (the last route to a destination and the last day, so a quick detour
+does not lose the day being followed) and **Saved days**, plus planning a new route. The active
+route is kept per area (`skirouter:active:<area>`); saved days are kept on the phone too
+(`skirouter:saved-days`), so they open without a signal.
 
 **Header.** One slim line: the logo and the open ski area (tap it to choose another), with its
 lift status underneath.
