@@ -483,8 +483,7 @@ async function selectArea(areaMeta) {
     applyAreaToHeader(area);
     resetPlanner();
 
-    showScreen('planner');
-    navTo(navPlanner);
+    navTo(activeRoute && plannerHasRoute(activeRoute) ? 'route' : 'plan');
   } catch (err) {
     console.error(`Could not load area "${areaMeta.id}":`, err);
     const note = document.createElement('div');
@@ -541,31 +540,39 @@ function showAreaPicker() {
 
 // Back from the area picker to the area that was open, as it was.
 function backToArea() {
-  if (currentArea) navTo(navPlanner);
+  if (currentArea) navTo(activeRoute && plannerHasRoute(activeRoute) ? 'route' : 'plan');
 }
 
 // ── Navigation ───────────────────────────────────────────────────────────────
 //
-// One screen at a time: the area picker, the planner (quick route, day plan
-// or the area map), the preferences or the account. The tab bar at the
-// bottom (Route · Day plan · Map · Account, or Settings without accounts)
-// switches between them, within reach of a thumb. Map shows the route of
-// the planner you were in, following your steps, or the whole area when
-// there is no route yet.
+// One screen at a time, switched by the tab bar at the bottom:
+// - Plan: a route to a destination, or a whole day (and the day's options
+//   to choose from, and saving it);
+// - Route: the route being followed, step by step;
+// - Map: the same route on the map, or the whole area without one;
+// - Account (Settings without accounts).
+// Route and Map always show the same route, the active one: the last one
+// planned, or one picked from the menu at their top (the other recent
+// route, or a saved day). Besides these: the area picker and preferences.
 
-const SCREENS = { picker: 'area-picker', planner: 'planner-cards', prefs: 'prefs-screen', account: 'account-screen' };
-let navPlanner = 'quick'; // the planner on screen, or the one the map shows
+const SCREENS = { picker: 'area-picker', plan: 'plan-screen', route: 'route-screen', prefs: 'prefs-screen', account: 'account-screen' };
+const ACTIVE_KEY_PREFIX = 'skirouter:active:';
+let activeRoute = null; // 'quick' or 'day': the route Route and Map show
 
 function showScreen(name) {
   Object.entries(SCREENS).forEach(([key, id]) => { document.getElementById(id).style.display = key === name ? 'block' : 'none'; });
+  document.getElementById('planner-cards').style.display = name === 'plan' || name === 'route' ? 'block' : 'none';
 }
 
 function currentScreen() {
+  if (document.getElementById('planner-cards').style.display === 'none') {
+    return ['picker', 'prefs', 'account'].find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
+  }
   return Object.keys(SCREENS).find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
 }
 
 function setNav(tab) {
-  ['quick', 'day', 'map', 'account'].forEach(t => {
+  ['plan', 'route', 'map', 'account'].forEach(t => {
     const btn = document.getElementById(`nav-${t}`);
     btn.classList.toggle('on', t === tab);
     if (t === tab) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
@@ -575,7 +582,22 @@ function setNav(tab) {
 function plannerHasRoute(planner) {
   return planner === 'quick'
     ? document.getElementById('result').classList.contains('visible') && !!lastQuickPath
-    : document.getElementById('day-result').classList.contains('visible') && dayOptions.length > 0;
+    : planner === 'day' && document.getElementById('day-result').classList.contains('visible') && dayOptions.length > 0;
+}
+
+// The route Route and Map show; kept per area, so it comes back when the
+// app is opened again.
+function setActiveRoute(kind) {
+  if (kind && !plannerHasRoute(kind)) kind = ['quick', 'day'].find(plannerHasRoute) || null;
+  if (activeRoute !== kind) leaveRouteMap();
+  activeRoute = kind;
+  document.getElementById('route-screen').dataset.active = kind || '';
+  try { localStorage.setItem(ACTIVE_KEY_PREFIX + (currentArea?.id || ''), kind || ''); } catch {}
+  renderRoutePicker();
+}
+
+function storedActiveRoute() {
+  try { return localStorage.getItem(ACTIVE_KEY_PREFIX + (currentArea?.id || '')) || null; } catch { return null; }
 }
 
 function navTo(tab) {
@@ -583,34 +605,130 @@ function navTo(tab) {
   const from = currentScreen();
   if (from === 'prefs') applyPrefsChanges();
   if (tab === 'account') {
+    leaveRouteMap();
     if (accountsOn && account) openAccount();
-    else openPrefs('planner');
+    else openPrefs('plan');
     setNav('account');
     return;
   }
-  if (from !== 'planner') {
-    if (from === 'picker') applyAreaToHeader(currentArea);
-    showScreen('planner');
-  }
-  if (tab === 'map') {
-    if (plannerHasRoute(navPlanner)) {
-      showTab(navPlanner);
-      showRouteView('map', navPlanner);
-    } else showAreaMap();
+  if (from === 'picker') applyAreaToHeader(currentArea);
+  if (tab === 'plan') {
+    leaveRouteMap();
+    const again = from === 'plan';
+    showScreen('plan');
+    setNav('plan');
+    window.scrollTo({ top: 0, behavior: again ? 'smooth' : 'instant' });
     return;
   }
-  const again = from === 'planner' && navPlanner === tab && routeViews[tab] !== 'map'
-    && document.getElementById('area-map-card').style.display === 'none';
-  showTab(tab);
-  if (routeViews[tab] === 'map') showRouteView('list', tab);
-  else window.scrollTo({ top: 0, behavior: again ? 'smooth' : 'instant' }); // the tab again: back to the top
+  // Route or Map
+  const again = from === 'route' && document.getElementById('route-screen').dataset.view === tab;
+  showScreen('route');
+  document.getElementById('route-screen').dataset.view = tab;
+  if (activeRoute && !plannerHasRoute(activeRoute)) setActiveRoute(null);
+  if (!activeRoute) setActiveRoute(['quick', 'day'].find(plannerHasRoute) || null);
+  renderRoutePicker();
+  const has = !!activeRoute;
+  document.getElementById('route-empty').style.display = !has && tab === 'route' ? 'block' : 'none';
+  if (!has) {
+    if (tab === 'map') showAreaMap();
+    else {
+      leaveRouteMap();
+      document.getElementById('area-map-card').style.display = 'none';
+      renderEmptySaved();
+      setNav('route');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    return;
+  }
+  document.getElementById('area-map-card').style.display = 'none';
+  if (tab === 'map') showRouteView('map', activeRoute);
+  else if (again && routeViews[activeRoute] === 'list') window.scrollTo({ top: 0, behavior: 'smooth' }); // the tab again: back to the top
+  else showRouteView('list', activeRoute);
+}
+
+// The menu at the top of Route and Map: the route on screen, and the
+// others to switch to — the other recent route, and saved days.
+// "Bottom station Hahnenkammbahn" → "Hahnenkammbahn": the menu has one line.
+const shortStation = name => String(name || '').replace(/^(Bottom|Top) station /, '');
+
+function routeTitle(kind) {
+  if (kind === 'quick') {
+    return { kind: 'Route', title: lastQuickTitle || 'Your route' };
+  }
+  const walk = dayOptions?.[dayShown];
+  return {
+    kind: 'Day plan',
+    title: [shortStation(dayCtx?.startName), dayOptions.length > 1 ? `option ${dayShown + 1}` : '', walk ? `${walk.km.toFixed(1)} km` : '']
+      .filter(Boolean).join(' · '),
+  };
+}
+
+function renderRoutePicker() {
+  const has = activeRoute && plannerHasRoute(activeRoute);
+  const t = has ? routeTitle(activeRoute) : { kind: 'No route yet', title: 'Plan a route' };
+  document.getElementById('route-picker-kind').textContent = t.kind;
+  document.getElementById('route-picker-title').textContent = t.title;
+}
+
+function routePickerOptions() {
+  const options = [];
+  ['quick', 'day'].filter(plannerHasRoute).forEach(kind => {
+    const t = routeTitle(kind);
+    options.push({ group: 'Recent', icon: kind === 'quick' ? 'flag' : 'day', label: t.title, sub: t.kind, on: kind === activeRoute,
+      run: () => { setActiveRoute(kind); navTo(document.getElementById('route-screen').dataset.view || 'route'); } });
+  });
+  if (typeof savedDays !== 'undefined' && accountsOn && account) {
+    savedDays.forEach(day => options.push({ group: 'Saved days', icon: 'star', label: day.name,
+      sub: [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '),
+      run: () => openSavedDay(day.id) }));
+  }
+  options.push({ group: '', icon: 'plus', label: 'Plan a new route', run: () => navTo('plan') });
+  return options;
+}
+
+function openRoutePicker() {
+  if (typeof loadSavedDays === 'function' && accountsOn && account) loadSavedDays().then(() => { if (document.getElementById('route-menu')?.classList.contains('open')) showRouteMenu(); });
+  showRouteMenu();
+}
+
+function showRouteMenu() {
+  let menu = document.getElementById('route-menu');
+  if (!menu) {
+    menu = document.createElement('div');
+    menu.id = 'route-menu';
+    menu.className = 'step-menu route-menu';
+    menu.addEventListener('click', event => { if (event.target === menu) menu.classList.remove('open'); });
+    document.body.appendChild(menu);
+  }
+  const options = routePickerOptions();
+  let group = null;
+  menu.innerHTML = `<div class="step-menu-panel" role="menu">${options.map((o, i) => {
+    const head = o.group !== group && o.group ? `<div class="step-menu-title">${escapeHtml(o.group)}</div>` : '';
+    group = o.group;
+    return `${head}<button type="button" class="step-menu-btn route-menu-btn${o.on ? ' on' : ''}" role="menuitem" data-option="${i}">${ui(o.icon)}
+      <span><strong>${escapeHtml(o.label)}</strong>${o.sub ? `<small>${escapeHtml(o.sub)}</small>` : ''}</span>${o.on ? ui('check') : ''}</button>`;
+  }).join('')}
+    <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button></div>`;
+  menu.querySelectorAll('[data-option]').forEach(btn => btn.addEventListener('click', () => {
+    menu.classList.remove('open');
+    options[+btn.dataset.option].run();
+  }));
+  menu.querySelector('.step-menu-cancel').addEventListener('click', () => menu.classList.remove('open'));
+  menu.classList.add('open');
+}
+
+// No route yet: the saved days to pick from, under the button to plan one.
+function renderEmptySaved() {
+  const el = document.getElementById('route-empty-saved');
+  const days = typeof savedDays !== 'undefined' && accountsOn && account ? savedDays : [];
+  el.innerHTML = days.length ? `<div class="prefs-label">${ui('star')} Your saved days</div>` + days.slice(0, 5).map((day, i) =>
+    `<button type="button" class="route-empty-day" data-day="${i}"><strong>${escapeHtml(day.name)}</strong><small>${escapeHtml(day.area_name)}${day.summary?.km != null ? ` · ${day.summary.km} km` : ''}</small></button>`).join('') : '';
+  el.querySelectorAll('[data-day]').forEach(btn => btn.addEventListener('click', () => openSavedDay(days[+btn.dataset.day].id)));
 }
 
 // Map without a route: the whole area, its facts above it.
 function showAreaMap() {
   leaveRouteMap();
-  document.getElementById('tab-quick').style.display = 'none';
-  document.getElementById('tab-day').style.display = 'none';
   const card = document.getElementById('area-map-card');
   card.style.display = 'block';
   setNav('map');
@@ -645,6 +763,9 @@ function resetPlanner() {
   loadAvoided();
   restoreQuickRoute();
   resetDayPlan();
+  // The route that was being followed here, as it was left.
+  activeRoute = null;
+  setActiveRoute(storedActiveRoute());
 }
 
 // Reopened halfway down the mountain: bring back the route being followed.
@@ -830,7 +951,7 @@ function setSheetKind(kind, render = true) {
     btn.setAttribute('aria-pressed', String(btn.dataset.kind === kind));
   });
   document.getElementById('sheet-search').placeholder =
-    kind === 'lifts' ? 'Search lift or station…' : kind === 'poi' ? 'Search restaurant, viewpoint, park…' : 'Search village or peak…';
+    kind === 'lifts' ? 'Search lift or station…' : kind === 'poi' ? 'Search restaurant, hut, viewpoint, park…' : 'Search town, village or peak…';
   if (render) renderSheet();
 }
 
@@ -1237,9 +1358,9 @@ function renderPrefs() {
 
 // The preferences screen: from a planner or the account, back with Done.
 let prefsChanged = null;
-let prefsFrom = 'planner';
+let prefsFrom = 'plan';
 function openPrefs(from) {
-  prefsFrom = from || (currentScreen() === 'account' ? 'account' : 'planner');
+  prefsFrom = from || (currentScreen() === 'account' ? 'account' : 'plan');
   leaveRouteMap();
   renderPrefs();
   renderAvoided();
@@ -1260,7 +1381,7 @@ function closePrefs() {
   if (prefsFrom === 'account' && accountsOn && account) {
     showScreen('account');
     window.scrollTo({ top: 0 });
-  } else navTo(navPlanner);
+  } else navTo('plan');
 }
 
 // Appearance: auto (the phone's light or dark), light, dark, or sun — extra
@@ -1440,7 +1561,10 @@ function planRoute(options = {}) {
 }
 
 // Back from a planned route to its planner, with every setting as it was.
+// Back to a planner's settings (an error to fix there).
 function backToPlanner(cardId) {
+  setPlanMode(cardId === 'day-card' ? 'day' : 'quick');
+  navTo('plan');
   document.getElementById(cardId).scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1523,6 +1647,7 @@ function renderRoute(result) {
 
   // For the map view: the route as planned, transfers included.
   lastQuickPath = result.path;
+  lastQuickTitle = `${shortStation(selected.from.name)} → ${shortStation(selected.to.name)}`;
 
   const signature = [selected.from.id, ...visibleSteps.map(e => e.liftNr || e.pisteNr), selected.to.id].join('>');
   makeCheckable(stepsEl, 'quick', signature, quickStatus, {
@@ -1534,6 +1659,7 @@ function renderRoute(result) {
 // ── List or map ──────────────────────────────────────────────────────────────
 
 let lastQuickPath = null; // the route on screen, for the map
+let lastQuickTitle = '';  // "from → to", for the menu above Route and Map
 let quickDone = 0;        // steps ticked, for the map's current step
 
 // Each planner shows its route as a list or, from the Map tab, as a map
@@ -1546,7 +1672,7 @@ const MAP_PARTS = {
 function showRouteView(view, planner = 'quick') {
   routeViews[planner] = view;
   const ids = MAP_PARTS[planner];
-  setNav(view === 'map' ? 'map' : planner);
+  setNav(view === 'map' ? 'map' : 'route');
   document.getElementById(ids.steps).style.display = view === 'map' ? 'none' : '';
   document.getElementById(ids.el).style.display = view === 'map' ? 'block' : 'none';
   if (view === 'map') {
@@ -2412,6 +2538,10 @@ function clearProgress(kind) {
 function planRouteClicked() {
   clearProgress('quick');
   planRoute();
+  if (plannerHasRoute('quick') && !document.getElementById('err').classList.contains('visible')) {
+    setActiveRoute('quick');
+    navTo('route');
+  }
 }
 
 function nowMinutes() {

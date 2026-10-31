@@ -27,6 +27,7 @@ const sb = accountsOn ? window.supabase.createClient(accountCfg.supabaseUrl, acc
 let account = null; // { id, email, birthdate, country, paid_until }
 try { account = JSON.parse(localStorage.getItem(ACCOUNT_KEY)) || null; } catch {}
 let savedDays = []; // the account's saved days, newest first
+const SAVED_DAYS_KEY = 'skirouter:saved-days'; // a copy on the phone, for the mountain without a signal
 let syncTimer = null;
 
 // Nothing of the app until signed in (no flash of the planner first).
@@ -83,6 +84,7 @@ async function initAccount() {
   }
 
   if (!account) return;
+  restoreSavedDays();
   const { data, error } = await sb.auth.getSession();
   if (!data?.session) {
     // Offline (or the server not reachable): carry on with the account on the phone.
@@ -92,6 +94,7 @@ async function initAccount() {
   }
   await refreshProfile();
   if (localStorage.getItem(ACCOUNT_SYNC_KEY)) syncPrefs();
+  loadSavedDays();
 }
 
 window.addEventListener('online', () => { if (accountsOn && account && localStorage.getItem(ACCOUNT_SYNC_KEY)) syncPrefs(); });
@@ -195,11 +198,13 @@ async function signedIn(user) {
   }
   document.getElementById('gate-password').value = '';
   ungate();
+  loadSavedDays();
 }
 
 function signedOut() {
   account = null;
   savedDays = [];
+  storeSavedDays();
   storeAccount();
   // The preferences are the account's: not for whoever signs in next on this phone.
   try {
@@ -331,6 +336,8 @@ function renderAccountAccess() {
     wall.style.display = paid ? 'none' : 'block';
     document.getElementById('day-card').style.display = paid ? '' : 'none';
     document.getElementById('day-result').style.display = paid ? '' : 'none';
+    document.getElementById('mode-day-lock').hidden = paid;
+    if (!paid) document.getElementById('day-choice').style.display = 'none';
     document.getElementById('paywall-price').textContent = `€${accountCfg.seasonPrice || '9.99'} for the ${seasonLabel()} season`;
   }
   const save = document.getElementById('save-day');
@@ -383,6 +390,7 @@ async function saveDaySubmit(event) {
     return;
   }
   savedDays.unshift(data);
+  storeSavedDays();
   saveDayCancel();
   const btn = document.getElementById('save-day-btn');
   btn.innerHTML = `${ui('check')} Saved in your account`;
@@ -390,15 +398,31 @@ async function saveDaySubmit(event) {
 }
 
 async function loadSavedDays() {
+  if (!accountsOn || !account) return;
   if (!navigator.onLine) return;
   const { data, error } = await sb.from('routes').select('*').order('created_at', { ascending: false });
-  if (!error) savedDays = data || [];
+  if (!error) { savedDays = data || []; storeSavedDays(); }
+}
+
+function storeSavedDays() {
+  try {
+    if (account) localStorage.setItem(SAVED_DAYS_KEY, JSON.stringify({ user: account.id, days: savedDays }));
+    else localStorage.removeItem(SAVED_DAYS_KEY);
+  } catch {}
+}
+
+function restoreSavedDays() {
+  try {
+    const kept = JSON.parse(localStorage.getItem(SAVED_DAYS_KEY));
+    if (kept?.user === account?.id && Array.isArray(kept.days)) savedDays = kept.days;
+  } catch {}
 }
 
 // A saved day: its area, its settings, planned again and shown.
 async function openSavedDay(id) {
   const day = savedDays.find(d => d.id === id);
   if (!day) return;
+  const view = currentScreen() === 'route' ? document.getElementById('route-screen').dataset.view : 'route';
   const meta = AREAS.find(a => a.id === areaIdNow(day.area_id));
   if (!meta) { showAccountNotice(`"${day.area_name}" is not in the ski area list any more.`); return; }
   try { localStorage.setItem(DAY_KEY_PREFIX + meta.id, JSON.stringify(day.inputs)); } catch {}
@@ -408,10 +432,15 @@ async function openSavedDay(id) {
   if (currentArea?.id !== meta.id) return;
   const inputs = day.inputs || {};
   if (inputs.end && !restorePlace('dend', inputs.endPlace)) restoreStation('dend', inputs.end);
-  showTab('day');
+  setPlanMode('day');
   clearProgress('day');
-  planDay({ override: inputs });
+  planDay({ override: inputs, silent: true });
   if (day.option > 0 && day.option < dayOptions.length) renderDayOption(day.option);
+  // Followed straight away, in Route (or Map, when picked there).
+  if (plannerHasRoute('day')) {
+    setActiveRoute('day');
+    navTo(view === 'map' ? 'map' : 'route');
+  } else navTo('plan');
 }
 
 async function deleteSavedDay(id) {
@@ -420,6 +449,7 @@ async function deleteSavedDay(id) {
   const { error } = await sb.from('routes').delete().eq('id', id);
   if (error) { showAccountNotice('Could not delete it. Try again.'); return; }
   savedDays = savedDays.filter(d => d.id !== id);
+  storeSavedDays();
   renderAccount();
 }
 
@@ -439,7 +469,7 @@ function openAccount() {
 // the planner, or the area picker when no area is open yet.
 function closeAccount() {
   if (!['account', 'prefs'].includes(currentScreen())) return;
-  if (currentArea) navTo(navPlanner);
+  if (currentArea) navTo(activeRoute ? 'route' : 'plan');
   else { showScreen('picker'); setNav(null); }
 }
 

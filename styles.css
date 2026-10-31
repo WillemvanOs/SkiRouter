@@ -538,7 +538,7 @@ main {
 
 /* Room for the tab bar at the bottom, once an area is open */
 body.has-area main {
-  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
 }
 
 /* ── Cards ────────────────────────────────────────────────── */
@@ -1026,31 +1026,57 @@ body.has-area main {
 }
 
 /* Lifts | POI | Villages & peaks: what the picker lists */
+/* What the picker lists: a segmented control of three equal parts, each an
+   icon over a short name, so the three line up whatever their length */
 .sheet-kinds {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  margin: 0 16px 6px;
-  padding: 3px;
-  border-radius: 10px;
+  margin: 0 16px 8px;
+  padding: 4px;
+  border-radius: 12px;
   background: var(--snow);
   flex-shrink: 0;
 }
 
-.sheet-kind {
-  flex: 1;
-  min-height: 36px;
+.sheet-kinds .sheet-kind {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 6px 4px;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   background: transparent;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
   color: var(--fg-6a7d92);
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.sheet-kind.on {
+.sheet-kinds .sheet-kind .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.sheet-kinds .sheet-kind span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* A narrow phone: a little smaller, so every name fits on one line */
+@media (max-width: 360px) {
+  .sheet-kinds { margin: 0 12px 8px; }
+  .sheet-kinds .sheet-kind { font-size: 0.72rem; padding: 6px 2px; }
+}
+
+.sheet-kinds .sheet-kind.on {
   background: var(--bg-ffffff);
   color: var(--accent);
   box-shadow: 0 1px 4px rgba(26, 58, 92, 0.15);
@@ -3421,7 +3447,7 @@ html.gated #header-live {
   z-index: 90; /* under the station picker sheet (100) and a full screen map */
   display: none;
   justify-content: center;
-  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  padding: 2px 6px calc(2px + env(safe-area-inset-bottom));
   background: var(--tabbar);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -3443,20 +3469,20 @@ body.map-full .tabbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  min-height: 54px;
-  padding: 6px 4px;
+  gap: 1px;
+  min-height: 46px;
+  padding: 4px 4px 3px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background: none;
   color: var(--fg-6a7d92);
-  font: 600 0.72rem 'DM Sans', sans-serif;
+  font: 600 0.68rem 'DM Sans', sans-serif;
   cursor: pointer;
 }
 
 .tabbar-btn .ui-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .tabbar-btn.on {
@@ -3572,4 +3598,191 @@ body.map-full .tabbar {
   flex-direction: column;
   align-items: flex-start;
   gap: 1px;
+}
+
+/* ── Plan: to a destination or a whole day ────────────────── */
+
+.plan-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 14px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--bg-ffffff);
+  border: 1px solid var(--bd-dde8f4);
+  box-shadow: var(--shadow);
+}
+
+.plan-mode-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: var(--fg-6a7d92);
+  font: 600 0.92rem 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.plan-mode-btn .ui-icon {
+  width: 19px;
+  height: 19px;
+}
+
+.plan-mode-btn.on {
+  background: var(--alpine);
+  color: #fff;
+}
+
+:root[data-theme="dark"] .plan-mode-btn.on { background: #24486f; }
+@media (prefers-color-scheme: dark) { :root[data-theme="auto"] .plan-mode-btn.on { background: #24486f; } }
+
+/* The season pass is needed for a whole day */
+.mode-lock {
+  display: inline-flex;
+  opacity: 0.7;
+}
+
+.mode-lock .ui-icon {
+  width: 15px;
+  height: 15px;
+}
+
+#plan-screen[data-mode="quick"] #plan-day,
+#plan-screen[data-mode="day"] #plan-quick {
+  display: none;
+}
+
+/* The day's options, under the planner */
+.day-choice .day-options {
+  margin-bottom: 4px;
+}
+
+.day-choice .save-day {
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+/* ── Route and Map: the route being followed ──────────────── */
+
+#route-screen[data-active="quick"] #day-result,
+#route-screen[data-active="day"] #result,
+#route-screen[data-active=""] .result {
+  display: none !important;
+}
+
+/* Which route: tap to switch to the other recent one or a saved day */
+.route-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--bd-dde8f4);
+  border-radius: 14px;
+  background: var(--bg-ffffff);
+  box-shadow: var(--shadow);
+  color: var(--midnight);
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.route-picker-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-picker-text small {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--fg-6a7d92);
+}
+
+.route-picker-text strong {
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route-picker > .ui-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--fg-8a99ab);
+}
+
+.route-menu-btn {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.route-menu-btn span {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-menu-btn strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route-menu-btn small {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--fg-6a7d92);
+}
+
+.route-menu-btn.on {
+  border-color: var(--primary);
+}
+
+.route-menu-btn.on > .ui-icon:last-child {
+  color: var(--primary);
+}
+
+.route-menu .step-menu-title {
+  margin-top: 6px;
+}
+
+/* No route yet */
+.route-empty p {
+  margin: -4px 0 6px;
+  color: var(--fg-6a7d92);
+  font-size: 0.9rem;
+}
+
+.route-empty-saved .prefs-label {
+  margin: 18px 0 8px;
+}
+
+.route-empty-day {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ice);
+  border-radius: 10px;
+  background: var(--snow);
+  color: var(--midnight);
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.route-empty-day small {
+  color: var(--fg-6a7d92);
 }
