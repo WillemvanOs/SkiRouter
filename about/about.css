@@ -461,7 +461,7 @@ main > section {
 
 .foot p { margin: 6px 0; }
 
-/* ── Top links, four screenshots, the way to the guide ────── */
+/* ── Top links and four screenshots ───────────────────────── */
 
 .top-links {
   display: flex;
@@ -487,29 +487,3 @@ main > section {
 @media (max-width: 640px) {
   .shots-4 { grid-template-columns: repeat(4, 72%); }
 }
-
-.guide-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 26px;
-  padding: 18px 20px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-}
-
-.guide-card:hover { border-color: var(--primary); }
-
-.guide-card > .ui-icon:first-child {
-  width: 30px;
-  height: 30px;
-  color: var(--primary);
-}
-
-.guide-card span { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.guide-card strong { font-size: 1.08rem; }
-.guide-card small { color: var(--muted); font-size: 0.92rem; }
-.guide-card > .ui-icon:last-child { color: var(--muted); }
