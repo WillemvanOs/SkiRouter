@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
   <title>Ski Route Planner</title>
   <meta name="description" content="Plan your route between lifts and pistes — works offline on the mountain.">
   <meta name="theme-color" content="#081629">
@@ -17,6 +17,12 @@
   <meta name="apple-mobile-web-app-title" content="SkiRouter">
   <link rel="stylesheet" href="vendor/fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
+  <!-- The look (Preferences → Appearance) before the first paint, so a dark
+       or sun theme never flashes light first -->
+  <script>
+    try { document.documentElement.dataset.theme = JSON.parse(localStorage.getItem('skirouter:prefs'))?.theme || 'auto'; }
+    catch { document.documentElement.dataset.theme = 'auto'; }
+  </script>
 </head>
 <body>
 
@@ -25,17 +31,9 @@
   <div class="header-inner">
     <div class="header-top">
       <div class="logo">Ski<span>Route</span>r</div>
-      <div class="header-btns">
-        <button class="area-switch" id="account-btn" onclick="toggleAccount()" style="display:none" aria-label="Account">👤</button>
-        <button class="area-switch" id="prefs-btn" onclick="togglePrefs()" style="display:none" aria-label="Preferences">⚙</button>
-        <button class="area-switch" id="area-switch-btn" onclick="showAreaPicker()" style="display:none">🏔 Change ski area</button>
-      </div>
-    </div>
-    <div class="tagline" id="header-tagline">Choose a ski area to get started</div>
-    <div class="stats" id="header-stats" style="display:none">
-      <div class="stat"><strong id="stat-km">—</strong> Pistes</div>
-      <div class="stat"><strong id="stat-liften">—</strong> Lifts</div>
-      <div class="stat"><strong id="stat-hoogte">—</strong> Altitude</div>
+      <button class="area-chip" id="area-switch-btn" type="button" onclick="showAreaPicker()" style="display:none" aria-label="Change ski area">
+        <i data-i="area"></i><span class="area-chip-name" id="header-area"></span><i data-i="down"></i>
+      </button>
     </div>
     <div class="header-live" id="header-live" style="display:none"></div>
   </div>
@@ -73,18 +71,18 @@
         <span>I agree to the <a href="terms.html" target="_blank">terms</a> and the <a href="privacy.html" target="_blank">privacy policy</a>. I am 16 or older.</span>
       </label>
       <div class="gate-msg" id="gate-msg"></div>
-      <button class="plan-btn" id="gate-submit" type="submit">SIGN IN</button>
+      <button class="plan-btn" id="gate-submit" type="submit">Sign in</button>
     </form>
     <div class="gate-links">
       <button class="link-btn" type="button" data-for="signin" onclick="renderGate('signup')">No account yet? Create one</button>
       <button class="link-btn" type="button" data-for="signin" onclick="renderGate('reset')">Forgot your password?</button>
-      <button class="link-btn" type="button" data-for="signup reset sent" onclick="renderGate('signin')">← Back to sign in</button>
+      <button class="link-btn" type="button" data-for="signup reset sent" onclick="renderGate('signin')"><i data-i="back"></i> Back to sign in</button>
     </div>
   </div>
 
   <!-- Account: season pass, saved days, sign out -->
   <div class="card prefs-card" id="account-screen" style="display:none">
-    <div class="card-title">👤 Your account</div>
+    <div class="card-title"><i data-i="account"></i> Your account</div>
 
     <div class="acc-rows">
       <div class="acc-row"><span>Email</span><strong id="acc-email"></strong></div>
@@ -94,52 +92,56 @@
       </label>
     </div>
 
+    <button class="prefs-row acc-prefs-row" type="button" onclick="openPrefs()">
+      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
+      <i data-i="right"></i>
+    </button>
+
     <div class="prefs-section">
-      <div class="prefs-label">🎟 Season pass</div>
+      <div class="prefs-label"><i data-i="ticket"></i> Season pass</div>
       <div class="acc-pass" id="acc-pass"></div>
       <div id="acc-buy">
-        <button class="plan-btn" type="button" onclick="buySeasonPass(this)">GET THE SEASON PASS</button>
+        <button class="plan-btn" type="button" onclick="buySeasonPass(this)">Get the season pass</button>
         <div class="paywall-msg error-msg" style="display:none"></div>
       </div>
     </div>
 
     <div class="prefs-section" id="acc-days-section">
-      <div class="prefs-label">☆ Saved days <small>tap one to plan it again in its ski area, with today's lift status</small></div>
+      <div class="prefs-label"><i data-i="star"></i> Saved days <small>tap one to plan it again in its ski area, with today's lift status</small></div>
       <div class="acc-days" id="acc-days"></div>
     </div>
 
     <div class="acc-actions">
-      <button class="link-btn" type="button" onclick="signOutClicked()">Sign out</button>
+      <button class="link-btn" type="button" onclick="signOutClicked()"><i data-i="logout"></i> Sign out</button>
       <button class="link-btn acc-delete" type="button" onclick="deleteAccountClicked()">Delete my account</button>
     </div>
-    <p class="acc-legal"><a href="terms.html" target="_blank">Terms</a> · <a href="privacy.html" target="_blank">Privacy</a></p>
-
-    <button class="plan-btn" type="button" onclick="closeAccount()">DONE</button>
+    <p class="acc-legal"><a href="about/" target="_blank">About SkiRouter</a> · <a href="terms.html" target="_blank">Terms</a> · <a href="privacy.html" target="_blank">Privacy</a></p>
   </div>
 
   <!-- Area picker: shown first, hidden once a gebied is chosen -->
   <div class="card" id="area-picker">
-    <div class="card-title">🏔 Choose a ski area</div>
+    <div class="card-title"><i data-i="area"></i> Choose a ski area</div>
     <button class="area-back" id="area-back-btn" type="button" onclick="backToArea()" style="display:none"></button>
     <form class="area-search-form" action="#" onsubmit="event.preventDefault(); document.getElementById('area-search').blur()">
       <input class="area-search" id="area-search" type="search" enterkeyhint="search" aria-label="Search ski areas"
         placeholder="Search ski area, village or region…" autocomplete="off" oninput="renderAreaList()">
     </form>
-    <button class="area-near-btn" id="area-near-btn" type="button" onclick="findAreasNearMe()">📍 Ski areas near me</button>
+    <button class="area-near-btn" id="area-near-btn" type="button" onclick="findAreasNearMe()"><i data-i="locate"></i> <span>Ski areas near me</span></button>
     <div class="area-list" id="area-list">
       <div class="area-loading">Loading areas…</div>
     </div>
     <p class="area-credit">Ski area data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>
-      (ODbL), via <a href="https://openskimap.org" target="_blank" rel="noopener">OpenSkiMap</a>.</p>
+      (ODbL), via <a href="https://openskimap.org" target="_blank" rel="noopener">OpenSkiMap</a>.
+      <a href="about/">About SkiRouter</a></p>
   </div>
 
   <!-- Preferences: a screen of its own, personal and kept on this phone -->
   <div class="card prefs-card" id="prefs-screen" style="display:none">
-    <div class="card-title">⚙ Preferences</div>
+    <div class="card-title"><i data-i="sliders"></i> Preferences</div>
     <p class="prefs-intro" id="prefs-intro">Personal, kept on this phone. The quick route and the day plan both use them.</p>
 
     <div class="prefs-section">
-      <div class="prefs-label">⛷ Difficulty <small>pistes in other colours only when there is no other way</small></div>
+      <div class="prefs-label">Difficulty <small>pistes in other colours only when there is no other way</small></div>
       <div class="diff-row">
         <button class="diff-btn all on" id="d-all" onclick="setPrefDiff('all')">All</button>
         <button class="diff-btn green on" id="d-groen" onclick="setPrefDiff('groen')" style="display:none">
@@ -161,7 +163,7 @@
     </div>
 
     <div class="prefs-section">
-      <div class="prefs-label">🏂 Pace <small>for the day plan's times</small></div>
+      <div class="prefs-label">Pace <small>for the day plan's times</small></div>
       <div class="pace-row">
         <button class="pace-btn" id="pace-relaxed" onclick="setDayPace('relaxed')">Relaxed</button>
         <button class="pace-btn on" id="pace-normal" onclick="setDayPace('normal')">Normal</button>
@@ -171,30 +173,46 @@
     </div>
 
     <div class="setting setting-switch">
-      <span class="setting-name">🎿 Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
+      <span class="setting-name">Drag lifts <small class="setting-hint">off: only when there is no other way</small></span>
       <label class="switch"><input type="checkbox" id="pref-drag" checked aria-label="Use drag lifts" onchange="savePrefs()"><span class="switch-track"></span></label>
     </div>
 
     <div class="setting setting-switch bus-row" id="pref-bus-row">
-      <span class="setting-name">🚌 Ski bus <small class="setting-hint">in areas that have one</small></span>
+      <span class="setting-name">Ski bus <small class="setting-hint">in areas that have one</small></span>
       <label class="switch"><input type="checkbox" id="pref-bus" checked aria-label="Use the ski bus" onchange="savePrefs()"><span class="switch-track"></span></label>
     </div>
 
 
     <div class="prefs-section" id="pref-avoid-section">
-      <div class="prefs-label">🚫 Lifts and pistes you avoid <small>in this ski area; swipe a step left or hold it to add one</small></div>
+      <div class="prefs-label">Lifts and pistes you avoid <small>in this ski area; swipe a step left or hold it to add one</small></div>
       <div class="avoid-row" id="pref-avoid"></div>
     </div>
 
-    <button class="plan-btn" type="button" onclick="closePrefs()">DONE</button>
+    <div class="prefs-section">
+      <div class="prefs-label">Appearance <small>Sun: extra contrast for bright snow</small></div>
+      <div class="pace-row theme-row" role="group" aria-label="Appearance">
+        <button class="pace-btn" type="button" data-theme-btn="auto" onclick="setTheme('auto')"><i data-i="auto"></i> Auto</button>
+        <button class="pace-btn" type="button" data-theme-btn="light" onclick="setTheme('light')"><i data-i="sun"></i> Light</button>
+        <button class="pace-btn" type="button" data-theme-btn="dark" onclick="setTheme('dark')"><i data-i="moon"></i> Dark</button>
+        <button class="pace-btn" type="button" data-theme-btn="sun" onclick="setTheme('sun')"><i data-i="contrast"></i> Sun</button>
+      </div>
+    </div>
+
+    <button class="plan-btn plan-btn-secondary" type="button" onclick="closePrefs()">Done</button>
   </div>
 
   <!-- Planner: hidden until an area is chosen -->
   <div id="planner-cards" style="display:none">
 
-  <div class="tabs" role="tablist">
-    <button class="tab-btn on" id="tabbtn-quick" role="tab" onclick="showTab('quick')">🗺 Quick route</button>
-    <button class="tab-btn" id="tabbtn-day" role="tab" onclick="showTab('day')">📅 Day plan</button>
+  <!-- Map tab without a route: the whole area and its facts -->
+  <div class="card map-card" id="area-map-card" style="display:none">
+    <div class="area-facts">
+      <div class="stat"><strong id="stat-km">—</strong> pistes</div>
+      <div class="stat"><strong id="stat-liften">—</strong> lifts</div>
+      <div class="stat"><strong id="stat-hoogte">—</strong> altitude</div>
+    </div>
+    <div class="route-map" id="a-map"></div>
+    <p class="map-card-hint">Plan a route or a day and it shows here, step by step.</p>
   </div>
 
   <!-- Station picker overlay + sheet -->
@@ -202,8 +220,8 @@
   <div class="sheet" id="sheet" style="display:none">
     <div class="sheet-header">
       <span class="sheet-title" id="sheet-title">Choose lift station</span>
-      <button class="sheet-view" id="sheet-view-btn" type="button" onclick="toggleSheetView()">🗺 Map</button>
-      <button class="sheet-close" onclick="closeSheet()">✕</button>
+      <button class="sheet-view" id="sheet-view-btn" type="button" onclick="toggleSheetView()"></button>
+      <button class="sheet-close" type="button" onclick="closeSheet()" aria-label="Close"><i data-i="x"></i></button>
     </div>
     <form class="sheet-search-form" action="#" onsubmit="sheetSearchSubmit(event)">
       <input
@@ -219,9 +237,9 @@
       >
     </form>
     <div class="sheet-kinds" id="sheet-kinds" role="group" aria-label="Show">
-      <button type="button" class="sheet-kind on" data-kind="lifts" aria-pressed="true" onclick="setSheetKind('lifts')">🚡 Lifts</button>
-      <button type="button" class="sheet-kind" data-kind="poi" aria-pressed="false" onclick="setSheetKind('poi')">📍 POI</button>
-      <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')">🏘 Villages &amp; peaks</button>
+      <button type="button" class="sheet-kind on" data-kind="lifts" aria-pressed="true" onclick="setSheetKind('lifts')"><i data-i="lifts"></i> Lifts</button>
+      <button type="button" class="sheet-kind" data-kind="poi" aria-pressed="false" onclick="setSheetKind('poi')"><i data-i="pin"></i> POI</button>
+      <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')"><i data-i="town"></i> Villages &amp; peaks</button>
     </div>
     <div class="sheet-list" id="sheet-list"></div>
     <div class="sheet-map" id="sheet-map" style="display:none"></div>
@@ -231,7 +249,7 @@
 
   <!-- Route planner card -->
   <div class="card" id="quick-card">
-    <div class="card-title">🗺 Plan your route</div>
+    <div class="card-title"><i data-i="route"></i> Plan your route</div>
 
     <div class="route-inputs">
 
@@ -240,51 +258,51 @@
         <label class="sel-label">Starting point</label>
         <div class="sel-box" id="from-box" onclick="openSheet('from')">
           <span class="sel-box-text" id="from-text">Choose a lift or place…</span>
-          <span class="sel-box-arrow">▾</span>
+          <span class="sel-box-arrow"><i data-i="down"></i></span>
         </div>
         <div class="chosen" id="from-chosen" style="display:none" onclick="openSheet('from')">
           <span class="chosen-icon" id="from-icon"></span>
           <span class="chosen-nr" id="from-nr">—</span>
           <span class="chosen-name" id="from-liftname">—</span>
           <span class="chosen-side" id="from-side">—</span>
-          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('from')">✕</button>
+          <button class="chosen-reset" type="button" aria-label="Clear" onclick="event.stopPropagation(); resetSide('from')"><i data-i="x"></i></button>
         </div>
       </div>
 
-      <button class="swap-btn" onclick="swapSides()">⇅</button>
+      <button class="swap-btn" type="button" aria-label="Swap start and destination" onclick="swapSides()"><i data-i="swap"></i></button>
 
       <!-- Destination -->
       <div>
         <label class="sel-label">Destination</label>
         <div class="sel-box" id="to-box" onclick="openSheet('to')">
           <span class="sel-box-text" id="to-text">Choose a lift or place…</span>
-          <span class="sel-box-arrow">▾</span>
+          <span class="sel-box-arrow"><i data-i="down"></i></span>
         </div>
         <div class="chosen" id="to-chosen" style="display:none" onclick="openSheet('to')">
           <span class="chosen-icon" id="to-icon"></span>
           <span class="chosen-nr" id="to-nr">—</span>
           <span class="chosen-name" id="to-liftname">—</span>
           <span class="chosen-side" id="to-side">—</span>
-          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('to')">✕</button>
+          <button class="chosen-reset" type="button" aria-label="Clear" onclick="event.stopPropagation(); resetSide('to')"><i data-i="x"></i></button>
         </div>
       </div>
 
     </div><!-- /route-inputs -->
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
-      <span class="setting-name">⚙ Preferences</span>
-      <span class="setting-chev" aria-hidden="true">›</span>
+      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
+      <span class="setting-chev"><i data-i="right"></i></span>
     </button>
 
     <div class="avoid-row" id="q-avoid" style="display:none"></div>
 
-    <button class="plan-btn" onclick="planRouteClicked()">CALCULATE ROUTE</button>
+    <button class="plan-btn" type="button" onclick="planRouteClicked()">Calculate route</button>
     <div class="error-msg" id="err"></div>
   </div><!-- /card -->
 
   <!-- Route result card -->
   <div class="card result" id="result">
-    <div class="card-title result-title">📍 Your Route</div>
+    <div class="card-title result-title"><i data-i="route"></i> Your route</div>
     <div class="pills result-pills">
       <span class="pill" id="p-steps">—</span>
       <span class="pill" id="p-km">—</span>
@@ -295,11 +313,7 @@
          back to the settings, list or map, and how far along you are -->
     <div class="result-sticky">
       <div class="sticky-row">
-        <button class="back-btn" type="button" onclick="backToPlanner('quick-card')">↑ Settings</button>
-        <div class="view-toggle" role="group" aria-label="Show the route as">
-          <button type="button" class="view-btn active" id="q-view-list" aria-pressed="true" onclick="showRouteView('list')">☰ List</button>
-          <button type="button" class="view-btn" id="q-view-map" aria-pressed="false" onclick="showRouteView('map')">🗺 Map</button>
-        </div>
+        <button class="back-btn" type="button" onclick="backToPlanner('quick-card')"><i data-i="up"></i> Settings</button>
       </div>
       <div class="progress" id="p-progress"></div>
     </div>
@@ -317,7 +331,7 @@
 
   <!-- Without the season pass: what the day planner does, and the pass -->
   <div class="card paywall" id="day-paywall" style="display:none">
-    <div class="card-title">📅 Plan your whole day</div>
+    <div class="card-title"><i data-i="day"></i> Plan your whole day</div>
     <ul class="paywall-list">
       <li>A full day from first lift to last run, with the km you want to ski</li>
       <li>Lunch at a mountain restaurant and stops along the way</li>
@@ -325,28 +339,28 @@
       <li>Save your days in your account and plan them again any time</li>
     </ul>
     <div class="paywall-price" id="paywall-price"></div>
-    <button class="plan-btn" type="button" onclick="buySeasonPass(this)">GET THE SEASON PASS</button>
+    <button class="plan-btn" type="button" onclick="buySeasonPass(this)">Get the season pass</button>
     <div class="paywall-msg error-msg" style="display:none"></div>
     <p class="paywall-note">One payment per season, no subscription. iDEAL, Bancontact, card and more via Mollie.</p>
   </div>
 
   <!-- Day planner card -->
   <div class="card" id="day-card">
-    <div class="card-title">📅 Plan your day</div>
+    <div class="card-title"><i data-i="day"></i> Plan your day</div>
 
     <div class="route-inputs">
       <div>
         <label class="sel-label" id="dstart-label">Start &amp; end</label>
         <div class="sel-box" id="dstart-box" onclick="openSheet('dstart')">
           <span class="sel-box-text">Choose a lift or place…</span>
-          <span class="sel-box-arrow">▾</span>
+          <span class="sel-box-arrow"><i data-i="down"></i></span>
         </div>
         <div class="chosen" id="dstart-chosen" style="display:none" onclick="openSheet('dstart')">
           <span class="chosen-icon" id="dstart-icon"></span>
           <span class="chosen-nr" id="dstart-nr">—</span>
           <span class="chosen-name" id="dstart-liftname">—</span>
           <span class="chosen-side" id="dstart-side">—</span>
-          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dstart')">✕</button>
+          <button class="chosen-reset" type="button" aria-label="Clear" onclick="event.stopPropagation(); resetSide('dstart')"><i data-i="x"></i></button>
         </div>
       </div>
 
@@ -360,14 +374,14 @@
         </div>
         <div class="sel-box" id="dend-box" onclick="openSheet('dend')">
           <span class="sel-box-text">Choose a lift or place…</span>
-          <span class="sel-box-arrow">▾</span>
+          <span class="sel-box-arrow"><i data-i="down"></i></span>
         </div>
         <div class="chosen" id="dend-chosen" style="display:none" onclick="openSheet('dend')">
           <span class="chosen-icon" id="dend-icon"></span>
           <span class="chosen-nr" id="dend-nr">—</span>
           <span class="chosen-name" id="dend-liftname">—</span>
           <span class="chosen-side" id="dend-side">—</span>
-          <button class="chosen-reset" onclick="event.stopPropagation(); resetSide('dend')">✕</button>
+          <button class="chosen-reset" type="button" aria-label="Clear" onclick="event.stopPropagation(); resetSide('dend')"><i data-i="x"></i></button>
         </div>
       </div>
     </div>
@@ -375,9 +389,9 @@
     <!-- Time and distance: one line, folded away -->
     <details class="setting" id="time-setting">
       <summary class="setting-summary">
-        <span class="setting-name">🕘 Time &amp; km</span>
+        <span class="setting-name"><i data-i="clock"></i> Time &amp; km</span>
         <span class="setting-value" id="time-summary">09:00–16:00 · 25 km</span>
-        <span class="setting-chev" aria-hidden="true">▾</span>
+        <span class="setting-chev"><i data-i="down"></i></span>
       </summary>
     <div class="day-grid day-grid-one" oninput="renderTimeSummary()">
       <label class="day-field">
@@ -398,9 +412,9 @@
     <!-- Stops on the way, lunch among them -->
     <details class="setting" id="stops-setting">
       <summary class="setting-summary">
-        <span class="setting-name">📍 Stops &amp; lunch</span>
+        <span class="setting-name"><i data-i="pin"></i> Stops &amp; lunch</span>
         <span class="setting-value" id="stops-summary">None</span>
-        <span class="setting-chev" aria-hidden="true">▾</span>
+        <span class="setting-chev"><i data-i="down"></i></span>
       </summary>
       <div class="stops-box">
         <div id="day-stops"></div>
@@ -432,19 +446,19 @@
 
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
-      <span class="setting-name">⚙ Preferences</span>
-      <span class="setting-chev" aria-hidden="true">›</span>
+      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
+      <span class="setting-chev"><i data-i="right"></i></span>
     </button>
 
     <div class="avoid-row" id="day-avoid" style="display:none"></div>
 
-    <button class="plan-btn" onclick="planDayClicked(this)">PLAN MY DAY</button>
+    <button class="plan-btn" type="button" onclick="planDayClicked(this)">Plan my day</button>
     <div class="error-msg" id="day-err"></div>
   </div><!-- /card -->
 
   <!-- Day plan result card -->
   <div class="card result" id="day-result">
-    <div class="card-title result-title">📅 Your Day</div>
+    <div class="card-title result-title"><i data-i="day"></i> Your day</div>
     <div class="pills result-pills">
       <span class="pill" id="dp-km">—</span>
       <span class="pill" id="dp-pistes">—</span>
@@ -456,7 +470,7 @@
     <div class="day-notes" id="day-notes"></div>
 
     <div class="save-day" id="save-day" style="display:none">
-      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()">☆ Save this day</button>
+      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this day</button>
       <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
         <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
         <button class="save-day-ok" type="submit">Save</button>
@@ -469,11 +483,7 @@
          back to the settings, list or map, and how far along you are -->
     <div class="result-sticky">
       <div class="sticky-row">
-        <button class="back-btn" type="button" onclick="backToPlanner('day-card')">↑ Settings</button>
-        <div class="view-toggle" role="group" aria-label="Show the day as">
-          <button type="button" class="view-btn active" id="d-view-list" aria-pressed="true" onclick="showRouteView('list', 'day')">☰ List</button>
-          <button type="button" class="view-btn" id="d-view-map" aria-pressed="false" onclick="showRouteView('map', 'day')">🗺 Map</button>
-        </div>
+        <button class="back-btn" type="button" onclick="backToPlanner('day-card')"><i data-i="up"></i> Settings</button>
       </div>
       <button class="late-btn" id="dp-late" type="button" style="display:none" onclick="replanFromHere()"></button>
       <div class="progress" id="dp-progress"></div>
@@ -488,6 +498,15 @@
   </div><!-- /planner-cards -->
 
 </main>
+
+<!-- The app's main navigation, at the bottom like a native app: within
+     reach of a thumb, also with gloves on -->
+<nav class="tabbar" id="tabbar" aria-label="Main">
+  <button class="tabbar-btn" id="nav-quick" type="button" onclick="navTo('quick')"><i data-i="route"></i><span>Route</span></button>
+  <button class="tabbar-btn" id="nav-day" type="button" onclick="navTo('day')"><i data-i="day"></i><span>Day plan</span></button>
+  <button class="tabbar-btn" id="nav-map" type="button" onclick="navTo('map')"><i data-i="map"></i><span>Map</span></button>
+  <button class="tabbar-btn" id="nav-account" type="button" onclick="navTo('account')"><i data-i="settings"></i><span>Settings</span></button>
+</nav>
 
 <script src="config.js"></script>
 <script src="vendor/supabase/supabase.js"></script>

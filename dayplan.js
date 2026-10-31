@@ -59,10 +59,11 @@ let dayStops   = [];   // stops on the way, in order: { id, kind, name, station,
 // ── Tabs ─────────────────────────────────────────────────────────────────────
 
 function showTab(tab) {
+  navPlanner = tab;
+  document.getElementById('area-map-card').style.display = 'none';
   document.getElementById('tab-quick').style.display = tab === 'quick' ? 'block' : 'none';
   document.getElementById('tab-day').style.display   = tab === 'day'   ? 'block' : 'none';
-  document.getElementById('tabbtn-quick').classList.toggle('on', tab === 'quick');
-  document.getElementById('tabbtn-day').classList.toggle('on', tab === 'day');
+  setNav(routeViews[tab] === 'map' ? 'map' : tab);
   try { localStorage.setItem(DAY_TAB_KEY, tab); } catch {}
   renderAccountAccess();
   // One map for both planners: draw it again in the one now on screen.
@@ -202,7 +203,7 @@ function renderDayStops() {
     <div class="stop-row${stop.kind === 'lunch' ? ' stop-lunch' : ''}">
       <span class="lift-ico ico-place">${PLACE_ICONS[stop.kind] || ICONS.start}</span>
       <span class="stop-name">${escapeHtml(stop.name)}<span class="place-sub">${escapeHtml(stop.kind === 'lunch' ? `around ${lunchT}` : stop.sub)}</span></span>
-      <button type="button" class="stop-btn" onclick="removeDayStop(${i})" aria-label="Remove this stop">✕</button>
+      <button type="button" class="stop-btn" onclick="removeDayStop(${i})" aria-label="Remove this stop">${ui('x')}</button>
     </div>${stop.kind === 'lunch' ? '<div class="lunch-slot"></div>' : ''}`).join('');
   const slot = el.querySelector('.lunch-slot');
   if (slot) slot.appendChild(fields);
@@ -1026,7 +1027,7 @@ function planDayClicked(button) {
   clearProgress('day');
   button.disabled = true;
   const label = button.textContent;
-  button.textContent = 'PLANNING…';
+  button.textContent = 'Planning…';
   setTimeout(() => {
     try { planDay(); } finally {
       button.disabled = false;
@@ -1104,7 +1105,7 @@ function planDayNow(options = {}) {
       ? (avoidedLifts.size || avoidedPistes.size
         ? `The end station cannot be reached without the lifts and pistes you avoid. Remove one from the list.`
         : 'The end station cannot be reached from the start.')
-      : 'The end station cannot be reached without the ski bus. Switch the ski bus on in ⚙ Preferences.');
+      : 'The end station cannot be reached without the ski bus. Switch the ski bus on in Preferences.');
   }
   if (t0 + home.dist[start.id] > t1) return fail(`Getting back alone takes about ${home.dist[start.id]} min, which does not fit before ${formatClock(t1)}.`);
 
@@ -1198,9 +1199,9 @@ function dayNotes(walk, ctx) {
   const notes = [];
   const kmShort = ctx.targetKm - walk.km;
   if (kmShort > ctx.targetKm * 0.1) {
-    notes.push(`⏱ About ${walk.km.toFixed(0)} km fits between ${formatClock(ctx.t0)} and ${formatClock(ctx.t1)} at this pace, not ${ctx.targetKm} — start earlier, stay later or pick a faster pace for more.`);
+    notes.push(`${ui('timer')} <span>About ${walk.km.toFixed(0)} km fits between ${formatClock(ctx.t0)} and ${formatClock(ctx.t1)} at this pace, not ${ctx.targetKm} — start earlier, stay later or pick a faster pace for more.</span>`);
   } else if (walk.end > ctx.t1 + 10) {
-    notes.push(`⏱ ${ctx.targetKm} km takes until about ${formatClock(walk.end)}, after ${formatClock(ctx.t1)} — ski fewer km, start earlier or pick a faster pace.`);
+    notes.push(`${ui('timer')} <span>${ctx.targetKm} km takes until about ${formatClock(walk.end)}, after ${formatClock(ctx.t1)} — ski fewer km, start earlier or pick a faster pace.</span>`);
   }
   return notes;
 }
@@ -1301,14 +1302,14 @@ function renderDayOptions() {
   const lunchSpots = new Set(dayOptions.map(o => o.lunch?.restaurant.id).filter(Boolean));
   const ownLunch = lunchSpots.size === dayOptions.length && !document.getElementById('day-lunch-at').value;
   const describe = (option, i) => {
-    const lunch = option.lunch && (lunchSpots.size > 1 || !dayOptionsOpen) ? `<span class="day-opt-lunch">🍽 ${escapeHtml(option.lunch.restaurant.naam)}</span>` : '';
+    const lunch = option.lunch && (lunchSpots.size > 1 || !dayOptionsOpen) ? `<span class="day-opt-lunch">${ui('food')} ${escapeHtml(option.lunch.restaurant.naam)}</span>` : '';
     return `<strong>Option ${i + 1}</strong>${lunch}<span>${option.km.toFixed(1)} km · back ${formatClock(option.end)}</span>`;
   };
   if (!dayOptionsOpen) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'day-opt on day-opt-folded';
-    btn.innerHTML = `${describe(dayOptions[dayShown], dayShown)}<span class="day-opt-more">${dayOptions.length} options ▾</span>`;
+    btn.innerHTML = `${describe(dayOptions[dayShown], dayShown)}<span class="day-opt-more">${dayOptions.length} options ${ui('down')}</span>`;
     btn.addEventListener('click', () => { dayOptionsOpen = true; renderDayOptions(); });
     optionsEl.appendChild(btn);
     return;
@@ -1328,7 +1329,7 @@ function renderDayOptions() {
   const fold = document.createElement('button');
   fold.type = 'button';
   fold.className = 'link-btn day-opt-fold';
-  fold.textContent = 'Fold ▴';
+  fold.innerHTML = `Fold ${ui('up')}`;
   fold.addEventListener('click', () => { dayOptionsOpen = false; renderDayOptions(); });
   optionsEl.appendChild(fold);
 }
@@ -1378,15 +1379,15 @@ function dayStatus(done, items) {
   // any delay); then ahead or behind when the plan is being followed.
   let text;
   if (done === total) {
-    text = '🏁 All done — what a day!';
+    text = 'All done — what a day!';
   } else {
     const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
     const minLeft = Math.max(0, Math.round(walk.end - +items[done].dataset.t + Math.max(0, delta || 0)));
     text = `${done} of ${total} steps · ${km.toFixed(1)} km · ${formatDuration(minLeft)} to go`;
     if (delta != null) {
-      if (Math.abs(delta) <= DAY_ON_TIME_MIN) text += ' · ✅ on schedule';
-      else if (delta > 0)                     text += ` · ⏱ ${delta} min behind`;
-      else                                    text += ` · ⚡ ${-delta} min ahead`;
+      if (Math.abs(delta) <= DAY_ON_TIME_MIN) text += ' · on schedule';
+      else if (delta > 0)                     text += ` · ${delta} min behind`;
+      else                                    text += ` · ${-delta} min ahead`;
     }
   }
 
@@ -1398,10 +1399,10 @@ function dayStatus(done, items) {
   if (isLate) {
     document.getElementById('dp-progress').insertAdjacentHTML('beforeend', `
       <div class="late-warning">
-        <div>⚠ At this pace you'll be back around <strong>${formatClock(backAt)}</strong>, ${late} min after ${formatClock(dayCtx.t1)}.${done === 0 ? ' Already skiing? Tick the steps you have done.' : ''}</div>
-        <button class="replan-btn replan-urgent" type="button" onclick="replanFromHere()">↻ Replan from here</button>
+        <div>${ui('warn')} At this pace you'll be back around <strong>${formatClock(backAt)}</strong>, ${late} min after ${formatClock(dayCtx.t1)}.${done === 0 ? ' Already skiing? Tick the steps you have done.' : ''}</div>
+        <button class="replan-btn replan-urgent" type="button" onclick="replanFromHere()">${ui('replan')} Replan from here</button>
       </div>`);
-    lateBtn.textContent = `⚠ Back ${formatClock(backAt)} · Replan`;
+    lateBtn.innerHTML = `${ui('warn')} Back ${formatClock(backAt)} · Replan`;
     lateBtn.style.display = 'inline-flex';
     if (dayLateBuzzed !== walk) {
       dayLateBuzzed = walk;

@@ -452,6 +452,11 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     }
   }
 
+  // No route (the Map tab before planning): the whole area.
+  if (!bounds.length) {
+    Object.values(currentArea?.pisteLijnen || {}).forEach(lines => lines.forEach(line => bounds.push(line[0], line[line.length - 1])));
+    (currentArea?.liften || []).forEach(l => { if (l.coordOnder && l.coordBoven) bounds.push(l.coordOnder, l.coordBoven); });
+  }
   routeMapBounds = bounds.length ? L.latLngBounds(bounds) : null;
   routeMap.invalidateSize();
   // A first view, so the map has its size and zoom; then the step you are at.
@@ -629,7 +634,7 @@ function mapButton(map, position, className, html, title, onClick) {
 }
 
 function addMapControls(map, turn) {
-  mapButton(map, 'topleft', 'map-full-btn', '⛶', 'Full screen', btn => toggleMapFull(btn));
+  mapButton(map, 'topleft', 'map-full-btn', ui('full'), 'Full screen', btn => toggleMapFull(btn));
   mapButton(map, 'topright', 'map-gps-btn', ICONS.gps, 'Show my location', btn => toggleMapGps(map, btn));
   // The compass: its needle points north. Tap for north up, or back.
   const deg = -turn * 180 / Math.PI;
@@ -651,7 +656,8 @@ function addMapControls(map, turn) {
 function updateFollowButton() {
   const btn = routeMap?.getContainer().querySelector('.map-follow-btn');
   if (!btn) return;
-  btn.textContent = routeMapFollow ? '⤢ Whole route' : '◎ My step';
+  btn.innerHTML = routeMapFollow ? `${ui('whole')} Whole route` : `${ui('mystep')} My step`;
+  btn.style.display = routeMapPieces.length ? '' : 'none'; // the area without a route: nothing to follow
   btn.title = routeMapFollow ? 'Show the whole route' : 'Show the step you are at';
   btn.setAttribute('aria-label', btn.title);
 }
@@ -678,7 +684,7 @@ function toggleMapFull(btn, on) {
   document.body.classList.toggle('map-full', on);
   btn = btn || el.querySelector('.map-full-btn');
   if (btn) {
-    btn.textContent = on ? '✕' : '⛶';
+    btn.innerHTML = on ? ui('x') : ui('full');
     btn.title = on ? 'Close full screen' : 'Full screen';
     btn.setAttribute('aria-label', btn.title);
   }
@@ -744,7 +750,7 @@ const PICK_TAP_PX = 34;   // how far from a place a finger may land
 // A tap shows what was tapped first (`card`, html) with one button to pick
 // it; nothing is picked until that button is pressed.
 function bindPickPopup(layer, card, action, onConfirm) {
-  layer.bindPopup(`<div class="pick-pop">${card}<button type="button" data-pick="ok">✓ ${escapeHtml(action)}</button></div>`,
+  layer.bindPopup(`<div class="pick-pop">${card}<button type="button" data-pick="ok">${ui('check')} ${escapeHtml(action)}</button></div>`,
     { closeButton: false, offset: [0, -8], autoPanPadding: [16, 16] })
     .on('popupopen', e => e.popup.getElement().querySelector('[data-pick]').addEventListener('click', () => {
       if (layer.isPopupOpen()) onConfirm(); // not on a popup that is still fading out

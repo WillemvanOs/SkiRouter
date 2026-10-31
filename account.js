@@ -28,7 +28,6 @@ let account = null; // { id, email, birthdate, country, paid_until }
 try { account = JSON.parse(localStorage.getItem(ACCOUNT_KEY)) || null; } catch {}
 let savedDays = []; // the account's saved days, newest first
 let syncTimer = null;
-let accountReturnTo = null; // the screen to go back to from the account screen
 
 // Nothing of the app until signed in (no flash of the planner first).
 if (accountsOn && !account) document.documentElement.classList.add('gated');
@@ -61,7 +60,9 @@ function formatDay(iso) {
 
 async function initAccount() {
   if (!accountsOn) return;
-  document.getElementById('account-btn').style.display = 'inline-flex';
+  // The last tab is the account, instead of only the settings.
+  const tab = document.getElementById('nav-account');
+  tab.innerHTML = `${ui('account')}<span>Account</span>`;
   document.getElementById('prefs-intro').textContent = 'Personal, kept with your account on every phone. The quick route and the day plan both use them.';
   fillCountries();
   renderGate('signin');
@@ -117,7 +118,7 @@ function renderGate(mode, message = '') {
   const titles = { signin: 'Sign in', signup: 'Create your account', reset: 'Forgot your password', newpassword: 'Choose a new password', sent: 'Check your email' };
   document.getElementById('gate-title').textContent = titles[mode] || 'Sign in';
   const submit = document.getElementById('gate-submit');
-  submit.textContent = { signin: 'SIGN IN', signup: 'CREATE ACCOUNT', reset: 'SEND RESET LINK', newpassword: 'SAVE PASSWORD' }[mode] || 'OK';
+  submit.textContent = { signin: 'Sign in', signup: 'Create account', reset: 'Send reset link', newpassword: 'Save password' }[mode] || 'OK';
   submit.style.display = mode === 'sent' ? 'none' : '';
   document.getElementById('gate-password').autocomplete = mode === 'signin' ? 'current-password' : 'new-password';
   showGateMessage(message, mode === 'sent' ? 'ok' : '');
@@ -303,10 +304,10 @@ async function buySeasonPass(button) {
 // Back from Mollie: Mollie tells our server the payment is done, usually
 // within seconds; ask until the pass is there (or give up and say so).
 async function waitForPass() {
-  showAccountNotice('⏳ Checking your payment…');
+  showAccountNotice('Checking your payment…');
   for (let i = 0; i < PAID_POLL_TRIES; i++) {
     if (await refreshProfile() && hasSeasonPass()) {
-      showAccountNotice(`✓ Season pass ${seasonLabel()} active. Enjoy your days!`, 'ok');
+      showAccountNotice(`Season pass ${seasonLabel()} active. Enjoy your days!`, 'ok');
       return;
     }
     await new Promise(r => setTimeout(r, PAID_POLL_MS));
@@ -384,8 +385,8 @@ async function saveDaySubmit(event) {
   savedDays.unshift(data);
   saveDayCancel();
   const btn = document.getElementById('save-day-btn');
-  btn.textContent = '✓ Saved in your account';
-  setTimeout(() => { btn.textContent = '☆ Save this day'; }, 3000);
+  btn.innerHTML = `${ui('check')} Saved in your account`;
+  setTimeout(() => { btn.innerHTML = `${ui('star')} Save this day`; }, 3000);
 }
 
 async function loadSavedDays() {
@@ -426,28 +427,20 @@ async function deleteSavedDay(id) {
 
 function openAccount() {
   if (!accountsOn || !account) return;
-  const screens = ['area-picker', 'planner-cards', 'prefs-screen'];
-  accountReturnTo = screens.filter(id => document.getElementById(id).style.display !== 'none');
-  screens.forEach(id => { document.getElementById(id).style.display = 'none'; });
-  document.getElementById('account-screen').style.display = 'block';
+  leaveRouteMap();
+  showScreen('account');
   renderAccount();
   window.scrollTo({ top: 0 });
   loadSavedDays().then(renderAccount);
   refreshProfile();
 }
 
-function toggleAccount() {
-  if (document.getElementById('account-screen').style.display === 'block') closeAccount();
-  else openAccount();
-}
-
+// Away from the account screen (signed out, a saved day opened): back to
+// the planner, or the area picker when no area is open yet.
 function closeAccount() {
-  const screen = document.getElementById('account-screen');
-  if (screen.style.display !== 'block') return;
-  screen.style.display = 'none';
-  (accountReturnTo || ['area-picker']).forEach(id => { document.getElementById(id).style.display = 'block'; });
-  accountReturnTo = null;
-  window.scrollTo({ top: 0 });
+  if (!['account', 'prefs'].includes(currentScreen())) return;
+  if (currentArea) navTo(navPlanner);
+  else { showScreen('picker'); setNav(null); }
 }
 
 function renderAccount() {
@@ -460,13 +453,13 @@ function renderAccount() {
 
   const paid = hasSeasonPass();
   document.getElementById('acc-pass').innerHTML = paid
-    ? `<strong>✓ Season pass</strong><span>Day planner and saved days until ${escapeHtml(formatDay(new Date(new Date(account.paid_until) - 1)))}</span>`
+    ? `<strong>${ui('done')} Season pass</strong><span>Day planner and saved days until ${escapeHtml(formatDay(new Date(new Date(account.paid_until) - 1)))}</span>`
     : `<strong>Free account</strong><span>Quick routes. The season pass adds the day planner and saving your days: €${escapeHtml(accountCfg.seasonPrice || '9.99')} for the ${seasonLabel()} season.</span>`;
   document.getElementById('acc-buy').style.display = paid ? 'none' : '';
 
   const list = document.getElementById('acc-days');
   document.getElementById('acc-days-section').style.display = paid || savedDays.length ? '' : 'none';
-  list.innerHTML = savedDays.length ? '' : '<div class="acc-empty">No saved days yet. Plan a day and tap ☆ Save this day.</div>';
+  list.innerHTML = savedDays.length ? '' : '<div class="acc-empty">No saved days yet. Plan a day and tap Save this day.</div>';
   savedDays.forEach(day => {
     const s = day.summary || {};
     const row = document.createElement('div');
@@ -476,7 +469,7 @@ function renderAccount() {
         <strong>${escapeHtml(day.name)}</strong>
         <span>${escapeHtml(day.area_name)}${s.km != null ? ` · ${s.km} km · ${s.pistes} pistes · ${escapeHtml(s.start || '')}–${escapeHtml(s.end || '')}` : ''}</span>
       </button>
-      <button type="button" class="acc-day-del" aria-label="Delete">🗑</button>`;
+      <button type="button" class="acc-day-del" aria-label="Delete">${ui('trash')}</button>`;
     row.querySelector('.acc-day-open').addEventListener('click', () => openSavedDay(day.id));
     row.querySelector('.acc-day-del').addEventListener('click', () => deleteSavedDay(day.id));
     list.appendChild(row);
