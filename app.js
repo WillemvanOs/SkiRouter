@@ -1653,12 +1653,7 @@ const PISTE_KIND = { groen: 'Green piste', blauw: 'Blue piste', rood: 'Red piste
 
 function renderRoute(result) {
   const visibleSteps = result.path.filter(edge => edge.type !== 'transfer').flatMap(splitTrajecten);
-  const totalKm      = visibleSteps.reduce((sum, edge) => sum + (edge.km || 0), 0);
-  const totalMin     = visibleSteps.reduce((sum, edge) => sum + (edge.tijd || 0), 0);
 
-  document.getElementById('p-steps').textContent = `${visibleSteps.length} step${visibleSteps.length === 1 ? '' : 's'}`;
-  document.getElementById('p-km').textContent    = totalKm > 0 ? `approx. ${totalKm.toFixed(1)} km` : '—';
-  document.getElementById('p-time').textContent  = `~${totalMin} min`;
 
   const stepsEl = document.getElementById('steps');
   stepsEl.innerHTML = '';
@@ -1727,42 +1722,36 @@ function showRouteView(view, planner = 'quick') {
     drawPlannerMap(planner);
   } else {
     leaveRouteMap();
-    showCurrentStep(planner);
+    showListTop(planner);
   }
 }
 
-// The map fills the screen between the sticky bar (Settings and the
-// progress) and the tab bar, whatever the size of the phone: the bar goes to the top
-// of the screen and the map takes the rest, so neither scrolls away.
-const MAP_GAP_PX = 12; // the sticky bar's margin below it, and room at the bottom
-const MAP_SETTLE_MS = [60, 250, 600]; // put the page right again after these
-let mapScrollTarget = null;           // where the page should stay, until you scroll
-
-function routeMapTop(el) {
-  const sticky = el.closest('.result')?.querySelector('.result-sticky');
-  return Math.max(0, el.getBoundingClientRect().top + window.scrollY - (sticky?.offsetHeight || 0) - MAP_GAP_PX);
-}
+// The Map tab opens at the top of the page, with the whole map in view:
+// it takes the height from where it starts down to the tab bar, whatever
+// the size of the phone, so nothing has to be scrolled to see all of it.
+const MAP_GAP_PX = 12; // room between the map and the tab bar
+const MAP_SETTLE_MS = [60, 250, 600]; // check the size and the top again after these
+let mapScrollTarget = null;           // where the page should stay (the top), until you scroll
 
 function sizeRouteMap(el) {
-  const sticky = el.closest('.result')?.querySelector('.result-sticky');
-  if (!sticky || el.classList.contains('is-full')) return false;
-  el.style.setProperty('--map-h', `${Math.max(280, Math.round(window.innerHeight - sticky.offsetHeight - tabbarHeight() - 2 * MAP_GAP_PX))}px`);
+  if (el.classList.contains('is-full') || !el.offsetParent) return false;
+  const top = el.getBoundingClientRect().top + window.scrollY; // from the top of the page
+  el.style.setProperty('--map-h', `${Math.max(280, Math.round(window.innerHeight - top - tabbarHeight() - MAP_GAP_PX))}px`);
   return true;
 }
 
 function fitRouteMap(planner) {
   const el = document.getElementById(MAP_PARTS[planner].el);
-  if (!sizeRouteMap(el)) return;
   // A smooth scroll still running (after ticking a step, or after
-  // planning) would carry on to a spot in the hidden list and leave the
-  // page at its bottom: stop it, go to the map, and check again shortly.
-  window.scrollTo({ top: window.scrollY, behavior: 'instant' });
-  mapScrollTarget = routeMapTop(el);
-  window.scrollTo({ top: mapScrollTarget, behavior: 'instant' });
+  // planning) would carry on: stop it and go to the top.
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  if (!sizeRouteMap(el)) return;
+  mapScrollTarget = 0;
   MAP_SETTLE_MS.forEach(ms => setTimeout(() => {
     if (mapScrollTarget == null || routeViews[planner] !== 'map') return;
-    mapScrollTarget = routeMapTop(el);
-    if (Math.abs(window.scrollY - mapScrollTarget) > 2) window.scrollTo({ top: mapScrollTarget, behavior: 'instant' });
+    sizeRouteMap(el);   // a warning or the lift status above it may have arrived
+    routeMap?.invalidateSize();
+    if (window.scrollY > 2) window.scrollTo({ top: 0, behavior: 'instant' });
   }, ms));
 }
 
@@ -1787,16 +1776,13 @@ window.addEventListener('resize', () => {
   }, 200);
 });
 
-// Back in the list: the step you are at in the middle of the screen, the
-// steps just done above it, as after ticking one (makeCheckable's
-// showNext); the last step once all are done.
-function showCurrentStep(planner) {
+// The Route tab opens at the top of the page: the route bar and how far
+// along you are first, the steps below (the one you are at is marked).
+function showListTop(planner) {
   const steps = document.getElementById(MAP_PARTS[planner].steps);
   steps.classList.add('no-entry'); // shown again: no fade-in a second time
-  const step = steps.querySelector('.checkable.next') || [...steps.querySelectorAll('.checkable')].pop();
   mapScrollTarget = null;
-  window.scrollTo({ top: window.scrollY, behavior: 'instant' }); // stop any scroll still running
-  if (step) step.scrollIntoView({ behavior: 'instant', block: 'center' });
+  window.scrollTo({ top: 0, behavior: 'instant' }); // also stops any scroll still running
 }
 
 function drawPlannerMap(planner) {

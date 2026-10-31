@@ -572,11 +572,11 @@ plan and shows whether you are on schedule, ahead or behind. **Replan from here*
 or swipe it left) plans the rest of the day again from that step, from now, with the km still
 to go.
 While you scroll through the steps, a bar stays at the top of the screen with the progress: steps done, km and time still to go (and, in the day
-plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
-scroll away.
-The map (Map tab) fills the screen between that bar and the tab bar, whatever the size of the phone: the bar goes to the top and
-the map takes the rest (also after turning the phone). Going back to the list (Route tab) shows the step you are at in the middle of the screen, the steps
-just done above it, the same as after ticking a step.
+plan, ahead or behind, or before starting when you are back; **↻ Replan from here** is in the step menu, see below). There is
+no title or separate totals above it: the bar opens the card, to keep it compact.
+The Route and Map tabs always open at the top of the page. The map (Map tab) then takes the height from where it starts down to the
+tab bar, whatever the size of the phone, so the whole map is in view without scrolling (also after turning the phone). The step you
+are at is marked in the list; ticking one still brings the next into view.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when
 it is the same route as before.

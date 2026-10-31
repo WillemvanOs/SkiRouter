@@ -1233,12 +1233,6 @@ function renderDayOption(index) {
 
   renderDayOptions();
 
-  const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer' && !isConnection(s.edge)).length;
-  document.getElementById('dp-km').textContent     = `${walk.km.toFixed(1)} km`;
-  document.getElementById('dp-pistes').textContent = `${walk.usage.size} pistes`;
-  document.getElementById('dp-lifts').textContent  = `${lifts} lifts`;
-  document.getElementById('dp-end').textContent    = `back ${formatClock(walk.end)}`;
-
   const notesEl = document.getElementById('day-notes');
   const notes = dayNotes(walk, ctx);
   notesEl.innerHTML = notes.map(n => `<div class="day-note">${n}</div>`).join('');
@@ -1404,7 +1398,8 @@ function dayStatus(done, items) {
     const km = items.slice(done).reduce((sum, item) => sum + (+item.dataset.km || 0), 0);
     const minLeft = Math.max(0, Math.round(walk.end - +items[done].dataset.t + Math.max(0, delta || 0)));
     text = `${done} of ${total} steps · ${km.toFixed(1)} km · ${formatDuration(minLeft)} to go`;
-    if (delta != null) {
+    if (delta == null) text += ` · back ${formatClock(walk.end)}`; // not started yet: when you are back
+    else {
       if (Math.abs(delta) <= DAY_ON_TIME_MIN) text += ' · on schedule';
       else if (delta > 0)                     text += ` · ${delta} min behind`;
       else                                    text += ` · ${-delta} min ahead`;
