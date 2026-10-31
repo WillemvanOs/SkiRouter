@@ -1026,31 +1026,57 @@ body.has-area main {
 }
 
 /* Lifts | POI | Villages & peaks: what the picker lists */
+/* What the picker lists: a segmented control of three equal parts, each an
+   icon over a short name, so the three line up whatever their length */
 .sheet-kinds {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  margin: 0 16px 6px;
-  padding: 3px;
-  border-radius: 10px;
+  margin: 0 16px 8px;
+  padding: 4px;
+  border-radius: 12px;
   background: var(--snow);
   flex-shrink: 0;
 }
 
-.sheet-kind {
-  flex: 1;
-  min-height: 36px;
+.sheet-kinds .sheet-kind {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 6px 4px;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   background: transparent;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
   color: var(--fg-6a7d92);
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.sheet-kind.on {
+.sheet-kinds .sheet-kind .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.sheet-kinds .sheet-kind span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* A narrow phone: a little smaller, so every name fits on one line */
+@media (max-width: 360px) {
+  .sheet-kinds { margin: 0 12px 8px; }
+  .sheet-kinds .sheet-kind { font-size: 0.72rem; padding: 6px 2px; }
+}
+
+.sheet-kinds .sheet-kind.on {
   background: var(--bg-ffffff);
   color: var(--accent);
   box-shadow: 0 1px 4px rgba(26, 58, 92, 0.15);

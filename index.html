@@ -236,10 +236,13 @@
         autocomplete="off"
       >
     </form>
+    <!-- What to pick from: three equal segments, icon over a short name -->
     <div class="sheet-kinds" id="sheet-kinds" role="group" aria-label="Show">
-      <button type="button" class="sheet-kind on" data-kind="lifts" aria-pressed="true" onclick="setSheetKind('lifts')"><i data-i="lifts"></i> Lifts</button>
-      <button type="button" class="sheet-kind" data-kind="poi" aria-pressed="false" onclick="setSheetKind('poi')"><i data-i="pin"></i> POI</button>
-      <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')"><i data-i="town"></i> Villages &amp; peaks</button>
+      <button type="button" class="sheet-kind on" data-kind="lifts" aria-pressed="true" onclick="setSheetKind('lifts')"><i data-i="lifts"></i><span>Lifts</span></button>
+      <button type="button" class="sheet-kind" data-kind="poi" aria-pressed="false" onclick="setSheetKind('poi')"
+        title="Restaurants, huts, viewpoints and snow parks"><i data-i="food"></i><span>Food &amp; spots</span></button>
+      <button type="button" class="sheet-kind" data-kind="towns" aria-pressed="false" onclick="setSheetKind('towns')"
+        title="Towns, villages and peaks"><i data-i="peak"></i><span>Towns &amp; peaks</span></button>
     </div>
     <div class="sheet-list" id="sheet-list"></div>
     <div class="sheet-map" id="sheet-map" style="display:none"></div>

@@ -830,7 +830,7 @@ function setSheetKind(kind, render = true) {
     btn.setAttribute('aria-pressed', String(btn.dataset.kind === kind));
   });
   document.getElementById('sheet-search').placeholder =
-    kind === 'lifts' ? 'Search lift or station…' : kind === 'poi' ? 'Search restaurant, viewpoint, park…' : 'Search village or peak…';
+    kind === 'lifts' ? 'Search lift or station…' : kind === 'poi' ? 'Search restaurant, hut, viewpoint, park…' : 'Search town, village or peak…';
   if (render) renderSheet();
 }
 

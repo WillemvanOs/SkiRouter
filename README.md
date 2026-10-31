@@ -211,9 +211,10 @@ the top station instead.
 
 ### Places: points of interest, villages and peaks
 
-At the top of the picker, **Lifts | POI | Villages & peaks** chooses what it lists; it opens on
-Lifts every time. POI are the mountain restaurants and huts, viewpoints and snow parks;
-Villages & peaks are the area's `plaatsen`. A place is not on the lift network itself: it goes
+At the top of the picker, **Lifts | Food & spots | Towns & peaks** (three equal segments, an icon over
+each name) chooses what it lists; it opens on Lifts every time. Food & spots are the mountain
+restaurants and huts, viewpoints and snow parks; Towns & peaks are the area's towns, villages and
+peaks (`plaatsen`). A place is not on the lift network itself: it goes
 by the nearest lift station of the area's main network (a village by the nearest bottom
 station; a practice lift on its own in a village does not count), and the route says how far
 that is ("350 m from bottom of E2 Schatzerlift"). Places further than 1.5 km from any lift are
@@ -228,9 +229,9 @@ with its code. A tap never picks straight away: it first shows what was tapped (
 type, ride time and opening hours; for a place what it is, its height and the lift it goes by)
 with one button to confirm (**Start here**, **Go here**, **Add as stop**). A lift is always
 picked by its bottom station; the **⬇ Bottom / ⬆ Top** switch on the chosen field changes that
-afterwards. With POI or Villages & peaks chosen, those places are on the map too as bigger
+afterwards. With Food & spots or Towns & peaks chosen, those places are on the map too as bigger
 icons (the lifts lighter and not tappable); a tap close to an icon counts as well. The map
-keeps its zoom and spot when you switch between Lifts, POI and Villages & peaks, and shows the
+keeps its zoom and spot when you switch between Lifts, Food & spots and Towns & peaks, and shows the
 same orientation in all three: the pistes, every lift with its code, and the names of villages and
 peaks (under their icon while those are what you pick). A chosen place
 shows its name with where it is underneath. Same plain

@@ -848,7 +848,7 @@ async function renderPickerMap(el, kind, { onLift, onPlace, liftCard, placeCard,
   }
 
   pickerMap.invalidateSize();
-  // Fit the area once; after that switching Lifts / POI / Villages & peaks
+  // Fit the area once; after that switching Lifts / Food & spots / Towns & peaks
   // (or opening the picker again) keeps the zoom and the spot you were at.
   if (fresh) {
     if (bounds.length) pickerMap.fitBounds(L.latLngBounds(bounds), { padding: [20, 20], animate: false });
