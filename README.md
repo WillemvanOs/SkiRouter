@@ -67,6 +67,9 @@ elevation, lifts and runs already grouped per ski area) and compiles each area i
   300 m next to a numbered piste, and a stretch under 200 m between two parts of one piste
   where it crosses another (A1 → C1 is one step "37", not 37 – Kapellenabfahrt – 19 – 37).
   A folded piece that is harder keeps its colour for the difficulty filter.
+  A way shared by several pistes (mapped with all their numbers, "16a;28a;38") belongs to each
+  of them: on a route it is the piste you are on already, or the one that goes on furthest, so
+  C1 → D5 is 28a then 28, not "Streiteck" twice first.
 - `overstappen`: stations next to each other (within 150 m, about level) — a short walk.
 - `pisteLijnen`, `verbindingen`, `restaurants`: as before.
 
