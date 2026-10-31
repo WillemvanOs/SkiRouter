@@ -454,7 +454,10 @@ How it fits together:
   The day planner itself still runs in the browser, so the pass is checked by the app; saved
   days are checked by the database. The signed-in account is kept on the phone, so the app
   opens offline on the mountain; preference changes made offline are sent once online.
-- With `config.js` left empty, accounts are off and the app works as before, all free.
+- With `config.js` left empty, accounts are off and the app works as before, all free. **Save
+  this day** then keeps the day on the phone only (`skirouter:local-days`), in the route menu's
+  Saved days (🗑 beside one deletes it) and on the empty Route tab. Once accounts are on, the
+  first sign-in moves these days into the account.
 
 **Test phase** (now): accounts are on, payments are not. `payments: false` in `config.js`
 and `app_settings.payments_on = false` in the database (migration `20261031000000_test_phase.sql`)

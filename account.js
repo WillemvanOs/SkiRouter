@@ -30,6 +30,9 @@ let account = null; // { id, email, birthdate, country, paid_until }
 try { account = JSON.parse(localStorage.getItem(ACCOUNT_KEY)) || null; } catch {}
 let savedDays = []; // the account's saved days, newest first
 const SAVED_DAYS_KEY = 'skirouter:saved-days'; // a copy on the phone, for the mountain without a signal
+// Without accounts (config.js empty) days are saved on this phone only, here;
+// they move into the account at the first sign-in once accounts are on.
+const LOCAL_DAYS_KEY = 'skirouter:local-days';
 let syncTimer = null;
 
 // Nothing of the app until signed in (no flash of the planner first).
@@ -62,7 +65,7 @@ function formatDay(iso) {
 // ── Start ────────────────────────────────────────────────────────────────────
 
 async function initAccount() {
-  if (!accountsOn) return;
+  if (!accountsOn) { restoreSavedDays(); renderAccountAccess(); return; }
   document.getElementById('prefs-intro').textContent = 'Personal, kept with your account on every phone. The quick route and the day plan both use them.';
   fillCountries();
   renderGate('signin');
@@ -197,6 +200,7 @@ async function signedIn(user) {
   }
   document.getElementById('gate-password').value = '';
   ungate();
+  await moveLocalDays();
   loadSavedDays();
 }
 
@@ -340,7 +344,7 @@ function renderAccountAccess() {
     document.getElementById('paywall-price').textContent = `€${accountCfg.seasonPrice || '9.99'} for the ${seasonLabel()} season`;
   }
   const save = document.getElementById('save-day');
-  if (save) save.style.display = accountsOn && paid ? '' : 'none';
+  if (save) save.style.display = paid ? '' : 'none'; // without accounts: on this phone
   if (document.getElementById('account-screen').style.display === 'block') renderAccount();
 }
 
@@ -368,7 +372,7 @@ async function saveDaySubmit(event) {
   const msg = document.getElementById('save-day-msg');
   const name = document.getElementById('save-day-name').value.trim();
   if (!name) return;
-  if (!navigator.onLine) { msg.textContent = 'You are offline. Saving needs a connection.'; return; }
+  if (accountsOn && !navigator.onLine) { msg.textContent = 'You are offline. Saving needs a connection.'; return; }
   const walk = dayOptions[dayShown];
   if (!walk || !currentArea) return;
   const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer' && !isConnection(s.edge)).length;
@@ -383,16 +387,23 @@ async function saveDaySubmit(event) {
       start: formatClock(dayCtx.t0), end: formatClock(walk.end), from: dayCtx.startName || '',
     },
   };
-  const { data, error } = await sb.from('routes').insert(row).select().single();
-  if (error) {
-    msg.textContent = /200/.test(error.message) ? error.message : 'Could not save this day. Try again.';
-    return;
+  let data = null;
+  if (accountsOn) {
+    const res = await sb.from('routes').insert(row).select().single();
+    if (res.error) {
+      msg.textContent = /200/.test(res.error.message) ? res.error.message : 'Could not save this day. Try again.';
+      return;
+    }
+    data = res.data;
+  } else {
+    if (savedDays.length >= 200) { msg.textContent = 'You can save up to 200 days. Delete one first.'; return; }
+    data = { ...row, id: localDayId(), created_at: new Date().toISOString() };
   }
   savedDays.unshift(data);
   storeSavedDays();
   saveDayCancel();
   const btn = document.getElementById('save-day-btn');
-  btn.innerHTML = `${ui('check')} Saved in your account`;
+  btn.innerHTML = `${ui('check')} ${accountsOn ? 'Saved in your account' : 'Saved on this phone'}`;
   setTimeout(() => { btn.innerHTML = `${ui('star')} Save this day`; }, 3000);
 }
 
@@ -403,15 +414,21 @@ async function loadSavedDays() {
   if (!error) { savedDays = data || []; storeSavedDays(); }
 }
 
+function localDayId() {
+  return crypto.randomUUID ? crypto.randomUUID() : `local-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 function storeSavedDays() {
   try {
-    if (account) localStorage.setItem(SAVED_DAYS_KEY, JSON.stringify({ user: account.id, days: savedDays }));
+    if (!accountsOn) localStorage.setItem(LOCAL_DAYS_KEY, JSON.stringify(savedDays));
+    else if (account) localStorage.setItem(SAVED_DAYS_KEY, JSON.stringify({ user: account.id, days: savedDays }));
     else localStorage.removeItem(SAVED_DAYS_KEY);
   } catch {}
 }
 
 function restoreSavedDays() {
   try {
+    if (!accountsOn) { savedDays = JSON.parse(localStorage.getItem(LOCAL_DAYS_KEY)) || []; return; }
     const kept = JSON.parse(localStorage.getItem(SAVED_DAYS_KEY));
     if (kept?.user === account?.id && Array.isArray(kept.days)) savedDays = kept.days;
   } catch {}
@@ -444,12 +461,27 @@ async function openSavedDay(id) {
 
 async function deleteSavedDay(id) {
   const day = savedDays.find(d => d.id === id);
-  if (!day || !confirm(`Delete "${day.name}"?`)) return;
-  const { error } = await sb.from('routes').delete().eq('id', id);
-  if (error) { showAccountNotice('Could not delete it. Try again.'); return; }
+  if (!day || !confirm(`Delete "${day.name}"?`)) return false;
+  if (accountsOn) {
+    const { error } = await sb.from('routes').delete().eq('id', id);
+    if (error) { showAccountNotice('Could not delete it. Try again.'); return false; }
+  }
   savedDays = savedDays.filter(d => d.id !== id);
   storeSavedDays();
   renderAccount();
+  if (typeof renderEmptySaved === 'function') renderEmptySaved();
+  return true;
+}
+
+// Days saved on this phone before accounts were on: into the account at the
+// first sign-in (when it may save days), then off the phone's own list.
+async function moveLocalDays() {
+  let days = [];
+  try { days = JSON.parse(localStorage.getItem(LOCAL_DAYS_KEY)) || []; } catch {}
+  if (!days.length || !hasSeasonPass()) return;
+  const rows = days.slice().reverse().map(({ area_id, area_name, name, inputs, option, summary }) => ({ area_id, area_name, name, inputs, option, summary }));
+  const { error } = await sb.from('routes').insert(rows);
+  if (!error) try { localStorage.removeItem(LOCAL_DAYS_KEY); } catch {}
 }
 
 // ── Account screen ───────────────────────────────────────────────────────────

@@ -3959,3 +3959,32 @@ body.map-full .tabbar {
   width: 14px;
   height: 14px;
 }
+
+/* A saved day in the route menu, with a delete button beside it */
+.route-menu-row {
+  display: flex;
+  gap: 6px;
+}
+
+.route-menu-row .route-menu-btn {
+  flex: 1;
+  min-width: 0;
+}
+
+.route-menu-del {
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  background: var(--snow);
+  color: var(--fg-c0392b);
+  cursor: pointer;
+}
+
+.route-menu-del .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.mode-lock[hidden] { display: none; }
