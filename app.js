@@ -555,7 +555,11 @@ function backToArea() {
 // planned, or one picked from the menu at their top (the other recent
 // route, or a saved day). Besides these: the area picker and preferences.
 
-const SCREENS = { picker: 'area-picker', plan: 'plan-screen', route: 'route-screen', prefs: 'prefs-screen', account: 'account-screen' };
+const SCREENS = {
+  picker: 'area-picker', plan: 'plan-screen', route: 'route-screen',
+  settings: 'settings-screen', prefs: 'prefs-screen', appset: 'app-settings-screen', account: 'account-screen',
+};
+const SETTINGS_SCREENS = ['settings', 'prefs', 'appset', 'account']; // under the Settings tab
 const ACTIVE_KEY_PREFIX = 'skirouter:active:';
 let activeRoute = null; // 'quick' or 'day': the route Route and Map show
 
@@ -566,7 +570,7 @@ function showScreen(name) {
 
 function currentScreen() {
   if (document.getElementById('planner-cards').style.display === 'none') {
-    return ['picker', 'prefs', 'account'].find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
+    return ['picker', ...SETTINGS_SCREENS].find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
   }
   return Object.keys(SCREENS).find(key => document.getElementById(SCREENS[key]).style.display === 'block') || null;
 }
@@ -605,10 +609,7 @@ function navTo(tab) {
   const from = currentScreen();
   if (from === 'prefs') applyPrefsChanges();
   if (tab === 'account') {
-    leaveRouteMap();
-    if (accountsOn && account) openAccount();
-    else openPrefs('plan');
-    setNav('account');
+    openSettings();
     return;
   }
   if (from === 'picker') applyAreaToHeader(currentArea);
@@ -1361,16 +1362,56 @@ function renderPrefs() {
   applyTheme();
 }
 
-// The preferences screen: from a planner or the account, back with Done.
+// ── Settings ─────────────────────────────────────────────────────────────────
+//
+// The Settings tab is a menu: Route preferences (what the planners use),
+// App settings (appearance, about) and, with accounts, the Account. Each
+// opens on a screen of its own, with the way back to the menu at its top.
+// Route preferences in the Plan tab lead to the same screen.
+
+function openSettings() {
+  if (currentScreen() === 'prefs') applyPrefsChanges();
+  leaveRouteMap();
+  renderSettingsMenu();
+  showScreen('settings');
+  setNav('account');
+  window.scrollTo({ top: 0 });
+}
+
+function renderSettingsMenu() {
+  const colours = DIFF_LEVELS.filter(d => allowedDiff.has(d)).map(d => DIFF_NAMES[d]);
+  document.getElementById('settings-route-sum').textContent = [
+    colours.length === DIFF_LEVELS.length ? 'All colours' : colours.join(', ') || 'No colours',
+    `${(DAY_PACES[prefs.pace] || DAY_PACES.normal).label.toLowerCase()} pace`,
+    prefs.drag ? '' : 'no drag lifts',
+    avoidedLifts.size + avoidedPistes.size ? `${avoidedLifts.size + avoidedPistes.size} avoided` : '',
+  ].filter(Boolean).join(' · ');
+  document.getElementById('settings-app-sum').textContent = `Appearance: ${{ auto: 'auto', light: 'light', dark: 'dark', sun: 'sun (high contrast)' }[prefs.theme] || 'auto'}`;
+  document.getElementById('settings-area-sum').textContent = currentArea ? `${currentArea.name} · tap to choose another` : '';
+  const signedIn = typeof accountsOn !== 'undefined' && accountsOn && account;
+  document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
+  if (signedIn) {
+    document.getElementById('settings-account-name').textContent = account.email || 'Account';
+    document.getElementById('settings-account-sum').textContent = hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
+  }
+}
+
+function openAppSettings() {
+  applyTheme();
+  showScreen('appset');
+  setNav('account');
+  window.scrollTo({ top: 0 });
+}
+
+// Route preferences: from the Settings menu or a planner's line.
 let prefsChanged = null;
-let prefsFrom = 'plan';
-function openPrefs(from) {
-  prefsFrom = from || (currentScreen() === 'account' ? 'account' : 'plan');
+function openPrefs() {
   leaveRouteMap();
   renderPrefs();
   renderAvoided();
   prefsChanged = JSON.stringify(prefs);
   showScreen('prefs');
+  setNav('account');
   window.scrollTo({ top: 0 });
 }
 
@@ -1381,12 +1422,10 @@ function applyPrefsChanges() {
   prefsChanged = null;
 }
 
+// Back to planning, with the new preferences.
 function closePrefs() {
   applyPrefsChanges();
-  if (prefsFrom === 'account' && accountsOn && account) {
-    showScreen('account');
-    window.scrollTo({ top: 0 });
-  } else navTo('plan');
+  navTo('plan');
 }
 
 // Appearance: auto (the phone's light or dark), light, dark, or sun — extra

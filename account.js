@@ -61,9 +61,6 @@ function formatDay(iso) {
 
 async function initAccount() {
   if (!accountsOn) return;
-  // The last tab is the account, instead of only the settings.
-  const tab = document.getElementById('nav-account');
-  tab.innerHTML = `${ui('account')}<span>Account</span>`;
   document.getElementById('prefs-intro').textContent = 'Personal, kept with your account on every phone. The quick route and the day plan both use them.';
   fillCountries();
   renderGate('signin');
@@ -459,6 +456,7 @@ function openAccount() {
   if (!accountsOn || !account) return;
   leaveRouteMap();
   showScreen('account');
+  setNav('account');
   renderAccount();
   window.scrollTo({ top: 0 });
   loadSavedDays().then(renderAccount);
@@ -468,7 +466,7 @@ function openAccount() {
 // Away from the account screen (signed out, a saved day opened): back to
 // the planner, or the area picker when no area is open yet.
 function closeAccount() {
-  if (!['account', 'prefs'].includes(currentScreen())) return;
+  if (!SETTINGS_SCREENS.includes(currentScreen())) return;
   if (currentArea) navTo(activeRoute ? 'route' : 'plan');
   else { showScreen('picker'); setNav(null); }
 }
