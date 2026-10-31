@@ -20,6 +20,8 @@ const PAID_POLL_MS = 2000, PAID_POLL_TRIES = 15; // after Mollie: until the webh
 
 const accountCfg = window.SKIROUTER_CONFIG || {};
 const accountsOn = !!(accountCfg.supabaseUrl && accountCfg.supabaseAnonKey && window.supabase);
+// Test phase (payments: false): accounts without payment, everything free.
+const paymentsOn = accountsOn && accountCfg.payments === true;
 const sb = accountsOn ? window.supabase.createClient(accountCfg.supabaseUrl, accountCfg.supabaseAnonKey, {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
 }) : null;
@@ -34,7 +36,7 @@ let syncTimer = null;
 if (accountsOn && !account) document.documentElement.classList.add('gated');
 
 function hasSeasonPass() {
-  if (!accountsOn) return true;
+  if (!paymentsOn) return true;
   return !!(account?.paid_until && new Date(account.paid_until) > new Date());
 }
 
@@ -281,7 +283,7 @@ async function saveCountry(country) {
 // ── Season pass ──────────────────────────────────────────────────────────────
 
 async function buySeasonPass(button) {
-  if (!accountsOn || !account) return;
+  if (!paymentsOn || !account) return;
   const msg = button?.parentElement.querySelector('.paywall-msg');
   const say = text => { if (msg) { msg.textContent = text; msg.style.display = text ? 'block' : 'none'; } };
   if (!navigator.onLine) return say('You are offline. Paying needs a connection.');
@@ -480,7 +482,9 @@ function renderAccount() {
   country.value = account.country || '';
 
   const paid = hasSeasonPass();
-  document.getElementById('acc-pass').innerHTML = paid
+  document.getElementById('acc-pass').innerHTML = !paymentsOn
+    ? `<strong>${ui('done')} Test phase</strong><span>Everything is free while SkiRouter is being tested: the day planner and saving your days included. Nothing to pay.</span>`
+    : paid
     ? `<strong>${ui('done')} Season pass</strong><span>Day planner and saved days until ${escapeHtml(formatDay(new Date(new Date(account.paid_until) - 1)))}</span>`
     : `<strong>Free account</strong><span>Quick routes. The season pass adds the day planner and saving your days: €${escapeHtml(accountCfg.seasonPrice || '9.99')} for the ${seasonLabel()} season.</span>`;
   document.getElementById('acc-buy').style.display = paid ? 'none' : '';

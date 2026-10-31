@@ -1,0 +1,59 @@
+# Set up or update SkiRouter's accounts backend on Supabase, from GitHub,
+# without installing anything locally: the tables (supabase/migrations/)
+# and the Edge Functions (supabase/functions/). Run it by hand (Actions →
+# Supabase → Run workflow) after creating the project, and again whenever
+# something under supabase/ changes. README: Accounts → Setting it up.
+#
+# Needs three repository secrets (Settings → Secrets and variables → Actions):
+#   SUPABASE_ACCESS_TOKEN  supabase.com → Account → Access tokens
+#   SUPABASE_PROJECT_REF   the project's id, from its URL https://<ref>.supabase.co
+#   SUPABASE_DB_PASSWORD   the database password chosen when creating the project
+
+name: Supabase
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+      # The app's address: CORS for the functions, and where Mollie sends people back
+      APP_URL: https://willemvanos.github.io/SkiRouter
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the secrets
+        run: |
+          missing=""
+          [ -n "$SUPABASE_ACCESS_TOKEN" ] || missing="$missing SUPABASE_ACCESS_TOKEN"
+          [ -n "$SUPABASE_DB_PASSWORD" ] || missing="$missing SUPABASE_DB_PASSWORD"
+          [ -n "$PROJECT_REF" ] || missing="$missing SUPABASE_PROJECT_REF"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link the project
+        run: supabase link --project-ref "$PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
+
+      - name: Tables and policies (migrations)
+        run: supabase db push --password "$SUPABASE_DB_PASSWORD"
+
+      - name: App address for the functions
+        run: supabase secrets set --project-ref "$PROJECT_REF" APP_URL="$APP_URL"
+
+      - name: Edge Functions
+        run: |
+          supabase functions deploy delete-account checkout --project-ref "$PROJECT_REF"
+          supabase functions deploy mollie-webhook --no-verify-jwt --project-ref "$PROJECT_REF"

@@ -1392,7 +1392,7 @@ function renderSettingsMenu() {
   document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
   if (signedIn) {
     document.getElementById('settings-account-name').textContent = account.email || 'Account';
-    document.getElementById('settings-account-sum').textContent = hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
+    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved days' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
   }
 }
 
