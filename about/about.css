@@ -460,3 +460,56 @@ main > section {
 }
 
 .foot p { margin: 6px 0; }
+
+/* ── Top links, four screenshots, the way to the guide ────── */
+
+.top-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.top-link {
+  color: rgba(230, 240, 252, 0.9);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.top-link:hover { color: #fff; text-decoration: underline; }
+
+@media (max-width: 420px) {
+  .top-link { font-size: 0.9rem; }
+  .top-open { padding: 7px 11px; font-size: 0.9rem; }
+}
+
+.shots-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 640px) {
+  .shots-4 { grid-template-columns: repeat(4, 72%); }
+}
+
+.guide-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.guide-card:hover { border-color: var(--primary); }
+
+.guide-card > .ui-icon:first-child {
+  width: 30px;
+  height: 30px;
+  color: var(--primary);
+}
+
+.guide-card span { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.guide-card strong { font-size: 1.08rem; }
+.guide-card small { color: var(--muted); font-size: 0.92rem; }
+.guide-card > .ui-icon:last-child { color: var(--muted); }

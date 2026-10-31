@@ -22,10 +22,17 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 Only the planner files go online: `index.html`, `config.js`, `account.js`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`,
 `app.js`, `styles.css`, `sw.js`, `manifest.webmanifest`, `privacy.html`, `terms.html`, `legal.css`, `icons/`, `vendor/`, `about/` and `data/`.
 
-**The landing page** is `about/` (on the site: `…/about/`): what SkiRouter does, screenshots,
+**The landing page** is `about/` (on the site: `…/about/`). The app's own scope (`manifest.webmanifest`:
+`scope` and `start_url` `./index.html`, `id` `./` so installed apps stay the same app) covers only
+`index.html`, so from the installed app the landing page, terms and privacy open in the
+browser, in a tab of their own (`target="_blank"`), and the app stays open where it was. It has what SkiRouter does, screenshots,
 free versus the season pass, how to put it on the home screen (iPhone, Android, laptop — the
 steps for the device you visit with open first), and questions. The app links to it from the
-area picker and the account screen. The screenshots in `about/img/` are of the app itself;
+area picker and Settings. **The full guide**, `about/guide.html`, explains every feature with
+screenshots (getting started, the tabs, planning a route and a day, picking places, following
+it, the map, switching routes and saved days, lift status, avoiding, preferences, settings, the
+account and season pass, offline use, the data); the landing page links to it ("How it works")
+but does not open with it. Update both when the app changes. The screenshots in `about/img/` are of the app itself;
 make new ones when the look changes.
 
 The typefaces (Bebas Neue and DM Sans, SIL Open Font License, `vendor/fonts/OFL.txt`) are
@@ -535,12 +542,11 @@ it. The quick route shows how many minutes are left. The day plan compares the c
 plan and shows whether you are on schedule, ahead or behind. **Replan from here** (hold a step
 or swipe it left) plans the rest of the day again from that step, from now, with the km still
 to go.
-While you scroll through the steps, a bar stays at the top of the screen with **Settings** (back
-to the planner's settings) and the progress: steps done, km and time still to go (and, in the day
+While you scroll through the steps, a bar stays at the top of the screen with the progress: steps done, km and time still to go (and, in the day
 plan, ahead or behind; **↻ Replan from here** is in the step menu, see below). The route's totals (km, pistes, lifts, back at) sit above it and
 scroll away.
 The map (Map tab) fills the screen between that bar and the tab bar, whatever the size of the phone: the bar goes to the top and
-the map takes the rest (also after turning the phone). Going back to the list (Route or Day plan tab) shows the step you are at in the middle of the screen, the steps
+the map takes the rest (also after turning the phone). Going back to the list (Route tab) shows the step you are at in the middle of the screen, the steps
 just done above it, the same as after ticking a step.
 Progress is stored on the phone, so a route being followed comes back when the app is
 reopened. **Calculate route** and **Plan my day** start afresh with nothing ticked, also when

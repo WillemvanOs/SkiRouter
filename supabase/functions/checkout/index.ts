@@ -25,7 +25,7 @@ Deno.serve(async req => {
     body: JSON.stringify({
       amount: { currency: 'EUR', value: amount },
       description: `SkiRouter season pass ${season.label}`,
-      redirectUrl: `${APP_URL}/?paid=1`,
+      redirectUrl: `${APP_URL}/index.html?paid=1`, // the app's own page, inside its scope (manifest)
       webhookUrl: `${Deno.env.get('SUPABASE_URL')}/functions/v1/mollie-webhook`,
       metadata: { user_id: user.id, season: season.label },
     }),

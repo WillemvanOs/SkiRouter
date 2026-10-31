@@ -20,7 +20,7 @@
   <div class="snow" aria-hidden="true"></div>
   <nav class="top">
     <a class="logo" href="./">Ski<span>Route</span>r</a>
-    <a class="top-open" href="../">Open the app</a>
+    <span class="top-links"><a class="top-link" href="guide.html">How it works</a><a class="top-open" href="../">Open the app</a></span>
   </nav>
   <div class="hero-body">
     <div class="hero-text">
@@ -46,40 +46,40 @@
     <h2 id="what">What SkiRouter does</h2>
     <div class="grid">
       <article class="feature">
-        <i data-i="route"></i>
-        <h3>Quick route</h3>
-        <p>From a lift, a restaurant, a village or where you stand, to where you want to be. Step by step: which lift,
-          which piste, and which way to turn when you get off.</p>
+        <i data-i="flag"></i>
+        <h3>To a destination</h3>
+        <p>From a lift, a hut, a village or where you stand, to where you want to be. Step by step: which lift, which piste,
+          and which way to turn when you get off.</p>
       </article>
       <article class="feature">
         <i data-i="day"></i>
         <h3>Plan your whole day</h3>
         <p>Start, the kilometres you want to ski and when you need to be back. Lunch at a mountain restaurant, stops on
-          the way, and several routes to choose from.</p>
+          the way, and up to three routes to choose from. Save your best days.</p>
       </article>
       <article class="feature">
         <i data-i="map"></i>
         <h3>A clear piste map</h3>
-        <p>Your route on the map, numbered like the piste map, following the step you are at. Turned like the piste map,
-          or north up.</p>
+        <p>Your route on the map, numbered like the signs on the slope, following the step you are at. Turned like the
+          piste map, or north up.</p>
       </article>
       <article class="feature">
         <i data-i="lifts"></i>
         <h3>Live lift status</h3>
-        <p>In many areas SkiRouter knows which lifts are open today and until when, and plans around the ones that are
-          closed.</p>
+        <p>In many areas SkiRouter knows which lifts are open today and until when, warns you about closed ones and plans
+          around them.</p>
       </article>
       <article class="feature">
         <i data-i="offline"></i>
         <h3>Works offline</h3>
-        <p>Open it once with a connection and the app and your ski area stay on your phone. No signal on the mountain?
-          It still plans.</p>
+        <p>Open it once with a connection and the app, your ski area and your saved days stay on your phone. No signal on
+          the mountain? It still plans.</p>
       </article>
       <article class="feature">
         <i data-i="sliders"></i>
         <h3>Your way</h3>
-        <p>Only blue and red? No drag lifts? Avoid that one chairlift? Your preferences go with every route — and with
-          your account, on every phone.</p>
+        <p>Only blue and red? No drag lifts? Skip that one chairlift? Your preferences go with every route — and with your
+          account, on every phone. Dark, light or extra contrast for bright snow.</p>
       </article>
     </div>
   </section>
@@ -87,18 +87,25 @@
   <section class="how" aria-labelledby="how">
     <h2 id="how">How it works</h2>
     <ol class="steps">
-      <li><span class="num">1</span><div><h3>Choose your ski area</h3><p>Search by name, village or region, or find the areas
-        near you. Hundreds of areas across Europe.</p></div></li>
-      <li><span class="num">2</span><div><h3>Pick start and destination</h3><p>A lift station, a restaurant, a viewpoint, a
-        village — from the list or on the map. Or plan a whole day.</p></div></li>
-      <li><span class="num">3</span><div><h3>Follow the steps</h3><p>Tick each lift and piste as you go. Running late? Replan
-        from where you are with one tap.</p></div></li>
+      <li><span class="num">1</span><div><h3>Plan</h3><p>Choose your ski area, then plan a route to a destination or a whole
+        day. A day shows its options right away: pick the one you like.</p></div></li>
+      <li><span class="num">2</span><div><h3>Follow the route</h3><p>Every lift and piste in order, with the way to turn off
+        each lift. Tick them off as you go; running late, replan from where you are.</p></div></li>
+      <li><span class="num">3</span><div><h3>See it on the map</h3><p>The same route on the map, the step you are at in
+        yellow. Switch to an earlier route or a saved day from the bar at the top.</p></div></li>
     </ol>
-    <div class="shots">
-      <figure><img src="img/route.jpg" alt="A route: the gondola, then the pistes, with the way to turn off the lift" loading="lazy"><figcaption>Step by step</figcaption></figure>
-      <figure><img src="img/map.jpg" alt="The route on the piste map, numbered like the signs" loading="lazy"><figcaption>On the map</figcaption></figure>
+    <div class="shots shots-4">
+      <figure><img src="img/plan.jpg" alt="The Plan tab: a start and a destination" loading="lazy"><figcaption>Plan</figcaption></figure>
+      <figure><img src="img/route.jpg" alt="The Route tab: the gondola first, then the pistes" loading="lazy"><figcaption>Route</figcaption></figure>
+      <figure><img src="img/map.jpg" alt="The Map tab: the route on the piste map" loading="lazy"><figcaption>Map</figcaption></figure>
       <figure><img src="img/day.jpg" alt="A day plan with three options to choose from" loading="lazy"><figcaption>A whole day</figcaption></figure>
     </div>
+    <a class="guide-card" href="guide.html">
+      <i data-i="info"></i>
+      <span><strong>The full guide</strong><small>Every feature explained: picking places, stops and lunch, following a day,
+        avoiding lifts, the map, settings, your account and offline use.</small></span>
+      <i data-i="right"></i>
+    </a>
   </section>
 
   <section class="pricing" aria-labelledby="price">
@@ -108,7 +115,7 @@
         <h3>Free</h3>
         <p class="price">€0</p>
         <ul>
-          <li><i data-i="check"></i> Quick routes in every ski area</li>
+          <li><i data-i="check"></i> Routes to a destination in every ski area</li>
           <li><i data-i="check"></i> The map and live lift status</li>
           <li><i data-i="check"></i> Your preferences on every phone</li>
           <li><i data-i="check"></i> Offline on the mountain</li>
@@ -190,6 +197,10 @@
         No store, no updates to install — you always have the latest version.</p>
     </details>
     <details>
+      <summary>Where do I find all the features?</summary>
+      <p>In <a href="guide.html">the full guide</a>: every tab and button, with screenshots.</p>
+    </details>
+    <details>
       <summary>How exact are the routes?</summary>
       <p>Routes, times and lift status come from open map data and the ski areas themselves, and can be incomplete or out
         of date. They are a guide: always follow the signs, closures and the ski area's staff, and ski within your ability.</p>
@@ -209,7 +220,7 @@
 </main>
 
 <footer class="foot">
-  <p><a href="../">Open the app</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></p>
+  <p><a href="../">Open the app</a> · <a href="guide.html">How it works</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></p>
   <p>Ski area data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL), via
     <a href="https://openskimap.org">OpenSkiMap</a>. Icons: <a href="https://lucide.dev">Lucide</a> (ISC).</p>
 </footer>
