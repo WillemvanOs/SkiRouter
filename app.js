@@ -1992,6 +1992,8 @@ function renderAvoided() {
           const lift = LIFTS.find(l => l.nr === nr);
           return `<button class="avoid-chip" type="button" onclick="unavoidLift('${escapeHtml(nr)}')" aria-label="Stop avoiding ${escapeHtml(lift?.name || nr)}">${escapeHtml([liftCode(nr), lift?.name].filter(Boolean).join(' '))} ${ui('x')}</button>`;
         }).join('') + pistes.map((nr, i) => `<button class="avoid-chip avoid-chip-piste" type="button" data-unavoid-piste="${i}" aria-label="Stop avoiding piste ${escapeHtml(pisteTitle(nr))}">Piste ${escapeHtml(pisteTitle(nr))} ${ui('x')}</button>`).join('')
+        // Two or more: stop avoiding them all in one go
+        + (any > 1 ? `<button class="avoid-clear" type="button" onclick="clearAvoided()">${ui('replan')} Clear all</button>` : '')
       : '';
     el.querySelectorAll('[data-unavoid-piste]').forEach(btn => btn.addEventListener('click', () => unavoidPiste(pistes[+btn.dataset.unavoidPiste])));
   });
@@ -2004,6 +2006,13 @@ function renderAvoided() {
 
 function unavoidLift(nr) {
   avoidedLifts.delete(nr);
+  saveAvoided();
+  renderAvoided();
+}
+
+function clearAvoided() {
+  avoidedLifts.clear();
+  avoidedPistes.clear();
   saveAvoided();
   renderAvoided();
 }

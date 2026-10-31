@@ -31,7 +31,7 @@ steps for the device you visit with open first), and questions. The app links to
 area picker and Settings.
 
 **The guide** is a page of its own, `guide/` (on the site: `…/guide/`), visited from the app only
-(**Settings → Guide**), not linked from the landing page. It explains every feature with
+(**Settings → Guide**), not linked from the landing page. It opens in its own browser tab next to the app, so it has no "Back to the app" link: close the tab to return. It explains every feature with
 screenshots (`guide/img/`): getting started, the tabs, planning a route and a day, picking places,
 following it, the map, switching routes and saved days, lift status, avoiding, preferences,
 settings, the account and season pass, offline use, the data. It uses the landing page's
@@ -418,7 +418,7 @@ adds it to a list (per ski area, kept on the phone) and plans the route again wi
 replanned from the next step. The closed-lifts warning has **Avoid these** for all closed lifts on
 the route at once. In both planners the **Route preferences** line then turns red and says how many
 ("⊘ 2 avoided"), so it is not missed when planning; the list itself, with ✕ to take one off it, is in
-Route preferences. If no route is left, the message says so.
+Route preferences, with **Clear all** to take them all off at once when there are two or more. If no route is left, the message says so.
 
 **Swipe a step left, or hold it** (the phone gives a short tick when the hold opens the menu;
 on an iPhone that needs iOS 18, as Safari has no vibration API), for a short menu: **↻ Replan from here** (day plan: the

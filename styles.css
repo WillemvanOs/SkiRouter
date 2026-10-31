@@ -3937,3 +3937,25 @@ body.map-full .tabbar {
 .prefs-row .setting-name {
   white-space: nowrap;
 }
+
+/* Stop avoiding all lifts and pistes at once (shown from two) */
+.avoid-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 5px 10px;
+  border: 1.5px solid var(--bd-c0392b);
+  border-radius: 16px;
+  background: var(--bg-ffffff);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--fg-c0392b);
+  cursor: pointer;
+}
+
+.avoid-clear .ui-icon {
+  width: 14px;
+  height: 14px;
+}
