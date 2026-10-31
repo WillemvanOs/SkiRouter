@@ -1975,7 +1975,15 @@ function renderAvoided() {
   const nrs = [...avoidedLifts].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   const pistes = [...avoidedPistes].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   const any = nrs.length + pistes.length;
-  ['q-avoid', 'day-avoid', 'pref-avoid'].forEach(id => {
+  // In the planners just how many, on the Route preferences line (red, so it
+  // is not missed when planning); the list itself is in Route preferences.
+  document.querySelectorAll('.prefs-row').forEach(row => {
+    row.classList.toggle('has-avoided', any > 0);
+    const badge = row.querySelector('.avoid-badge');
+    badge.hidden = !any;
+    badge.innerHTML = any ? `${ui('ban')} ${any} avoided` : '';
+  });
+  ['pref-avoid'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.style.display = any ? 'flex' : 'none';

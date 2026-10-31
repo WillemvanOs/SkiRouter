@@ -416,8 +416,9 @@ The parsers are in `tools/lib/liftstatus-providers.mjs`.
 Any lift can be skipped by hand, open or closed: **⊘ Avoid lift** in the step menu (below)
 adds it to a list (per ski area, kept on the phone) and plans the route again without it; a day being followed is
 replanned from the next step. The closed-lifts warning has **Avoid these** for all closed lifts on
-the route at once. Avoided lifts and pistes show as chips in both planners; ✕ takes one off the
-list. If no route is left, the message says so.
+the route at once. In both planners the **Route preferences** line then turns red and says how many
+("⊘ 2 avoided"), so it is not missed when planning; the list itself, with ✕ to take one off it, is in
+Route preferences. If no route is left, the message says so.
 
 **Swipe a step left, or hold it** (the phone gives a short tick when the hold opens the menu;
 on an iPhone that needs iOS 18, as Safari has no vibration API), for a short menu: **↻ Replan from here** (day plan: the
