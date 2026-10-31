@@ -574,7 +574,7 @@ to go.
 While you scroll through the steps, a bar stays at the top of the screen with the progress: steps done, km and time still to go (and, in the day
 plan, ahead or behind, or before starting when you are back; **↻ Replan from here** is in the step menu, see below). There is
 no title or separate totals above it: the bar opens the card, to keep it compact.
-The Route and Map tabs always open at the top of the page. The map (Map tab) then takes the height from where it starts down to the
+The Route and Map tabs show no SkiRouter header (logo, ski area, live lift status): the route bar is at the top of the screen, so the route gets all the room; closed lifts on the route still show in the route itself. They always open at the top of the page. The map (Map tab) then takes the height from where it starts down to the
 tab bar, whatever the size of the phone, so the whole map is in view without scrolling (also after turning the phone). The step you
 are at is marked in the list; ticking one still brings the next into view.
 Progress is stored on the phone, so a route being followed comes back when the app is

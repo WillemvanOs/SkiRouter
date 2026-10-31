@@ -566,6 +566,8 @@ let activeRoute = null; // 'quick' or 'day': the route Route and Map show
 function showScreen(name) {
   Object.entries(SCREENS).forEach(([key, id]) => { document.getElementById(id).style.display = key === name ? 'block' : 'none'; });
   document.getElementById('planner-cards').style.display = name === 'plan' || name === 'route' ? 'block' : 'none';
+  // Route and Map: no SkiRouter header, the route gets the whole screen
+  document.body.classList.toggle('no-header', name === 'route');
 }
 
 function currentScreen() {

@@ -4024,3 +4024,13 @@ body.map-full .tabbar {
 .card.result > .result-sticky {
   border-radius: 16px 16px 0 0; /* follows the card's rounded top */
 }
+
+/* Route and Map tabs: without the header (logo, ski area, lift status),
+   so the route has the whole screen; clear of the notch and status bar */
+body.no-header > header {
+  display: none;
+}
+
+body.no-header main {
+  padding-top: calc(12px + env(safe-area-inset-top));
+}
