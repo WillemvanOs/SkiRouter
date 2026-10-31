@@ -13,6 +13,8 @@ Deno.serve(async req => {
   if (!user) return json({ error: 'Sign in first.' }, 401);
 
   const db = admin();
+  const { data: settings } = await db.from('app_settings').select('payments_on').single();
+  if (!settings?.payments_on) return json({ error: 'There is nothing to pay while SkiRouter is being tested.' }, 409);
   const season = currentSeason();
   const { data: profile } = await db.from('profiles').select('paid_until').eq('id', user.id).single();
   if (profile?.paid_until && new Date(profile.paid_until) >= season.until) {

@@ -454,26 +454,45 @@ How it fits together:
   The day planner itself still runs in the browser, so the pass is checked by the app; saved
   days are checked by the database. The signed-in account is kept on the phone, so the app
   opens offline on the mountain; preference changes made offline are sent once online.
-- With `config.js` left empty, accounts are off and the app works as before, all free.
+- With `config.js` left empty, accounts are off and the app works as before, all free. **Save
+  this day** then keeps the day on the phone only (`skirouter:local-days`), in the route menu's
+  Saved days (🗑 beside one deletes it) and on the empty Route tab. Once accounts are on, the
+  first sign-in moves these days into the account.
 
-**Setting it up** (once):
+**Test phase** (now): accounts are on, payments are not. `payments: false` in `config.js`
+and `app_settings.payments_on = false` in the database (migration `20261031000000_test_phase.sql`)
+mean: everyone signs in, and every signed-in account has what the season pass gives (day
+planner, saving days), checked in the database too. No paywall, no buy button; Settings →
+Account says "Test phase", and the checkout function refuses to start a payment. To start
+charging once Mollie is set up (step 4 below): `update public.app_settings set payments_on = true;`
+in the Supabase SQL editor **and** `payments: true` in `config.js`. Season passes already paid
+for are not affected either way.
 
-1. Create a project at [supabase.com](https://supabase.com), region **EU (Frankfurt)**. Sign
-   the data processing agreement (Settings → Legal).
-2. Install the [Supabase CLI](https://supabase.com/docs/guides/cli), then in this repository:
-   `supabase login`, `supabase link --project-ref <ref>`, `supabase db push` (the tables).
-3. Mollie: make an account at [mollie.com](https://www.mollie.com) and copy the API key (test
+**Setting it up** (once), all from the browser:
+
+1. Create a project at [supabase.com](https://supabase.com), region **EU (Frankfurt)**, and note
+   the database password you choose. Sign the data processing agreement (Settings → Legal).
+2. In GitHub, Settings → Secrets and variables → Actions, add three repository secrets:
+   `SUPABASE_ACCESS_TOKEN` (supabase.com → Account → Access tokens), `SUPABASE_PROJECT_REF`
+   (the `<ref>` in `https://<ref>.supabase.co`) and `SUPABASE_DB_PASSWORD`.
+3. Run **Actions → Supabase → Run workflow** (`.github/workflows/supabase.yml`): it makes the
+   tables (`supabase db push`), sets `APP_URL` and deploys the three Edge Functions. Run it
+   again whenever something under `supabase/` changes. (With the
+   [Supabase CLI](https://supabase.com/docs/guides/cli) installed locally, the same steps by hand:
+   `supabase link --project-ref <ref>`, `supabase db push`, `supabase functions deploy …`.)
+4. Mollie (not needed in the test phase): make an account at [mollie.com](https://www.mollie.com) and copy the API key (test
    key `test_…` first, live key `live_…` once Mollie has approved you). Then:
-   `supabase secrets set MOLLIE_API_KEY=test_… APP_URL=https://<where the app is> SEASON_PRICE=9.99`
-   and `supabase functions deploy checkout delete-account` plus
-   `supabase functions deploy mollie-webhook --no-verify-jwt`.
-4. Supabase → Authentication → URL Configuration: **Site URL** = the app's address, and add it
+   add `MOLLIE_API_KEY=test_…` and `SEASON_PRICE=9.99` under Supabase → Edge Functions → Secrets
+   (or `supabase secrets set …`), then switch the test phase off (above).
+5. Supabase → Authentication → URL Configuration: **Site URL** = the app's address, and add it
    under Redirect URLs (the links in the confirmation and password emails go there).
    Authentication → Emails: set up your own SMTP sender (Supabase's own is for testing only,
-   a few emails an hour) and the email texts.
-5. Fill in `config.js`: the project URL and the anon key (Settings → API). Both are public by
+   a few emails an hour) and the email texts. For a small test group without your own SMTP:
+   Authentication → Sign In / Providers → Email → turn off **Confirm email**; sign-up then signs
+   you in straight away (Supabase's own sender only mails the project's team members).
+6. Fill in `config.js`: the project URL and the anon key (Settings → API). Both are public by
    design; what they can do is limited by the row level security.
-6. Fill in the `[brackets]` in `privacy.html` and `terms.html` and have them checked.
+7. Fill in the `[brackets]` in `privacy.html` and `terms.html` and have them checked.
 
 Testing payments: with the `test_` key Mollie's checkout lets you choose the outcome (paid,
 failed, …); the pass appears within seconds after "paid".

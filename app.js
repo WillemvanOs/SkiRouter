@@ -683,10 +683,10 @@ function routePickerOptions() {
     options.push({ group: 'Recent', icon: kind === 'quick' ? 'flag' : 'day', label: t.title, sub: t.kind, on: kind === activeRoute,
       run: () => { setActiveRoute(kind); navTo(document.getElementById('route-screen').dataset.view || 'route'); } });
   });
-  if (typeof savedDays !== 'undefined' && accountsOn && account) {
+  if (typeof savedDays !== 'undefined' && (!accountsOn || account)) {
     savedDays.forEach(day => options.push({ group: 'Saved days', icon: 'star', label: day.name,
       sub: [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '),
-      run: () => openSavedDay(day.id) }));
+      run: () => openSavedDay(day.id), del: () => deleteSavedDay(day.id) }));
   }
   options.push({ group: '', icon: 'plus', label: 'Plan a new route', run: () => navTo('plan') });
   return options;
@@ -711,13 +711,18 @@ function showRouteMenu() {
   menu.innerHTML = `<div class="step-menu-panel" role="menu">${options.map((o, i) => {
     const head = o.group !== group && o.group ? `<div class="step-menu-title">${escapeHtml(o.group)}</div>` : '';
     group = o.group;
-    return `${head}<button type="button" class="step-menu-btn route-menu-btn${o.on ? ' on' : ''}" role="menuitem" data-option="${i}">${ui(o.icon)}
+    const btn = `<button type="button" class="step-menu-btn route-menu-btn${o.on ? ' on' : ''}" role="menuitem" data-option="${i}">${ui(o.icon)}
       <span><strong>${escapeHtml(o.label)}</strong>${o.sub ? `<small>${escapeHtml(o.sub)}</small>` : ''}</span>${o.on ? ui('check') : ''}</button>`;
+    // A saved day can be deleted from here too (the only place without an account)
+    return head + (o.del ? `<div class="route-menu-row">${btn}<button type="button" class="route-menu-del" data-del="${i}" aria-label="Delete ${escapeHtml(o.label)}">${ui('trash')}</button></div>` : btn);
   }).join('')}
     <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button></div>`;
   menu.querySelectorAll('[data-option]').forEach(btn => btn.addEventListener('click', () => {
     menu.classList.remove('open');
     options[+btn.dataset.option].run();
+  }));
+  menu.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', async () => {
+    if (await options[+btn.dataset.del].del()) showRouteMenu();
   }));
   menu.querySelector('.step-menu-cancel').addEventListener('click', () => menu.classList.remove('open'));
   menu.classList.add('open');
@@ -726,7 +731,7 @@ function showRouteMenu() {
 // No route yet: the saved days to pick from, under the button to plan one.
 function renderEmptySaved() {
   const el = document.getElementById('route-empty-saved');
-  const days = typeof savedDays !== 'undefined' && accountsOn && account ? savedDays : [];
+  const days = typeof savedDays !== 'undefined' && (!accountsOn || account) ? savedDays : [];
   el.innerHTML = days.length ? `<div class="prefs-label">${ui('star')} Your saved days</div>` + days.slice(0, 5).map((day, i) =>
     `<button type="button" class="route-empty-day" data-day="${i}"><strong>${escapeHtml(day.name)}</strong><small>${escapeHtml(day.area_name)}${day.summary?.km != null ? ` · ${day.summary.km} km` : ''}</small></button>`).join('') : '';
   el.querySelectorAll('[data-day]').forEach(btn => btn.addEventListener('click', () => openSavedDay(days[+btn.dataset.day].id)));
@@ -1392,7 +1397,7 @@ function renderSettingsMenu() {
   document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
   if (signedIn) {
     document.getElementById('settings-account-name').textContent = account.email || 'Account';
-    document.getElementById('settings-account-sum').textContent = hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
+    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved days' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
   }
 }
 
