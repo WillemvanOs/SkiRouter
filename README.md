@@ -22,10 +22,13 @@ A push to `main` goes live immediately, so work on a branch and merge when it is
 Only the planner files go online: `index.html`, `config.js`, `account.js`, `icons.js`, `liftmatch.js`, `map.js`, `dayplan.js`,
 `app.js`, `styles.css`, `sw.js`, `manifest.webmanifest`, `privacy.html`, `terms.html`, `legal.css`, `icons/`, `vendor/`, `about/` and `data/`.
 
-**The landing page** is `about/` (on the site: `…/about/`): what SkiRouter does, screenshots,
+**The landing page** is `about/` (on the site: `…/about/`). The app's own scope (`manifest.webmanifest`:
+`scope` and `start_url` `./index.html`, `id` `./` so installed apps stay the same app) covers only
+`index.html`, so from the installed app the landing page, terms and privacy open in the
+browser, in a tab of their own (`target="_blank"`), and the app stays open where it was. It has what SkiRouter does, screenshots,
 free versus the season pass, how to put it on the home screen (iPhone, Android, laptop — the
 steps for the device you visit with open first), and questions. The app links to it from the
-area picker and the account screen. The screenshots in `about/img/` are of the app itself;
+area picker and Settings. The screenshots in `about/img/` are of the app itself;
 make new ones when the look changes.
 
 The typefaces (Bebas Neue and DM Sans, SIL Open Font License, `vendor/fonts/OFL.txt`) are
