@@ -1128,7 +1128,7 @@ function planDayNow(options = {}) {
     if (w) liftWindows[l.liftNr] = w;
   });
 
-  dayCtx = { startId: start.id, endId: end.id, startName: start.name, endName: end.name, t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
+  dayCtx = { startId: start.id, endId: end.id, startName: start.name, endName: end.name, startLabel: pointLabel(start), t0, t1, targetKm, pace, home, liftWindows, lunchT, lunchMin, withLunch };
   const random = seededRandom(hashString(JSON.stringify([
     start.id, end.id, t0, t1, targetKm, dayPace, [...dayDiff].sort(), withLunch, lunchT, lunchMin, lunchAt,
     ...(dayBus ? [] : ['no-bus']),

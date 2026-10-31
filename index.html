@@ -82,6 +82,7 @@
 
   <!-- Account: season pass, saved days, sign out -->
   <div class="card prefs-card" id="account-screen" style="display:none">
+    <button class="sub-back" type="button" onclick="openSettings()"><i data-i="back"></i> Settings</button>
     <div class="card-title"><i data-i="account"></i> Your account</div>
 
     <div class="acc-rows">
@@ -91,11 +92,6 @@
         <select class="day-input acc-country" id="acc-country" onchange="saveCountry(this.value)"></select>
       </label>
     </div>
-
-    <button class="prefs-row acc-prefs-row" type="button" onclick="openPrefs()">
-      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
-      <i data-i="right"></i>
-    </button>
 
     <div class="prefs-section">
       <div class="prefs-label"><i data-i="ticket"></i> Season pass</div>
@@ -115,7 +111,73 @@
       <button class="link-btn" type="button" onclick="signOutClicked()"><i data-i="logout"></i> Sign out</button>
       <button class="link-btn acc-delete" type="button" onclick="deleteAccountClicked()">Delete my account</button>
     </div>
-    <p class="acc-legal"><a href="about/" target="_blank">About SkiRouter</a> · <a href="terms.html" target="_blank">Terms</a> · <a href="privacy.html" target="_blank">Privacy</a></p>
+  </div>
+
+  <!-- Settings: a menu of its own; each part opens on its own screen -->
+  <div class="card prefs-card" id="settings-screen" style="display:none">
+    <div class="card-title"><i data-i="settings"></i> Settings</div>
+    <!-- You first (with accounts), then what the planners use, then the app -->
+    <div class="settings-menu" id="settings-account-group" style="display:none">
+      <button class="settings-item settings-account" id="settings-account-item" type="button" onclick="openAccount()">
+        <span class="settings-ico"><i data-i="account"></i></span>
+        <span class="settings-text"><strong id="settings-account-name">Account</strong><small id="settings-account-sum"></small></span>
+        <i data-i="right"></i>
+      </button>
+    </div>
+
+    <div class="settings-group">Planning</div>
+    <div class="settings-menu">
+      <button class="settings-item" type="button" onclick="openPrefs()">
+        <span class="settings-ico"><i data-i="sliders"></i></span>
+        <span class="settings-text"><strong>Route preferences</strong><small id="settings-route-sum"></small></span>
+        <i data-i="right"></i>
+      </button>
+      <button class="settings-item" type="button" onclick="showAreaPicker()">
+        <span class="settings-ico"><i data-i="area"></i></span>
+        <span class="settings-text"><strong>Ski area</strong><small id="settings-area-sum"></small></span>
+        <i data-i="right"></i>
+      </button>
+    </div>
+
+    <div class="settings-group">App</div>
+    <div class="settings-menu">
+      <button class="settings-item" type="button" onclick="openAppSettings()">
+        <span class="settings-ico"><i data-i="phone"></i></span>
+        <span class="settings-text"><strong>App settings</strong><small id="settings-app-sum"></small></span>
+        <i data-i="right"></i>
+      </button>
+      <a class="settings-item" href="about/" target="_blank">
+        <span class="settings-ico"><i data-i="info"></i></span>
+        <span class="settings-text"><strong>About SkiRouter</strong><small>what it does, and how to put it on your home screen</small></span>
+        <i data-i="right"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- App settings: how the app looks, and about it -->
+  <div class="card prefs-card" id="app-settings-screen" style="display:none">
+    <button class="sub-back" type="button" onclick="openSettings()"><i data-i="back"></i> Settings</button>
+    <div class="card-title"><i data-i="phone"></i> App settings</div>
+
+    <div class="prefs-section">
+      <div class="prefs-label">Appearance <small>Sun: extra contrast for bright snow</small></div>
+      <div class="pace-row theme-row" role="group" aria-label="Appearance">
+        <button class="pace-btn" type="button" data-theme-btn="auto" onclick="setTheme('auto')"><i data-i="auto"></i> Auto</button>
+        <button class="pace-btn" type="button" data-theme-btn="light" onclick="setTheme('light')"><i data-i="sun"></i> Light</button>
+        <button class="pace-btn" type="button" data-theme-btn="dark" onclick="setTheme('dark')"><i data-i="moon"></i> Dark</button>
+        <button class="pace-btn" type="button" data-theme-btn="sun" onclick="setTheme('sun')"><i data-i="contrast"></i> Sun</button>
+      </div>
+    </div>
+
+    <div class="prefs-section">
+      <div class="prefs-label">Legal</div>
+      <div class="settings-menu">
+        <a class="settings-item" href="terms.html" target="_blank"><span class="settings-text"><strong>Terms</strong></span><i data-i="right"></i></a>
+        <a class="settings-item" href="privacy.html" target="_blank"><span class="settings-text"><strong>Privacy</strong></span><i data-i="right"></i></a>
+      </div>
+      <p class="acc-legal">Ski area data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> (ODbL), via
+        <a href="https://openskimap.org" target="_blank" rel="noopener">OpenSkiMap</a>. Icons: <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a>.</p>
+    </div>
   </div>
 
   <!-- Area picker: shown first, hidden once a gebied is chosen -->
@@ -137,7 +199,8 @@
 
   <!-- Preferences: a screen of its own, personal and kept on this phone -->
   <div class="card prefs-card" id="prefs-screen" style="display:none">
-    <div class="card-title"><i data-i="sliders"></i> Preferences</div>
+    <button class="sub-back" type="button" onclick="openSettings()"><i data-i="back"></i> Settings</button>
+    <div class="card-title"><i data-i="sliders"></i> Route preferences</div>
     <p class="prefs-intro" id="prefs-intro">Personal, kept on this phone. The quick route and the day plan both use them.</p>
 
     <div class="prefs-section">
@@ -188,17 +251,7 @@
       <div class="avoid-row" id="pref-avoid"></div>
     </div>
 
-    <div class="prefs-section">
-      <div class="prefs-label">Appearance <small>Sun: extra contrast for bright snow</small></div>
-      <div class="pace-row theme-row" role="group" aria-label="Appearance">
-        <button class="pace-btn" type="button" data-theme-btn="auto" onclick="setTheme('auto')"><i data-i="auto"></i> Auto</button>
-        <button class="pace-btn" type="button" data-theme-btn="light" onclick="setTheme('light')"><i data-i="sun"></i> Light</button>
-        <button class="pace-btn" type="button" data-theme-btn="dark" onclick="setTheme('dark')"><i data-i="moon"></i> Dark</button>
-        <button class="pace-btn" type="button" data-theme-btn="sun" onclick="setTheme('sun')"><i data-i="contrast"></i> Sun</button>
-      </div>
-    </div>
-
-    <button class="plan-btn plan-btn-secondary" type="button" onclick="closePrefs()">Done</button>
+    <button class="plan-btn plan-btn-secondary" type="button" onclick="closePrefs()">Back to planning</button>
   </div>
 
   <!-- Planner: hidden until an area is chosen -->
@@ -290,7 +343,7 @@
     </div><!-- /route-inputs -->
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
-      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
+      <span class="setting-name"><i data-i="sliders"></i> Route preferences</span>
       <span class="setting-chev"><i data-i="right"></i></span>
     </button>
 
@@ -422,7 +475,7 @@
 
 
     <button class="prefs-row" type="button" onclick="openPrefs()">
-      <span class="setting-name"><i data-i="sliders"></i> Preferences</span>
+      <span class="setting-name"><i data-i="sliders"></i> Route preferences</span>
       <span class="setting-chev"><i data-i="right"></i></span>
     </button>
 

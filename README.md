@@ -175,7 +175,12 @@ says so.
   warning. Without a route: a button to plan one and your saved days.
 - **Map** — the same route on the map, following the step you are at; without a route the whole
   area with its km, lifts and altitude.
-- **Account** (**Settings** when accounts are off).
+- **Settings** — a menu, each part on a screen of its own with **‹ Settings** at its top:
+  your **account** first (with accounts on: email, season pass, saved days); **Planning**:
+  **Route preferences** (colours, pace, drag lifts, ski bus, avoided lifts and pistes; the
+  **Route preferences** line in the Plan tab opens the same screen, with **Back to planning**)
+  and **Ski area**; **App**: **App settings** (appearance, terms, privacy, credits) and **About
+  SkiRouter** (the landing page). Each line says what is set, e.g. "Blue, Red · sporty pace".
 
 Route and Map always show the same route, the active one. The bar at their top says which, and
 opens a menu: **Recent** (the last route to a destination and the last day, so a quick detour
@@ -190,7 +195,7 @@ lift status underneath.
 capitals. Every screen has one solid main button (Calculate route, Plan my day, Sign in); the
 others are quieter.
 
-**Appearance** (Preferences): **Auto** (the phone's light or dark), **Light**, **Dark**, or
+**Appearance** (Settings → App settings): **Auto** (the phone's light or dark), **Light**, **Dark**, or
 **Sun** — white, black and heavier lines, for reading in bright snow. It is kept with the other
 preferences (`prefs.theme`, also with the account) and set in `index.html` before the first
 paint, so the page never flashes light first. `styles.css` has every colour as a variable per
@@ -464,10 +469,11 @@ failed, …); the pass appears within seconds after "paid".
 
 ## Preferences
 
-Personal preferences are on a screen of their own (the **Settings** tab, **Preferences** on the
-account screen, or the **Preferences** line in either planner): piste colours, pace (for the day plan's
-times), drag lifts and ski bus, the lifts avoided in this area, and the appearance. They are kept
-on the phone for every ski area (`skirouter:prefs`), and with the account when accounts are on, and both planners use them. Done goes back to where you came from; a quick route on screen is planned again with the new preferences.
+Personal preferences are on a screen of their own (**Settings → Route preferences**, or the
+**Route preferences** line in either planner): piste colours, pace (for the day plan's
+times), drag lifts and ski bus, and the lifts avoided in this area. The appearance is under
+**Settings → App settings**. They are kept
+on the phone for every ski area (`skirouter:prefs`), and with the account when accounts are on, and both planners use them. Back to planning (or ‹ Settings) leaves it; a quick route on screen is planned again with the new preferences.
 
 Under the **Pace** switch each pace says what it means, the chosen one highlighted:
 **Relaxed** about 7 km/h down the runs (piste times ×1.7) and ~7 min queueing per lift,
