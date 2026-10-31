@@ -3900,3 +3900,40 @@ body.map-full .tabbar {
 .settings-account .settings-ico {
   border-radius: 50%;
 }
+
+/* Lifts or pistes avoided: the Route preferences line in the planners says
+   how many, in red, so it is not missed when planning */
+.avoid-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--bg-ffe0de);
+  color: var(--fg-c0392b);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.avoid-badge[hidden] {
+  display: none;
+}
+
+.avoid-badge .ui-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.avoid-badge:not([hidden]) + .setting-chev {
+  margin-left: 0;
+}
+
+.prefs-row.has-avoided {
+  border-color: var(--bd-f1b8b2);
+}
+
+.prefs-row .setting-name {
+  white-space: nowrap;
+}
