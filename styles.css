@@ -3988,3 +3988,40 @@ body.map-full .tabbar {
 }
 
 .mode-lock[hidden] { display: none; }
+
+/* Changing a saved day (Plan tab), and its own menu */
+.save-day-edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--ice);
+  border-radius: 12px;
+  background: var(--snow);
+}
+
+.save-day-editing {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--accent);
+}
+
+.save-day-editing span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.step-menu-btn.step-menu-danger {
+  color: var(--fg-c0392b);
+}
+
+#day-edit-menu .save-day-form .day-input {
+  font-size: 1rem;
+}

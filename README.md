@@ -449,6 +449,12 @@ How it fits together:
   them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
   Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
   app (`?paid=1`) the app asks for the profile until the pass is there.
+- **Changing a saved day**: the ✎ beside a saved day (route menu, account screen) opens its own
+  menu: **Rename**, **Change the route** and **Delete this day**. Change the route plans the day
+  again in the Plan tab with its saved settings and shows "Changing <name>": plan it again as you
+  like, then **Update this day** (stores the new settings, option and summary in the same saved
+  day; migration `20261101000000_change_saved_days.sql` lets users update those columns) or
+  **Save as a new day**. Works the same for days kept on the phone without an account.
 - **The app** (`account.js`, `config.js`, `vendor/supabase/` = supabase-js 2.118.0, MIT): the
   sign-in screen before anything else, the account screen, the day planner behind the pass.
   The day planner itself still runs in the browser, so the pass is checked by the app; saved
@@ -456,7 +462,7 @@ How it fits together:
   opens offline on the mountain; preference changes made offline are sent once online.
 - With `config.js` left empty, accounts are off and the app works as before, all free. **Save
   this day** then keeps the day on the phone only (`skirouter:local-days`), in the route menu's
-  Saved days (🗑 beside one deletes it) and on the empty Route tab. Once accounts are on, the
+  Saved days and on the empty Route tab. Once accounts are on, the
   first sign-in moves these days into the account.
 
 **Test phase** (now): accounts are on, payments are not. `payments: false` in `config.js`

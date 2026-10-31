@@ -83,6 +83,7 @@ function followDay() {
 
 // Called by resetPlanner() whenever an area is (re)loaded.
 function resetDayPlan() {
+  if (typeof stopEditingDay === 'function') stopEditingDay(); // another area: not the saved day any more
   resetSide('dstart');
   resetSide('dend');
   dayOptions = [];

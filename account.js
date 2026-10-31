@@ -367,19 +367,15 @@ function saveDayCancel() {
   document.getElementById('save-day-btn').style.display = '';
 }
 
-async function saveDaySubmit(event) {
-  event.preventDefault();
-  const msg = document.getElementById('save-day-msg');
-  const name = document.getElementById('save-day-name').value.trim();
-  if (!name) return;
-  if (accountsOn && !navigator.onLine) { msg.textContent = 'You are offline. Saving needs a connection.'; return; }
+// What is kept of the day on screen: the planner's inputs, the option
+// chosen and a summary for the lists.
+function currentDayRow() {
   const walk = dayOptions[dayShown];
-  if (!walk || !currentArea) return;
+  if (!walk || !currentArea) return null;
   const lifts = walk.steps.filter(s => s.edge && s.edge.type !== 'piste' && s.edge.type !== 'transfer' && !isConnection(s.edge)).length;
-  const row = {
+  return {
     area_id: currentArea.id,
     area_name: currentArea.name,
-    name: name.slice(0, 100),
     inputs: loadDayInputs(),
     option: dayShown,
     summary: {
@@ -387,6 +383,17 @@ async function saveDaySubmit(event) {
       start: formatClock(dayCtx.t0), end: formatClock(walk.end), from: dayCtx.startName || '',
     },
   };
+}
+
+async function saveDaySubmit(event) {
+  event.preventDefault();
+  const msg = document.getElementById('save-day-msg');
+  const name = document.getElementById('save-day-name').value.trim();
+  if (!name) return;
+  if (accountsOn && !navigator.onLine) { msg.textContent = 'You are offline. Saving needs a connection.'; return; }
+  const day = currentDayRow();
+  if (!day) return;
+  const row = { ...day, name: name.slice(0, 100) };
   let data = null;
   if (accountsOn) {
     const res = await sb.from('routes').insert(row).select().single();
@@ -402,9 +409,10 @@ async function saveDaySubmit(event) {
   savedDays.unshift(data);
   storeSavedDays();
   saveDayCancel();
+  stopEditingDay();
   const btn = document.getElementById('save-day-btn');
   btn.innerHTML = `${ui('check')} ${accountsOn ? 'Saved in your account' : 'Saved on this phone'}`;
-  setTimeout(() => { btn.innerHTML = `${ui('star')} Save this day`; }, 3000);
+  setTimeout(() => renderSaveDay(), 3000);
 }
 
 async function loadSavedDays() {
@@ -435,9 +443,10 @@ function restoreSavedDays() {
 }
 
 // A saved day: its area, its settings, planned again and shown.
-async function openSavedDay(id) {
+async function openSavedDay(id, { edit = false } = {}) {
   const day = savedDays.find(d => d.id === id);
   if (!day) return;
+  stopEditingDay();
   const view = currentScreen() === 'route' ? document.getElementById('route-screen').dataset.view : 'route';
   const meta = AREAS.find(a => a.id === areaIdNow(day.area_id));
   if (!meta) { showAccountNotice(`"${day.area_name}" is not in the ski area list any more.`); return; }
@@ -452,11 +461,109 @@ async function openSavedDay(id) {
   clearProgress('day');
   planDay({ override: inputs, silent: true });
   if (day.option > 0 && day.option < dayOptions.length) renderDayOption(day.option);
+  // To change it: in the Plan tab, with its settings, and Update this day
+  if (edit) {
+    editingDay = day.id;
+    renderSaveDay();
+    navTo('plan');
+    if (plannerHasRoute('day')) document.getElementById('day-choice').scrollIntoView({ block: 'start' });
+    return;
+  }
   // Followed straight away, in Route (or Map, when picked there).
   if (plannerHasRoute('day')) {
     setActiveRoute('day');
     navTo(view === 'map' ? 'map' : 'route');
   } else navTo('plan');
+}
+
+// ── Changing a saved day ─────────────────────────────────────────────────────
+
+let editingDay = null; // the saved day being changed in the Plan tab
+
+function renderSaveDay() {
+  const day = editingDay && savedDays.find(d => d.id === editingDay);
+  if (!day) editingDay = null;
+  document.getElementById('save-day-edit').style.display = day ? '' : 'none';
+  document.getElementById('save-day-edit-name').textContent = day ? day.name : '';
+  const btn = document.getElementById('save-day-btn');
+  btn.innerHTML = `${ui('star')} ${day ? 'Save as a new day' : 'Save this day'}`;
+  document.getElementById('save-day-msg').textContent = '';
+}
+
+function stopEditingDay() {
+  editingDay = null;
+  if (document.getElementById('save-day-edit')) renderSaveDay();
+}
+
+// The saved day takes the day on screen: its settings, option and summary.
+async function saveDayUpdate() {
+  const day = savedDays.find(d => d.id === editingDay);
+  const changes = currentDayRow();
+  const msg = document.getElementById('save-day-msg');
+  if (!day || !changes) return;
+  if (changes.area_id !== areaIdNow(day.area_id)) { msg.textContent = 'This day is in another ski area. Save it as a new day instead.'; return; }
+  const { inputs, option, summary } = changes;
+  if (!await updateSavedDay(day.id, { inputs, option, summary })) { msg.textContent = 'Could not update this day. Try again.'; return; }
+  const name = day.name;
+  stopEditingDay();
+  const btn = document.getElementById('save-day-btn');
+  btn.innerHTML = `${ui('check')} "${escapeHtml(name)}" updated`;
+  setTimeout(() => renderSaveDay(), 3000);
+}
+
+// Change a saved day, in the account or on this phone. True when done.
+async function updateSavedDay(id, changes) {
+  if (accountsOn) {
+    if (!navigator.onLine) return false;
+    const { error } = await sb.from('routes').update(changes).eq('id', id);
+    if (error) return false;
+  }
+  savedDays = savedDays.map(d => d.id === id ? { ...d, ...changes } : d);
+  storeSavedDays();
+  renderAccount();
+  if (typeof renderEmptySaved === 'function') renderEmptySaved();
+  return true;
+}
+
+// A saved day's own menu: rename it, change its route, or delete it.
+function showSavedDayMenu(id) {
+  const day = savedDays.find(d => d.id === id);
+  if (!day) return;
+  document.getElementById('route-menu')?.classList.remove('open');
+  let menu = document.getElementById('day-edit-menu');
+  if (!menu) {
+    menu = document.createElement('div');
+    menu.id = 'day-edit-menu';
+    menu.className = 'step-menu';
+    menu.addEventListener('click', event => { if (event.target === menu) menu.classList.remove('open'); });
+    document.body.appendChild(menu);
+  }
+  const close = () => menu.classList.remove('open');
+  menu.innerHTML = `<div class="step-menu-panel" role="dialog" aria-label="Change saved day">
+      <div class="step-menu-title">${ui('star')} ${escapeHtml(day.name)}</div>
+      <form class="save-day-form day-rename">
+        <input class="day-input" maxlength="100" aria-label="Name of this day" enterkeyhint="done" value="${escapeHtml(day.name)}">
+        <button class="save-day-ok" type="submit">Rename</button>
+      </form>
+      <div class="save-day-msg"></div>
+      <button type="button" class="step-menu-btn" data-act="route">${ui('route')} Change the route</button>
+      <button type="button" class="step-menu-btn step-menu-danger" data-act="delete">${ui('trash')} Delete this day</button>
+      <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button>
+    </div>`;
+  const msg = menu.querySelector('.save-day-msg');
+  menu.querySelector('.day-rename').addEventListener('submit', async event => {
+    event.preventDefault();
+    const name = menu.querySelector('.day-rename input').value.trim().slice(0, 100);
+    if (!name) return;
+    if (name === day.name) { close(); return; }
+    if (!await updateSavedDay(day.id, { name })) { msg.textContent = 'Could not rename it. Try again.'; return; }
+    if (editingDay === day.id) renderSaveDay();
+    close();
+  });
+  menu.querySelector('[data-act="route"]').addEventListener('click', () => { close(); openSavedDay(day.id, { edit: true }); });
+  menu.querySelector('[data-act="delete"]').addEventListener('click', async () => { if (await deleteSavedDay(day.id)) close(); });
+  menu.querySelector('.step-menu-cancel').addEventListener('click', close);
+  menu.classList.add('open');
 }
 
 async function deleteSavedDay(id) {
@@ -468,6 +575,7 @@ async function deleteSavedDay(id) {
   }
   savedDays = savedDays.filter(d => d.id !== id);
   storeSavedDays();
+  if (editingDay === id) stopEditingDay();
   renderAccount();
   if (typeof renderEmptySaved === 'function') renderEmptySaved();
   return true;
@@ -533,9 +641,9 @@ function renderAccount() {
         <strong>${escapeHtml(day.name)}</strong>
         <span>${escapeHtml(day.area_name)}${s.km != null ? ` · ${s.km} km · ${s.pistes} pistes · ${escapeHtml(s.start || '')}–${escapeHtml(s.end || '')}` : ''}</span>
       </button>
-      <button type="button" class="acc-day-del" aria-label="Delete">${ui('trash')}</button>`;
+      <button type="button" class="acc-day-del acc-day-edit" aria-label="Change ${escapeHtml(day.name)}">${ui('edit')}</button>`;
     row.querySelector('.acc-day-open').addEventListener('click', () => openSavedDay(day.id));
-    row.querySelector('.acc-day-del').addEventListener('click', () => deleteSavedDay(day.id));
+    row.querySelector('.acc-day-del').addEventListener('click', () => showSavedDayMenu(day.id));
     list.appendChild(row);
   });
 }
