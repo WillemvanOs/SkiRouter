@@ -365,7 +365,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     routeMap.attributionControl.setPrefix('').addAttribution('© OpenStreetMap contributors');
     routeMap.createPane('arrows').style.zIndex = 450; // above the lines, below the labels
     addMapControls(routeMap, turn);
-    routeMap.on('zoomend', drawArrows).on('moveend', declutterSoon);
+    routeMap.on('zoomend', drawArrows).on('zoomend', showLiftNames).on('moveend', declutterSoon);
     routeMapKey = key;
   }
   routeMapOwner = opts.owner || 'quick';
@@ -377,19 +377,45 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
   routeMapMarkers = [];
   const renderer = L.canvas({ padding: 0.5 });
 
-  // The whole area, faint: pistes in their colour, lifts grey.
+  // The whole area: faint behind a route; without one (the Map tab before
+  // planning) as the piste map itself, every lift and piste labelled.
+  const overview = !path.length;
   Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
     const colour = pisteColourOf(nr);
     const name = pisteLabel(nr) + (pisteOf(nr)?.naam && hasOwnNumber(nr) ? ` · ${pisteOf(nr).naam}` : '');
     lines.forEach(line => {
-      L.polyline(line.map(toLatLng), { renderer, color: colour, weight: 2, opacity: 0.17 })
+      L.polyline(line.map(toLatLng), overview
+        ? { renderer, color: colour, weight: 3, opacity: 0.8 }
+        : { renderer, color: colour, weight: 2, opacity: 0.17 })
         .bindPopup(escapeHtml(name)).addTo(routeMapLayer);
     });
+    if (overview && lines.length) {
+      // Its number (or name) halfway along its longest stretch
+      const longest = lines.reduce((best, line) => line.length > best.length ? line : best, lines[0]).map(toLatLng);
+      const own = hasOwnNumber(nr);
+      const text = own ? nr : shortName(pisteOf(nr)?.naam) || '';
+      if (text) {
+        const html = `<span class="map-tag map-piste${own ? '' : ' is-name'}" style="background:${colour}">${escapeHtml(text)}</span>`;
+        const marker = labelMarker(halfway(longest), html, true).bindPopup(escapeHtml(name)).addTo(routeMapLayer);
+        routeMapLabels.push({ marker, rank: () => own ? 5.5 : 8 });
+      }
+    }
   });
   (currentArea?.liften || []).forEach(l => {
     if (!l.coordOnder || !l.coordBoven) return;
-    L.polyline([l.coordOnder, l.coordBoven], { renderer, color: '#8a99ab', weight: 1.5, opacity: 0.3 })
-      .bindPopup(escapeHtml([liftCode(l.liftNr), l.naam].filter(Boolean).join(' '))).addTo(routeMapLayer);
+    const name = [liftCode(l.liftNr), l.naam].filter(Boolean).join(' ');
+    L.polyline([l.coordOnder, l.coordBoven], overview
+      ? { renderer, color: MAP_LIFT_COLOUR, weight: 2, opacity: 0.85 }
+      : { renderer, color: '#8a99ab', weight: 1.5, opacity: 0.3 })
+      .bindPopup(escapeHtml(name)).addTo(routeMapLayer);
+    if (overview) {
+      // Its code and name halfway up, as on the signs
+      const code = liftCode(l.liftNr);
+      // (the name only once zoomed in, see showLiftNames; a lift without a code always has it)
+      const html = `<span class="map-tag map-lift map-lift-named">${code ? `<b>${escapeHtml(code)}</b>` : ''}${l.naam ? `<span class="${code ? 'lift-name' : ''}"> ${escapeHtml(shortName(l.naam, 16))}</span>` : ''}</span>`;
+      const marker = labelMarker(halfway([l.coordOnder, l.coordBoven]), html, true).bindPopup(escapeHtml(name)).addTo(routeMapLayer);
+      routeMapLabels.push({ marker, rank: () => 5 });
+    }
   });
 
   // Towns, villages and peaks.
@@ -462,8 +488,19 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
   // A first view, so the map has its size and zoom; then the step you are at.
   if (routeMapBounds) routeMap.fitBounds(routeMapBounds, { padding: [28, 28], animate: false });
   else routeMap.setView(first || areaCentre(), -3);
+  routeMapFitZoom = routeMap.getZoom();
+  showLiftNames();
   updateFollowButton();
   updateRouteMapProgress(done, routeMapOwner, { animate: false });
+}
+
+// The overview without a route: lift codes when the whole area is in view,
+// their names too once zoomed in a little (else they cover the map).
+const LIFT_NAMES_ZOOM = 1.5;  // zoom steps in from the whole area
+let routeMapFitZoom = 0;
+function showLiftNames() {
+  if (!routeMap) return;
+  routeMap.getContainer().classList.toggle('show-lift-names', routeMap.getZoom() >= routeMapFitZoom + LIFT_NAMES_ZOOM);
 }
 
 // Where a piece is in the day: done, the step you are at or one of the next
@@ -597,6 +634,10 @@ function declutter(map, labels) {
   if (!map || !map._loaded) return; // no view yet
   const box = map.getContainer().getBoundingClientRect();
   const placed = [];
+  // The map's own buttons: names and numbers stay clear of them (the
+  // route's steps are never hidden for them)
+  const controls = [...map.getContainer().querySelectorAll('.leaflet-control')].map(c => c.getBoundingClientRect());
+  const under = r => controls.some(q => r.left < q.right && r.right > q.left && r.top < q.bottom && r.bottom > q.top);
   labels
     .map((label, i) => ({ label, rank: label.rank(), i }))
     .sort((a, b) => a.rank - b.rank || a.i - b.i)
@@ -608,7 +649,7 @@ function declutter(map, labels) {
       const onScreen = r.right > box.left && r.left < box.right && r.bottom > box.top && r.top < box.bottom;
       // A name cut off by the edge reads wrong ("CHBERG"): hide it until you pan.
       const cut = !label.step && onScreen && (r.left < box.left || r.right > box.right || r.top < box.top || r.bottom > box.bottom);
-      const clash = cut || (onScreen && placed.some(q => r.left < q.right + 3 && r.right > q.left - 3 && r.top < q.bottom + 3 && r.bottom > q.top - 3));
+      const clash = cut || (!label.step && onScreen && under(r)) || (onScreen && placed.some(q => r.left < q.right + 3 && r.right > q.left - 3 && r.top < q.bottom + 3 && r.bottom > q.top - 3));
       icon.style.visibility = clash ? 'hidden' : '';
       if (onScreen && !clash) placed.push(r);
     });
