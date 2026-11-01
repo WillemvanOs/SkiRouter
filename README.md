@@ -184,7 +184,10 @@ says so.
 - **Route** — the route being followed, step by step: ticking off, replan from here, the late
   warning. Without a route: a button to plan one and your saved days.
 - **Map** — the same route on the map, following the step you are at; without a route the whole
-  area with its km, lifts and altitude.
+  area with its km, lifts and altitude, drawn as a piste map: every piste in its colour with its
+  number (or name, for one without), every lift with its code, and its name too once zoomed in a
+  little (`LIFT_NAMES_ZOOM` in `map.js`). Labels that would overlap, or sit under the map's
+  buttons, are hidden until you zoom in. With a route, only the route stands out, as before.
 - **Settings** — a menu, each part on a screen of its own with **‹ Settings** at its top:
   your **account** first (with accounts on: email, season pass, saved days); **Planning**:
   **Route preferences** (colours, pace, drag lifts, ski bus, avoided lifts and pistes; the

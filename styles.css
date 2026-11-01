@@ -4034,3 +4034,20 @@ body.no-header > header {
 body.no-header main {
   padding-top: calc(12px + env(safe-area-inset-top));
 }
+
+/* The Map tab without a route: a lift's code and name */
+.map-lift-named {
+  font-weight: 500;
+}
+
+.map-lift-named b {
+  font-weight: 800;
+}
+
+.map-lift-named .lift-name {
+  display: none;
+}
+
+.show-lift-names .map-lift-named .lift-name {
+  display: inline;
+}
