@@ -30,6 +30,7 @@ let leafletLoading = null;
 let routeMap = null;       // the Leaflet map, kept while the page lives
 let routeMapKey = null;    // the area and orientation it was made for
 let routeMapLayer = null;  // everything drawn on it for the current route
+let routeMapDetail = null; // without a route: pistes, POIs and hamlets, only once zoomed in
 let routeArrowLayer = null;
 let routeMapPieces = [];   // the route, as drawn (see routePieces)
 let routeMapLabels = [];   // every label, for hiding the ones that overlap
@@ -365,21 +366,26 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
     routeMap.attributionControl.setPrefix('').addAttribution('© OpenStreetMap contributors');
     routeMap.createPane('arrows').style.zIndex = 450; // above the lines, below the labels
     addMapControls(routeMap, turn);
-    routeMap.on('zoomend', drawArrows).on('zoomend', showLiftNames).on('moveend', declutterSoon);
+    routeMap.on('zoomend', drawArrows).on('zoomend', showOverviewDetail).on('moveend', declutterSoon);
     routeMapKey = key;
   }
   routeMapOwner = opts.owner || 'quick';
   routeMapLayer?.remove();
+  routeMapDetail?.remove();
   routeArrowLayer?.remove();
   routeMapLayer = L.layerGroup().addTo(routeMap);
+  routeMapDetail = L.layerGroup(); // on the map once zoomed in, see showOverviewDetail
   routeArrowLayer = L.layerGroup().addTo(routeMap);
   routeMapLabels = [];
   routeMapMarkers = [];
   const renderer = L.canvas({ padding: 0.5 });
 
   // The whole area: faint behind a route; without one (the Map tab before
-  // planning) as the piste map itself, every lift and piste labelled.
+  // planning) as the piste map itself, every lift and piste labelled. There
+  // the whole area shows only lifts, peaks and villages; pistes, POIs and
+  // hamlets come in once zoomed in (see showOverviewDetail).
   const overview = !path.length;
+  const detail = overview ? routeMapDetail : routeMapLayer;
   Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
     const colour = pisteColourOf(nr);
     const name = pisteLabel(nr) + (pisteOf(nr)?.naam && hasOwnNumber(nr) ? ` · ${pisteOf(nr).naam}` : '');
@@ -387,7 +393,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       L.polyline(line.map(toLatLng), overview
         ? { renderer, color: colour, weight: 3, opacity: 0.8 }
         : { renderer, color: colour, weight: 2, opacity: 0.17 })
-        .bindPopup(escapeHtml(name)).addTo(routeMapLayer);
+        .bindPopup(escapeHtml(name)).addTo(detail);
     });
     if (overview && lines.length) {
       // Its number (or name) halfway along its longest stretch
@@ -396,7 +402,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       const text = own ? nr : shortName(pisteOf(nr)?.naam) || '';
       if (text) {
         const html = `<span class="map-tag map-piste${own ? '' : ' is-name'}" style="background:${colour}">${escapeHtml(text)}</span>`;
-        const marker = labelMarker(halfway(longest), html, true).bindPopup(escapeHtml(name)).addTo(routeMapLayer);
+        const marker = labelMarker(halfway(longest), html, true).bindPopup(escapeHtml(name)).addTo(detail);
         routeMapLabels.push({ marker, rank: () => own ? 5.5 : 8 });
       }
     }
@@ -426,8 +432,19 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       ? `<span class="map-tag map-peak">▲ ${escapeHtml(p.n)}${p.ele ? ` <small>${p.ele}</small>` : ''}</span>`
       : `<span class="map-tag map-place is-${p.k}">${escapeHtml(p.n)}</span>`;
     const rank = peak ? 7 + i / 1000 : { town: 4, village: 6, hamlet: 9 }[p.k] ?? 9;
-    routeMapLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(routeMapLayer), rank: () => rank });
+    const layer = p.k === 'hamlet' ? detail : routeMapLayer;
+    routeMapLabels.push({ marker: labelMarker([p.lat, p.lon], html).addTo(layer), rank: () => rank });
   });
+
+  // Without a route: mountain restaurants, viewpoints and snow parks, once zoomed in.
+  if (overview) {
+    areaPlaces('poi').forEach(place => {
+      if (place.lat == null) return;
+      const html = `<span class="map-tag map-lunch icon-${place.kind}">${PLACE_ICONS[place.kind] || ICONS.start}</span>`;
+      const marker = labelMarker([place.lat, place.lon], html, true).bindPopup(escapeHtml(place.name)).addTo(detail);
+      routeMapLabels.push({ marker, rank: () => 6.5 });
+    });
+  }
 
   // The route on top.
   const pieces = routePieces(path);
@@ -489,18 +506,25 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
   if (routeMapBounds) routeMap.fitBounds(routeMapBounds, { padding: [28, 28], animate: false });
   else routeMap.setView(first || areaCentre(), -3);
   routeMapFitZoom = routeMap.getZoom();
-  showLiftNames();
+  showOverviewDetail();
   updateFollowButton();
   updateRouteMapProgress(done, routeMapOwner, { animate: false });
 }
 
-// The overview without a route: lift codes when the whole area is in view,
-// their names too once zoomed in a little (else they cover the map).
+// The overview without a route: with the whole area in view only lifts (by
+// their code), peaks and villages; zoomed in a little, the lifts' names, the
+// pistes with their numbers, the POIs and hamlets as well (else they cover
+// the map).
 const LIFT_NAMES_ZOOM = 1.5;  // zoom steps in from the whole area
+const DETAIL_ZOOM = 1.5;      // the same for pistes, POIs and hamlets
 let routeMapFitZoom = 0;
-function showLiftNames() {
+function showOverviewDetail() {
   if (!routeMap) return;
-  routeMap.getContainer().classList.toggle('show-lift-names', routeMap.getZoom() >= routeMapFitZoom + LIFT_NAMES_ZOOM);
+  const zoomedIn = routeMap.getZoom() - routeMapFitZoom;
+  routeMap.getContainer().classList.toggle('show-lift-names', zoomedIn >= LIFT_NAMES_ZOOM);
+  if (!routeMapDetail) return;
+  if (zoomedIn >= DETAIL_ZOOM) routeMapDetail.addTo(routeMap);
+  else routeMapDetail.remove();
 }
 
 // Where a piece is in the day: done, the step you are at or one of the next
