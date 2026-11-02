@@ -279,6 +279,11 @@ function moveRenamedAreas() {
 }
 
 async function initApp() {
+  try { await openApp(); }
+  finally { document.documentElement.classList.remove('opening-area'); }
+}
+
+async function openApp() {
   moveRenamedAreas();
   const listEl = document.getElementById('area-list');
   // The curated list is needed; the Europe index is a bonus (offline, or a

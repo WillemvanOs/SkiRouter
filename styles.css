@@ -4051,3 +4051,8 @@ body.no-header main {
 .show-lift-names .map-lift-named .lift-name {
   display: inline;
 }
+
+/* Opening the last ski area: the area picker stays hidden meanwhile */
+.opening-area #area-picker {
+  display: none !important;
+}
