@@ -134,6 +134,11 @@ areas it overlaps. For a few parts they are set under `splits` in
 di Fassa", which can be found by searching Val Gardena, Gröden, Selva, Ortisei and so on. The build
 report lists every part and what became of it.
 
+The app starts on the area picker, with the area used last on top (*Your last ski area*); that
+area opens as it was left. Opening another area clears what was chosen in it before (the route
+being followed, the day's start, end and stops; `clearAreaSelections` in `app.js`); saved days,
+preferences and avoided lifts stay.
+
 The area picker searches names, villages, regions and countries (with a few local names:
 Tirol, Wallis, Südtirol, …), finds ski areas near you, keeps your favourites (tap ☆) on top
 and lists every area per country (KitzSki under Austria). An area is downloaded when you open it and then stays

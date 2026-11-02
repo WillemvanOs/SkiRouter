@@ -22,14 +22,6 @@
   <script>
     try { document.documentElement.dataset.theme = JSON.parse(localStorage.getItem('skirouter:prefs'))?.theme || 'auto'; }
     catch { document.documentElement.dataset.theme = 'auto'; }
-    // The last ski area opens straight away: no flash of the area picker
-    // while it loads (initApp shows the picker if it cannot be opened).
-    try {
-      if (localStorage.getItem('skiplanner:lastArea')) {
-        document.documentElement.classList.add('opening-area');
-        setTimeout(() => document.documentElement.classList.remove('opening-area'), 10000);
-      }
-    } catch {}
   </script>
 </head>
 <body>

@@ -279,11 +279,6 @@ function moveRenamedAreas() {
 }
 
 async function initApp() {
-  try { await openApp(); }
-  finally { document.documentElement.classList.remove('opening-area'); }
-}
-
-async function openApp() {
   moveRenamedAreas();
   const listEl = document.getElementById('area-list');
   // The curated list is needed; the Europe index is a bonus (offline, or a
@@ -300,11 +295,15 @@ async function openApp() {
     ...(curated || []).map(a => ({ ...a, curated: true })),
     ...europe.filter(e => !(curated || []).some(c => c.id === e.id)),
   ];
+  // The app opens on the area picker; the last ski area is on top of it.
   renderAreaList();
+}
 
-  const lastAreaId = localStorage.getItem(LAST_AREA_KEY);
-  const lastArea   = AREAS.find(a => a.id === lastAreaId);
-  if (lastArea) await selectArea(lastArea);
+// The ski area opened last time, if it is still listed.
+function lastArea() {
+  let id = null;
+  try { id = localStorage.getItem(LAST_AREA_KEY); } catch {}
+  return AREAS.find(a => a.id === id) || null;
 }
 
 // Favourite ski areas: marked with ☆ in the picker, listed on top.
@@ -366,6 +365,11 @@ function renderAreaList() {
     else section(`${hits.length === 40 ? 'First 40 matches' : `${hits.length} found`}`, hits);
     return;
   }
+
+  // The area opened last time, one tap away (not while it is open: then
+  // "Back to …" is there).
+  const last = lastArea();
+  if (last && last.id !== currentArea?.id) section('Your last ski area', [last]);
 
   const favourites = favouriteAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean)
     .sort((x, y) => x.name.localeCompare(y.name));
@@ -484,6 +488,9 @@ async function selectArea(areaMeta) {
     currentArea = area;
     await loadLiftStatus(areaMeta);
 
+    // Another ski area than last time opens empty: no route, day or stops
+    // from before (saved days stay, they are kept apart).
+    if (lastArea()?.id !== areaMeta.id) clearAreaSelections();
     localStorage.setItem(LAST_AREA_KEY, areaMeta.id);
     applyAreaToHeader(area);
     resetPlanner();
@@ -605,6 +612,18 @@ function setActiveRoute(kind) {
   document.getElementById('route-screen').dataset.active = kind || '';
   try { localStorage.setItem(ACTIVE_KEY_PREFIX + (currentArea?.id || ''), kind || ''); } catch {}
   renderRoutePicker();
+}
+
+// Forget what was chosen in this area: the route being followed, its
+// progress, and the day's start, end and stops. Times, km and lunch times
+// stay, as do preferences, avoided lifts and pistes, and saved days.
+function clearAreaSelections() {
+  clearProgress('quick');
+  clearProgress('day');
+  try { localStorage.removeItem(ACTIVE_KEY_PREFIX + (currentArea?.id || '')); } catch {}
+  const day = loadDayInputs();
+  ['start', 'startPlace', 'end', 'endPlace', 'stops', 'lunchAt'].forEach(k => delete day[k]);
+  saveDayInputs(day);
 }
 
 function storedActiveRoute() {
