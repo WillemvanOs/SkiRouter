@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-11-02",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
@@ -71,6 +71,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/berwang"
+    }
+   ]
+  },
+  "bonneval-sur-arc-fr": {
+   "name": "Bonneval-sur-Arc",
+   "country": "FR",
+   "share": 78,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "bonneval-sur-arc"
     }
    ]
   },
@@ -173,7 +185,7 @@
   "galtur-at": {
    "name": "Galtür",
    "country": "AT",
-   "share": 89,
+   "share": 100,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -293,7 +305,7 @@
   "hintertuxer-gletscher-at": {
    "name": "Hintertuxer Gletscher",
    "country": "AT",
-   "share": 100,
+   "share": 95,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -433,6 +445,18 @@
      "base": "https://www.kitzski.at",
      "client": "https://sgm.kitzski.at",
      "region": "kitzski"
+    }
+   ]
+  },
+  "klippitztorl-at": {
+   "name": "Klippitztörl",
+   "country": "AT",
+   "share": 83,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/klippitztoerl"
     }
    ]
   },
@@ -601,6 +625,30 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/moelltaler_gletscher"
+    }
+   ]
+  },
+  "montagnes-de-lans-fr": {
+   "name": "Montagnes de Lans",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "lans-en-vercors"
+    }
+   ]
+  },
+  "monts-jura-fr": {
+   "name": "Monts Jura",
+   "country": "FR",
+   "share": 100,
+   "bron": "lumiplan.pro",
+   "sources": [
+    {
+     "provider": "lumiplan",
+     "station": "monts-jura"
     }
    ]
   },
@@ -781,6 +829,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/saas_fee"
+    }
+   ]
+  },
+  "saas-grund-ch": {
+   "name": "Saas Grund",
+   "country": "CH",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/saastal"
     }
    ]
   },
