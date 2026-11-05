@@ -307,9 +307,18 @@ data on a light background, so it works offline and is easy to read.
   route carry their number, as on a piste map: a lift's code in a dark box, a piste's number in a
   circle of its colour (runs without a number go by their name). A piste mapped in OpenStreetMap
   as several ways (a fork, a later stretch, ways that stop a few metres apart) is followed over
-  all of them, so it is drawn the whole way down to the lift (`pisteSegment` in `map.js`). Where
-  the next mapped course still starts away from where the last one ended (the data has no piste
-  there), a dotted line keeps the route in one piece.
+  all of them, so it is drawn the whole way down to the lift. A step's course is found over every
+  piste line of the area at once, downhill, as much as possible on its own piste (a stretch shared
+  with another piste, or folded into the step at build time, is drawn too), and where a piste
+  touches the next one twice (a shortcut) its known length picks the right place (`stepCourse` in
+  `map.js`). It starts at the piste nearest the lift. Where the next mapped course still starts
+  away from where the last one ended (the data has no piste there), a dotted line keeps the route
+  in one piece.
+- **One piste as long as you can.** Of the ways down from one lift to another, the app drops those
+  that only switch piste more often for about the same distance: another way with fewer pistes,
+  at most 300 m or 10 % longer and no harder, wins (`simplerDescents` in `app.js`). That also
+  drops a way that first skis a short stretch of another piste to reach one starting at the same
+  lift: there are signs at the lift, so the route starts on that piste itself.
 - **It follows you.** The map opens on the step you are at (its label yellow) and the next three,
   in full colour; the rest of the route is lighter and the steps done are grey. Tick a step and
   the map moves on. **⤢ Whole route** shows all of it, **◎ My step** goes back.

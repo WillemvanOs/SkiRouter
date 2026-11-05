@@ -187,7 +187,7 @@ function buildFromSkimapData(area) {
 // metres] in order — with every piste's name and colour in `pistes`.
 function addDescents(area, liftByNr, addEdge) {
   const info = new Map((area.pistes || []).map(p => [p.pisteNr, p]));
-  area.afdalingen.forEach(({ van, naar, delen }) => {
+  simplerDescents(area.afdalingen, info).forEach(({ van, naar, delen }) => {
     if (!liftByNr.has(van) || !liftByNr.has(naar) || !delen?.length) return;
     // A third element is the colour of a short, harder stretch folded into
     // this part (a connector): not a step of its own, but the filter sees it.
@@ -216,6 +216,30 @@ function addDescents(area, liftByNr, addEdge) {
       km: Math.round(metres / 10) / 100,
     });
   });
+}
+
+// Ski one piste as long as you can: of the ways from one lift top to one
+// lift bottom, drop those that only switch piste more often for about the
+// same distance. A way down is dropped when another has fewer pistes, is
+// not more than SIMPLER_SLACK_M (or SIMPLER_SLACK of its length) longer,
+// and is no harder. That also drops a way that first skis a short stretch
+// of another piste to reach one that starts at the same lift (there are
+// signs at the lift: the route starts on that piste itself).
+const SIMPLER_SLACK = 0.1;
+const SIMPLER_SLACK_M = 300;
+function simplerDescents(afdalingen, info) {
+  const rank = c => ['groen', 'blauw', 'rood', 'zwart', 'skiroute'].indexOf(c);
+  const sized = afdalingen.filter(d => d.delen?.length).map(d => ({
+    d,
+    pair: `${d.van}>${d.naar}`,
+    parts: d.delen.length,
+    len: d.delen.reduce((sum, [, metres]) => sum + metres, 0),
+    hardest: Math.max(...d.delen.flatMap(([nr, , ook]) => [rank(info.get(nr)?.kleur), ook ? rank(ook) : -1])),
+  }));
+  const byPair = new Map();
+  sized.forEach(x => { if (!byPair.has(x.pair)) byPair.set(x.pair, []); byPair.get(x.pair).push(x); });
+  return sized.filter(x => !byPair.get(x.pair).some(y => y !== x && y.parts < x.parts
+    && y.len <= x.len + Math.max(SIMPLER_SLACK_M, x.len * SIMPLER_SLACK) && y.hardest <= x.hardest)).map(x => x.d);
 }
 
 // ── Area loading ─────────────────────────────────────────────────────────────

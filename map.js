@@ -214,6 +214,113 @@ function pisteJunction(nr, next) {
   return best?.p || null;
 }
 
+// ── A route step's course over the whole piste network ──────────────────────
+//
+// A step names one piste, but its course in the map data often leaves that
+// piste's own lines for a while: a stretch shared with another piste and
+// mapped under that one, or a short piece folded into this step at build
+// time. So the course is found over every piste line of the area at once,
+// downhill along each line (the build orients them so), as far as possible
+// on the step's own piste. Where several places fit (a shortcut that leaves
+// a piste and joins it again touches it at both ends), the step's known
+// length decides. It starts at the piste closest to the lift, so the dotted
+// line from a lift to its first piste stays short.
+const NET_JOIN_M = 30;        // points of two lines this close: you can cross over
+const NET_OTHER_COST = 3;     // metres on another piste count three times
+const NET_UPHILL_COST = 8;    // against a line's direction only when nothing else goes
+const NET_NEXT_M = 40;        // where a piste is this close to the next one, you can change
+const NET_START_GAIN_M = 80;  // start on another piste only when it is this much closer
+const areaNets = new WeakMap();
+function areaNet() {
+  if (areaNets.has(currentArea)) return areaNets.get(currentArea);
+  const pts = [], nrsOf = [], out = [], byKey = new Map();
+  Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => lines.forEach(line => {
+    const key = JSON.stringify(line);
+    if (byKey.has(key)) { byKey.get(key).add(nr); return; }
+    const nrs = new Set([nr]);
+    byKey.set(key, nrs);
+    line.forEach((p, k) => {
+      const id = pts.length;
+      pts.push(p); nrsOf.push(nrs); out.push([]);
+      if (k > 0) {
+        const d = distanceM(line[k - 1], p);
+        out[id - 1].push({ to: id, d, nrs, down: true });
+        out[id].push({ to: id - 1, d, nrs, down: false });
+      }
+    });
+  }));
+  // Crossing over between lines: a coarse grid keeps it quick.
+  const cell = p => `${Math.floor(p[0] / 0.0004)}|${Math.floor(p[1] / 0.0006)}`;
+  const grid = new Map();
+  pts.forEach((p, i) => { const c = cell(p); if (!grid.has(c)) grid.set(c, []); grid.get(c).push(i); });
+  pts.forEach((p, i) => {
+    const [a, b] = cell(p).split('|').map(Number);
+    for (let da = -1; da <= 1; da++) for (let db = -1; db <= 1; db++) {
+      for (const j of grid.get(`${a + da}|${b + db}`) || []) {
+        if (j <= i || nrsOf[j] === nrsOf[i]) continue;
+        const d = distanceM(p, pts[j]);
+        if (d <= NET_JOIN_M) { out[i].push({ to: j, d, join: true }); out[j].push({ to: i, d, join: true }); }
+      }
+    }
+  });
+  const net = { pts, nrsOf, out };
+  areaNets.set(currentArea, net);
+  return net;
+}
+
+function nearestNetPoint(net, p, test) {
+  let best = -1, bestD = Infinity;
+  net.pts.forEach((q, i) => { if (test && !test(i)) return; const d = distanceM(p, q); if (d < bestD) { bestD = d; best = i; } });
+  return { i: best, d: bestD };
+}
+
+// The course of piste `nr` from `from` to the point `to`, or to where it
+// meets piste `towards`; `length` (metres) is how long the step is. Null when
+// the map data has no such course.
+function stepCourse(nr, from, { to = null, towards = null, length = null } = {}) {
+  const net = areaNet();
+  if (!net.pts.length || !from || !net.pts.some((p, i) => net.nrsOf[i].has(nr))) return null;
+  const onNr = i => net.nrsOf[i].has(nr);
+  const own = nearestNetPoint(net, from, onNr), any = nearestNetPoint(net, from);
+  const start = own.d - any.d > NET_START_GAIN_M ? any.i : own.i;
+  let targets;
+  if (towards) {
+    const next = net.pts.filter((p, i) => net.nrsOf[i].has(towards));
+    if (!next.length) return null;
+    targets = new Set(net.pts.map((p, i) => i).filter(i => onNr(i) && next.some(q => distanceM(net.pts[i], q) <= NET_NEXT_M)));
+    if (!targets.size) return null;
+  } else if (to) {
+    const ownEnd = nearestNetPoint(net, to, onNr), anyEnd = nearestNetPoint(net, to);
+    targets = new Set([ownEnd.d - anyEnd.d > NET_START_GAIN_M ? anyEnd.i : ownEnd.i]);
+  } else return null;
+  // Dijkstra on cost; `len` keeps the metres actually skied.
+  const cost = new Map([[start, 0]]), len = new Map([[start, 0]]), prev = new Map();
+  const heap = new MinHeap();
+  heap.push(0, start);
+  const cap = (length || 2000) * 4 + 2000;
+  const found = [];
+  while (heap.size) {
+    const u = heap.pop();
+    const c = cost.get(u);
+    if (c > cap) break;
+    if (targets.has(u) && u !== start) found.push({ u, len: len.get(u), c });
+    if (found.length && (!length || found.length >= 12)) break;
+    for (const e of net.out[u]) {
+      const w = e.join ? e.d : e.d * (e.nrs.has(nr) ? 1 : NET_OTHER_COST) * (e.down ? 1 : NET_UPHILL_COST);
+      if (c + w < (cost.get(e.to) ?? Infinity)) {
+        cost.set(e.to, c + w); len.set(e.to, len.get(u) + e.d); prev.set(e.to, u);
+        heap.push(c + w, e.to);
+      }
+    }
+  }
+  if (!found.length) return null;
+  const end = length ? found.reduce((b, f) => Math.abs(f.len - length) < Math.abs(b.len - length) ? f : b) : found[0];
+  const seg = [];
+  for (let i = end.u; i !== undefined; i = prev.get(i)) seg.push(net.pts[i]);
+  seg.reverse();
+  return seg.length >= 2 ? seg : null;
+}
+
 // The route as drawable pieces, numbered like the step list (transfers have
 // no number of their own). A day plan's route also holds its lunch, as
 // { lunch: restaurant }: not numbered, but tickable like a step. `item` is
@@ -266,7 +373,9 @@ function routePieces(path) {
     parts.forEach((part, k) => {
       ++number;
       const target = pos[part.to] || (parts[k + 1] ? pisteJunction(part.pisteNr, parts[k + 1].pisteNr) : pos[edge.to]);
-      const seg = pisteSegment(part.pisteNr, cursor, target);
+      const length = part.km != null ? part.km * 1000 : null;
+      const seg = stepCourse(part.pisteNr, cursor, pos[part.to] || !parts[k + 1] ? { to: target, length } : { towards: parts[k + 1].pisteNr, length })
+        || pisteSegment(part.pisteNr, cursor, target);
       if (seg) { bridge(seg[0]); pieces.push({ kind: 'piste', edge: part, latlngs: seg, number, item, step: item }); }
       else if (cursor && target) pieces.push({ kind: 'link', edge: part, latlngs: [cursor, target], number, item, step: item, unknown: true });
       item++;
