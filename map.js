@@ -382,8 +382,9 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
 
   // The whole area: faint behind a route; without one (the Map tab before
   // planning) as the piste map itself, every lift and piste labelled. There
-  // the whole area shows only lifts, peaks and villages; pistes, POIs and
-  // hamlets come in once zoomed in (see showOverviewDetail).
+  // the whole area shows the lifts, the pistes' lines, peaks and villages;
+  // the pistes' numbers, POIs and hamlets come in once zoomed in (see
+  // showOverviewDetail).
   const overview = !path.length;
   const detail = overview ? routeMapDetail : routeMapLayer;
   Object.entries(currentArea?.pisteLijnen || {}).forEach(([nr, lines]) => {
@@ -393,7 +394,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       L.polyline(line.map(toLatLng), overview
         ? { renderer, color: colour, weight: 3, opacity: 0.8 }
         : { renderer, color: colour, weight: 2, opacity: 0.17 })
-        .bindPopup(escapeHtml(name)).addTo(detail);
+        .bindPopup(escapeHtml(name)).addTo(routeMapLayer); // the lines always; their numbers once zoomed in
     });
     if (overview && lines.length) {
       // Its number (or name) halfway along its longest stretch
@@ -512,11 +513,11 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
 }
 
 // The overview without a route: with the whole area in view only lifts (by
-// their code), peaks and villages; zoomed in a little, the lifts' names, the
-// pistes with their numbers, the POIs and hamlets as well (else they cover
+// their code), the pistes' lines, peaks and villages; zoomed in a little, the
+// lifts' names, the pistes' numbers, the POIs and hamlets as well (else they cover
 // the map).
 const LIFT_NAMES_ZOOM = 1.5;  // zoom steps in from the whole area
-const DETAIL_ZOOM = 1.5;      // the same for pistes, POIs and hamlets
+const DETAIL_ZOOM = 1.5;      // the same for piste numbers, POIs and hamlets
 let routeMapFitZoom = 0;
 function showOverviewDetail() {
   if (!routeMap) return;

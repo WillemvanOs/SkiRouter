@@ -606,10 +606,21 @@ function plannerHasRoute(planner) {
 function setActiveRoute(kind) {
   if (kind && !plannerHasRoute(kind)) kind = ['quick', 'day'].find(plannerHasRoute) || null;
   if (activeRoute !== kind) leaveRouteMap();
+  if (kind) routeClosed = false;
   activeRoute = kind;
   document.getElementById('route-screen').dataset.active = kind || '';
-  try { localStorage.setItem(ACTIVE_KEY_PREFIX + (currentArea?.id || ''), kind || ''); } catch {}
+  try { localStorage.setItem(ACTIVE_KEY_PREFIX + (currentArea?.id || ''), kind || (routeClosed ? 'none' : '')); } catch {}
   renderRoutePicker();
+}
+
+// ✕ beside the route's name: close it and see all your routes (the recent
+// ones and the saved ones). Nothing is lost: it stays under Recent, with its
+// ticks, until another route takes its place.
+let routeClosed = false; // closed on purpose: Route and Map show the overview, not a route
+function closeRoute() {
+  routeClosed = true;
+  setActiveRoute(null);
+  navTo(document.getElementById('route-screen').dataset.view || 'route');
 }
 
 // Forget what was chosen in this area: the route being followed, its
@@ -650,7 +661,7 @@ function navTo(tab) {
   showScreen('route');
   document.getElementById('route-screen').dataset.view = tab;
   if (activeRoute && !plannerHasRoute(activeRoute)) setActiveRoute(null);
-  if (!activeRoute) setActiveRoute(['quick', 'day'].find(plannerHasRoute) || null);
+  if (!activeRoute && !routeClosed) setActiveRoute(['quick', 'day'].find(plannerHasRoute) || null);
   renderRoutePicker();
   const has = !!activeRoute;
   document.getElementById('route-empty').style.display = !has && tab === 'route' ? 'block' : 'none';
@@ -685,6 +696,9 @@ function routeTitle(kind) {
   if (kind === 'quick') {
     return { kind: 'Route', title: lastQuickTitle || 'Your route' };
   }
+  // A saved route goes by its own name
+  const saved = typeof shownSavedDay === 'function' ? shownSavedDay() : null;
+  if (saved) return { kind: 'Saved route', title: saved.name };
   const walk = dayOptions?.[dayShown];
   return {
     kind: 'Day plan',
@@ -695,9 +709,11 @@ function routeTitle(kind) {
 
 function renderRoutePicker() {
   const has = activeRoute && plannerHasRoute(activeRoute);
-  const t = has ? routeTitle(activeRoute) : { kind: 'No route yet', title: 'Plan a route' };
+  const any = ['quick', 'day'].some(plannerHasRoute) || savedRoutesHere().length;
+  const t = has ? routeTitle(activeRoute) : any ? { kind: 'Your routes', title: 'Choose or plan a route' } : { kind: 'No route yet', title: 'Plan a route' };
   document.getElementById('route-picker-kind').textContent = t.kind;
   document.getElementById('route-picker-title').textContent = t.title;
+  document.getElementById('route-close').style.display = has ? '' : 'none';
 }
 
 function routePickerOptions() {
@@ -708,11 +724,13 @@ function routePickerOptions() {
       run: () => { setActiveRoute(kind); navTo(document.getElementById('route-screen').dataset.view || 'route'); } });
   });
   if (typeof savedDays !== 'undefined' && (!accountsOn || account)) {
-    savedDays.forEach(day => options.push({ group: 'Saved days', icon: 'star', label: day.name,
+    const shown = activeRoute === 'day' ? shownSavedDay() : null;
+    savedDays.forEach(day => options.push({ group: 'Saved routes', icon: 'star', label: day.name, on: day.id === shown?.id,
       sub: [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '),
       run: () => openSavedDay(day.id), edit: () => showSavedDayMenu(day.id) }));
   }
   options.push({ group: '', icon: 'plus', label: 'Plan a new route', run: () => navTo('plan') });
+  if (activeRoute) options.push({ group: '', icon: 'x', label: 'Close this route', sub: 'See all your routes', run: closeRoute });
   return options;
 }
 
@@ -750,13 +768,34 @@ function showRouteMenu() {
   menu.classList.add('open');
 }
 
-// No route yet: the saved days to pick from, under the button to plan one.
+// The saved routes the app can show (with accounts on: once signed in).
+function savedRoutesHere() {
+  return typeof savedDays !== 'undefined' && (!accountsOn || account) ? savedDays : [];
+}
+
+// No route open: all your routes. The recent ones (tap to go back to one)
+// and every saved route, with ✎ to rename, change or delete it; above them
+// the button to plan a new one.
 function renderEmptySaved() {
   const el = document.getElementById('route-empty-saved');
-  const days = typeof savedDays !== 'undefined' && (!accountsOn || account) ? savedDays : [];
-  el.innerHTML = days.length ? `<div class="prefs-label">${ui('star')} Your saved days</div>` + days.slice(0, 5).map((day, i) =>
-    `<button type="button" class="route-empty-day" data-day="${i}"><strong>${escapeHtml(day.name)}</strong><small>${escapeHtml(day.area_name)}${day.summary?.km != null ? ` · ${day.summary.km} km` : ''}</small></button>`).join('') : '';
+  const recent = ['quick', 'day'].filter(plannerHasRoute);
+  const days = savedRoutesHere();
+  const any = recent.length || days.length;
+  document.getElementById('route-empty-title').textContent = any ? 'Your routes' : 'No route yet';
+  document.getElementById('route-empty-intro').style.display = any ? 'none' : '';
+  const item = (attrs, icon, title, sub) => `<button type="button" class="route-empty-day" ${attrs}>${ui(icon)}<span><strong>${escapeHtml(title)}</strong><small>${escapeHtml(sub)}</small></span></button>`;
+  el.innerHTML = (recent.length ? `<div class="prefs-label">${ui('clock')} Recent</div>` + recent.map(kind => {
+    const t = routeTitle(kind);
+    return item(`data-recent="${kind}"`, kind === 'quick' ? 'flag' : 'day', t.title, t.kind);
+  }).join('') : '')
+    + (days.length ? `<div class="prefs-label">${ui('star')} Saved routes</div>` + days.map((day, i) =>
+      `<div class="route-menu-row">${item(`data-day="${i}"`, 'star', day.name, [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '))}<button type="button" class="route-menu-del" data-edit="${i}" aria-label="Change ${escapeHtml(day.name)}">${ui('edit')}</button></div>`).join('') : '');
+  el.querySelectorAll('[data-recent]').forEach(btn => btn.addEventListener('click', () => {
+    setActiveRoute(btn.dataset.recent);
+    navTo(document.getElementById('route-screen').dataset.view || 'route');
+  }));
   el.querySelectorAll('[data-day]').forEach(btn => btn.addEventListener('click', () => openSavedDay(days[+btn.dataset.day].id)));
+  el.querySelectorAll('[data-edit]').forEach(btn => btn.addEventListener('click', () => showSavedDayMenu(days[+btn.dataset.edit].id)));
 }
 
 // Map without a route: the whole area, its facts above it.
@@ -798,7 +837,9 @@ function resetPlanner() {
   resetDayPlan();
   // The route that was being followed here, as it was left.
   activeRoute = null;
-  setActiveRoute(storedActiveRoute());
+  const stored = storedActiveRoute();
+  routeClosed = stored === 'none';
+  setActiveRoute(routeClosed ? null : stored);
 }
 
 // Reopened halfway down the mountain: bring back the route being followed.
@@ -1419,7 +1460,7 @@ function renderSettingsMenu() {
   document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
   if (signedIn) {
     document.getElementById('settings-account-name').textContent = account.email || 'Account';
-    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved days' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
+    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved routes' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved routes` : 'Free account · get the season pass';
   }
 }
 

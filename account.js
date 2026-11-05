@@ -398,18 +398,20 @@ async function saveDaySubmit(event) {
   if (accountsOn) {
     const res = await sb.from('routes').insert(row).select().single();
     if (res.error) {
-      msg.textContent = /200/.test(res.error.message) ? res.error.message : 'Could not save this day. Try again.';
+      msg.textContent = /200/.test(res.error.message) ? res.error.message : 'Could not save this route. Try again.';
       return;
     }
     data = res.data;
   } else {
-    if (savedDays.length >= 200) { msg.textContent = 'You can save up to 200 days. Delete one first.'; return; }
+    if (savedDays.length >= 200) { msg.textContent = 'You can save up to 200 routes. Delete one first.'; return; }
     data = { ...row, id: localDayId(), created_at: new Date().toISOString() };
   }
   savedDays.unshift(data);
   storeSavedDays();
   saveDayCancel();
   stopEditingDay();
+  openedDayId = data.id; // the day on screen is this saved route now
+  if (typeof renderRoutePicker === 'function') renderRoutePicker();
   const btn = document.getElementById('save-day-btn');
   btn.innerHTML = `${ui('check')} ${accountsOn ? 'Saved in your account' : 'Saved on this phone'}`;
   setTimeout(() => renderSaveDay(), 3000);
@@ -461,6 +463,7 @@ async function openSavedDay(id, { edit = false } = {}) {
   clearProgress('day');
   planDay({ override: inputs, silent: true });
   if (day.option > 0 && day.option < dayOptions.length) renderDayOption(day.option);
+  openedDayId = day.id;
   // To change it: in the Plan tab, with its settings, and Update this day
   if (edit) {
     editingDay = day.id;
@@ -479,6 +482,14 @@ async function openSavedDay(id, { edit = false } = {}) {
 // ── Changing a saved day ─────────────────────────────────────────────────────
 
 let editingDay = null; // the saved day being changed in the Plan tab
+let openedDayId = null; // the saved day opened last, while its day is on screen
+
+// The saved day on screen (its name is the day's title), or null: none was
+// opened, the day was planned again, or another of its options is shown.
+function shownSavedDay() {
+  const day = openedDayId && savedDays.find(d => d.id === openedDayId);
+  return day && plannerHasRoute('day') && (day.option || 0) === dayShown ? day : null;
+}
 
 function renderSaveDay() {
   const day = editingDay && savedDays.find(d => d.id === editingDay);
@@ -486,7 +497,7 @@ function renderSaveDay() {
   document.getElementById('save-day-edit').style.display = day ? '' : 'none';
   document.getElementById('save-day-edit-name').textContent = day ? day.name : '';
   const btn = document.getElementById('save-day-btn');
-  btn.innerHTML = `${ui('star')} ${day ? 'Save as a new day' : 'Save this day'}`;
+  btn.innerHTML = `${ui('star')} ${day ? 'Save as a new route' : 'Save this route'}`;
   document.getElementById('save-day-msg').textContent = '';
 }
 
@@ -501,9 +512,9 @@ async function saveDayUpdate() {
   const changes = currentDayRow();
   const msg = document.getElementById('save-day-msg');
   if (!day || !changes) return;
-  if (changes.area_id !== areaIdNow(day.area_id)) { msg.textContent = 'This day is in another ski area. Save it as a new day instead.'; return; }
+  if (changes.area_id !== areaIdNow(day.area_id)) { msg.textContent = 'This route is in another ski area. Save it as a new route instead.'; return; }
   const { inputs, option, summary } = changes;
-  if (!await updateSavedDay(day.id, { inputs, option, summary })) { msg.textContent = 'Could not update this day. Try again.'; return; }
+  if (!await updateSavedDay(day.id, { inputs, option, summary })) { msg.textContent = 'Could not update this route. Try again.'; return; }
   const name = day.name;
   stopEditingDay();
   const btn = document.getElementById('save-day-btn');
@@ -539,15 +550,15 @@ function showSavedDayMenu(id) {
     document.body.appendChild(menu);
   }
   const close = () => menu.classList.remove('open');
-  menu.innerHTML = `<div class="step-menu-panel" role="dialog" aria-label="Change saved day">
+  menu.innerHTML = `<div class="step-menu-panel" role="dialog" aria-label="Change saved route">
       <div class="step-menu-title">${ui('star')} ${escapeHtml(day.name)}</div>
       <form class="save-day-form day-rename">
-        <input class="day-input" maxlength="100" aria-label="Name of this day" enterkeyhint="done" value="${escapeHtml(day.name)}">
+        <input class="day-input" maxlength="100" aria-label="Name of this route" enterkeyhint="done" value="${escapeHtml(day.name)}">
         <button class="save-day-ok" type="submit">Rename</button>
       </form>
       <div class="save-day-msg"></div>
       <button type="button" class="step-menu-btn" data-act="route">${ui('route')} Change the route</button>
-      <button type="button" class="step-menu-btn step-menu-danger" data-act="delete">${ui('trash')} Delete this day</button>
+      <button type="button" class="step-menu-btn step-menu-danger" data-act="delete">${ui('trash')} Delete this route</button>
       <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button>
     </div>`;
   const msg = menu.querySelector('.save-day-msg');
@@ -557,6 +568,7 @@ function showSavedDayMenu(id) {
     if (!name) return;
     if (name === day.name) { close(); return; }
     if (!await updateSavedDay(day.id, { name })) { msg.textContent = 'Could not rename it. Try again.'; return; }
+    if (typeof renderRoutePicker === 'function') renderRoutePicker(); // its new name in the title
     if (editingDay === day.id) renderSaveDay();
     close();
   });
@@ -625,13 +637,13 @@ function renderAccount() {
   document.getElementById('acc-pass').innerHTML = !paymentsOn
     ? `<strong>${ui('done')} Test phase</strong><span>Everything is free while SkiRouter is being tested: the day planner and saving your days included. Nothing to pay.</span>`
     : paid
-    ? `<strong>${ui('done')} Season pass</strong><span>Day planner and saved days until ${escapeHtml(formatDay(new Date(new Date(account.paid_until) - 1)))}</span>`
+    ? `<strong>${ui('done')} Season pass</strong><span>Day planner and saved routes until ${escapeHtml(formatDay(new Date(new Date(account.paid_until) - 1)))}</span>`
     : `<strong>Free account</strong><span>Quick routes. The season pass adds the day planner and saving your days: €${escapeHtml(accountCfg.seasonPrice || '9.99')} for the ${seasonLabel()} season.</span>`;
   document.getElementById('acc-buy').style.display = paid ? 'none' : '';
 
   const list = document.getElementById('acc-days');
   document.getElementById('acc-days-section').style.display = paid || savedDays.length ? '' : 'none';
-  list.innerHTML = savedDays.length ? '' : '<div class="acc-empty">No saved days yet. Plan a day and tap Save this day.</div>';
+  list.innerHTML = savedDays.length ? '' : '<div class="acc-empty">No saved routes yet. Plan a day and tap Save this route.</div>';
   savedDays.forEach(day => {
     const s = day.summary || {};
     const row = document.createElement('div');
@@ -649,7 +661,7 @@ function renderAccount() {
 }
 
 async function deleteAccountClicked() {
-  if (!confirm('Delete your account, your preferences and your saved days? This cannot be undone. A season pass you paid for is not refunded.')) return;
+  if (!confirm('Delete your account, your preferences and your saved routes? This cannot be undone. A season pass you paid for is not refunded.')) return;
   if (!navigator.onLine) { showAccountNotice('You are offline. Deleting your account needs a connection.'); return; }
   const { error } = await sb.functions.invoke('delete-account', { body: {} });
   if (error) { showAccountNotice('Your account could not be deleted. Try again, or email us.'); return; }

@@ -33,7 +33,7 @@ area picker and Settings.
 **The guide** is a page of its own, `guide/` (on the site: `…/guide/`), visited from the app only
 (**Settings → Guide**), not linked from the landing page. It opens in its own browser tab next to the app, so it has no "Back to the app" link: close the tab to return. It explains every feature with
 screenshots (`guide/img/`): getting started, the tabs, planning a route and a day, picking places,
-following it, the map, switching routes and saved days, lift status, avoiding, preferences,
+following it, the map, switching routes and saved routes, lift status, avoiding, preferences,
 settings, the account and season pass, offline use, the data. It uses the landing page's
 stylesheet (`about/about.css`) plus `guide/guide.css`. Update both pages when the app changes. The screenshots in `about/img/` are of the app itself;
 make new ones when the look changes.
@@ -136,7 +136,7 @@ report lists every part and what became of it.
 
 The app starts on the area picker, with the area used last on top (*Your last ski area*); that
 area opens as it was left. Opening another area clears what was chosen in it before (the route
-being followed, the day's start, end and stops; `clearAreaSelections` in `app.js`); saved days,
+being followed, the day's start, end and stops; `clearAreaSelections` in `app.js`); saved routes,
 preferences and avoided lifts stay.
 
 The area picker searches names, villages, regions and countries (with a few local names:
@@ -185,18 +185,21 @@ says so.
 - **Plan** — what to plan, with a switch at the top: **To a destination** (A to B) or **Whole
   day** (with a season pass; a ticket mark shows it). A route to a destination opens in Route as
   soon as it is calculated. A day shows its options right there (Option 1, 2, 3, under
-  **Choose your day**), with **Save this day** and **Show the steps**.
+  **Choose your day**), with **Save this route** and **Show the steps**.
 - **Route** — the route being followed, step by step: ticking off, replan from here, the late
-  warning. Without a route: a button to plan one and your saved days.
+  warning. Without a route open: **Your routes**, with a button to plan a new one, the recent routes
+  and every saved route (✎ beside each: rename, change, delete). **✕** beside the route's name (or
+  **Close this route** in its menu) closes it and comes back here (`closeRoute`; kept closed per
+  area as `skirouter:active:<area>` = `none`, until another route is opened).
 - **Map** — the same route on the map, following the step you are at; without a route the whole
   area with its km, lifts and altitude, drawn as a piste map. With the whole area in view it shows
-  only the lifts (by their code), peaks and villages. Zoomed in a little (`LIFT_NAMES_ZOOM` and
-  `DETAIL_ZOOM` in `map.js`) the lifts get their names, and the pistes (in their colour with their
-  number, or name for one without), mountain restaurants, viewpoints, snow parks and hamlets
+  the lifts (by their code), the pistes' lines in their colours, peaks and villages. Zoomed in a little (`LIFT_NAMES_ZOOM` and
+  `DETAIL_ZOOM` in `map.js`) the lifts get their names, and the pistes' numbers (or names, for one
+  without), mountain restaurants, viewpoints, snow parks and hamlets
   appear. Labels that would overlap, or sit under the map's
   buttons, are hidden until you zoom in. With a route, only the route stands out, as before.
 - **Settings** — a menu, each part on a screen of its own with **‹ Settings** at its top:
-  your **account** first (with accounts on: email, season pass, saved days); **Planning**:
+  your **account** first (with accounts on: email, season pass, saved routes); **Planning**:
   **Route preferences** (colours, pace, drag lifts, ski bus, avoided lifts and pistes; the
   **Route preferences** line in the Plan tab opens the same screen, with **Back to planning**)
   and **Ski area**; **App**: **App settings** (appearance, terms, privacy, credits), **Guide**
@@ -204,8 +207,9 @@ says so.
 
 Route and Map always show the same route, the active one. The bar at their top says which, and
 opens a menu: **Recent** (the last route to a destination and the last day, so a quick detour
-does not lose the day being followed) and **Saved days**, plus planning a new route. The active
-route is kept per area (`skirouter:active:<area>`); saved days are kept on the phone too
+does not lose the day being followed) and **Saved routes**, plus planning a new route. A saved
+route that is opened goes by its own name at the top (`shownSavedDay` in `account.js`). The active
+route is kept per area (`skirouter:active:<area>`); saved routes are kept on the phone too
 (`skirouter:saved-days`), so they open without a signal.
 
 **Header.** One slim line: the logo and the open ski area (tap it to choose another), with its
@@ -444,7 +448,7 @@ country. The preferences (`skirouter:prefs`, favourite areas, avoided lifts and 
 with the account, so they follow you to another phone. A free account plans quick routes;
 the **season pass** (one payment per winter, valid until 30 June; bought from May on it is
 for the coming season) adds the **day planner** and **saving days** in the account. 👤 in the
-header opens the account: season pass, saved days (tap one to plan it again in its area, with
+header opens the account: season pass, saved routes (tap one to plan it again in its area, with
 the settings it was saved with), country, sign out and delete account. Without the pass the
 Day plan tab shows what the pass offers and a button to buy it.
 
@@ -459,12 +463,12 @@ How it fits together:
   them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
   Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
   app (`?paid=1`) the app asks for the profile until the pass is there.
-- **Changing a saved day**: the ✎ beside a saved day (route menu, account screen) opens its own
-  menu: **Rename**, **Change the route** and **Delete this day**. Change the route plans the day
+- **Changing a saved route**: the ✎ beside a saved route (route menu, account screen) opens its own
+  menu: **Rename**, **Change the route** and **Delete this route**. Change the route plans the day
   again in the Plan tab with its saved settings and shows "Changing <name>": plan it again as you
-  like, then **Update this day** (stores the new settings, option and summary in the same saved
+  like, then **Update this route** (stores the new settings, option and summary in the same saved
   day; migration `20261101000000_change_saved_days.sql` lets users update those columns) or
-  **Save as a new day**. Works the same for days kept on the phone without an account.
+  **Save as a new route**. Works the same for days kept on the phone without an account.
 - **The app** (`account.js`, `config.js`, `vendor/supabase/` = supabase-js 2.118.0, MIT): the
   sign-in screen before anything else, the account screen, the day planner behind the pass.
   The day planner itself still runs in the browser, so the pass is checked by the app; saved
@@ -472,7 +476,7 @@ How it fits together:
   opens offline on the mountain; preference changes made offline are sent once online.
 - With `config.js` left empty, accounts are off and the app works as before, all free. **Save
   this day** then keeps the day on the phone only (`skirouter:local-days`), in the route menu's
-  Saved days and on the empty Route tab. Once accounts are on, the
+  Saved routes and on the empty Route tab. Once accounts are on, the
   first sign-in moves these days into the account.
 
 **Test phase** (now): accounts are on, payments are not. `payments: false` in `config.js`
