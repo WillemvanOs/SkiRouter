@@ -1904,11 +1904,15 @@ window.addEventListener('resize', () => {
 
 // The Route tab opens at the top of the page: the route bar and how far
 // along you are first, the steps below (the one you are at is marked).
+// Back to the list (from Map, or another tab): at the step you are at, in
+// the middle of the screen; at the top when you have not started yet.
 function showListTop(planner) {
   const steps = document.getElementById(MAP_PARTS[planner].steps);
   steps.classList.add('no-entry'); // shown again: no fade-in a second time
   mapScrollTarget = null;
   window.scrollTo({ top: 0, behavior: 'instant' }); // also stops any scroll still running
+  const next = steps.querySelector('.done') && steps.querySelector('.next');
+  if (next) next.scrollIntoView({ behavior: 'instant', block: 'center' });
 }
 
 function drawPlannerMap(planner) {
