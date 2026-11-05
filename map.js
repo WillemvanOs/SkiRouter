@@ -394,7 +394,7 @@ function pisteColourOf(nr) {
 }
 
 // A number as on a piste map; runs without one go by their name.
-const hasOwnNumber = nr => nr && !String(nr).startsWith('~') && String(nr).length <= 4;
+const hasOwnNumber = nr => nr && !String(nr).startsWith('~') && pisteNumber(nr).length <= 4;
 
 function shortName(name, max = 14) {
   const text = String(name || '').trim();
@@ -424,7 +424,7 @@ function stepTagHtml(piece) {
   }
   if (e.pisteNr) {
     const own = hasOwnNumber(e.pisteNr);
-    const text = own ? e.pisteNr : shortName(pisteOf(e.pisteNr)?.naam) || '•';
+    const text = own ? pisteNumber(e.pisteNr) : shortName(pisteOf(e.pisteNr)?.naam) || '•';
     return `<span class="map-tag map-piste${own ? '' : ' is-name'}" style="background:${pisteColourOf(e.pisteNr)}">${escapeHtml(text)}</span>`;
   }
   return `<span class="map-tag map-link">${e.type === 'bus' ? ICONS.bus : ICONS.walk}</span>`;
@@ -509,7 +509,7 @@ async function renderRouteMap(el, path, done = 0, opts = {}) {
       // Its number (or name) halfway along its longest stretch
       const longest = lines.reduce((best, line) => line.length > best.length ? line : best, lines[0]).map(toLatLng);
       const own = hasOwnNumber(nr);
-      const text = own ? nr : shortName(pisteOf(nr)?.naam) || '';
+      const text = own ? pisteNumber(nr) : shortName(pisteOf(nr)?.naam) || '';
       if (text) {
         const html = `<span class="map-tag map-piste${own ? '' : ' is-name'}" style="background:${colour}">${escapeHtml(text)}</span>`;
         const marker = labelMarker(halfway(longest), html, true).bindPopup(escapeHtml(name)).addTo(detail);

@@ -32,6 +32,12 @@ function pisteTijd(piste) {
 
 // Altitude is never known from this format. Render nothing instead of
 // "undefinedm"/"nullm" wherever a station's alt would otherwise be shown.
+// A piste's number as on the signs. A piste with stretches in two colours
+// is kept as one per colour ("25b (blauw)" beside "25b"); the sign shows 25b.
+function pisteNumber(nr) {
+  return String(nr ?? '').replace(/ \((groen|blauw|rood|zwart|skiroute)\)$/, '');
+}
+
 function formatAlt(alt) {
   return alt != null ? `${alt}m` : '';
 }
@@ -1904,11 +1910,15 @@ window.addEventListener('resize', () => {
 
 // The Route tab opens at the top of the page: the route bar and how far
 // along you are first, the steps below (the one you are at is marked).
+// Back to the list (from Map, or another tab): at the step you are at, in
+// the middle of the screen; at the top when you have not started yet.
 function showListTop(planner) {
   const steps = document.getElementById(MAP_PARTS[planner].steps);
   steps.classList.add('no-entry'); // shown again: no fade-in a second time
   mapScrollTarget = null;
   window.scrollTo({ top: 0, behavior: 'instant' }); // also stops any scroll still running
+  const next = steps.querySelector('.done') && steps.querySelector('.next');
+  if (next) next.scrollIntoView({ behavior: 'instant', block: 'center' });
 }
 
 function drawPlannerMap(planner) {
@@ -1957,7 +1967,7 @@ function stepElement(edge, index, clock, next) {
   if (edge.type === 'piste') {
     // Piste: the number sits inside a sign in the difficulty colour, like on the mountain.
     const diff = edge.diff || 'rood';
-    const nr = String(edge.pisteNr || '');
+    const nr = pisteNumber(edge.pisteNr || '');
     // Unnumbered runs use their name (or a generated "~n" key) as pisteNr:
     // the sign then shows a skier instead.
     const short = nr.replace(/\s+/g, '').length <= 3 && !nr.startsWith('~');
@@ -2079,7 +2089,7 @@ function isAvoided(edge) {
 // "24 Jufen", or just the name for a run without a number of its own.
 function pisteTitle(nr) {
   const piste = (currentArea?.pistes || []).find(p => p.pisteNr === nr);
-  return hasOwnNumber(nr) ? [nr, piste?.naam].filter(Boolean).join(' ') : piste?.naam || nr;
+  return hasOwnNumber(nr) ? [pisteNumber(nr), piste?.naam].filter(Boolean).join(' ') : piste?.naam || nr;
 }
 
 function avoidClosedButton(closed) {

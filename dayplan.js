@@ -338,7 +338,7 @@ function restaurantWhere(r) {
 // built from map data use the name, or a generated "~n", as its key).
 function pisteLabel(nr) {
   const piste = (currentArea?.pistes || []).find(p => p.pisteNr === nr);
-  if (nr && !nr.startsWith('~') && nr.length <= 4) return `piste ${nr}`;
+  if (nr && !nr.startsWith('~') && pisteNumber(nr).length <= 4) return `piste ${pisteNumber(nr)}`;
   return piste?.naam ? `the ${piste.naam} piste` : 'the piste';
 }
 
