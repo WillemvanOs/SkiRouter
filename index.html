@@ -103,7 +103,7 @@
     </div>
 
     <div class="prefs-section" id="acc-days-section">
-      <div class="prefs-label"><i data-i="star"></i> Saved days <small>tap one to plan it again in its ski area, with today's lift status</small></div>
+      <div class="prefs-label"><i data-i="star"></i> Saved routes <small>tap one to plan it again in its ski area, with today's lift status</small></div>
       <div class="acc-days" id="acc-days"></div>
     </div>
 
@@ -498,12 +498,12 @@
       <!-- Changing a saved day: update it, or keep the old one and save this as a new day -->
       <div class="save-day-edit" id="save-day-edit" style="display:none">
         <div class="save-day-editing"><i data-i="edit"></i> <span>Changing <strong id="save-day-edit-name"></strong></span></div>
-        <button class="save-day-ok" type="button" onclick="saveDayUpdate()">Update this day</button>
+        <button class="save-day-ok" type="button" onclick="saveDayUpdate()">Update this route</button>
         <button class="link-btn" type="button" onclick="stopEditingDay()">Stop changing</button>
       </div>
-      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this day</button>
+      <button class="link-btn" id="save-day-btn" type="button" onclick="saveDayStart()"><i data-i="star"></i> Save this route</button>
       <form class="save-day-form" id="save-day-form" style="display:none" onsubmit="saveDaySubmit(event)">
-        <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this day" enterkeyhint="done">
+        <input class="day-input" id="save-day-name" maxlength="100" aria-label="Name of this route" enterkeyhint="done">
         <button class="save-day-ok" type="submit">Save</button>
         <button class="link-btn" type="button" onclick="saveDayCancel()">Cancel</button>
       </form>

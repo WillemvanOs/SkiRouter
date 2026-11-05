@@ -685,6 +685,9 @@ function routeTitle(kind) {
   if (kind === 'quick') {
     return { kind: 'Route', title: lastQuickTitle || 'Your route' };
   }
+  // A saved route goes by its own name
+  const saved = typeof shownSavedDay === 'function' ? shownSavedDay() : null;
+  if (saved) return { kind: 'Saved route', title: saved.name };
   const walk = dayOptions?.[dayShown];
   return {
     kind: 'Day plan',
@@ -708,7 +711,8 @@ function routePickerOptions() {
       run: () => { setActiveRoute(kind); navTo(document.getElementById('route-screen').dataset.view || 'route'); } });
   });
   if (typeof savedDays !== 'undefined' && (!accountsOn || account)) {
-    savedDays.forEach(day => options.push({ group: 'Saved days', icon: 'star', label: day.name,
+    const shown = activeRoute === 'day' ? shownSavedDay() : null;
+    savedDays.forEach(day => options.push({ group: 'Saved routes', icon: 'star', label: day.name, on: day.id === shown?.id,
       sub: [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '),
       run: () => openSavedDay(day.id), edit: () => showSavedDayMenu(day.id) }));
   }
@@ -754,7 +758,7 @@ function showRouteMenu() {
 function renderEmptySaved() {
   const el = document.getElementById('route-empty-saved');
   const days = typeof savedDays !== 'undefined' && (!accountsOn || account) ? savedDays : [];
-  el.innerHTML = days.length ? `<div class="prefs-label">${ui('star')} Your saved days</div>` + days.slice(0, 5).map((day, i) =>
+  el.innerHTML = days.length ? `<div class="prefs-label">${ui('star')} Your saved routes</div>` + days.slice(0, 5).map((day, i) =>
     `<button type="button" class="route-empty-day" data-day="${i}"><strong>${escapeHtml(day.name)}</strong><small>${escapeHtml(day.area_name)}${day.summary?.km != null ? ` · ${day.summary.km} km` : ''}</small></button>`).join('') : '';
   el.querySelectorAll('[data-day]').forEach(btn => btn.addEventListener('click', () => openSavedDay(days[+btn.dataset.day].id)));
 }
@@ -1419,7 +1423,7 @@ function renderSettingsMenu() {
   document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
   if (signedIn) {
     document.getElementById('settings-account-name').textContent = account.email || 'Account';
-    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved days' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved days` : 'Free account · get the season pass';
+    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved routes' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved routes` : 'Free account · get the season pass';
   }
 }
 

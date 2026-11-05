@@ -84,6 +84,7 @@ function followDay() {
 // Called by resetPlanner() whenever an area is (re)loaded.
 function resetDayPlan() {
   if (typeof stopEditingDay === 'function') stopEditingDay(); // another area: not the saved day any more
+  openedDayId = null;
   resetSide('dstart');
   resetSide('dend');
   dayOptions = [];
@@ -1035,6 +1036,7 @@ function planWithStops(ctx, random, allStops, lunchAt) {
 // A fresh plan starts with nothing ticked, even when it is the same day as before.
 function planDayClicked(button) {
   clearProgress('day');
+  openedDayId = null; // a day of its own now, not the saved one
   button.disabled = true;
   const label = button.textContent;
   button.textContent = 'Planning…';
