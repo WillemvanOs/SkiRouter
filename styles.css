@@ -3744,7 +3744,8 @@ body.map-full .tabbar {
 
 .route-empty-day {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   width: 100%;
   margin-bottom: 8px;
   padding: 10px 14px;
@@ -3757,8 +3758,70 @@ body.map-full .tabbar {
   cursor: pointer;
 }
 
+.route-empty-day > span {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-empty-day strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .route-empty-day small {
   color: var(--fg-6a7d92);
+}
+
+.route-empty-day > .ui-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.route-empty .route-menu-row .route-empty-day {
+  flex: 1;
+  min-width: 0;
+}
+
+.route-empty .route-menu-row {
+  margin-bottom: 8px;
+}
+
+.route-empty .route-menu-row .route-empty-day {
+  margin-bottom: 0;
+}
+
+/* The route's name, and ✕ to close it */
+.route-picker-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.route-picker-row .route-picker {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.route-close {
+  flex: 0 0 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--bd-dde8f4);
+  border-radius: 14px;
+  background: var(--bg-ffffff);
+  box-shadow: var(--shadow);
+  color: var(--midnight);
+  cursor: pointer;
+}
+
+.route-close .ui-icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* ── Settings: a menu, each part on a screen of its own ───── */

@@ -516,15 +516,19 @@
 
   <!-- Route and Map: the route being followed, as steps or on the map -->
   <div id="route-screen" data-active="" data-view="route">
-  <button class="route-picker" id="route-picker" type="button" onclick="openRoutePicker()">
-    <span class="route-picker-text"><small id="route-picker-kind">No route yet</small><strong id="route-picker-title">Plan a route</strong></span>
-    <i data-i="down"></i>
-  </button>
+  <div class="route-picker-row">
+    <button class="route-picker" id="route-picker" type="button" onclick="openRoutePicker()">
+      <span class="route-picker-text"><small id="route-picker-kind">No route yet</small><strong id="route-picker-title">Plan a route</strong></span>
+      <i data-i="down"></i>
+    </button>
+    <!-- Close the route: back to all your routes -->
+    <button class="route-close" id="route-close" type="button" onclick="closeRoute()" aria-label="Close this route" title="Close this route" style="display:none"><i data-i="x"></i></button>
+  </div>
 
   <div class="card route-empty" id="route-empty" style="display:none">
-    <div class="card-title"><i data-i="list"></i> No route yet</div>
-    <p>Plan a route to a destination or a whole day: it shows here step by step, and on the map.</p>
-    <button class="plan-btn" type="button" onclick="navTo('plan')"><i data-i="route"></i> Plan a route</button>
+    <div class="card-title"><i data-i="list"></i> <span id="route-empty-title">No route yet</span></div>
+    <p id="route-empty-intro">Plan a route to a destination or a whole day: it shows here step by step, and on the map.</p>
+    <button class="plan-btn" type="button" onclick="navTo('plan')"><i data-i="route"></i> Plan a new route</button>
     <div class="route-empty-saved" id="route-empty-saved"></div>
   </div>
 

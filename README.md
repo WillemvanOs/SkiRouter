@@ -187,7 +187,10 @@ says so.
   soon as it is calculated. A day shows its options right there (Option 1, 2, 3, under
   **Choose your day**), with **Save this route** and **Show the steps**.
 - **Route** — the route being followed, step by step: ticking off, replan from here, the late
-  warning. Without a route: a button to plan one and your saved routes.
+  warning. Without a route open: **Your routes**, with a button to plan a new one, the recent routes
+  and every saved route (✎ beside each: rename, change, delete). **✕** beside the route's name (or
+  **Close this route** in its menu) closes it and comes back here (`closeRoute`; kept closed per
+  area as `skirouter:active:<area>` = `none`, until another route is opened).
 - **Map** — the same route on the map, following the step you are at; without a route the whole
   area with its km, lifts and altitude, drawn as a piste map. With the whole area in view it shows
   only the lifts (by their code), peaks and villages. Zoomed in a little (`LIFT_NAMES_ZOOM` and
