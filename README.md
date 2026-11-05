@@ -193,9 +193,9 @@ says so.
   area as `skirouter:active:<area>` = `none`, until another route is opened).
 - **Map** — the same route on the map, following the step you are at; without a route the whole
   area with its km, lifts and altitude, drawn as a piste map. With the whole area in view it shows
-  only the lifts (by their code), peaks and villages. Zoomed in a little (`LIFT_NAMES_ZOOM` and
-  `DETAIL_ZOOM` in `map.js`) the lifts get their names, and the pistes (in their colour with their
-  number, or name for one without), mountain restaurants, viewpoints, snow parks and hamlets
+  the lifts (by their code), the pistes' lines in their colours, peaks and villages. Zoomed in a little (`LIFT_NAMES_ZOOM` and
+  `DETAIL_ZOOM` in `map.js`) the lifts get their names, and the pistes' numbers (or names, for one
+  without), mountain restaurants, viewpoints, snow parks and hamlets
   appear. Labels that would overlap, or sit under the map's
   buttons, are hidden until you zoom in. With a route, only the route stands out, as before.
 - **Settings** — a menu, each part on a screen of its own with **‹ Settings** at its top:
