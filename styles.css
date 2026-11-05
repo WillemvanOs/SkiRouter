@@ -513,21 +513,6 @@ header {
 .header-live.not-live .live-dot { background: transparent; border: 1.5px solid rgba(225, 238, 252, 0.6); }
 
 /* In the area picker: back to the area that was open */
-.area-back {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: -4px 0 12px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 /* ── Main layout ──────────────────────────────────────────── */
 
 main {

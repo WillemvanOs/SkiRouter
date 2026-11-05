@@ -366,10 +366,10 @@ function renderAreaList() {
     return;
   }
 
-  // The area opened last time, one tap away (not while it is open: then
-  // "Back to …" is there).
+  // The area opened last time (or open now), one tap away: on start and when
+  // changing area alike.
   const last = lastArea();
-  if (last && last.id !== currentArea?.id) section('Your last ski area', [last]);
+  if (last) section('Your last ski area', [last]);
 
   const favourites = favouriteAreaIds().map(id => AREAS.find(a => a.id === id)).filter(Boolean)
     .sort((x, y) => x.name.localeCompare(y.name));
@@ -446,7 +446,8 @@ function areaButton(area) {
     ${area.liftstatus ? '<span class="area-btn-live"><span class="live-dot"></span>Live lift status</span>' : '<span class="area-btn-nolive"><span class="live-dot"></span>No live lift status</span>'}
     ${area.status === 'deels' ? `<span class="area-btn-warn">${ui('warn')} Not all lifts are connected</span>` : ''}
   `;
-  btn.addEventListener('click', () => selectArea(area));
+  // The area that is open: back to it as it was, without loading it again.
+  btn.addEventListener('click', () => area.id === currentArea?.id ? backToArea() : selectArea(area));
   const fav = isFavourite(area.id);
   const star = document.createElement('button');
   star.type = 'button';
@@ -542,9 +543,6 @@ function showAreaPicker() {
   document.getElementById('area-search').value = '';
   renderAreaList();
   clearAreaHeader();
-  const back = document.getElementById('area-back-btn');
-  back.style.display = currentArea ? 'flex' : 'none';
-  back.innerHTML = currentArea ? `${ui('back')} Back to ${escapeHtml(currentArea.name)}` : '';
   showScreen('picker');
   setNav(null);
   window.scrollTo({ top: 0, behavior: 'smooth' });
