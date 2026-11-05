@@ -318,7 +318,10 @@ data on a light background, so it works offline and is easy to read.
   that only switch piste more often for about the same distance: another way with fewer pistes,
   at most 300 m or 10 % longer and no harder, wins (`simplerDescents` in `app.js`). That also
   drops a way that first skis a short stretch of another piste to reach one starting at the same
-  lift: there are signs at the lift, so the route starts on that piste itself.
+  lift: there are signs at the lift, so the route starts on that piste itself. Lift tops a
+  transfer apart (like the tops of A1, A6 and A7) count as one place here (`transferGroups`), and
+  a first stretch under 300 m before a piste that passes within 150 m of the lift top is counted
+  as that piste (`startOnPisteAtLift`).
 - **It follows you.** The map opens on the step you are at (its label yellow) and the next three,
   in full colour; the rest of the route is lighter and the steps done are grey. Tick a step and
   the map moves on. **⤢ Whole route** shows all of it, **◎ My step** goes back.

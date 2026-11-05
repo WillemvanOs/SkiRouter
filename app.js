@@ -187,7 +187,8 @@ function buildFromSkimapData(area) {
 // metres] in order — with every piste's name and colour in `pistes`.
 function addDescents(area, liftByNr, addEdge) {
   const info = new Map((area.pistes || []).map(p => [p.pisteNr, p]));
-  simplerDescents(area.afdalingen, info).forEach(({ van, naar, delen }) => {
+  const descents = area.afdalingen.map(d => startOnPisteAtLift(d, liftByNr.get(d.van), info, area.pisteLijnen));
+  simplerDescents(descents, info, transferGroups(area.overstappen)).forEach(({ van, naar, delen }) => {
     if (!liftByNr.has(van) || !liftByNr.has(naar) || !delen?.length) return;
     // A third element is the colour of a short, harder stretch folded into
     // this part (a connector): not a step of its own, but the filter sees it.
@@ -224,14 +225,50 @@ function addDescents(area, liftByNr, addEdge) {
 // not more than SIMPLER_SLACK_M (or SIMPLER_SLACK of its length) longer,
 // and is no harder. That also drops a way that first skis a short stretch
 // of another piste to reach one that starts at the same lift (there are
-// signs at the lift: the route starts on that piste itself).
+// signs at the lift: the route starts on that piste itself). Lift tops a
+// transfer apart (a few steps across, like the tops of A1, A6 and A7) count
+// as one place: skiing 37 from the top of A1 beats walking over to A7 for
+// 160 m of Hahnenkamm before 37, for about the same distance.
 const SIMPLER_SLACK = 0.1;
+const LIFT_START_M = 300;      // a first stretch shorter than this…
+const LIFT_START_NEAR_M = 150; // …before a piste that passes this close to the lift top: start on that piste
+
+// A way down that skis a short stretch of one piste to reach the next, when
+// that next piste passes right by the lift top: there are signs at the lift,
+// so the route starts on that piste (the stretch counts towards it; when it
+// was harder, its colour stays known for the difficulty filter).
+function startOnPisteAtLift(d, lift, info, lines = {}) {
+  const [first, second] = d.delen || [];
+  const top = lift?.coordBoven;
+  if (!second || !top || first[1] >= LIFT_START_M) return d;
+  if (!(lines[second[0]] || []).some(line => line.some(p => distanceM(p, top) <= LIFT_START_NEAR_M))) return d;
+  const rank = c => ['groen', 'blauw', 'rood', 'zwart', 'skiroute'].indexOf(c);
+  const also = [first[2], info.get(first[0])?.kleur, second[2]].filter(Boolean)
+    .filter(c => rank(c) > rank(info.get(second[0])?.kleur)).sort((x, y) => rank(y) - rank(x))[0];
+  const merged = also ? [second[0], first[1] + second[1], also] : [second[0], first[1] + second[1]];
+  return { ...d, delen: [merged, ...d.delen.slice(2)] };
+}
 const SIMPLER_SLACK_M = 300;
-function simplerDescents(afdalingen, info) {
+
+// Stations linked by transfers (`overstappen`), also over a few of them:
+// station id -> the id of its group.
+function transferGroups(overstappen = []) {
+  const parent = new Map();
+  const find = x => { while (parent.has(x) && parent.get(x) !== x) x = parent.get(x); return x; };
+  overstappen.forEach(([a, b]) => {
+    if (!parent.has(a)) parent.set(a, a);
+    if (!parent.has(b)) parent.set(b, b);
+    const ra = find(a), rb = find(b);
+    if (ra !== rb) parent.set(ra, rb);
+  });
+  return id => find(id);
+}
+
+function simplerDescents(afdalingen, info, groupOf = id => id) {
   const rank = c => ['groen', 'blauw', 'rood', 'zwart', 'skiroute'].indexOf(c);
   const sized = afdalingen.filter(d => d.delen?.length).map(d => ({
     d,
-    pair: `${d.van}>${d.naar}`,
+    pair: `${groupOf(`${d.van}-boven`)}>${d.naar}`,
     parts: d.delen.length,
     len: d.delen.reduce((sum, [, metres]) => sum + metres, 0),
     hardest: Math.max(...d.delen.flatMap(([nr, , ook]) => [rank(info.get(nr)?.kleur), ook ? rank(ook) : -1])),
