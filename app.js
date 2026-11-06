@@ -193,7 +193,7 @@ function buildFromSkimapData(area) {
 // metres] in order — with every piste's name and colour in `pistes`.
 function addDescents(area, liftByNr, addEdge) {
   const info = new Map((area.pistes || []).map(p => [p.pisteNr, p]));
-  const descents = area.afdalingen.map(d => startOnPisteAtLift(d, liftByNr.get(d.van), info, area.pisteLijnen));
+  const descents = area.afdalingen.map(d => foldUnnamedParts(startOnPisteAtLift(d, liftByNr.get(d.van), info, area.pisteLijnen), info));
   simplerDescents(descents, info, transferGroups(area.overstappen)).forEach(({ van, naar, delen }) => {
     if (!liftByNr.has(van) || !liftByNr.has(naar) || !delen?.length) return;
     // A third element is the colour of a short, harder stretch folded into
@@ -238,6 +238,30 @@ function addDescents(area, liftByNr, addEdge) {
 const SIMPLER_SLACK = 0.1;
 const LIFT_START_M = 300;      // a first stretch shorter than this…
 const LIFT_START_NEAR_M = 150; // …before a piste that passes this close to the lift top: start on that piste
+
+// A stretch without a number or a name in the map data ("Black run", kept
+// as "~12") has no sign on the mountain: you are still on the piste you came
+// down. It counts towards that piste (or, at the very start, the next one);
+// when it is harder, its colour stays known for the difficulty filter.
+function foldUnnamedParts(d, info) {
+  const delen = d.delen || [];
+  if (delen.length < 2 || !delen.some(([nr]) => String(nr).startsWith('~'))) return d;
+  const rank = c => ['groen', 'blauw', 'rood', 'zwart', 'skiroute'].indexOf(c);
+  const colourOf = ([nr, , also]) => [info.get(nr)?.kleur, also].filter(Boolean).sort((x, y) => rank(y) - rank(x))[0];
+  const join = (into, piece) => {
+    const harder = [into[2], colourOf(piece)].filter(c => c && rank(c) > rank(info.get(into[0])?.kleur)).sort((x, y) => rank(y) - rank(x))[0];
+    return harder ? [into[0], into[1] + piece[1], harder] : [into[0], into[1] + piece[1]];
+  };
+  const out = [];
+  for (const part of delen) {
+    const last = out[out.length - 1];
+    if (last && (String(part[0]).startsWith('~') || part[0] === last[0])) out[out.length - 1] = join(last, part);
+    else out.push(part);
+  }
+  // Unnamed at the very start: it goes with the piste after it.
+  while (out.length > 1 && String(out[0][0]).startsWith('~')) out.splice(0, 2, join(out[1], out[0]));
+  return { ...d, delen: out };
+}
 
 // A way down that skis a short stretch of one piste to reach the next, when
 // that next piste passes right by the lift top: there are signs at the lift,
