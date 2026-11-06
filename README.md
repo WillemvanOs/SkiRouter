@@ -188,8 +188,7 @@ says so.
   **Choose your day**), with **Save this route** and **Show the steps**.
 - **Route** — the route being followed, step by step: ticking off, replan from here, the late
   warning. Without a route open: **Your routes**, with a button to plan a new one, the recent routes
-  and every saved route (✎ beside each: rename, change, delete). **✕** beside the route's name (or
-  **Close this route** in its menu) closes it and comes back here (`closeRoute`; kept closed per
+  and every saved route (✎ beside each: rename, change, delete). **✕** beside the route's name closes it and comes back here (`closeRoute`; kept closed per
   area as `skirouter:active:<area>` = `none`, until another route is opened).
 - **Map** — the same route on the map, following the step you are at; without a route the whole
   area with its km, lifts and altitude, drawn as a piste map. With the whole area in view it shows
@@ -475,7 +474,7 @@ How it fits together:
   them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
   Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
   app (`?paid=1`) the app asks for the profile until the pass is there.
-- **Changing a saved route**: the ✎ beside a saved route (route menu, account screen) opens its own
+- **Changing a saved route**: the ✎ beside a saved route (Your routes, account screen; not in the route menu, which only switches routes) opens its own
   menu: **Rename**, **Change the route** and **Delete this route**. Change the route plans the day
   again in the Plan tab with its saved settings and shows "Changing <name>": plan it again as you
   like, then **Update this route** (stores the new settings, option and summary in the same saved
