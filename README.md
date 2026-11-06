@@ -320,7 +320,9 @@ data on a light background, so it works offline and is easy to read.
   lift: there are signs at the lift, so the route starts on that piste itself. Lift tops a
   transfer apart (like the tops of A1, A6 and A7) count as one place here (`transferGroups`), and
   a first stretch under 300 m before a piste that passes within 150 m of the lift top is counted
-  as that piste (`startOnPisteAtLift`).
+  as that piste (`startOnPisteAtLift`). A stretch with no number and no name in the map data
+  ("Black run", kept as `~n`) has no sign on the mountain, so it counts towards the piste before
+  it, or at the very start the one after it (`foldUnnamedParts`).
 - **It follows you.** The map opens on the step you are at (its label yellow) and the next three,
   in full colour; the rest of the route is lighter and the steps done are grey. Tick a step and
   the map moves on. **⤢ Whole route** shows all of it, **◎ My step** goes back.
