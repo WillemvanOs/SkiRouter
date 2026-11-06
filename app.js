@@ -794,10 +794,9 @@ function routePickerOptions() {
     const shown = activeRoute === 'day' ? shownSavedDay() : null;
     savedDays.forEach(day => options.push({ group: 'Saved routes', icon: 'star', label: day.name, on: day.id === shown?.id,
       sub: [day.area_name, day.summary?.km != null ? `${day.summary.km} km` : ''].filter(Boolean).join(' · '),
-      run: () => openSavedDay(day.id), edit: () => showSavedDayMenu(day.id) }));
+      run: () => openSavedDay(day.id) }));
   }
   options.push({ group: '', icon: 'plus', label: 'Plan a new route', run: () => navTo('plan') });
-  if (activeRoute) options.push({ group: '', icon: 'x', label: 'Close this route', sub: 'See all your routes', run: closeRoute });
   return options;
 }
 
@@ -822,15 +821,15 @@ function showRouteMenu() {
     group = o.group;
     const btn = `<button type="button" class="step-menu-btn route-menu-btn${o.on ? ' on' : ''}" role="menuitem" data-option="${i}">${ui(o.icon)}
       <span><strong>${escapeHtml(o.label)}</strong>${o.sub ? `<small>${escapeHtml(o.sub)}</small>` : ''}</span>${o.on ? ui('check') : ''}</button>`;
-    // A saved day can be renamed, changed or deleted from here (the only place without an account)
-    return head + (o.edit ? `<div class="route-menu-row">${btn}<button type="button" class="route-menu-del" data-edit="${i}" aria-label="Change ${escapeHtml(o.label)}">${ui('edit')}</button></div>` : btn);
+    // Only to switch routes: changing a saved route is done in Your routes
+    // (the Route tab with no route open, after ✕), or in Settings → Account.
+    return head + btn;
   }).join('')}
     <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button></div>`;
   menu.querySelectorAll('[data-option]').forEach(btn => btn.addEventListener('click', () => {
     menu.classList.remove('open');
     options[+btn.dataset.option].run();
   }));
-  menu.querySelectorAll('[data-edit]').forEach(btn => btn.addEventListener('click', () => options[+btn.dataset.edit].edit()));
   menu.querySelector('.step-menu-cancel').addEventListener('click', () => menu.classList.remove('open'));
   menu.classList.add('open');
 }
