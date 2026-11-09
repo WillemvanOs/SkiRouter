@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02",
+ "updated": "2026-11-09",
  "minShare": 75,
  "areas": {
   "4-vallees-verbier-la-tzoumaz-nendaz-veys-ch": {
@@ -101,7 +101,7 @@
   "braunwald-ch": {
    "name": "Braunwald",
    "country": "CH",
-   "share": 100,
+   "share": 95,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -592,6 +592,18 @@
     }
    ]
   },
+  "loser-altaussee-at": {
+   "name": "Loser-Altaussee",
+   "country": "AT",
+   "share": 86,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/loser"
+    }
+   ]
+  },
   "malbun-li": {
    "name": "Malbun",
    "country": "LI",
@@ -983,7 +995,7 @@
   "skiregion-dachstein-west-at": {
    "name": "Skiregion Dachstein West",
    "country": "AT",
-   "share": 100,
+   "share": 94,
    "bron": "intermaps.com",
    "sources": [
     {
@@ -1077,6 +1089,18 @@
     {
      "provider": "intermaps",
      "project": "https://winter.intermaps.com/tauplitz"
+    }
+   ]
+  },
+  "turracher-hohe-at": {
+   "name": "Turracher Höhe",
+   "country": "AT",
+   "share": 100,
+   "bron": "intermaps.com",
+   "sources": [
+    {
+     "provider": "intermaps",
+     "project": "https://winter.intermaps.com/turracher_hoehe"
     }
    ]
   },

@@ -1,11 +1,11 @@
 # Live lift status: sources
 
-Run 2026-11-02T05:40 UTC, 7 min. 2178 candidate sources, 124 with lifts.
+Run 2026-11-09T13:23 UTC, 7 min. 2178 candidate sources, 127 with lifts.
 
-**94 areas with live lift status** (at least 75 % of their named lifts matched).
+**96 areas with live lift status** (at least 75 % of their named lifts matched).
 
-- Per country: AT 53, CH 15, FR 13, IT 7, DE 5, LI 1
-- Per provider: intermaps 74, lumiplan 12, infosnow 6, micado 3
+- Per country: AT 55, CH 15, FR 13, IT 7, DE 5, LI 1
+- Per provider: intermaps 76, lumiplan 12, infosnow 6, micado 3
 
 | Area | Country | Source | Match | Live |
 |---|---|---|---:|---|
@@ -35,11 +35,10 @@ Run 2026-11-02T05:40 UTC, 7 min. 2178 candidate sources, 124 with lifts.
 | Ski Gastein - Schlossalm/Angertal/Stubnerkogel | AT | intermaps winter.intermaps.com/ski_gastein | 100 % | yes |
 | Skigebiet Damüls-Mellau-Faschina | AT | intermaps winter.intermaps.com/damuels_mellau_faschina | 100 % | yes |
 | Skigebiet Petzen | AT | intermaps winter.intermaps.com/petzen | 100 % | yes |
-| Skiregion Dachstein West | AT | intermaps winter.intermaps.com/dachstein_west | 100 % | yes |
+| Turracher Höhe | AT | intermaps winter.intermaps.com/turracher_hoehe | 100 % | yes |
 | Venet | AT | intermaps winter.intermaps.com/venet | 100 % | yes |
 | Weinebene | AT | intermaps winter.intermaps.com/weinebene | 100 % | yes |
 | Zillertal Arena | AT | intermaps zillertal.intermaps.com/zillertal_uebersicht | 100 % | yes |
-| Braunwald | CH | intermaps winter.intermaps.com/braunwald | 100 % | yes |
 | Confin / San Bernardino | CH | intermaps winter.intermaps.com/san_bernardino | 100 % | yes |
 | Glacier 3000 | CH | intermaps winter.intermaps.com/gstaad | 100 % | yes |
 | Hoch-Ybrig | CH | intermaps winter.intermaps.com/hoch_ybrig | 100 % | yes |
@@ -71,7 +70,9 @@ Run 2026-11-02T05:40 UTC, 7 min. 2178 candidate sources, 124 with lifts.
 | Kronplatz - Plan de Corones, Kronplatz, Plan de Corones | IT | intermaps winter.intermaps.com/kronplatz | 96 % | yes |
 | Hintertuxer Gletscher | AT | intermaps winter.intermaps.com/hintertuxer_gletscher | 95 % | yes |
 | 4 Vallées – Verbier/La Tzoumaz/Nendaz/Veysonnaz/Thyon | CH | infosnow pid 36 | 95 % | yes |
+| Braunwald | CH | intermaps winter.intermaps.com/braunwald | 95 % | yes |
 | Katschberg-Aineck | AT | intermaps winter.intermaps.com/katschberg | 94 % | yes |
+| Skiregion Dachstein West | AT | intermaps winter.intermaps.com/dachstein_west | 94 % | yes |
 | Stubaier Gletscher | AT | intermaps winter.intermaps.com/stubaier_gletscher | 94 % | yes |
 | Tauplitz / Bad Mitterndorf | AT | intermaps winter.intermaps.com/tauplitz | 94 % | yes |
 | Flumserberg | CH | infosnow pid 37 | 94 % | yes |
@@ -91,6 +92,7 @@ Run 2026-11-02T05:40 UTC, 7 min. 2178 candidate sources, 124 with lifts.
 | Dreiländereck - Arnoldstein | AT | intermaps winter.intermaps.com/dreilaendereck | 86 % | yes |
 | Großglockner Heiligenblut | AT | intermaps winter.intermaps.com/heiligenblut | 86 % | yes |
 | Hochrindl | AT | intermaps winter.intermaps.com/hochrindl | 86 % | yes |
+| Loser-Altaussee | AT | intermaps winter.intermaps.com/loser | 86 % | yes |
 | Drei Zinnen - Tre Cime, Drei Zinnen, Tre Cime | IT | intermaps winter.intermaps.com/drei_zinnen | 86 % | yes |
 | Obergurgl-Hochgurgl | AT | intermaps winter.intermaps.com/obergurgl_hochgurgl | 85 % | yes |
 | Grebenzen | AT | intermaps winter.intermaps.com/grebenzen | 83 % | yes |
