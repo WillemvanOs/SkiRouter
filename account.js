@@ -160,13 +160,13 @@ async function gateSubmit(event) {
       if (error) return fail(/confirm/i.test(error.message) ? 'Confirm your email address first: open the link in the email we sent you.' : 'Email address or password is not right.');
       await signedIn(data.user);
     } else if (mode === 'signup') {
-      const birthdate = document.getElementById('gate-birthdate').value;
-      const country = document.getElementById('gate-country').value;
+      const birthdate = parseBirthdate(document.getElementById('gate-birthdate').value);
+      const country = countryCode(document.getElementById('gate-country').value);
       if (password.length < 8) return fail('Choose a password of at least 8 characters.');
-      if (!birthdate) return fail('Enter your date of birth.');
+      if (!birthdate) return fail('Enter your date of birth as day-month-year, e.g. 18-08-1995.');
       if (ageOn(birthdate) < MIN_AGE) return fail(`SkiRouter accounts are for ${MIN_AGE} and over.`);
       if (ageOn(birthdate) > 120) return fail('Check your date of birth.');
-      if (!country) return fail('Choose your country.');
+      if (!country) return fail('Type your country and pick it from the list.');
       if (!document.getElementById('gate-terms').checked) return fail('Agree to the terms and the privacy policy to create an account.');
       const { data, error } = await sb.auth.signUp({ email, password, options: { data: { birthdate, country }, emailRedirectTo: back } });
       if (error) return fail(/registered|exists/i.test(error.message) ? 'There is already an account with this email address. Sign in instead.' : `Could not create the account: ${error.message}`);
@@ -691,16 +691,59 @@ const ISO_COUNTRIES = ('AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD
   + 'SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA '
   + 'ZM ZW').split(' ');
 
-function fillCountries() {
-  let names = null;
+// Every country with its name in the phone's language (and in English, so
+// either can be typed).
+function countryList() {
+  let names = null, english = null;
   try { names = new Intl.DisplayNames([navigator.language || 'en', 'en'], { type: 'region' }); } catch {}
-  const options = ISO_COUNTRIES
-    .map(code => ({ code, name: names?.of(code) || code }))
+  try { english = new Intl.DisplayNames(['en'], { type: 'region' }); } catch {}
+  return ISO_COUNTRIES
+    .map(code => ({ code, name: names?.of(code) || code, en: english?.of(code) || code }))
     .sort((a, b) => a.name.localeCompare(b.name));
-  ['gate-country', 'acc-country'].forEach(id => {
-    const select = document.getElementById(id);
-    if (!select || select.options.length > 1) return;
+}
+
+// A typed country -> its code: its name (in the phone's language or English,
+// any case, accents optional) or its two-letter code. Null when unknown.
+function countryCode(text) {
+  const fold = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const typed = fold(text);
+  if (!typed) return null;
+  const hit = countryList().find(c => fold(c.name) === typed || fold(c.en) === typed || c.code.toLowerCase() === typed);
+  return hit?.code || null;
+}
+
+function fillCountries() {
+  const options = countryList();
+  // Sign up: type it, with suggestions; the phone's own country to start with.
+  const list = document.getElementById('country-list');
+  if (list && !list.options.length) {
+    list.innerHTML = options.map(o => `<option value="${o.name}"></option>`).join('');
+    const field = document.getElementById('gate-country');
+    const region = (navigator.language || '').split('-')[1]?.toUpperCase();
+    const own = options.find(o => o.code === region);
+    if (field && !field.value && own) field.value = own.name;
+  }
+  // The account screen: a list to change it.
+  const select = document.getElementById('acc-country');
+  if (select && select.options.length <= 1) {
     select.innerHTML = '<option value="">Choose your country…</option>'
       + options.map(o => `<option value="${o.code}">${o.name}</option>`).join('');
-  });
+  }
+}
+
+// Date of birth typed as digits: the dashes go in by themselves (18081995 ->
+// 18-08-1995).
+function typeBirthdate(field) {
+  const digits = field.value.replace(/\D/g, '').slice(0, 8);
+  field.value = [digits.slice(0, 2), digits.slice(2, 4), digits.slice(4)].filter(Boolean).join('-');
+}
+
+// "18-08-1995" (also with / or .) -> "1995-08-18", or null when not a real date.
+function parseBirthdate(text) {
+  const m = /^\s*(\d{1,2})[-/.\s](\d{1,2})[-/.\s](\d{4})\s*$/.exec(text || '');
+  if (!m) return null;
+  const [d, mo, y] = [+m[1], +m[2], +m[3]];
+  const date = new Date(Date.UTC(y, mo - 1, d));
+  if (date.getUTCFullYear() !== y || date.getUTCMonth() !== mo - 1 || date.getUTCDate() !== d) return null;
+  return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 }

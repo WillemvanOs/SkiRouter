@@ -3060,6 +3060,11 @@ html.gated #header-live {
 
 .gate-field .day-input {
   width: 100%;
+  box-sizing: border-box;
+  height: 46px;
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .gate-check {
@@ -3883,6 +3888,9 @@ body.map-full .tabbar {
 
 .settings-text strong {
   font-size: 0.98rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .settings-text small {

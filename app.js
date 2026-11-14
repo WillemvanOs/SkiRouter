@@ -1549,8 +1549,9 @@ function renderSettingsMenu() {
   const signedIn = typeof accountsOn !== 'undefined' && accountsOn && account;
   document.getElementById('settings-account-group').style.display = signedIn ? '' : 'none';
   if (signedIn) {
-    document.getElementById('settings-account-name').textContent = account.email || 'Account';
-    document.getElementById('settings-account-sum').textContent = !paymentsOn ? 'Test phase · everything free, saved routes' : hasSeasonPass() ? `Season pass ${seasonLabel()} · saved routes` : 'Free account · get the season pass';
+    // The email address is on the account screen itself: a long one does not fit here.
+    document.getElementById('settings-account-name').textContent = 'Account settings';
+    document.getElementById('settings-account-sum').textContent = 'Email address and membership';
   }
 }
 
