@@ -49,8 +49,9 @@ jobs:
 
       - name: Tables and policies (migrations)
         # The linked project (--remote), not a local database; the password
-        # comes from SUPABASE_DB_PASSWORD.
-        run: supabase db push --remote --password "$SUPABASE_DB_PASSWORD"
+        # comes from SUPABASE_DB_PASSWORD. --yes: this workflow only runs by
+        # hand, so starting it is the confirmation.
+        run: supabase db push --remote --yes --password "$SUPABASE_DB_PASSWORD"
 
       - name: App address for the functions
         run: supabase secrets set --project-ref "$PROJECT_REF" APP_URL="$APP_URL"
