@@ -476,6 +476,11 @@ How it fits together:
   them to Mollie's checkout. Mollie then calls `mollie-webhook`, which fetches the payment from
   Mollie itself (never trusting the call) and, once it is paid, sets `paid_until`. Back in the
   app (`?paid=1`) the app asks for the profile until the pass is there.
+- **Right of withdrawal**: the pass starts at once, so before buying the buyer ticks a box
+  saying they want that and give up the 14-day right of withdrawal (digital content); the buy
+  button only works once it is ticked. The checkout function refuses a payment without it
+  (`waiveWithdrawal`) and keeps the moment in `payments.withdrawal_waived_at` and in the Mollie
+  payment's metadata, as proof (migration `20261114000000_withdrawal_consent.sql`).
 - **Changing a saved route**: the ✎ beside a saved route (Your routes, account screen; not in the route menu, which only switches routes) opens its own
   menu: **Rename**, **Change the route** and **Delete this route**. Change the route plans the day
   again in the Plan tab with its saved settings and shows "Changing <name>": plan it again as you
