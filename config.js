@@ -8,7 +8,8 @@ window.SKIROUTER_CONFIG = {
   seasonPrice: '9.99',  // shown in the app; what is charged is SEASON_PRICE in the checkout function
   // false = test phase: sign in is needed, but there is no payment and every
   // signed-in account has what the season pass gives (day planner, saved
-  // days). Set to true together with app_settings.payments_on in the
-  // database once Mollie is set up (README: Accounts → Test phase).
-  payments: false,
+  // days). true goes together with app_settings.payments_on in the database
+  // (README: Accounts → Test phase). Now on with Mollie's test key: the
+  // checkout is Mollie's test screen and no money moves.
+  payments: true,
 };
