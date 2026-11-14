@@ -3888,6 +3888,9 @@ body.map-full .tabbar {
 
 .settings-text strong {
   font-size: 0.98rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .settings-text small {
