@@ -367,8 +367,7 @@ function saveDayStart() {
   const form = document.getElementById('save-day-form');
   form.style.display = 'flex';
   const input = document.getElementById('save-day-name');
-  const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-  input.value = `${dayCtx?.startName || currentArea?.name || 'My day'} · ${date}`.slice(0, 100);
+  input.value = suggestedDayName();
   input.focus();
   input.select();
   document.getElementById('save-day-msg').textContent = '';
@@ -397,25 +396,20 @@ function currentDayRow() {
   };
 }
 
-async function saveDaySubmit(event) {
-  event.preventDefault();
-  const msg = document.getElementById('save-day-msg');
-  const name = document.getElementById('save-day-name').value.trim();
-  if (!name) return;
-  if (accountsOn && !navigator.onLine) { msg.textContent = 'You are offline. Saving needs a connection.'; return; }
+// Save the day on screen under `name` (Plan tab, or ★ in Route and Map).
+// Answers with what went wrong, or '' when it is saved.
+async function saveDayAs(name) {
+  if (accountsOn && !navigator.onLine) return 'You are offline. Saving needs a connection.';
   const day = currentDayRow();
-  if (!day) return;
+  if (!day) return 'There is no day plan to save.';
   const row = { ...day, name: name.slice(0, 100) };
   let data = null;
   if (accountsOn) {
     const res = await sb.from('routes').insert(row).select().single();
-    if (res.error) {
-      msg.textContent = /200/.test(res.error.message) ? res.error.message : 'Could not save this route. Try again.';
-      return;
-    }
+    if (res.error) return /200/.test(res.error.message) ? res.error.message : 'Could not save this route. Try again.';
     data = res.data;
   } else {
-    if (savedDays.length >= 200) { msg.textContent = 'You can save up to 200 routes. Delete one first.'; return; }
+    if (savedDays.length >= 200) return 'You can save up to 200 routes. Delete one first.';
     data = { ...row, id: localDayId(), created_at: new Date().toISOString() };
   }
   savedDays.unshift(data);
@@ -424,6 +418,67 @@ async function saveDaySubmit(event) {
   stopEditingDay();
   openedDayId = data.id; // the day on screen is this saved route now
   if (typeof renderRoutePicker === 'function') renderRoutePicker();
+  return '';
+}
+
+// A name to start from: where the day starts and today's date.
+function suggestedDayName() {
+  const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  return `${dayCtx?.startName || currentArea?.name || 'My day'} · ${date}`.slice(0, 100);
+}
+
+// ★ beside the route's name in Route and Map: save the day plan on screen,
+// without going back to the Plan tab.
+function canSaveShownRoute() {
+  return activeRoute === 'day' && plannerHasRoute('day') && hasSeasonPass() && !shownSavedDay();
+}
+
+function saveRouteFromTab() {
+  if (!canSaveShownRoute()) return;
+  let menu = document.getElementById('route-save-menu');
+  if (!menu) {
+    menu = document.createElement('div');
+    menu.id = 'route-save-menu';
+    menu.className = 'step-menu';
+    menu.addEventListener('click', event => { if (event.target === menu) menu.classList.remove('open'); });
+    document.body.appendChild(menu);
+  }
+  const close = () => menu.classList.remove('open');
+  menu.innerHTML = `<div class="step-menu-panel" role="dialog" aria-label="Save this route">
+      <div class="step-menu-title">${ui('star')} Save this route</div>
+      <form class="save-day-form day-rename">
+        <input class="day-input" maxlength="100" aria-label="Name of this route" enterkeyhint="done" value="${escapeHtml(suggestedDayName())}">
+        <button class="save-day-ok" type="submit">Save</button>
+      </form>
+      <div class="save-day-msg"></div>
+      <button type="button" class="step-menu-btn step-menu-cancel">Cancel</button>
+    </div>`;
+  const input = menu.querySelector('input'), msg = menu.querySelector('.save-day-msg');
+  menu.querySelector('form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const name = input.value.trim();
+    if (!name) return;
+    const button = menu.querySelector('.save-day-ok');
+    button.disabled = true;
+    const problem = await saveDayAs(name);
+    button.disabled = false;
+    if (problem) { msg.textContent = problem; return; }
+    close();
+    renderSaveDay();
+  });
+  menu.querySelector('.step-menu-cancel').addEventListener('click', close);
+  menu.classList.add('open');
+  input.focus();
+  input.select();
+}
+
+async function saveDaySubmit(event) {
+  event.preventDefault();
+  const msg = document.getElementById('save-day-msg');
+  const name = document.getElementById('save-day-name').value.trim();
+  if (!name) return;
+  const problem = await saveDayAs(name);
+  if (problem) { msg.textContent = problem; return; }
   const btn = document.getElementById('save-day-btn');
   btn.innerHTML = `${ui('check')} ${accountsOn ? 'Saved in your account' : 'Saved on this phone'}`;
   setTimeout(() => renderSaveDay(), 3000);
@@ -602,6 +657,7 @@ async function deleteSavedDay(id) {
   if (editingDay === id) stopEditingDay();
   renderAccount();
   if (typeof renderEmptySaved === 'function') renderEmptySaved();
+  if (typeof renderRoutePicker === 'function') renderRoutePicker(); // the route on screen may be this one: its title and ★
   return true;
 }
 

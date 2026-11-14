@@ -207,7 +207,9 @@ says so.
 Route and Map always show the same route, the active one. The bar at their top says which, and
 opens a menu: **Recent** (the last route to a destination and the last day, so a quick detour
 does not lose the day being followed) and **Saved routes**, plus planning a new route. A saved
-route that is opened goes by its own name at the top (`shownSavedDay` in `account.js`). The active
+route that is opened goes by its own name at the top (`shownSavedDay` in `account.js`). A day
+plan that is not saved yet has **★** beside its name in Route and Map: it asks for a name and
+saves it there (`saveRouteFromTab`), the same as **Save this route** in the Plan tab. The active
 route is kept per area (`skirouter:active:<area>`); saved routes are kept on the phone too
 (`skirouter:saved-days`), so they open without a signal.
 

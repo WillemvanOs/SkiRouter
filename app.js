@@ -805,6 +805,8 @@ function renderRoutePicker() {
   document.getElementById('route-picker-kind').textContent = t.kind;
   document.getElementById('route-picker-title').textContent = t.title;
   document.getElementById('route-close').style.display = has ? '' : 'none';
+  // ★: a day plan that is not a saved route yet
+  document.getElementById('route-save').style.display = has && typeof canSaveShownRoute === 'function' && canSaveShownRoute() ? '' : 'none';
 }
 
 function routePickerOptions() {
