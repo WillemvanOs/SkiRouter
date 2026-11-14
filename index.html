@@ -97,7 +97,8 @@
       <div class="prefs-label"><i data-i="ticket"></i> Season pass</div>
       <div class="acc-pass" id="acc-pass"></div>
       <div id="acc-buy">
-        <button class="plan-btn" type="button" onclick="buySeasonPass(this)">Get the season pass</button>
+        <label class="pass-consent"><input type="checkbox" onchange="passConsentChanged(this)"> <span>I want the season pass to start straight away and understand that I then lose my 14-day right of withdrawal (<a href="terms.html" target="_blank" rel="noopener">terms</a>).</span></label>
+        <button class="plan-btn" type="button" onclick="buySeasonPass(this)" disabled>Get the season pass</button>
         <div class="paywall-msg error-msg" style="display:none"></div>
       </div>
     </div>
@@ -371,7 +372,8 @@
       <li>Save your days in your account and plan them again any time</li>
     </ul>
     <div class="paywall-price" id="paywall-price"></div>
-    <button class="plan-btn" type="button" onclick="buySeasonPass(this)">Get the season pass</button>
+    <label class="pass-consent"><input type="checkbox" onchange="passConsentChanged(this)"> <span>I want the season pass to start straight away and understand that I then lose my 14-day right of withdrawal (<a href="terms.html" target="_blank" rel="noopener">terms</a>).</span></label>
+    <button class="plan-btn" type="button" onclick="buySeasonPass(this)" disabled>Get the season pass</button>
     <div class="paywall-msg error-msg" style="display:none"></div>
     <p class="paywall-note">One payment per season, no subscription. iDEAL, Bancontact, card and more via Mollie.</p>
   </div>

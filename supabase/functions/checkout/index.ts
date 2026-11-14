@@ -12,6 +12,14 @@ Deno.serve(async req => {
   const user = await signedInUser(req);
   if (!user) return json({ error: 'Sign in first.' }, 401);
 
+  // The pass starts at once, so the buyer must first accept losing the
+  // 14-day right of withdrawal (the tick box in the app); kept as proof.
+  const body = await req.json().catch(() => ({}));
+  if (body?.waiveWithdrawal !== true) {
+    return json({ error: 'Tick the box to start the pass straight away first.' }, 400);
+  }
+  const waivedAt = new Date().toISOString();
+
   const db = admin();
   const { data: settings } = await db.from('app_settings').select('payments_on').single();
   if (!settings?.payments_on) return json({ error: 'There is nothing to pay while SkiRouter is being tested.' }, 409);
@@ -29,12 +37,13 @@ Deno.serve(async req => {
       description: `SkiRouter season pass ${season.label}`,
       redirectUrl: `${APP_URL}/index.html?paid=1`, // the app's own page, inside its scope (manifest)
       webhookUrl: `${Deno.env.get('SUPABASE_URL')}/functions/v1/mollie-webhook`,
-      metadata: { user_id: user.id, season: season.label },
+      metadata: { user_id: user.id, season: season.label, withdrawal_waived_at: waivedAt },
     }),
   });
 
   const { error } = await db.from('payments').insert({
     id: payment.id, user_id: user.id, season: season.label, amount: Number(amount), status: payment.status,
+    withdrawal_waived_at: waivedAt,
   });
   if (error) return json({ error: 'Could not start the payment.' }, 500);
 

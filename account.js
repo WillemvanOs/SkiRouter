@@ -286,15 +286,27 @@ async function saveCountry(country) {
 
 // ── Season pass ──────────────────────────────────────────────────────────────
 
+// The buy button works once the box beside it is ticked.
+function passConsentChanged(box) {
+  const button = box.closest('div, .card')?.querySelector('.plan-btn');
+  if (button) button.disabled = !box.checked;
+  const msg = box.closest('div, .card')?.querySelector('.paywall-msg');
+  if (msg && box.checked) msg.style.display = 'none';
+}
+
 async function buySeasonPass(button) {
   if (!paymentsOn || !account) return;
   const msg = button?.parentElement.querySelector('.paywall-msg');
   const say = text => { if (msg) { msg.textContent = text; msg.style.display = text ? 'block' : 'none'; } };
+  // The pass starts straight away: the buyer gives up the 14-day right of
+  // withdrawal first (terms.html), with the tick box beside the button.
+  const consent = button?.parentElement.querySelector('.pass-consent input');
+  if (!consent?.checked) return say('Tick the box above the button first.');
   if (!navigator.onLine) return say('You are offline. Paying needs a connection.');
   if (button) button.disabled = true;
   say('');
   try {
-    const { data, error } = await sb.functions.invoke('checkout', { body: {} });
+    const { data, error } = await sb.functions.invoke('checkout', { body: { waiveWithdrawal: true } });
     if (error) {
       let text = 'The payment could not be started. Try again in a moment.';
       try { text = (await error.context.json()).error || text; } catch {}

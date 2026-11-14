@@ -4099,3 +4099,28 @@ body.no-header main {
 .show-lift-names .map-lift-named .lift-name {
   display: inline;
 }
+
+/* Buying the season pass: giving up the right of withdrawal first */
+.pass-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 12px;
+  color: var(--midnight);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pass-consent input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--accent);
+}
+
+.pass-consent a {
+  color: inherit;
+}
