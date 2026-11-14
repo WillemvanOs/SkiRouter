@@ -21,7 +21,12 @@ Deno.serve(async req => {
   const waivedAt = new Date().toISOString();
 
   const db = admin();
-  const { data: settings } = await db.from('app_settings').select('payments_on').single();
+  const { data: settings, error: settingsError } = await db.from('app_settings').select('payments_on').single();
+  // Not being able to read the setting is a fault, not "payments are off".
+  if (settingsError) {
+    console.error('app_settings', settingsError);
+    return json({ error: `The payment could not be started (settings: ${settingsError.message}).` }, 500);
+  }
   if (!settings?.payments_on) return json({ error: 'There is nothing to pay while SkiRouter is being tested.' }, 409);
   const season = currentSeason();
   const { data: profile } = await db.from('profiles').select('paid_until').eq('id', user.id).single();
