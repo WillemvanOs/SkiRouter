@@ -60,11 +60,12 @@
       </label>
       <label class="gate-field" data-for="signup">
         <span class="sel-label">Date of birth</span>
-        <input class="day-input" id="gate-birthdate" type="date" autocomplete="bday" min="1900-01-01" required>
+        <input class="day-input" id="gate-birthdate" type="text" inputmode="numeric" autocomplete="bday" placeholder="dd-mm-yyyy" maxlength="10" oninput="typeBirthdate(this)" required>
       </label>
       <label class="gate-field" data-for="signup">
         <span class="sel-label">Country</span>
-        <select class="day-input" id="gate-country" autocomplete="country" required></select>
+        <input class="day-input" id="gate-country" type="text" list="country-list" autocomplete="country-name" placeholder="Type your country" required>
+        <datalist id="country-list"></datalist>
       </label>
       <label class="gate-check" data-for="signup">
         <input type="checkbox" id="gate-terms">
