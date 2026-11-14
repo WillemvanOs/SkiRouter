@@ -54,9 +54,9 @@ jobs:
         run: supabase db push --remote --yes --password "$SUPABASE_DB_PASSWORD"
 
       - name: App address for the functions
-        run: supabase secrets set --project-ref "$PROJECT_REF" APP_URL="$APP_URL"
+        run: supabase secrets set --yes --project-ref "$PROJECT_REF" APP_URL="$APP_URL"
 
       - name: Edge Functions
         run: |
-          supabase functions deploy delete-account checkout --project-ref "$PROJECT_REF"
-          supabase functions deploy mollie-webhook --no-verify-jwt --project-ref "$PROJECT_REF"
+          supabase functions deploy delete-account checkout --yes --project-ref "$PROJECT_REF"
+          supabase functions deploy mollie-webhook --no-verify-jwt --yes --project-ref "$PROJECT_REF"
